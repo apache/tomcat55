@@ -1,0 +1,96 @@
+APACHE TOMCAT JK3 CONNECTOR ROADMAP                                   -*-text-*-
+
+ApacheCon EU 2007 DISCUSSION POINTS:
+
+    * Lets make next generation connector and software load balancer
+      for application servers.
+    * Lets put JK 1.2 in maintenance mode
+      - Stop adding things to the JK 1.2 and only fix bugs
+      - We'll still need to vote how to maintain this
+    * It should be APR based and supported platforms should be
+      - Apache Httpd 2+
+      - Microsoft IIS 5+ (Windows 2000 and up)
+      - Generic API for standalone based programs
+    * Java code will be Java5 based
+      - Java5 is mandatory
+      - Both server and client reference implementation
+        will be developed
+    * Scripting support for the Load Balancer
+      - Load balancer will have some sort of scripting
+        to be able to make rule based load balancers
+      - We still have to decide if we need a full-blown
+        scripting support, or a simple rule engine will do
+    * Extended AJP 1.3 protocol
+      - Keep AJP 1.3 backward compatible
+      - CPING/CPONG will be mandatory when establishing
+        new connections.
+      - Add connection close notification.
+        Done by extending CPING/CPONG
+      - See how we can have 64K+ headers
+        Idea is to treat them as POST data if the
+        header doesn't fit inside header AJP packet
+    * Make JK3 protocol independent
+      - Although developed with protocol independence in mind
+        JK 1.2 is practically unusable for non AJP 1.3 protocols.
+        JK3 should allow custom protocols like http or fastcgi
+    * Add persistence to the dynamic configuration
+      - Have a way to merge the static configuration with
+        modified dynamic configuration via jkstatus
+    * More powerful log framework
+      - Using hierarchical logger names with corresponding
+        log levels to be able to debug or trace only
+        appropriate parts of the code
+    * Add management thread for each child
+      - APR_HAS_THREADS presence will be mandatory
+      - For each child process in web server a management thread
+        will be created that will monitor state and dynamic
+        configuration.
+    * COMET support
+      - Finding our ways how to drop idle connections between web
+        server and backend
+      - Maybe transporting the backend connector events back to the web
+        server
+    * Load Balancer methods
+      - Round-Robin
+        Standard basic requests count method
+      - Least Connections
+        Number of active sessions
+      - Response Time
+        Request/reply response time
+      - Transferred Data
+        Data read/transferred over the channel. Total or within
+        a measured interval.
+      - All methods have weighted distribution
+      - Methods can be combined with different weight for each method
+        e.g. 75% Response Time and 25% Transferred Data
+      - Load threshold
+        Make a load treshold for high load. When node reaches the desired
+        treshold (eg. 90%) update the load factors. 
+
+HOW TO REACH THE GOALS: ROADMAP.
+Here are the steps to reach the goals.
+1 - Branch at a tagged version of mod_jk.
+2 - Put APR in the code (specially in place where there are #ifdef).
+    As first step support only httpd-2.0 and IIS.
+3 - Test and port back the patches from the mod_jk branch.
+    Here we should have support for:
+      - Apache Httpd 2+
+      - Microsoft IIS 5+ (Windows 2000 and up)
+      - Generic API for standalone based programs
+    No changes in the JAVA part.
+
+    Decide if we want to support netscape too.
+4 - Wait for a release cycle to see if the mod_jk branch could go to maintenance mode only.
+
+5 - Branch again to separate configuration from the rest of the code.
+6 - Test and port back the patches from the other branche.
+    Here we should have support for:
+    Persistence of the dynamic configuration.
+    A way to merge the static configuration with a dynamic one.
+    A dynamic configuration via an extented jkstatus
+7 - Test and port back the patches from the old mod_jk branch.
+8 - Write the JAVA part so that contexts and nodes could be added/remoted automaticly.
+9 - Wait for a release cycle to see if the previous mod_jk branch could go to maintenance mode only.
+
+n - Branch and process the protocol part of the proposal. 
+    ...
