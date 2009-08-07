@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Balancer Webapp Overview</title>
+</head>
+<body>
+The balancer webapp is an implementation of a rules-based
+load balancer.  A number of rules are provided and the
+application is written for easy extensibility.  
+
+<p>
+A servlet filter is also provided along with a sample web.xml that
+maps that filter to all requests.  This is only one way
+to use the load balancer.  The user may configure multiple
+filters each with a different rule chain mapped to 
+(possibly multiple) different url-patterns or servlets.  It
+is also possible to use rule chains within a servlet.
+</p>
+
+<p>
+Please note that although this application is being distributed
+with Tomcat, it is compliant with the Servlet Specification v2.3
+and is therefore portable across servlet containers that support
+this specification.
+</p>
+
+<p>
+The balancer webapps uses the 
+<a href="http://jakarta.apache.org/commons/digester">Digester</a> 
+tool from Jakarta Commons.  Digester and its dependencies are
+included in this distribution.
+</p>
+
+<p>
+The balancer webapp uses 
+<a href="http://jalopy.sf.net">Jalopy</a> 
+for source-code formatting and 
+<a href="http://checkstyle.sf.net">CheckStyle</a> 
+for source-code checking.
+<br/>
+The <a href="../checkStyle/checkStyleReport.html">
+CheckStyle Report</a> is available.
+</p>
+
+<p>
+Any suggestions, comments, etc, are welcome: please
+post them to the tomcat-user mailing list.  Enjoy ;)
+</p>
+
+</body>
+</html>
