@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="changelog.html">
+
+  &project;
+
+  <properties>
+    <author email="mturk@apache.org">Mladen Turk</author>
+    <title>Changelog</title>
+  </properties>
+
+<body>
+
+<section name="Preface">
+  <p>
+  This is the Changelog for Jakarta Tomcat Connectors. This changelog
+  does not contain all updates and fixes to the Tomcat connectors (yet).
+  It should contain fixes made only after November 10th 2004, when the
+  new documentation project for JK has been started.
+  </p>
+</section>
+<section name="Changes from JK 1.2.7">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      <bug>32317</bug>: Making mod_jk replication aware (Clustering Support).
+      Patch provided by Rainer Jung. (mturk).
+      </update>
+      <fix>
+      <bug>31132</bug>: Core dump when JkLogFile is missing from conf. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes from JK 1.2.6">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added new property named recover_time that can be used to change the
+      default 60 second recover time. (mturk)
+      </update>
+      <update>
+      Added custom retries for worker, so we don't depend on default setting.
+      If set to a number grater then 3, it will sleep for 100ms on retry greater
+      then 3 and then try again. (mturk)
+      </update>
+      <update>
+      Added JkWorkerProperty directive that enables omiting workers.properties file.
+      For example: JkWorkerProperty worker.ajp13a.port=8009. (mturk)
+      </update>
+      <fix>
+      Check all JSESSIONID cookies for a valid jvmRoute. If you have multiple Tomcats
+      with overlapping domains, then you can get multiple cookies without a defined order.
+      This will route correctly as long as the different domains don't have any
+      Tomcats in common. (billbarker)
+      </fix>
+      <update>
+      Added JkUnMount directive for negative mappings that works as opposite to JkMount directives.
+      It is used for blocking of particular URL or content type. (mturk)
+      </update>
+      <update>
+      Added wildchar match uri mappings. One can now use JkMount to
+      map /app/*/servlet/* or /app?/*/*.jsp. (mturk)      
+      </update>
+      <update>
+      Rewrite the logging by adding Trace options. (mturk)
+      </update>
+      <update>
+      Added socket_timeout property that sets the timeout
+      for the socket itself. (mturk)
+      </update>
+      <fix>
+      Changed socket_timeout property to recycle_timeout. This better
+      explains what the directive actually does. (mturk)
+      </fix>
+      <fix>
+        Changed the load balancer algorithm.
+        The idea behind this new scheduler is the following:
+        lbfactor is <i>how much we expect this worker to work</i>,
+        or <i>the worker's work quota</i>.
+        lbstatus is <i>how urgent this worker has to work to fulfill its quota
+        of work</i>. We distribute each worker's work quota to the worker, and then look
+        which of them needs to work most urgently (biggest lbstatus).  This
+        worker is then selected for work, and its lbstatus reduced by the
+        total work quota we distributed to all workers.  Thus the sum of all
+        lbstatus does not change.(*)
+        If some workers are disabled, the others will
+        still be scheduled correctly. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="JK 2">
+<p>JK2 has been put in maintainer mode and no further development will take place.
+The reason for shutting down JK2 development was the lack of developers interest.
+Other reason was lack of users interest in adopting JK2, caused by configuration
+complexity when compared to JK. 
+</p>
+</section>
+
+</body>
+</document>
