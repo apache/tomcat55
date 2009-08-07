@@ -1,0 +1,53 @@
+<%-- DataSources List --%>
+
+<table class="back-table" border="0" cellspacing="0" cellpadding="1"
+       width="100%"><tr><td> 
+
+  <table class="front-table" border="1"
+   cellspacing="0" cellpadding="0" width="100%">
+    <tr class="header-row">
+      <logic:present name="checkboxes">
+        <td width="5%"><div align="left" class="table-header-text">
+          &nbsp;
+        </td>
+      </logic:present>
+      <th scope="col" width="20%"><div align="left" class="table-header-text">
+        <bean:message key="resources.datasrc.jndi"/>
+      </div></th>
+      <th scope="col"><div align="left" class="table-header-text">
+        <bean:message key="resources.datasrc.jdbcclass"/>
+      </div></th>
+    </tr>
+
+    <logic:iterate name="dataSourcesForm" property="dataSources"
+                     id="dataSource" type="java.lang.String">
+      <tr class="line-row">
+        <logic:present name="checkboxes">
+          <td scope="row"><div align="center" class="table-normal-text">
+            <label for="dataSources"></label>
+
+            <!-- dataSource may contain internal double quotes, so single quote value -->
+            <!-- See Bugzilla 36673: http://issues.apache.org/bugzilla/show_bug.cgi?id=36673 -->
+            <input type="checkbox" name="dataSources" styleId="dataSources"
+                  value='<%= dataSource %>' />
+          </td>
+        </logic:present>
+        <td scope="row"><div align="left" class="table-normal-text">
+          <html:link page='<%= "/resources/setUpDataSource.do?objectName=" + 
+                               URLEncoder.encode(dataSource,"UTF-8") + "&resourcetype=" +
+                               URLEncoder.encode(resourcetypeInfo,"UTF-8") + "&path="+
+                               URLEncoder.encode(pathInfo,"UTF-8") + "&host="+
+                               URLEncoder.encode(hostInfo,"UTF-8") + "&domain="+
+                               URLEncoder.encode(domainInfo,"UTF-8")  %>'>
+            <controls:attribute name="dataSource" attribute="name"/>
+          </html:link>
+        </div></td>
+        <td scope="row"><div align="left" class="table-normal-text">&nbsp;
+          <controls:attribute name="dataSource" attribute="driverClassName"/>
+        </div></td>
+      </tr>
+    </logic:iterate>
+
+  </table>
+
+</td></tr></table>
