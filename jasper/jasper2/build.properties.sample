@@ -1,0 +1,17 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize building 
+# Jasper2 for your local environment.  It defines the location of all external
+# modules that Jasper2 depends on.  Copy this file to "build.properties"
+# in the top-level source directory, and customize it as needed.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+# ----- Pointer to Catalina -----
+catalina.home=../../jakarta-tomcat-5/build
+
+# ----- Pointer to JSP Standard Tag Library distribution -----
+#standard.home=${base.path}/jakarta-taglibs/standard
+#jsp20el.jar=${standard.home}/../dist/jsp20el/jsp20el.jar
