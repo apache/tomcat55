@@ -1,0 +1,12 @@
+Simple webapp that loads the Jmx remote connector. 
+
+You need to add mx4j-remote.jar to your common loader or use JDK1.5. Any other JMX implementation
+that supports javax.remote should work as well. 
+
+The directory structure is a bit different from manager and the other webapps in catalina. I'm
+using eclipse, set up to use separate output dirs and autocompile. The output dir is set to WEB-INF/classes,
+and I have a symlink to the jmxremote dir in the sources - so basically there is no need to run ant/manually compile, 
+just save the file and reload the app. 
+
+MISSING: user/password, SSL, custom RMI server address - can be easily added using servlet params ( and should be 
+added if this ever gets included in the distro )
