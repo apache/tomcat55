@@ -1,0 +1,6 @@
+This is before the include
+Include00a PASSEDSessionListener01: sessionCreated()
+SessionListener02: sessionCreated()
+
+This is after the include
+

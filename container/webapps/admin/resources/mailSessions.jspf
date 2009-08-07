@@ -1,0 +1,68 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<%-- MailSessions List --%>
+
+<table class="back-table" border="0" cellspacing="0" cellpadding="1"
+       width="100%"><tr><td> 
+
+  <table class="front-table" border="1"
+   cellspacing="0" cellpadding="0" width="100%">
+    <tr class="header-row">
+      <logic:present name="checkboxes">
+        <td width="5%"><div align="left" class="table-header-text">
+          &nbsp;
+        </td>
+      </logic:present>
+      <th scope="col" width="20%"><div align="left" class="table-header-text">
+        <bean:message key="resources.mailsession.name"/>
+      </div></th>
+      <th scope="col"><div align="left" class="table-header-text">
+        <bean:message key="resources.mailsession.mailhost"/>
+      </div></th>
+    </tr>
+
+    <logic:iterate name="mailSessionsForm" property="mailSessions"
+                     id="mailSession" type="java.lang.String">
+      <tr class="line-row">
+        <logic:present name="checkboxes">
+          <td scope="row"><div align="center" class="table-normal-text">
+            <label for="mailSessions"></label>
+            <!-- mailSession has double quotes internally, use single quotes for value -->
+            <!-- See Bugzilla 35982: http://issues.apache.org/bugzilla/show_bug.cgi?id=35982 -->
+            <input type="checkbox" name="mailSessions" styleId="mailSession"
+                  value='<%= mailSession %>' />
+          </td>
+        </logic:present>
+        <td scope="row"><div align="left" class="table-normal-text">
+          <html:link page='<%= "/resources/setUpMailSession.do?objectName=" + 
+                               URLEncoder.encode(mailSession,"UTF-8") + "&resourcetype=" +
+                               URLEncoder.encode(resourcetypeInfo,"UTF-8") + "&path="+
+                               URLEncoder.encode(pathInfo,"UTF-8") + "&host="+
+                               URLEncoder.encode(hostInfo,"UTF-8") + "&domain="+
+                               URLEncoder.encode(domainInfo,"UTF-8") %>'>
+            <controls:attribute name="mailSession" attribute="name"/>
+          </html:link>
+        </div></td>
+        <td scope="row"><div align="left" class="table-normal-text">&nbsp;
+          <controls:attribute name="mailSession" attribute="mail.smtp.host"/>
+        </div></td>
+      </tr>
+    </logic:iterate>
+
+  </table>
+
+</td></tr></table>

@@ -1,0 +1,54 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<html> 
+  <head> 
+ <title>exec command  test examples </title> 
+ </head> 
+ <body>
+
+ <!--#exec cgi="/cgi-bin/array.pl" --><br>
+
+ <!--#exec cgi="/cgi-bin/binary.pl?counter=102" --><br>
+
+ <!--#exec cgi="/cgi-bin/chores.pl" --><br>
+
+ <!--#exec cgi="/cgi-bin/concat.pl?first_name=jane&last_name=johnson&fiance_first=john&fiance_last=smith" --><br>
+
+ <!--#exec cgi="/cgi-bin/days.pl" --><br>
+
+ <!--#exec cgi="/cgi-bin/dowhile.pl?start=10" --><br>
+
+ <!--#exec cgi="/cgi-bin/else.pl?food=spinach" --><br>
+
+ <!--#exec cgi="/cgi-bin/elsif.pl?food=chocolate" --><br>
+
+ <!--#exec cgi="/cgi-bin/exponents.pl?number=2&power=4" --><br>
+
+ <!--#exec cgi="/cgi-bin/for.pl?start=10" --><br>
+
+ <!--#exec cgi="/cgi-bin/getday.pl" --><br>
+
+ <!--#exec cgi="/cgi-bin/helloperl.cgi" --><br>
+
+ <!--#exec cgi="/cgi-bin/if.pl?food=spinach" --><br>
+
+ <!--#exec cgi="/cgi-bin/increment.pl?counter=7" --><br>
+
+ <!--#exec cgi="/cgi-bin/modifyall.pl?number=289" --><br>
+
+ </body> 
+ </html>
