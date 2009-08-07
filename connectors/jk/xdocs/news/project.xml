@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Apache Tomcat Connector Documentation - Top Level Directory"
+        href="http://tomcat.apache.org/connector-docs/">
+
+    <title>Apache Tomcat Connector</title>
+
+    <logo href="/images/tomcat.gif">
+    Breaking News
+    </logo>
+<body>
+
+    <menu name="Links">
+        <item name="Docs Home"             href="../index.html"/>
+        <item name="2006"                  href="20060101.html"/>
+        <item name="2005"                  href="20050101.html"/>
+        <item name="2004"                  href="20041100.html"/>
+    </menu>
+
+</body>
+</project>
