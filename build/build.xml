@@ -1,0 +1,2029 @@
+<project name="Tomcat 5.5" default="deploy" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <property file="${user.home}/build.properties"/>
+  <property file="build.properties"/>
+  
+  <property file="build.properties.default"/>
+
+  <!-- Project Properties -->
+  <property name="name"                  value="Apache Tomcat" />
+  <property name="year"                  value="2005" />
+  <property name="version.major"         value="5" />
+  <property name="version.minor"         value="5" />
+  <property name="version.build"         value="0" />
+  <property name="version.patch"         value="0" />  
+  <property name="version"               value="5.5.0-dev" />
+  <property name="version.number"        value="${version.major}.${version.minor}.${version.build}.${version.patch}" />
+
+  <property name="project"               value="jakarta-tomcat" />
+  <property name="final.name"            value="${project}-${version}" />
+  <property name="final-src.name"        value="${project}-${version}-src" />
+
+  <!-- Subprojects -->
+  <property name="api.project"           value="jakarta-servletapi-5" />
+  <property name="tomcat.project"        value="jakarta-tomcat-5" />
+  <property name="catalina.project"      value="jakarta-tomcat-catalina" />
+  <property name="jtc.project"           value="jakarta-tomcat-connectors" />
+  <property name="jasper.project"        value="jakarta-tomcat-jasper" />
+  <property name="ant.jar"               value="${ant.home}/lib/ant.jar"/>
+  <property name="ant-launcher.jar"      value="${ant.home}/lib/ant-launcher.jar"/>
+  <property name="cvstag"                value="" />
+  <property name="cvs.base"
+           value="${basedir}/.."/>
+
+  <!-- Source dependencies -->
+  <property name="api.home"
+           value="${basedir}/../${api.project}"/>
+  <property name="catalina.home" 
+           value="${basedir}/../${catalina.project}"/>
+  <property name="jasper.home"
+           value="${basedir}/../${jasper.project}/jasper2"/>
+  <property name="jtc.home"
+           value="${basedir}/../${jtc.project}"/>
+  <property name="tomcat.home"
+           value="${basedir}/../${tomcat.project}"/>
+
+  <!-- Build Defaults -->
+  <property name="catalina.build"   value="${catalina.home}/build"/>
+  <property name="jasper.build"     value="${jasper.home}/build"/>
+  <property name="tomcat.build"     value="${basedir}/build"/>
+  <property name="build.home"       value="${tomcat.build}"/>
+
+  <property name="tomcat.dist"      value="${basedir}/dist"/>
+  <property name="tomcat.embed"     value="${basedir}/embed"/>
+  <property name="tomcat.compat"    value="${basedir}/compat"/>
+  <property name="tomcat.deployer"  value="${basedir}/deployer"/>
+  <property name="tomcat.release"   value="${basedir}/release"/>
+  <property name="webapps.build"    value="${catalina.home}/webapps/build"/>
+  <property name="webapps.dist"     value="${catalina.home}/webapps/dist"/>
+  <property name="tomcat-dbcp.home" value="${base.path}/tomcat-deps" />
+  <property name="tomcat-dbcp.jar" 
+       value="${tomcat-dbcp.home}/naming-factory-dbcp.jar"/>
+  <property name="jasper-compiler-jdt.home" value="${base.path}/tomcat-deps" />
+  <property name="jasper-compiler-jdt.jar" 
+       value="${jasper-compiler-jdt.home}/jasper-compiler-jdt.jar"/>
+  
+  <!-- Some compilers will disable debugging if true. And it doesn't do anything 
+       in most cases -->
+  <property name="compile.optimize"     value="false"/>
+  <property name="compile.debug"        value="true" />
+  <property name="compile.deprecation"  value="false" />
+  <property name="compile.source"       value="1.4" />
+
+  <!-- =================== DETECT: Display configuration ================== -->
+  <target name="detect"
+   description="Display configuration and conditional compilation flags">
+
+    <echo message="--- ${name} ${version} Build ---"/>
+    <echo message="api.home=${api.home}"/>
+    <echo message="catalina.home=${catalina.home}"/>
+    <echo message="jasper.home=${jasper.home}"/>
+    <echo message="jtc.home=${jtc.home}"/>
+
+    <ant dir="${catalina.home}" target="flags.display"/>
+
+  </target>
+
+
+  <!-- ===================== DEPLOY: Create Directories =================== -->
+  <target name="init">
+    <mkdir dir="${tomcat.build}"/>
+    <mkdir dir="${tomcat.build}/classes" />
+    <mkdir dir="${tomcat.build}/server/lib" />
+    <mkdir dir="${tomcat.build}/common/lib" />
+
+    <uptodate property="servletapi.build.notrequired"
+              targetfile="${servlet-api.jar}">
+      <srcfiles dir="${api.home}/jsr154/src" includes="**" />
+    </uptodate>
+
+    <uptodate property="jspapi.build.notrequired"
+              targetfile="${jsp-api.jar}">
+      <srcfiles dir="${api.home}/jsr152/src" includes="**" />
+    </uptodate>
+
+    <uptodate property="tomcatutil.build.notrequired"
+              targetfile="${tomcat.build}/server/lib/tomcat-util.jar">
+      <srcfiles dir="${jtc.home}/util/java" includes="**" />
+    </uptodate>
+
+    <uptodate property="tomcatjk.build.notrequired"
+              targetfile="${tomcat.build}/server/lib/tomcat-ajp.jar">
+      <srcfiles dir="${jtc.home}/jk/java" includes="**" />
+    </uptodate>
+
+    <uptodate property="tomcatcoyote.build.notrequired"
+              targetfile="${tomcat.build}/server/lib/tomcat-coyote.jar">
+      <srcfiles dir="${jtc.home}/coyote/src" includes="**" />
+    </uptodate>
+
+    <uptodate property="tomcathttp11.build.notrequired"
+              targetfile="${tomcat.build}/server/lib/tomcat-http11.jar">
+      <srcfiles dir="${jtc.home}/http11/src" includes="**" />
+    </uptodate>
+
+    <uptodate property="admin.build.notrequired" 
+              targetfile="${tomcat.build}/server/webapps/admin/WEB-INF/web.xml">
+      <srcfiles dir="${catalina.home}/webapps/admin" includes="**" />
+    </uptodate>
+
+    <!--
+    <uptodate property="commons-daemon.build.notrequired"
+              targetfile="${commons-daemon.jar}">
+      <srcfiles dir="${cvs.base}/jakarta-commons/daemon" includes="**" />
+    </uptodate>
+    -->
+  </target>
+
+
+  <!-- ====================== DEPLOY: Copy Static Files =================== -->
+  <target name="deploy-static" depends="init">
+    <copy file="${jsp-api.jar}"  todir="${tomcat.build}/common/lib"/>
+    <copy file="${servlet-api.jar}" todir="${tomcat.build}/common/lib"/>
+
+    <copy file="${commons-el.jar}" 
+          todir="${tomcat.build}/common/lib"/>
+
+    <copy todir="${tomcat.build}/bin" 
+           file="${commons-logging-api.jar}" />
+
+    <copy todir="${tomcat.build}/server/lib" file="${commons-modeler.jar}" />
+
+    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jar}" />
+    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jsvc.tar.gz}" 
+            failonerror="false" />
+
+    <!-- <copy todir="${tomcat.build}/common/lib" file="${ant.jar}"/>
+    <copy todir="${tomcat.build}/common/lib" file="${ant-launcher.jar}"/> -->
+  	<copy todir="${tomcat.build}/common/lib" file="${jasper-compiler-jdt.jar}"/>
+  </target>
+
+  <!-- ====================== Build all components =================== -->
+  <target name="build-servletapi" unless="servletapi.build.notrequired" description="Build servlet API">
+    <echo>========== Building: ${servlet-api.jar}</echo>
+    <ant dir="${api.home}/jsr154" target="dist" >
+      <property name="servlet-api.dist" value="${servlet-api.home}" />
+    </ant>
+  </target>
+
+  <target name="build-jspapi" unless="jspapi.build.notrequired" description="Build JSP API">
+    <echo>========== Building: ${jsp-api.jar}</echo>
+    <ant dir="${api.home}/jsr152" target="dist">
+        <property name="jsp-api.dist" value="${jsp-api.home}" />
+    </ant>
+  </target>
+
+  <target name="build-tomcatutil" unless="tomcatutil.build.notrequired" description="Build j-t-c/util">
+    <echo>========== Building: tomcat-util to ${tomcat.build} </echo>
+
+    <ant dir="${jtc.home}/util" target="build-main">
+       <property name="jmx.jar" value="${jmx.jar}" />
+       <property name="puretls.jar" value="${puretls.jar}" />
+       <property name="jsse.lib" value="${jsse.lib}" />
+
+       <property name="tomcat-util.build" value="${tomcat.build}" />
+       <property name="tomcat-util.lib" value="${tomcat.build}/server/lib" />
+    </ant>
+  </target>
+
+  <target name="build-tomcatjk" unless="tomcatjk.build.notrequired" 
+          description="build j-t-c/jk" >
+    <echo>========== Building: tomcat-jk ${catalina.build} </echo>
+
+    <ant dir="${jtc.home}/jk" target="jkjava">
+      <property name="tomcat5.home" value="${catalina.build}"/>
+      <property name="tomcat5.detect" value="true"/>
+      <property name="commons-logging.jar" value="${commons-logging.jar}"/>
+      <property name="jmx.jar" value="${jmx.jar}"/>
+      <property name="jmx.detect" value="true"/>
+
+      <property name="jk.build" value="${tomcat.build}"/>
+
+      <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+        <!--
+      <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+      <property name="tomcat-jk2.jar" value="${tomcat.build}/server/lib/tomcat-ajp.jar" />
+      <property name="tomcat-jk.jar" value="${tomcat.build}/server/lib/tomcat-jk.jar" />
+      <property name="tomcat-jkconfig.jar" value="${tomcat.build}/server/lib/jkconfig.jar" />
+      <property name="tomcat-jkshm.jar" value="${tomcat.build}/server/lib/jkshm.jar" />
+      <property name="tomcat-jni.jar" value="${tomcat.build}/server/lib/tomcat-jni.jar" />
+      -->
+
+    </ant>
+
+  	<!--
+    <copy file="${jtc.home}/jk/conf/jk2.properties" 
+        todir="${tomcat.build}/conf" />
+    -->
+
+  	<!-- Protocol handlers - AJP -->
+	<jar jarfile="${tomcat.build}/server/lib/tomcat-ajp.jar" index="true">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="org/apache/coyote/ajp/**" />
+        <include name="org/apache/jk/**" />
+        <exclude name="org/apache/jk/ant/**" />
+        <!-- Javadoc and i18n exclusions -->
+        <exclude name="**/package.html" />
+        <exclude name="**/LocalStrings_*" />
+      </fileset>
+    </jar>
+
+  </target>
+
+  <target name="build-tomcatcoyote" 
+          unless="tomcatcoyote.build.notrequired" 
+          depends="init" description="Build j-t-c/coyote">
+    <echo>========== Building: tomcat-coyote </echo>
+
+    <ant dir="${jtc.home}/coyote" target="compile.tomcat5">
+      <property name="catalina.home" value="${tomcat.build}"/>
+      <property name="build.home" value="${tomcat.build}"/>
+      <property name="tomcat5.detect" value="true"/>
+      <property name="tomcat-util.jar"
+                value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+      <property name="servlet.jar"   value="${servlet-api.jar}"/>
+    </ant>
+
+  	<!-- Coyote API -->
+  	<delete file="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+	<jar jarfile="${tomcat.build}/server/lib/tomcat-coyote.jar" index="true">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="org/apache/coyote/*" />
+        <include name="org/apache/coyote/memory/*" />
+        <!-- Javadoc and i18n exclusions -->
+        <exclude name="**/package.html" />
+        <exclude name="**/LocalStrings_*" />
+      </fileset>
+    </jar>
+
+  </target>
+
+  <target name="build-tomcathttp11" 
+          unless="tomcathttp11.build.notrequired" 
+          depends="init" description="builds j-t-c/http11">
+    <echo>========== Building: tomcat-http11 </echo>
+
+    <ant dir="${jtc.home}/http11" target="compile-only">
+      <property name="build.home" value="${tomcat.build}"/>
+      <!--
+      <property name="tomcat-http11.jar" value="${tomcat.build}/server/lib/tomcat-http11.jar"/>
+      <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+      -->
+      <property name="commons-logging.jar" value="${commons-logging.jar}"/>
+    </ant>
+  	
+  	<!-- Protocol handlers - HTTP -->
+	<jar jarfile="${tomcat.build}/server/lib/tomcat-http.jar" index="true">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="org/apache/coyote/http11/**" />
+        <!-- Javadoc and i18n exclusions -->
+        <exclude name="**/package.html" />
+        <exclude name="**/LocalStrings_*" />
+      </fileset>
+    </jar>
+
+  </target>
+
+	  <target name="build-tomcatapr" 
+	          unless="tomcatapr.build.notrequired" 
+	          depends="init" description="builds j-t-c/apr">
+	    <echo>========== Building: tomcat-apr </echo>
+
+	    <ant dir="${jtc.home}/jni" target="compile-only">
+	      <property name="build.home" value="${tomcat.build}"/>
+	      <!--
+	      <property name="tomcat-http11.jar" value="${tomcat.build}/server/lib/tomcat-http11.jar"/>
+	      <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+	      -->
+	      <property name="commons-logging.jar" value="${commons-logging.jar}"/>
+	    </ant>
+	  	
+	  	<!-- APR -->
+		<jar jarfile="${tomcat.build}/server/lib/tomcat-apr.jar" index="true">
+	      <fileset dir="${tomcat.build}/classes">
+	        <include name="org/apache/tomcat/jni/**" />
+	        <!-- Javadoc and i18n exclusions -->
+	        <exclude name="**/package.html" />
+	        <exclude name="**/LocalStrings_*" />
+	      </fileset>
+	    </jar>
+
+	  </target>
+
+	  <target name="build-juli" 
+	          unless="tomcatjuli.build.notrequired" 
+	          depends="init" description="builds j-t-c/juli">
+	    <echo>========== Building: tomcat-juli </echo>
+
+	    <ant dir="${jtc.home}/juli" target="compile-only">
+	      <property name="build.home" value="${tomcat.build}"/>
+	    </ant>
+	  	
+	  	<!-- Java.util.logging Implementation -->
+		<jar jarfile="${tomcat.build}/bin/tomcat-juli.jar" index="true">
+	      <fileset dir="${tomcat.build}/classes">
+	        <include name="org/apache/juli/**" />
+	        <!-- Javadoc and i18n exclusions -->
+	        <exclude name="**/package.html" />
+	        <exclude name="**/LocalStrings_*" />
+	      </fileset>
+	    </jar>
+
+	  	<copy file="${basedir}/resources/logging.properties"
+	  	     todir="${tomcat.build}/conf" /> 
+	  	
+	  </target>
+
+  <target name="build-jasper" 
+          unless="jasper.build.notrequired" 
+          depends="init" description="build jasper">
+    <echo>========== Building: jasper </echo>
+
+    <ant dir="${jasper.home}"   target="build-only">
+      <property name="jasper.classes" value="${tomcat.build}/classes"/>
+      <property name="jasper.build" value="${tomcat.build}"/>
+      <property name="jasper-compiler.jar" value="${tomcat.build}/common/lib/jasper-compiler.jar"/>
+      <property name="jasper-runtime.jar" value="${tomcat.build}/common/lib/jasper-runtime.jar"/>
+      <property name="catalina.home" value="${tomcat.build}"/>
+      <property name="commons-el.jar" location="${commons-el.jar}" />
+    </ant>
+  </target>
+
+  <target name="build-admin" unless="admin.build.notrequired" 
+          depends="init" description="build admin" >
+
+    <echo>========== Building: admin </echo>
+    <ant dir="${catalina.home}/webapps/admin" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/server/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <touch file="${tomcat.build}/server/webapps/admin/WEB-INF/web.xml" />
+  </target>
+
+  <target name="build-webapps-precompile" 
+          depends="init" description="Precompile webapps" >
+
+    <!-- JSPC -->
+    <property name="admin.base" location="${tomcat.build}/server/webapps/admin" />
+    <property name="ROOT.base" location="${tomcat.build}/webapps/ROOT" />
+    <property name="jsp-examples.base" location="${tomcat.build}/webapps/jsp-examples" />
+
+    <mkdir dir="${admin.base}/WEB-INF/src/admin" />
+    <mkdir dir="${ROOT.base}/WEB-INF/src" />
+    <mkdir dir="${ROOT.base}/WEB-INF/classes" />
+    <mkdir dir="${jsp-examples.base}/WEB-INF/src" />
+
+    <path id="jspc.classpath">
+      <pathelement location="${java.home}/../lib/tools.jar"/>
+      <pathelement location="${commons-logging.jar}"/>
+      <pathelement location="${tomcat.build}/server/classes"/>
+      <fileset dir="${tomcat.build}/server/lib">
+        <include name="*.jar"/>
+      </fileset>
+      <pathelement location="${tomcat.build}/common/classes"/>
+      <fileset dir="${tomcat.build}/common/lib">
+        <include name="*.jar"/>
+      </fileset>
+      <pathelement location="${tomcat.build}/common/classes"/>
+      <fileset dir="${tomcat.build}/common/endorsed">
+        <include name="*.jar"/>
+      </fileset>
+      <fileset dir="${tomcat.build}/common/lib">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+
+    <taskdef classname="org.apache.jasper.JspC" name="jasper2" >
+      <classpath refid="jspc.classpath"/>
+    </taskdef>
+
+    <jasper2 
+             compile="false"
+             validateXml="false"
+             uriroot="${ROOT.base}"
+             webXmlFragment="${ROOT.base}/WEB-INF/generated_web.xml"
+             addWebXmlMappings="true"
+             outputDir="${ROOT.base}/WEB-INF/src" />
+
+    <jasper2 
+             compile="false"
+             validateXml="false"
+             uriroot="${jsp-examples.base}"
+	     webXmlFragment="${jsp-examples.base}/WEB-INF/generated_web.xml"
+             addWebXmlMappings="true"
+             outputDir="${jsp-examples.base}/WEB-INF/src" />
+
+    <jasper2 
+             package="admin"
+             compile="false"
+             validateXml="false"
+             uriroot="${admin.base}"
+             webXmlFragment="${admin.base}/WEB-INF/generated_web.xml"
+             addWebXmlMappings="true"
+             outputDir="${admin.base}/WEB-INF/src/admin" />
+
+    <javac destdir="${ROOT.base}/WEB-INF/classes"
+           optimize="off"
+           debug="${compile.debug}" 
+           deprecation="${compile.deprecation}"
+           source="${compile.source}"
+           failonerror="false"
+           srcdir="${ROOT.base}/WEB-INF/src" 
+	   excludes="**/*.smap">
+      <classpath>
+        <pathelement location="${java.home}/../lib/tools.jar"/>
+        <fileset dir="${tomcat.build}/server/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.build}/common/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.build}/classes"/>
+      </classpath>
+      <include name="**" />
+    </javac>
+
+    <mkdir dir="${jsp-examples.base}/WEB-INF/src/tags"/>
+    <copy todir="${jsp-examples.base}/WEB-INF/classes">
+      <fileset dir="${jsp-examples.base}/WEB-INF/src">
+        <include name="**/*.class" />
+      </fileset>
+    </copy>
+
+    <javac destdir="${jsp-examples.base}/WEB-INF/classes"
+           optimize="off"
+           debug="${compile.debug}"
+           deprecation="${compile.deprecation}"
+           source="${compile.source}"
+           failonerror="false"
+           srcdir="${jsp-examples.base}/WEB-INF/src" 
+	   excludes="**/*.smap">
+      <classpath>
+        <pathelement location="${java.home}/../lib/tools.jar"/>
+        <fileset dir="${tomcat.build}/server/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${jsp-examples.base}/WEB-INF/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.build}/common/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.build}/classes"/>
+        <pathelement location="${jsp-examples.base}/WEB-INF/classes"/>
+      </classpath>
+      <include name="**" />
+      <exclude name="tags/**" />
+    </javac>
+
+    <javac destdir="${admin.base}/WEB-INF/classes"
+           optimize="off"
+           debug="${compile.debug}"
+           deprecation="${compile.deprecation}"
+           source="${compile.source}"
+           failonerror="false"
+           srcdir="${admin.base}/WEB-INF/src" 
+	   excludes="**/*.smap">
+      <classpath>
+        <pathelement location="${java.home}/../lib/tools.jar"/>
+        <fileset dir="${tomcat.build}/server/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${admin.base}/WEB-INF/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.build}/common/lib">
+          <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.build}/classes"/>
+      </classpath>
+      <include name="admin/**" />
+    </javac>
+  </target>
+
+  <target name="build-catalina" depends="init"
+          description="Builds catalina">
+    <echo>========== Building: catalina in ${tomcat.build}</echo>
+
+    <ant dir="${catalina.home}/catalina" target="build-static">
+        <property name="catalina.build" value="${tomcat.build}" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar"
+                 value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/catalina" target="catalina-jars">
+        <!-- in-place building -->
+        <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+        <property name="catalina.build" value="${tomcat.build}" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar"
+                 value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/catalina" target="deploy-static-only">
+        <property name="catalina.build" value="${tomcat.build}" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar"
+                 value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="false" />
+    </ant>
+
+    <ant dir="${catalina.home}/modules" target="build">
+        <property name="catalina.build" value="${tomcat.build}" />
+        <property name="cluster.dist" value="${tomcat.build}/server/lib" />
+        <property name="config.dist" value="${tomcat.build}/server/lib" />
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+  </target>
+
+  <target name="build" depends="init"
+          description="Builds all components">
+
+    <antcall target="build-tomcatapr"/>
+    <antcall target="build-tomcatutil"/>
+    <antcall target="build-tomcatcoyote"/>
+    <antcall target="build-catalina"/>
+
+    <antcall target="build-tomcatjk"/>
+
+    <antcall target="build-tomcathttp11"/>
+      
+    <antcall target="build-juli"/>
+      
+    <antcall target="build-jasper"/>
+
+    <antcall target="build-i18n"/>
+
+    <!-- Correct permissions and line endings on "bin" scripts -->
+    <fixcrlf srcdir="${tomcat.build}/bin"   includes="*.sh"  eol="lf"/>
+    <fixcrlf srcdir="${tomcat.build}/bin"   includes="*.bat" eol="crlf"/>
+    <chmod      dir="${tomcat.build}/bin"   includes="*.sh"  perm="+x"/>
+
+  </target>
+
+  <target name="build-i18n">
+
+  	<!-- i18n JARs -->
+    <jar jarfile="${tomcat.build}/common/i18n/tomcat-i18n-es.jar">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="**/LocalStrings_es.properties" />
+        <exclude name="**/tomcat4/**" />
+      </fileset>
+    </jar>
+    <jar jarfile="${tomcat.build}/common/i18n/tomcat-i18n-fr.jar">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="**/LocalStrings_fr.properties" />
+        <exclude name="**/tomcat4/**" />
+      </fileset>
+    </jar>
+    <jar jarfile="${tomcat.build}/common/i18n/tomcat-i18n-ja.jar">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="**/LocalStrings_ja.properties" />
+        <exclude name="**/tomcat4/**" />
+      </fileset>
+    </jar>
+
+  	<!-- Build baseline _en bundle to ease -->
+    <copy todir="${tomcat.build}/classes" includeemptydirs="false">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="**/LocalStrings.properties"/>
+      </fileset>
+      <mapper type="glob" from="*.properties" to="*_en.properties"/>
+    </copy>
+    <jar jarfile="${tomcat.build}/common/i18n/tomcat-i18n-en.jar">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="**/LocalStrings_en.properties" />
+        <exclude name="**/tomcat4/**" />
+      </fileset>
+    </jar>
+  	
+  </target>
+	
+  <!-- ====================== Build dependent code =================== -->
+
+<!--
+  <target name="build-commons-modeler" unless="commons-modeler.build.notrequired" description="build commons-modeler">
+    <echo>========== Building: commons-modeler </echo>
+
+    <ant dir="${cvs.base}/jakarta-commons/modeler" target="dist" >
+        <property name="dist.home" location="${commons-modeler.home}" />
+        <property name="commons-logging.jar" location="${commons-logging.jar}" />
+        <property name="jmx.jar" location="${jmx.jar}" />
+        <property name="commons-digester.jar" location="${commons-digester.jar}" />
+        <property name="build.home" value="${tomcat.build}" />
+    </ant>
+  </target>
+-->
+
+<!--
+  <target name="build-commons-daemon" unless="commons-daemon.build.notrequired" description="build commons-daemon" >
+    <echo>========== Building: commons-daemon </echo>
+
+    <ant dir="${cvs.base}/jakarta-commons/daemon" target="dist" >
+        <property name="compile.optimize" value="false" />
+        <property name="dist.home" value="${commons-daemon.home}" />
+    </ant>
+  </target>
+-->
+
+  <target name="build-all" depends="init,deploy-static,build,build-webapps,compat,deployer" 
+          description="build tomcat, webapps, embed, compat, deployer" />
+
+
+  <target name="build-depends" depends="init"
+          description="Builds various dependent components - APIs, commons-el, commons-modeler, daemon">
+    <antcall target="build-servletapi"/>
+    <antcall target="build-jspapi"/>
+
+    <!-- <antcall target="build-commons-modeler" /> -->
+    <!-- <antcall target="build-commons-daemon"  /> -->
+
+  	<antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-collections-src.loc}"/>
+      <param name="destfile" value="${tomcat-dbcp.jar}" />
+    </antcall>
+  	<antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-pool-src.loc}"/>
+      <param name="destfile" value="${tomcat-dbcp.jar}" />
+    </antcall>
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-dbcp-src.loc}"/>
+      <param name="destfile" value="${tomcat-dbcp.jar}" />
+    </antcall>
+
+    <antcall target="build-tomcat-dbcp" />
+
+    <antcall target="downloadzip">
+      <param name="sourcefile" value="${jdt.loc}"/>
+      <param name="destfile" value="${jdt.jar}"/>
+      <param name="destdir" value="${base.path}"/>
+    </antcall>
+    <antcall target="build-jasper-compiler-jdt" />
+  </target>
+
+  <target name="build-tomcat-dbcp">
+   <mkdir dir="${tomcat-dbcp.home}"/>
+   <antcall target="-build-tomcat-dbcp">
+      <param name="basedir" value="${tomcat-dbcp.home}" />
+   </antcall>
+  </target>
+
+  <target name="-build-tomcat-dbcp">
+    <copy todir="${tomcat-dbcp.home}">
+    	<fileset dir="${commons-collections.home}" >
+    		<include name="**/collections/CursorableLinkedList.java" />
+    		<include name="**/collections/KeyValue.java" />
+    		<include name="**/collections/LRUMap.java" />
+    		<include name="**/collections/SequencedHashMap.java" />
+    	</fileset>
+    	<fileset dir="${commons-pool.home}">
+    		<include name="**/*.java" />
+    		<exclude name="**/Stack*.java" />
+    		<exclude name="**/SoftReferenceObjectPool.java" />
+    		<exclude name="**/test/**" />
+    	</fileset>
+    	<fileset dir="${commons-dbcp.home}">
+    		<include name="**/*.java" />
+    		<exclude name="**/test/**" />
+       	</fileset>
+    </copy>
+  	<replace dir="${tomcat-dbcp.home}/src/java/org/apache/commons">
+  		<replacefilter token="return UnmodifiableList.decorate(l);"
+  			value="return l;" />
+  		<replacefilter token="import org.apache.commons.collections.list.UnmodifiableList;"
+  			value=" " />
+  	</replace>
+  	<replace dir="${tomcat-dbcp.home}/src/java/org/apache/commons" >
+  		<replacefilter token="org.apache.commons" 
+  			value="org.apache.tomcat.dbcp" />
+  	</replace>
+  	<mkdir dir="${tomcat-dbcp.home}/src/java/org/apache/tomcat/dbcp" />
+  	<move todir="${tomcat-dbcp.home}/src/java/org/apache/tomcat/dbcp">
+  		<fileset dir="${tomcat-dbcp.home}/src/java/org/apache/commons" />
+    </move>
+  	<mkdir dir="${tomcat-dbcp.home}/classes"/>
+    <javac destdir="classes"
+           optimize="off"
+           debug="${compile.debug}"
+           deprecation="${compile.deprecation}"
+           source="${compile.source}"
+           sourcepath="${tomcat-dbcp.home}/src/java"
+           srcdir="src/java" >
+      <include name="**" />
+    </javac>
+    <jar jarfile="${tomcat-dbcp.jar}"
+         index="true">
+       <fileset dir="${tomcat-dbcp.home}/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+  </target>
+
+	  <target name="build-jasper-compiler-jdt">
+	   <mkdir dir="${jasper-compiler-jdt.home}"/>
+	   <antcall target="-build-jasper-compiler-jdt">
+	      <param name="basedir" value="${jasper-compiler-jdt.home}" />
+	   </antcall>
+	  </target>
+
+	  <target name="-build-jasper-compiler-jdt">
+	  	<unjar src="${jdt.jar}" dest="${jasper-compiler-jdt.home}" />
+	  	<jar destfile="${jasper-compiler-jdt.jar}" index="true">
+	  		<fileset dir="${jasper-compiler-jdt.home}">
+	  			<include name="org/eclipse/jdt/core/compiler/**"/>
+	  			<include name="org/eclipse/jdt/internal/compiler/**"/>
+	  			<include name="org/eclipse/jdt/internal/core/util/CommentRecorder*"/>
+	  		</fileset>
+	  	</jar>
+	  </target>
+	
+  <target name="build-webapps" depends="init"
+          description="build  webapps">
+
+    <echo>========== Building: webapps </echo>
+
+    <mkdir dir="${tomcat.build}/webapps" />
+    <mkdir dir="${tomcat.build}/server/webapps" />
+  
+    <!-- The build files are far too difficult to hack - just build it and copy -->
+    <ant dir="${api.home}/jsr154" target="dist">
+    </ant>
+    <ant dir="${api.home}/jsr152" target="dist">
+    </ant>
+
+    <mkdir dir="${tomcat.build}/webapps/servlets-examples"/>
+    <copy todir="${tomcat.build}/webapps/servlets-examples">
+      <fileset dir="${api.home}/jsr154/build/examples" includes="**"/>
+    </copy>
+
+    <mkdir dir="${tomcat.build}/webapps/jsp-examples"/>
+    <copy todir="${tomcat.build}/webapps/jsp-examples">
+      <fileset dir="${api.home}/jsr152/build/examples" includes="**"/>
+    </copy>
+
+    <ant dir="${catalina.home}/webapps/ROOT" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/webapps/docs" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <antcall target="build-admin" />
+
+    <ant dir="${catalina.home}/webapps/manager" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/server/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/webapps/host-manager" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/server/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/webapps/balancer" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/webapps" />
+        <property name="classes.dir" value="${tomcat.build}/classes" />
+        <property name="tomcat-util.jar" value="${tomcat.build}/server/lib/tomcat-util.jar"/>
+        <property name="catalina.deploy" value="${tomcat.build}" />
+        <property name="flags.hide" value="true" />
+    </ant>
+
+    <ant dir="${catalina.home}/webapps/webdav" target="build-main">
+        <property name="webapps.build" value="${tomcat.build}/webapps" />
+    </ant>
+
+    <!-- Precompiling and fixing webapps -->
+    <antcall target="build-webapps-precompile" /> 
+    <antcall target="fix-webapps" />
+
+  </target>
+
+  <target name="fix-webapps" depends="init" >
+    <!-- Extra build steps for webapps -->
+
+    <filter token="VERSION" value="${version}"/>
+
+    <!-- Add release notes to the root webapp -->
+    <copy file="${basedir}/RELEASE-NOTES"
+        tofile="${tomcat.build}/webapps/ROOT/RELEASE-NOTES.txt"
+        filtering="true" />
+
+    <!-- Add documents to the tomcat-docs webapp -->
+    <copy file="${basedir}/resources/build.xml"
+        todir="${tomcat.build}/webapps/tomcat-docs" />
+    <copy file="./RELEASE-NOTES"
+        tofile="${tomcat.build}/webapps/tomcat-docs/RELEASE-NOTES.txt"
+        filtering="true" />
+
+    <!-- Build JARs for webapps classes -->
+    <mkdir dir="${tomcat.build}/server/webapps/admin/WEB-INF/lib" />
+    <jar jarfile="${tomcat.build}/server/webapps/admin/WEB-INF/lib/catalina-admin.jar"
+         index="true">
+       <fileset dir="${tomcat.build}/server/webapps/admin/WEB-INF/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+    <mkdir dir="${tomcat.build}/server/webapps/manager/WEB-INF/lib" />
+    <jar jarfile="${tomcat.build}/server/webapps/manager/WEB-INF/lib/catalina-manager.jar"
+         index="true">
+       <fileset dir="${tomcat.build}/server/webapps/manager/WEB-INF/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+    <mkdir dir="${tomcat.build}/server/webapps/host-manager/WEB-INF/lib" />
+    <jar jarfile="${tomcat.build}/server/webapps/host-manager/WEB-INF/lib/catalina-host-manager.jar"
+         index="true">
+       <fileset dir="${tomcat.build}/server/webapps/host-manager/WEB-INF/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+    <mkdir dir="${tomcat.build}/webapps/balancer/WEB-INF/lib" />
+    <jar jarfile="${tomcat.build}/webapps/balancer/WEB-INF/lib/catalina-balancer.jar"
+         index="true">
+       <fileset dir="${tomcat.build}/webapps/balancer/WEB-INF/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+    <mkdir dir="${tomcat.build}/webapps/ROOT/WEB-INF/lib" />
+    <jar jarfile="${tomcat.build}/webapps/ROOT/WEB-INF/lib/catalina-root.jar"
+         index="true">
+       <fileset dir="${tomcat.build}/webapps/ROOT/WEB-INF/classes">
+          <include name="**/*.class" />
+          <include name="**/*.properties" />
+       </fileset>
+    </jar>
+
+    <!-- Add XML declarations for admin, manager and balancer -->
+    <copy file="${tomcat.build}/server/webapps/manager/manager.xml"
+         todir="${tomcat.build}/conf/Catalina/localhost" />
+    <copy file="${tomcat.build}/server/webapps/host-manager/host-manager.xml"
+         todir="${tomcat.build}/conf/Catalina/localhost" />
+    <copy file="${tomcat.build}/server/webapps/admin/admin.xml"
+         todir="${tomcat.build}/conf/Catalina/localhost" />
+
+  </target>
+
+  <!-- ====================== Embed target =================== -->
+
+  <target name="embed" description="Create a set of jars for embedded tomcat" > 
+
+  	<!-- Generic libraries -->
+    <copy todir="embed/lib" file="${commons-logging.jar}"/>
+    <copy todir="embed/lib" file="${commons-modeler.jar}"/>
+
+    <!-- Connector -->
+    <copy todir="embed/lib">
+      <fileset dir="build/server/lib">
+      	<!--<include name="tomcat-ajp.jar"/>-->
+        <include name="tomcat-coyote.jar"/>
+        <include name="tomcat-http.jar"/>
+        <include name="tomcat-util.jar"/>
+      </fileset>
+    </copy>
+
+    <!-- Servlet API implementation -->
+    <copy todir="embed/lib">
+      <fileset dir="build/common/lib">
+        <include name="naming-factory.jar"/>
+        <include name="servlet-api.jar"/>
+        <include name="naming-resources.jar"/>
+      </fileset>
+      <fileset dir="build/server/lib">
+        <include name="catalina.jar"/>
+        <include name="catalina-optional.jar"/>
+        <include name="servlets-default.jar"/>
+      </fileset>
+    </copy>
+
+    <!-- JNDI extra 
+    <copy todir="embed/lib">
+      <fileset dir="build/common/lib">
+        <include name="naming-factory.jar"/>
+      </fileset>
+    </copy>
+    -->
+
+    <!-- JSP runtime -->
+    <copy todir="embed/lib">
+      <fileset dir="build/common/lib">
+        <include name="commons-el.jar"/>
+        <include name="jsp-api.jar"/>
+        <include name="jasper-runtime.jar"/>
+      </fileset>
+    </copy>
+
+    <!-- JSP compiler - not needed for an minimal server if it 
+         uses precompilation -->
+    <copy todir="embed/lib">
+      <fileset dir="build/common/lib">
+        <include name="jasper-compiler.jar"/>
+        <include name="jasper-compiler-jdt.jar"/>
+      </fileset>
+    </copy>
+
+  	<copy tofile="embed/build.xml" file="resources/mbeans/tomcat5-ant.xml" />
+    <!-- 
+    <copy tofile="embed/tomcat5-mbeans.xml" file="resources/mbeans/tomcat5-mbeans.xml" />
+    <copy tofile="embed/tomcat5-mlet.xml" file="resources/mbeans/tomcat5-mlet.xml" />
+    <copy tofile="embed/tomcat5-service.xml" file="resources/mbeans/tomcat5-service.xml" />
+    -->
+
+    <mkdir dir="embed/conf"/>
+  	<delete file="embed/conf/context.xml" />
+  	<copy todir="embed/conf">
+      <fileset dir="build/conf">
+         <include name="context.xml"/>
+         <include name="tomcat-users.xml"/>
+         <include name="web.xml"/>
+         <!-- no longer needed 
+            <include name="server.xml"/>
+         -->
+      </fileset>
+    </copy>
+  	<replace file="embed/conf/context.xml" token="&lt;Context" value="&lt;Context privileged='true'" />
+  	
+    <mkdir dir="embed/webapps"/>
+    <copy todir="embed/webapps" >
+       <fileset dir="dist/webapps" includes="ROOT/**"/>
+    </copy>
+    <copy todir="embed/webapps" >
+       <fileset dir="dist/server/webapps" includes="manager/**"/>
+    </copy>
+    
+  </target>
+
+  <!-- ====================== Deployer target =================== -->
+
+  <target name="deployer" description="Create the Tomcat deployer binary" > 
+
+    <!-- Servlet and JSP -->
+    <copy todir="${tomcat.deployer}/lib">
+      <fileset dir="${tomcat.build}/common/lib">
+        <include name="commons-el.jar"/>
+        <include name="jsp-api.jar"/>
+        <include name="jasper-runtime.jar"/>
+        <include name="jasper-compiler.jar"/>
+        <include name="servlet-api.jar"/>
+      </fileset>
+    </copy>
+
+    <!-- Digester and dependencies -->
+    <copy todir="${tomcat.deployer}/lib" 
+           file="${tomcat.build}/server/lib/catalina-ant.jar"/>
+    <copy todir="${tomcat.deployer}/lib" file="${commons-logging.jar}"/>
+    <jar jarfile="${tomcat.deployer}/lib/catalina-deployer.jar">
+       <fileset dir="${tomcat.build}/classes">
+          <include name="org/apache/catalina/startup/DigesterFactory.class" />
+          <include name="org/apache/catalina/util/SchemaResolver.class" />
+          <include name="org/apache/catalina/util/StringManager.class" />
+          <include name="org/apache/tomcat/util/*" />
+          <include name="org/apache/tomcat/util/digester/*" />
+          <exclude name="**/package.html" />
+          <exclude name="**/LocalStrings_*" />
+       </fileset>
+    </jar>
+
+    <!-- Main build script -->
+    <copy todir="${tomcat.deployer}">
+      <fileset dir="${basedir}/resources/deployer" />
+    </copy>
+
+    <!-- Copy deployer documentation -->
+    <copy todir="${tomcat.deployer}">
+      <fileset dir="${tomcat.build}/webapps/tomcat-docs">
+        <include name="images/jakarta-logo.gif" />
+        <include name="images/tomcat.gif" />
+      </fileset>
+    </copy>
+    <copy tofile="${tomcat.deployer}/docs/manual.html"
+      file="${tomcat.build}/webapps/tomcat-docs/printer/deployer-howto.html" />
+
+  </target>
+
+  <!-- ====================== Compat target =================== -->
+
+  <target name="compat" description="Create compatibility binaries for JREs before 1.5" >
+
+    <copy todir="${tomcat.compat}/common/endorsed" file="${xercesImpl.jar}"/>
+    <copy todir="${tomcat.compat}/common/endorsed" file="${xml-apis.jar}"/>
+    <copy tofile="${tomcat.compat}/bin/jmx.jar" file="${jmx.jar}"/>
+
+  </target>
+
+  <!-- ====================== DEPLOY: Deploy Components =================== -->
+
+  <target name="deploy" depends="deploy-static,build-all,build-webapps"
+          description="Build and deploy all components" />
+
+  <target name="deploy.old" depends="deploy-static">
+
+    <echo>Target: Modeler - Dist ...</echo>
+    <ant dir="${commons-modeler.home}" target="dist"/>
+
+    <echo>Target: Catalina - Deploy ...</echo>
+    <ant dir="${catalina.home}" target="deploy"/>
+    <!-- 
+    <antcall target="build-tomcat-coyote"/>
+    <antcall target="build-tomcat-jk"/>
+    <antcall target="build-tomcat-http11"/>
+    <ant dir="${catalina.home}" target="deploy-catalina"/>
+     -->
+    <copy todir="${tomcat.build}">
+      <fileset dir="${catalina.home}/build"/>
+    </copy>
+
+    <filter token="VERSION" value="${version}"/>
+
+    <antcall target="build-jasper"/>
+
+    <!-- Correct permissions and line endings on "bin" scripts -->
+    <fixcrlf srcdir="${tomcat.build}/bin"   includes="*.sh"  eol="lf"/>
+    <fixcrlf srcdir="${tomcat.build}/bin"   includes="*.bat" eol="crlf"/>
+    <chmod      dir="${tomcat.build}/bin"   includes="*.sh"  perm="+x"/>
+
+    <antcall target="fix-webapps"/>
+
+    <!-- Copy the examples webapps -->
+    <copy todir="${tomcat.build}/webapps/jsp-examples">
+      <fileset dir="${api.home}/jsr152/build/examples"/>
+    </copy>
+    <copy todir="${tomcat.build}/webapps/servlets-examples">
+      <fileset dir="${api.home}/jsr154/build/examples"/>
+    </copy>
+
+    <!-- Copy Unix JSVC from commons-daemon -->
+    <copy file="${commons-daemon.jsvc.tar.gz}" 
+        tofile="${tomcat.dist}/bin/jsvc.tar.gz" />
+    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jar}" />
+
+    <echo>Target: Webapps precompilation ...</echo>
+
+    <antcall target="build-admin"/>
+
+    <ant dir="." target="build-webapps-precompile" />
+
+  </target>
+
+
+  <!-- ====================== COMBO: Clean All Directories ================ -->
+  <target name="clean"
+   description="Clean all components">
+
+    <delete dir="${tomcat.build}"/>
+
+    <delete dir="${tomcat.embed}"/>
+    <delete dir="${tomcat.compat}"/>
+    <delete dir="${tomcat.deployer}"/>
+
+    <echo>Target: Servlet API - Clean ...</echo>
+    <ant dir="${api.home}/jsr154" target="clean"/>
+
+    <echo>Target: JSP API - Clean ...</echo>
+    <ant dir="${api.home}/jsr152" target="clean"/>
+
+    <echo>Target: Catalina - Clean ...</echo>
+    <ant dir="${catalina.home}" target="clean"/>
+
+    <echo>Target: Jasper - Clean ...</echo>
+    <ant dir="${jasper.home}"   target="clean">
+      <property name="catalina.home" value="${tomcat.build}"/>
+    </ant>
+
+    <delete dir="${tomcat.dist}"/>
+
+  </target>
+
+
+  <!-- ======================= COMBO: Build All Components ================ -->
+  <target name="all"
+          description="Clean, build, and deploy all components">
+
+    <echo>Target: Servlet API - Dist ...</echo>
+    <ant dir="${api.home}/jsr154" target="dist"/>
+
+    <echo>Target: JSP API - Dist ...</echo>
+    <ant dir="${api.home}/jsr152" target="dist"/>
+
+    <echo>Target: Catalina - All ...</echo>
+    <ant dir="${catalina.home}" target="all"/>
+
+    <echo>Target: Jasper - All ...</echo>
+    <ant dir="${jasper.home}"   target="all">
+      <property name="catalina.home" value="${tomcat.build}"/>
+    </ant>
+  </target>
+
+
+  <!-- ======================= COMBO: Test All Components ================= -->
+  <target name="test"
+          description="Unit tests on all components">
+    <echo>Target: Catalina - Test ...</echo>
+    <ant dir="${catalina.home}" target="test"/>
+    <echo>Target: Jasper - Test ...</echo>
+    <ant dir="${jasper.home}"   target="test">
+      <property name="catalina.home" value="${tomcat.build}"/>
+    </ant>
+  </target>
+
+  <!-- ======================= TESTER: Run Catalina Tester Tests=========== -->
+  
+   <target name="dist-tester" 
+           description="Build the Catalina tester">
+
+    <ant dir="${catalina.home}/tester" target="dist">
+      <property name="tester.deploy" value="${tomcat.build}"/>
+    </ant>
+    <ant dir="${catalina.home}/tester" target="deploy">
+      <property name="tester.deploy" value="${tomcat.build}"/>
+    </ant>
+
+   </target>
+
+   <target name="clean-tester" 
+           description="Clean the Catalina tester">
+
+    <ant dir="${catalina.home}/tester" target="clean" />
+
+   </target>
+
+  <target name="run-tester"
+   description="Catalina Tests" depends="dist-tester">
+
+  	<!-- For Java 1.4 -->
+  	<copy file="${jmx.jar}" tofile="${tomcat.build}/bin/jmx.jar" />
+    <copy todir="${tomcat.build}/common/endorsed" file="${xercesImpl.jar}"/>
+    <copy todir="${tomcat.build}/common/endorsed" file="${xml-apis.jar}"/>
+  	
+    <parallel>
+
+        <java classname="LauncherBootstrap" fork="yes">
+            <arg value="-launchfile"/>
+            <arg value="catalina.xml"/>
+            <arg value="-verbose"/>
+            <arg value="catalina"/>
+            <arg value="start"/>
+            <classpath>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${tomcat.build}/bin"/>
+            </classpath>
+        </java>
+
+        <sequential>
+            <!-- Let tomcat starts before starting Tester -->
+            <sleep seconds="8"/>
+
+            <ant dir="${catalina.home}/tester/dist/bin" antfile="tester.xml" 
+                 target="all">
+              <property name="catalina.home" value="${tomcat.build}"/>
+            </ant>
+
+            <java classname="LauncherBootstrap" fork="yes">
+                <arg value="-launchfile"/>
+                <arg value="catalina.xml"/>
+                <arg value="-verbose"/>
+                <arg value="catalina"/>
+                <arg value="stop"/>
+                <classpath>
+                    <pathelement path="${java.class.path}"/>
+                    <pathelement path="${tomcat.build}/bin"/>
+                </classpath>
+            </java>
+        </sequential>
+
+    </parallel>  
+    
+  </target>
+
+  <!-- ====================== DIST: Create Directories ==================== -->
+  <target name="dist-prepare">
+    <mkdir dir="${tomcat.dist}"/>
+    <mkdir dir="${tomcat.dist}/bin"/>
+    <mkdir dir="${tomcat.dist}/common"/>
+    <mkdir dir="${tomcat.dist}/common/classes"/>
+    <mkdir dir="${tomcat.dist}/common/endorsed"/>
+    <mkdir dir="${tomcat.dist}/common/lib"/>
+    <mkdir dir="${tomcat.dist}/conf"/>
+    <mkdir dir="${tomcat.dist}/logs"/>
+    <mkdir dir="${tomcat.dist}/server"/>
+    <mkdir dir="${tomcat.dist}/server/classes"/>
+    <mkdir dir="${tomcat.dist}/server/lib"/>
+    <mkdir dir="${tomcat.dist}/shared/classes"/>
+    <mkdir dir="${tomcat.dist}/shared/lib"/>
+    <mkdir dir="${tomcat.dist}/webapps"/>
+    <mkdir dir="${tomcat.dist}/work"/>
+    <mkdir dir="${tomcat.dist}/temp"/>
+  </target>
+
+
+  <!-- ====================== DIST: Copy Static Files ===================== -->
+  <target name="dist-static" depends="dist-prepare">
+
+    <!-- Copy the top-level documentation files -->
+    <copy todir="${tomcat.dist}">
+      <fileset dir=".">
+        <include name="INSTALLING.txt"/>
+        <include name="LICENSE"/>
+        <include name="NOTICE"/>
+        <include name="README.txt"/>
+        <include name="RELEASE*"/>
+        <include name="RUNNING.txt"/>
+      </fileset>
+    </copy>
+
+    <!-- Copy the contents of each "build" directory -->
+    <copy todir="${tomcat.dist}/bin">
+      <fileset dir="${tomcat.build}/bin">
+      	<exclude name="catalina.xml"/>
+      	<exclude name="commons-launcher.jar"/>
+      	<exclude name="*-using-launcher.*"/>
+      	<exclude name="LauncherBootstrap.class"/>
+      	<exclude name="launcher.properties"/>
+      </fileset>
+    </copy>
+    <copy todir="${tomcat.dist}/common/classes">
+      <fileset dir="${tomcat.build}/common/classes" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/endorsed">
+      <fileset dir="${tomcat.build}/common/endorsed" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/i18n">
+      <fileset dir="${tomcat.build}/common/i18n" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/lib">
+      <fileset dir="${tomcat.build}/common/lib" />
+    </copy>
+    <copy todir="${tomcat.dist}/conf">
+      <fileset dir="${tomcat.build}/conf">
+        <exclude name="MANIFEST.MF" />
+      </fileset>
+    </copy>
+    <copy todir="${tomcat.dist}/server/lib">
+      <fileset dir="${tomcat.build}/server/lib" />
+    </copy>
+    <copy todir="${tomcat.dist}/server/webapps">
+      <fileset dir="${tomcat.build}/server/webapps">
+        <exclude name="admin/**/*.jsp" />
+        <exclude name="admin/**/*.jspf" />
+        <exclude name="admin/WEB-INF/classes/**" />
+        <exclude name="admin/WEB-INF/src/**" />
+        <exclude name="manager/WEB-INF/classes/**" />
+        <exclude name="host-manager/WEB-INF/classes/**" />
+      </fileset>
+    </copy>
+<!--
+    <copy todir="${tomcat.dist}/shared/lib">
+      <fileset dir="${tomcat.build}/shared/lib" />
+    </copy>
+-->
+    <copy todir="${tomcat.dist}/webapps">
+      <fileset dir="${tomcat.build}/webapps">
+        <exclude name="**/balancer/WEB-INF/classes/**" />
+        <exclude name="**/ROOT/WEB-INF/classes/**" />
+        <exclude name="**/WEB-INF/src/**" />
+      </fileset>
+    </copy>
+
+    <!-- Correct permissions and line endings on "bin" scripts -->
+    <fixcrlf srcdir="${tomcat.dist}/bin"   includes="*.sh"  eol="lf"/>
+    <fixcrlf srcdir="${tomcat.dist}/bin"   includes="*.bat" eol="crlf"/>
+    <chmod      dir="${tomcat.dist}/bin"   includes="*.sh"  perm="+x"/>
+
+  </target>
+
+
+  <!-- ====================== DIST: Create Javadoc ======================== -->
+  <target name="dist-javadoc">
+  	<!--
+    <ant dir="${catalina.home}" target="dist-javadoc"/>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api">
+      <fileset dir="${catalina.build}/javadoc" />
+    </copy>
+    <ant dir="${jasper.home}" target="javadoc"/>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/jasper/docs/api"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/jasper/docs/api">
+      <fileset dir="${jasper.build}/javadoc" />
+    </copy>
+    -->
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/servletapi"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/servletapi">
+      <fileset dir="${api.home}/jsr154/dist/docs/api" />
+    </copy>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/jspapi"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/jspapi">
+      <fileset dir="${api.home}/jsr152/dist/docs/api" />
+    </copy>
+  </target>
+
+
+  <!-- ====================== DIST: Create Sources ======================== -->
+  <target name="dist-source">
+
+    <mkdir  dir="${tomcat.dist}/src"/>
+    <mkdir  dir="${tomcat.dist}/src/${api.project}"/>
+    <mkdir  dir="${tomcat.dist}/src/${tomcat.project}"/>
+    <mkdir  dir="${tomcat.dist}/src/${catalina.project}"/>
+    <mkdir  dir="${tomcat.dist}/src/${jtc.project}"/>
+    <mkdir  dir="${tomcat.dist}/src/${jasper.project}"/>
+    <mkdir  dir="${tomcat.dist}/src/${jasper.project}/jasper2"/>
+
+    <!-- Main build file -->
+    <copy todir="${tomcat.dist}/src">
+      <fileset dir="${basedir}/resources">
+        <include name="build.xml" />
+      </fileset>
+    </copy>
+
+    <!-- jakarta-tomcat-5 source -->
+    <copy todir="${tomcat.dist}/src/${tomcat.project}">
+      <fileset dir="${basedir}">
+        <exclude name="build/**"/>
+        <exclude name="dist/**"/>
+        <exclude name="release/**"/>
+        <exclude name="compat/**"/>
+        <exclude name="deployer/**"/>
+        <exclude name="embed/**"/>
+        <exclude name="build.properties"/>
+      </fileset>
+    </copy>
+
+    <!-- jakarta-servletapi-5 source -->
+    <copy todir="${tomcat.dist}/src/${api.project}">
+      <fileset dir="${api.home}">
+        <include name="jsr154/**"/>
+        <include name="jsr152/**"/>
+        <exclude name="**/build/**"/>
+        <exclude name="**/dist/**"/>
+        <exclude name="build.properties"/>
+      </fileset>
+    </copy>
+
+    <!-- jakarta-tomcat-5 source -->
+    <copy todir="${tomcat.dist}/src/${catalina.project}">
+      <fileset dir="${catalina.home}">
+        <exclude name="**/build/**"/>
+        <exclude name="**/dist/**"/>
+      </fileset>
+    </copy>
+
+    <!-- jakarta-tomcat-jasper source -->
+    <copy todir="${tomcat.dist}/src/${jasper.project}/jasper2">
+      <fileset dir="${jasper.home}">
+        <exclude name="**/build/**"/>
+        <exclude name="**/dist/**"/>
+      </fileset>
+    </copy>
+
+    <!-- jakarta-tomcat-connectors source -->
+    <copy todir="${tomcat.dist}/src/${jtc.project}">
+      <fileset dir="${jtc.home}">
+        <exclude name="coyote/build/**"/>
+        <exclude name="http11/build/**"/>
+        <exclude name="jk/build/**"/>
+        <exclude name="util/build/**"/>
+        <exclude name="webapp/**"/>
+        <exclude name="lib/**"/>
+        <exclude name="build.properties"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+  <!-- ====================== DIST: Create Archives ======================= -->
+  <target name="dist" depends="deploy,dist-static,dist-javadoc,embed"
+   description="Create binary distribution">
+  </target>
+
+
+  <!-- ================= DIST: Create Windows Installer =================== -->
+  <target name="installer"
+   description="Create Windows installer" if="execute.installer">
+    <echo message="Builds a Windows installer based on Nullsoft Installer"/>
+    <echo message="NSIS must be installed in the default directory"/>
+    <copy todir="${tomcat.dist}">
+      <fileset dir="resources" />
+    </copy>
+    <copy file="${nsis.installoptions.dll}" todir="${tomcat.dist}" />
+    <copy file="${nsis.nsexec.dll}" todir="${tomcat.dist}" />
+    <copy file="${jtc.home}/procrun/bin/tomcat5.exe" 
+        tofile="${tomcat.dist}/bin/tomcat5.exe" />
+    <copy file="${jtc.home}/procrun/bin/tomcat5w.exe" 
+        tofile="${tomcat.dist}/bin/tomcat5w.exe" />
+    <filter token="VERSION" value="${version}"/>
+    <filter token="VERSION_NUMBER" value="${version.number}"/>
+    <copy file="tomcat.nsi" tofile="${tomcat.dist}/tomcat.nsi" 
+     filtering="true"/>
+    <exec dir="${tomcat.dist}" executable="${nsis.exe}">
+      <arg value="/DNSISDIR=${nsis.home}" />
+      <arg value="tomcat.nsi" />
+    </exec>
+    <move file="${tomcat.dist}/tomcat-installer.exe" 
+     tofile="${tomcat.release}/v${version}/bin/${final.name}.exe" />
+  </target>
+
+
+  <!-- ==================== RELEASE: Create Release ======================= -->
+  <target name="release" depends="clean,dist,dist-source,prepare-release,installer,package-zip,package-tgz,package-embed-zip,package-embed-tgz,package-deployer-zip,package-deployer-tgz,package-compat-zip,package-compat-tgz,package-admin-zip,package-admin-tgz,package-src-zip,package-src-tgz,package-docs-tgz,clean-tester,run-tester"
+   description="Create a Tomcat 5 packaged distribution">
+
+    <filter token="VERSION" value="${version}"/>
+    <copy file="KEYS" 
+         todir="${tomcat.release}/v${version}"/>
+    <copy file="RELEASE-NOTES" 
+         todir="${tomcat.release}/v${version}"
+     filtering="true"/>
+    <copy file="resources/welcome.main.html" 
+        tofile="${tomcat.release}/v${version}/README.html"
+     filtering="true"/>
+    <copy file="resources/welcome.bin.html" 
+        tofile="${tomcat.release}/v${version}/bin/README.html"
+     filtering="true"/>
+
+  </target>
+
+  <target name="package-zip">
+    <zip zipfile="${tomcat.release}/v${version}/bin/${final.name}.zip">
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}">
+      	<include name="bin/**"/>
+     	<include name="common/**"/>
+     	<include name="conf/**"/>
+     	<include name="logs/**"/>
+     	<include name="server/**"/>
+     	<include name="shared/**"/>
+     	<include name="webapps/**"/>
+     	<include name="work/**"/>
+     	<include name="temp/**"/>
+     	<include name="LICENSE"/>
+     	<include name="NOTICE"/>
+     	<include name="README.txt"/>
+     	<include name="RELEASE-NOTES"/>
+     	<include name="RUNNING.txt"/>
+     	<include name="BENCHMARKS.txt"/>
+      	<exclude name="server/webapps/admin/**"/>
+      	<exclude name="conf/Catalina/localhost/admin.xml"/>
+      </zipfileset>
+    </zip>
+  </target>
+
+  <target name="package-embed-zip">
+    <zip zipfile="${tomcat.release}/v${version}/bin/${final.name}-embed.zip">
+      <zipfileset dir="${tomcat.embed}" prefix="${final.name}-embed" 
+                  includes="**" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-embed" 
+       includes="LICENSE" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-embed" 
+       includes="NOTICE" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-embed" 
+       includes="README.txt" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-embed" 
+       includes="RELEASE-NOTES" />
+    </zip>
+  </target>
+
+  <target name="package-deployer-zip">
+    <zip zipfile="${tomcat.release}/v${version}/bin/${final.name}-deployer.zip">
+      <zipfileset dir="${tomcat.deployer}" prefix="${final.name}-deployer" 
+                  includes="**" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-deployer" 
+       includes="LICENSE" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-deployer" 
+       includes="NOTICE" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-deployer" 
+       includes="README.txt" />
+      <zipfileset dir="${tomcat.dist}" prefix="${final.name}-deployer" 
+       includes="RELEASE-NOTES" />
+    </zip>
+  </target>
+
+	  <target name="package-compat-zip">
+	    <zip zipfile="${tomcat.release}/v${version}/bin/${final.name}-compat.zip">
+	      <zipfileset dir="${tomcat.compat}" prefix="${final.name}" 
+	                  includes="**" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="LICENSE" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="NOTICE" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="README.txt" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="RELEASE-NOTES" />
+	    </zip>
+	  </target>
+
+	  <target name="package-admin-zip">
+	    <zip zipfile="${tomcat.release}/v${version}/bin/${final.name}-admin.zip">
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}">
+	      	<include name="server/webapps/admin/**"/>
+	      	<include name="conf/Catalina/localhost/admin.xml"/>
+	        <exclude name="*.jsp" />
+	      </zipfileset>
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="LICENSE" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="NOTICE" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="README.txt" />
+	      <zipfileset dir="${tomcat.dist}" prefix="${final.name}" 
+	       includes="RELEASE-NOTES" />
+	    </zip>
+	  </target>
+
+  <target name="prepare-release">
+
+    <mkdir dir="${tomcat.release}"/>
+    <mkdir dir="${tomcat.release}/v${version}"/>
+    <mkdir dir="${tomcat.release}/v${version}/bin"/>
+    <mkdir dir="${tomcat.release}/v${version}/src"/>
+
+    <condition property="execute.installer">
+      <and>
+        <os family="windows" />
+        <available file="${nsis.exe}" />
+        <available file="${nsis.installoptions.dll}" />
+        <available file="${nsis.nsexec.dll}" />
+      </and>
+    </condition>
+
+  </target>
+
+  <target name="package-tgz">
+    <fixcrlf srcdir="${tomcat.dist}" 
+     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+    <fixcrlf srcdir="${tomcat.dist}/conf" eol="lf"/>
+    <tar longfile="gnu" compression="gzip"
+          tarfile="${tomcat.release}/v${version}/bin/${final.name}.tar.gz">
+      <tarfileset dir="${tomcat.dist}" mode="755" prefix="${final.name}">
+        <include name="bin/catalina.sh" />
+        <include name="bin/digest.sh" />
+        <include name="bin/jasper.sh" />
+        <include name="bin/jspc.sh" />
+        <include name="bin/setclasspath.sh" />
+        <include name="bin/startup.sh" />
+        <include name="bin/shutdown.sh" />
+        <include name="bin/tool-wrapper.sh" />
+        <include name="bin/tool-wrapper-using-launcher.sh" />
+        <include name="bin/shutdown-using-launcher.sh" />
+        <include name="bin/startup-using-launcher.sh" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.dist}" mode="600" prefix="${final.name}">
+        <include name="conf/**" />
+        <exclude name="conf/Catalina/localhost/admin.xml" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.dist}" prefix="${final.name}">
+        <include name="bin/**" />
+        <include name="common/**" />
+        <include name="logs/**" />
+        <include name="server/**" />
+        <include name="shared/**" />
+        <include name="temp/**" />
+        <include name="webapps/**" />
+        <include name="work/**" />
+        <include name="LICENSE" />
+        <include name="NOTICE" />
+        <include name="README.txt" />
+        <include name="RELEASE-NOTES" />
+        <include name="RUNNING.txt" />
+        <include name="BENCHMARKS.txt" />
+        <exclude name="bin/catalina.sh" />
+        <exclude name="bin/digest.sh" />
+        <exclude name="bin/jasper.sh" />
+        <exclude name="bin/jspc.sh" />
+        <exclude name="bin/setclasspath.sh" />
+        <exclude name="bin/startup.sh" />
+        <exclude name="bin/shutdown.sh" />
+        <exclude name="bin/tool-wrapper.sh" />
+        <exclude name="bin/tool-wrapper-using-launcher.sh" />
+        <exclude name="bin/shutdown-using-launcher.sh" />
+        <exclude name="bin/startup-using-launcher.sh" />
+        <exclude name="conf/**" />
+        <exclude name="src/**" />
+        <exclude name="server/webapps/admin/**" />
+      </tarfileset>
+    </tar>
+  </target>
+
+  <target name="package-embed-tgz">
+    <fixcrlf srcdir="${tomcat.dist}" 
+     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+    <fixcrlf srcdir="${tomcat.embed}" includes="*.xml" eol="lf"/>
+    <tar longfile="gnu" compression="gzip"
+          tarfile="${tomcat.release}/v${version}/bin/${final.name}-embed.tar.gz">
+      <tarfileset dir="${tomcat.dist}" prefix="${final.name}-embed">
+        <include name="LICENSE" />
+        <include name="NOTICE" />
+        <include name="README.txt" />
+        <include name="RELEASE-NOTES" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.embed}" prefix="${final.name}-embed">
+        <include name="**" />
+      </tarfileset>
+    </tar>
+  </target>
+
+  <target name="package-deployer-tgz">
+    <fixcrlf srcdir="${tomcat.dist}" 
+     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+    <fixcrlf srcdir="${tomcat.deployer}" includes="*.xml" eol="lf"/>
+    <tar longfile="gnu" compression="gzip"
+          tarfile="${tomcat.release}/v${version}/bin/${final.name}-deployer.tar.gz">
+      <tarfileset dir="${tomcat.dist}" prefix="${final.name}-deployer">
+        <include name="LICENSE" />
+        <include name="NOTICE" />
+        <include name="README.txt" />
+        <include name="RELEASE-NOTES" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.deployer}" prefix="${final.name}-deployer">
+        <include name="**" />
+      </tarfileset>
+    </tar>
+  </target>
+
+	  <target name="package-compat-tgz">
+	    <fixcrlf srcdir="${tomcat.dist}" 
+	     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+	    <tar longfile="gnu" compression="gzip"
+	          tarfile="${tomcat.release}/v${version}/bin/${final.name}-compat.tar.gz">
+	      <tarfileset dir="${tomcat.dist}" prefix="${final.name}">
+	        <include name="LICENSE" />
+	        <include name="NOTICE" />
+	        <include name="README.txt" />
+	        <include name="RELEASE-NOTES" />
+	      </tarfileset>
+	      <tarfileset dir="${tomcat.compat}" prefix="${final.name}">
+	        <include name="**" />
+	      </tarfileset>
+	    </tar>
+	  </target>
+
+	  <target name="package-admin-tgz">
+	    <fixcrlf srcdir="${tomcat.dist}" 
+	     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+	    <tar longfile="gnu" compression="gzip"
+	          tarfile="${tomcat.release}/v${version}/bin/${final.name}-admin.tar.gz">
+	      <tarfileset dir="${tomcat.dist}" prefix="${final.name}">
+	        <include name="LICENSE" />
+	        <include name="NOTICE" />
+	        <include name="README.txt" />
+	        <include name="RELEASE-NOTES" />
+	      </tarfileset>
+	      <tarfileset dir="${tomcat.dist}" prefix="${final.name}">
+	        <include name="server/webapps/admin/**" />
+	        <exclude name="*.jsp" />
+	      </tarfileset>
+	        <tarfileset dir="${tomcat.dist}" mode="600" prefix="${final.name}">
+	          <include name="conf/Catalina/localhost/admin.xml" />
+	        </tarfileset>
+	    </tar>
+	  </target>
+
+  <target name="package-docs-tgz">
+    <ant dir="${catalina.home}" target="dist-javadoc"/>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api">
+      <fileset dir="${catalina.build}/javadoc" />
+    </copy>
+    <ant dir="${jasper.home}" target="javadoc"/>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/jasper/docs/api"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/jasper/docs/api">
+      <fileset dir="${jasper.build}/javadoc" />
+    </copy>
+    <fixcrlf srcdir="${tomcat.dist}" 
+     includes="*.txt,LICENSE,NOTICE" eol="lf"/>
+    <tar longfile="gnu" compression="gzip"
+          tarfile="${tomcat.release}/v${version}/bin/${final.name}-fulldocs.tar.gz">
+      <tarfileset dir="${tomcat.dist}" prefix="tomcat-5.5-doc">
+        <include name="LICENSE" />
+        <include name="NOTICE" />
+        <include name="README.txt" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.dist}/webapps/tomcat-docs" prefix="tomcat-5.5-doc">
+        <include name="**" />
+      </tarfileset>
+    </tar>
+  </target>
+
+ <target name="package-src-zip">
+    <!-- Package Tomcat Source -->
+    <zip zipfile="${tomcat.release}/v${version}/src/${final-src.name}.zip">
+      <zipfileset dir="${tomcat.dist}/src" prefix="${final-src.name}" />
+    </zip>
+  </target>
+
+  <target name="package-src-tgz">
+    <!-- Package Tomcat Source -->
+    <fixcrlf srcdir="${tomcat.dist}" 
+     excludes="**/*.jar,**/*.gif,**/*.bmp,**/*.jpg,**/*.ico" eol="lf"/>
+    <tar longfile="gnu" compression="gzip" 
+          tarfile="${tomcat.release}/v${version}/src/${final-src.name}.tar.gz">
+      <tarfileset dir="${tomcat.dist}/src" mode="755" prefix="${final-src.name}">
+        <include name="${jtc.project}/jk/native/buildconf.sh" />
+        <include name="${jtc.project}/jk/native/apache-1.3/build-hpux-cc.sh" />
+        <include name="${jtc.project}/jk/native/apache-1.3/build-solaris.sh" />
+        <include name="${jtc.project}/jk/native/apache-1.3/build-unix.sh" />
+        <include name="${jtc.project}/jk/native/apache-2.0/build-unix.sh" />
+        <include name="${jtc.project}/jk/native/apache-2.0/install-unix.sh" />
+        <include name="${jtc.project}/jk/native/domino/mkini.sh" />
+      </tarfileset>
+      <tarfileset dir="${tomcat.dist}/src" prefix="${final-src.name}">
+        <exclude name="${jtc.project}/jk/native/buildconf.sh" />
+        <exclude name="${jtc.project}/jk/native/apache-1.3/build-hpux-cc.sh" />
+        <exclude name="${jtc.project}/jk/native/apache-1.3/build-solaris.sh" />
+        <exclude name="${jtc.project}/jk/native/apache-1.3/build-unix.sh" />
+        <exclude name="${jtc.project}/jk/native/apache-2.0/build-unix.sh" />
+        <exclude name="${jtc.project}/jk/native/apache-2.0/install-unix.sh" />
+        <exclude name="${jtc.project}/jk/native/domino/mkini.sh" />
+      </tarfileset>
+    </tar>
+  </target>
+
+  <!-- ==================== Download or build the required binary packages ==================== -->
+
+  <target name="download" depends="proxyflags" 
+          description="Download binary packages" >
+    <mkdir dir="${base.path}" />
+
+    <!-- commons-digester needs ../LICENSE -->
+    <!-- That is ugly XXX needs a review -->
+    <copy file="LICENSE" tofile="../LICENSE"/>
+    <copy file="LICENSE" tofile="${base.path}/LICENSE"/>
+
+    <!-- Downdown any sub package or tools needed. -->
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-beanutils.loc}"/>
+      <param name="destfile" value="${commons-beanutils.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-collections.loc}"/>
+      <param name="destfile" value="${commons-collections.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-el.loc}"/>
+      <param name="destfile" value="${commons-el.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-logging.loc}"/>
+      <param name="destfile" value="${commons-logging.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-modeler.loc}"/>
+      <param name="destfile" value="${commons-modeler.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${log4j.loc}"/>
+      <param name="destfile" value="${log4j.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-digester.loc}"/>
+      <param name="destfile" value="${commons-digester.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-fileupload.loc}"/>
+      <param name="destfile" value="${commons-fileupload.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <!-- xerces2 brings 2 files, test for one of them -->
+      <param name="sourcefile" value="${xerces.loc}"/>
+      <param name="destfile" value="${xml-apis.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${jmx.loc}"/>
+      <param name="destfile" value="${jmx.jar}"/>
+    </antcall>
+
+    <antcall target="downloadzip">
+      <param name="sourcefile" value="${junit.loc}"/>
+      <param name="destfile" value="${junit.jar}"/>
+      <param name="destdir" value="${base.path}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-launcher.loc}"/>
+      <param name="destfile" value="${commons-launcher.jar}"/>
+    </antcall>
+
+  	<!--
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-pool.loc}"/>
+      <param name="destfile" value="${commons-pool.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-dbcp.loc}"/>
+      <param name="destfile" value="${commons-dbcp.jar}"/>
+      <param name="destdir" value="${base.path}"/>
+    </antcall>
+    -->
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-httpclient.loc}"/>
+      <param name="destfile" value="${commons-httpclient.jar}"/>
+    </antcall>
+
+    <antcall target="downloadfile">
+      <param name="sourcefile" value="${nsis.loc}"/>
+      <param name="destfile" value="${nsis.exe}"/>
+      <param name="destdir" value="${nsis.home}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${struts.loc}"/>
+      <param name="destfile" value="${struts.jar}"/>
+    </antcall>
+    
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-daemon.loc}"/>
+      <param name="destfile" value="${commons-daemon.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${jaxen.loc}"/>
+      <param name="destfile" value="${jaxen.jar}"/>
+    </antcall>
+
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${saxpath.loc}"/>
+      <param name="destfile" value="${saxpath.jar}"/>
+    </antcall>
+
+    <!-- Build the dependencies that are not yet released -->
+    <antcall target="build-depends"/>
+
+  </target>
+
+  <target name="proxyflags">
+    <!-- check proxy parameters. -->
+    <condition property="useproxy">
+      <equals arg1="${proxy.use}" arg2="on" />
+    </condition>
+  </target>
+
+  <target name="setproxy"  if="useproxy">
+    <taskdef name="setproxy"
+      classname="org.apache.tools.ant.taskdefs.optional.net.SetProxy" />
+    <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/> 
+    <echo message="Using ${proxy.host}:${proxy.port} to download ${sourcefile}"/>
+  </target>
+
+  <target name="testexist">
+    <echo message="Testing  for ${destfile}"/>
+    <available file="${destfile}" property="exist"/>
+  </target>
+
+  <target name="testsrc">
+    <echo message="Testing  for ${destfile} versus ${cvs.base}/${location}/src"/>
+    <uptodate property="exist"
+              targetfile="${destfile}">
+      <srcfiles dir="${cvs.base}/${location}/src" includes="**" />
+    </uptodate>
+  </target>
+
+  <target name="downloadgz" unless="exist" depends="setproxy,testexist">
+    <!-- Download and extract the package -->
+    <get src="${sourcefile}" dest="${base.path}/file.tar.gz" />
+    <gunzip src="${base.path}/file.tar.gz" dest="${base.path}/file.tar"/>
+    <untar src="${base.path}/file.tar" dest="${base.path}"/>
+    <delete file="${base.path}/file.tar"/>
+    <delete file="${base.path}/file.tar.gz"/>
+  </target>
+
+  <target name="downloadzip" unless="exist" depends="setproxy,testexist">
+    <!-- Download and extract the package -->
+    <get src="${sourcefile}" dest="${base.path}/file.zip" />
+    <mkdir dir="${destdir}" />
+    <unzip src="${base.path}/file.zip" dest="${destdir}"/>
+    <delete file="${base.path}/file.zip"/>
+  </target>
+
+  <target name="downloadfile" unless="exist" depends="setproxy,testexist">
+    <!-- Download extract the file -->
+    <mkdir dir="${destdir}" />
+    <get src="${sourcefile}" dest="${destfile}" />
+  </target>
+
+  <target name="cvsbuild" unless="exist" depends="testsrc">
+    <!-- cvs checkout for all source should be done in "update" -->
+    <!-- build the distribution -->
+    <ant dir="${cvs.base}/${location}" target="dist">
+    </ant>
+    <mkdir dir="${subdir}" />
+    <copy todir="${subdir}" >
+      <fileset dir="${cvs.base}/${location}/dist" includes="**" />
+    </copy>
+  </target>
+
+  <target name="cvsbuild.old" unless="exist" depends="testexist">
+    <!-- cvs checkout and ant dist + copy of jar file -->
+    <echo message="cvs co ${location} ${cvstag} and ant dist in ${subdir}"/>
+    <mkdir dir="${base.path}/tmp"/>
+    <cvs cvsRoot="${cvsroot}"
+      tag="${cvstag}"
+      package="${location}"
+      dest="${base.path}/tmp"
+    />
+    <!-- the software is checked out in ${{base.path}/tmp/${location} -->
+    <move todir="${subdir}">
+      <fileset dir="${base.path}/tmp/${location}/"/>
+    </move>
+    <!-- now build the distribution -->
+    <ant dir="${subdir}" target="dist"/>
+  </target>
+
+  <target name="update"  depends="checkout" />
+
+  <target name="checkout" 
+          description="Update or checkout required sources from CVS">
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} jakarta-tomcat-catalina" 
+         dest="${cvs.base}"/>
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} jakarta-tomcat-jasper" 
+         dest="${cvs.base}"/>
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} jakarta-tomcat-connectors" 
+         dest="${cvs.base}"/>
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} jakarta-servletapi-5" 
+         dest="${cvs.base}"/>
+<!-- Use released daemon instead
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} ${commons-daemon.cvs.loc}"
+         dest="${cvs.base}"/>
+-->
+<!--
+    <cvs cvsroot="${cvsroot}" quiet="true"
+         command="checkout -P ${cvstag} ${commons-modeler.cvs.loc}" 
+         dest="${cvs.base}"/>
+-->
+  </target>
+
+
+  <!-- ==================== Modeler tricks ==================== 
+  -->
+  <target name="convert-mbeans" description="Hack: regenerate the ser form of the descriptors">
+    <path id="tomcatCP" >
+      <fileset dir="${tomcat.build}/common/lib" includes="*.jar"/>
+      <fileset dir="${tomcat.build}/server/lib" includes="*.jar" />
+    </path>
+    <taskdef resource="org/apache/commons/modeler/ant/ant.properties"
+             classpathref="tomcatCP" />
+
+    <mbeans-descriptors file="${catalina.home}/catalina/src/share/org/apache/catalina/mbeans/mbeans-descriptors.xml"
+              out="build/classes/org/apache/catalina/mbeans/mbeans-descriptors.xml.ser" />
+    <mbeans-descriptors file="${catalina.home}/catalina/src/share/org/apache/catalina/core/mbeans-descriptors.xml"
+              out="build/classes/org/apache/catalina/core/mbeans-descriptors.xml.ser" />
+    <mbeans-descriptors file="${catalina.home}/catalina/src/share/org/apache/catalina/valves/mbeans-descriptors.xml"
+              out="build/classes/org/apache/catalina/valves/mbeans-descriptors.xml.ser" />
+    <mbeans-descriptors file="${jtc.home}/coyote/src/java/org/apache/coyote/tomcat5/mbeans-descriptors.xml"
+              out="build/classes/org/apache/coyote/tomcat5/mbeans-descriptors.xml.ser" />
+  </target>
+
+  <target name="gumpy-build" description="HACK: to stop gumpy from nagging"
+       depends="prepare-release,dist,dist-source,installer,package-zip,package-tgz,package-src-zip,package-src-tgz" />
+
+</project>
