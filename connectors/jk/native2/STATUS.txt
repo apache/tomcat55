@@ -1,0 +1,26 @@
+JAKARTA TOMCAT CONNECTORS 2 (JK2) STATUS:			-*-text-*-
+Last modified at [$Date$]
+
+Release:
+
+    2.0.5   : in progress
+    2.0.4   : released March 29, 2004
+    2.0.3   : not released
+    2.0.2   : released November 27, 2002
+    2.0.1   : released October 6, 2002 
+    2.0.0   : released September 30, 2002 
+    
+RELEASE SHOWSTOPPERS:
+
+    
+    
+ 
+RELEASE NON-SHOWSTOPPERS BUT WOULD BE REAL NICE TO WRAP THESE UP:
+    
+    * Make the experimental service channel between connector and TC, that
+      will allow asynchronous communication, and will be used for various
+      management messages.
+
+STUFF FOR 2.1:
+
+    * Use the APR for as a System abstraction layer through the code.
