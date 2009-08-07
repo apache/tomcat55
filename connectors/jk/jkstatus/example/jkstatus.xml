@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @author Peter Rossbach -->
+
+<project name="status" 
+         default="status" basedir=".">
+
+    <property name="profile" value=""/>
+    <property file="jkstatus${profile}.properties"/>
+    <property file="jkstatus${profile}.properties.default"/>
+ 
+    <path id="jkstatus.path">
+      <pathelement location="${catalina.home}/bin/commons-logging-api.jar"/>
+      <pathelement location="${catalina.home}/server/lib/catalina-ant.jar"/>
+      <pathelement location="../dist/tomcat-jkstatus-ant.jar"/>
+      <pathelement location="${catalina.home}/server/lib/tomcat-util.jar"/>
+    </path>
+
+    <taskdef resource="org/apache/jk/status/jkstatus.tasks">
+       <classpath refid="jkstatus.path"/>
+    </taskdef>
+
+    <!--
+       ########################################################################################################
+       public
+       ########################################################################################################
+    -->   
+    <target name="status"
+            depends="-status-modjk-access" 
+            description="got jk status" />
+
+    <target name="reset"
+            depends="-status-modjk-reset" 
+            description="reset jk status" />
+    
+   <!--
+       ########################################################################################################
+       private
+       ########################################################################################################
+    -->   
+	  <target name="-status-modjk-access">
+	      <jkStatus url="${jkstatus.url}" 
+	                username="${jkstatus.username}"
+	                password="${jkstatus.password}"
+	                resultproperty="jkstatus.before"
+	      	        echo="on"
+	                failOnError="off"/>
+	      <echoproperties prefix="jkstatus" />           
+ 	      <jkUpdateWorker url="${jkstatus.url}" 
+	               username="${jkstatus.username}"
+	               password="${jkstatus.password}"
+	               loadbalancer="${jkstatus.testlb}"
+	               worker="${jkstatus.testworker}"
+	               domain="d20"
+	               />
+	      <jkUpdateLoadbalancer url="${jkstatus.url}" 
+	               username="${jkstatus.username}"
+	               password="${jkstatus.password}"
+	               loadbalancer="${jkstatus.testlb}"
+	      		   method="Sessions"
+	               />
+	      <jkStatus url="${jkstatus.url}" 
+	                username="${jkstatus.username}"
+	                password="${jkstatus.password}"
+	                resultproperty="workerafter"
+	                failOnError="false"/>
+	      <echoproperties prefix="jkstatus.after" />
+	   </target>        
+
+   <target name="-status-modjk-reset">
+      <jkStatus url="${jkstatus.url}" 
+                username="${jkstatus.username}"
+                password="${jkstatus.password}"
+                resultproperty="jkstatus.before"
+                failOnError="false"/>
+      <echoproperties prefix="jkstatus.before" />   
+        
+      <jkReset  url="${jkstatus.url}" 
+                username="${jkstatus.username}"
+                password="${jkstatus.password}"
+                loadbalancer="${jkstatus.testlb}"
+		        worker="${jkstatus.testworker}"
+       />
+
+       <jkStatus url="${jkstatus.url}" 
+                username="${jkstatus.username}"
+                password="${jkstatus.password}"
+                resultproperty="jkstatus.after"
+                failOnError="false"/>
+      <echoproperties prefix="jkstatus.after" />
+   </target>           
+
+	
+</project>
