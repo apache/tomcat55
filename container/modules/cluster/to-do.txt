@@ -1,0 +1,413 @@
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+==============================
+Next actions
+==============================
+
+- Membership coordinator logic and membership view Id.
+ 
+- Implement primary/secondary replication logic (fhanik)
+  Idea for implementation: Cookie stores info primary/backup node and hit counter.
+  Steps to implement: (coming soon)
+  Scenarios: 
+  1. Request in: new session dest: any
+  2. Request in: existing session dest: primary server
+  3. Request in: existing session dest: non-primary server (fail over)
+  4. Request in: existing session dest: backup server 
+  5. Backup node crash
+  6. Primary node crash (step 3)
+  7. Sequence 6. then 2. (hit counter)
+  8. Sequence 5. then 4. (swap)
+  9. New member joins 
+  10. Backup and primary crash -> death!
+  11. Sequence 2. in: invalid hit counter 
+  12. Sequence 4. in: invalid hit counter
+  13. Session expires
+  14. Sequence 3. then 13. on the old primary
+  
+  Notes:
+  Ability to add a custom "Session expired" redirect for global 
+  redirects to never forward an invalid session into the server
+  when the session data has gone lost.
+  Ie, in a normal scenario, the session is viewed as "new"
+  but they may wanna display a session expired redirect.
+  Security:
+  Dont store any sensitive info in the new cookie.
+  only pointers to members.
+
+  
+- break out membership/messaging module and improve JMX
+  The clustering code has become very cluttered.
+  We need to break out the membership and the messaging 
+  away from the logic of session handling and JMX.
+  The latter should be built on top of the clustering module, and not baked into it.
+  (maybe complete refactor for Tomcat 6)
+  Steps:
+  1. Build a group object, to allow sending of messages
+     The group object will handle encompass membership and 
+     messaging under one umbrella.
+  2. Enable group RPC
+     Through the group object, enable RPC style messaging
+     This should be used for message like state transfers, instead of waiting for a timeout.
+     RCP strategies - first response, majority response, all response
+  3. Group/Message interceptors - to perform logic such as fragmentation, ordering etc.
+  4. JMX  
+     JMX should be added on top of the core code, not inside the core code.
+     The idea of JMX as management should be added outside to the core components.
+     For example, SimpleTCPCluster should not contain JMX code, if I want to create
+     a different cluster class, I have to rewrite all the JMX code again.
+     Instead, create JMX beans that reference core components through interfaces.
+
+- Create stats object
+   Instead of keeping stats embedded in the code, make it reusable in
+   a shared component.
+
+- support CrossContext session replication
+    Idea: use endAccess to signal replicationValve that session from other app has changed.
+    refactor ReplicationValve 
+    When session is serialzed from other app, set right app classloader
+    endaccess is also send at CoyoteAdpater for context session as recycle the request
+- Add MbeanFactory to generate dynamic cluster at runtime.
+    Problem: How we can start those central services?
+    - StandardEngine support load Mbean from external file.     
+- when a lot of messages expire it comes to burst of messages 
+     - all 60 Sec when ManagerBase#processExpires is called a lot of messages are send!
+     - Better is to transfer a spezial epxire message with an array of expired session messages.
+     - This reduce message transfer and reduce waits for acks.
+     - complicated implementation thing , sessions expires when call isValid :-(     
+- build a tool that receive the stage and present it as simple web app.
+    	detect some problems
+    	different active sessions
+    	long queues
+    	detect long wait acks
+        Idea: Wrote a ant script with the new jmx tasks!
+        Optimzied information access:
+        	Create a MBean.attribute that store the complete cluster state 
+        	information inside one attribute from type TabularData and CompositeData!
+        	Implement as SimpleTcpCluster operation
+        	Cluster <CompositeData>
+        	  -- Attributes <SimpleType>
+        	  -- ClusterMembership
+        	      -- Attributes <SimpleType>
+        	      -- Members <CompositeType>
+        	         -- Attributes <SimpeType>
+        	  -- ClusterReceiver
+        	      -- Attributes <SimpleType>
+        	  -- ClusterSender
+        	      -- Attributes <SimpleType>
+        	      -- DataSenders <TabularData>
+        	         -- Sender <CompositeType>
+        	         	-- Attributes <SimpeType>
+        	         	-- (optional)Queue Stats <CompositeData>
+ 	       	         		-- Attributes <SimpeType>      	    
+- add cluster setup template (src)	
+- documentation
+	wrote a complete new how-to
+	add example configurations
+	add complete attribute descriptions
+	add JMX information
+	add deployment help
+	Need help (pero)
+- implement fragmentation of large replication objects
+  (note this will be done in the Group object, see top.)
+	Compress at message level - this will go away! instead there will be a GZip interceptor
+	Splitting Messages ala FarmDeployer war handling
+- add a message type to the message header.
+    - filtering at receiver that drop message before build Object
+    - define short type definition.
+       - Every Session message with differenz type
+       - type with String
+- add test cluster project
+	functional testing a lot of szenarios
+		differen replication mode
+		restart after failure
+		crash under load
+		compress and uncompressed
+    Junit test ( started)
+    automated regression testing with some standard configs
+    wrote a test client that can get a JMX State to verify the different cluster testszenarios
+	 - direct JSR 160 client - preferred option
+	 - via mx4j http adaptor ( xml protocol)
+	 - setup different szenarios
+	use new remote jmx ant tasks to grab information from mbeans 
+- filter all cluster messages 
+     - Filtering that no all message send to all member.
+     - Now with domain mode registeration session message only send to
+       members from same domain.
+- setup a Cluster LifecycleListener to send the cluster status! (monitoring)
+     - Make the compact state via JMX API avialable first.
+     - setup cluster Listener that send own state to spezial member (sender from a message like GET_ALL_SESSIONS)
+     - create a cluster status app (html/xml)
+         - attributes
+            - send message
+            - current members
+            - receive message
+            - active session at different clustered manager
+            - which app are clusters (registered managers)
+            - avg processing times
+         
+         - operations
+            - resetStats
+            - send a message (String)
+            - getDisplay state from other members??
+            - stop queue to send
+            - queue receiver message from some members ( later send after redeploying)
+            - configure some send parameters
+                 - keepalive
+                 - compress
+                 - wait for ack
+         - other things
+            - based on Cluster JMX API                     
+            - watch some values from complete cluster and display some graphs
+            - display the informations from all nodes
+            - display informations from other cluster domains
+            	via XML documents and http
+            - display stats as xml
+            - operation via JMX (MX4J adaptor)	    
+
+================
+problems
+================ 
+- How we can stop the request traffic when restart an application?
+    currently the jk 1.2.10 can only disable the complete loadbalancer,
+    but this detect only the new session request desicion.
+    Request with sessions marks send to tomcat. 
+    Fix: jk > 1.2.11 has a stopped flag, but then all application stop traffic
+    and session transfer from other nodes not stopped!!
+    	Stop MembershipService via JMX and after redeploying application,
+    	start MembershipService and restart the application Session Manager or send GETALL Session from backup?
+    	then enable apache worker again !! :-(
+    	easier stop tomcats, deploy new app and start again... 
+- Can't stop message replication for a spezial member and application
+   - this need a spezial cluster message and send filter at SimpleTcpCluster 
+- Don't generate cluster message when no member is at cluster!
+   - Register DeltaManager as Cluster LifecycleListener and stop cresting and sending
+   - Reduce memory consume when only local node is active
+   - Important feature when nodes crashed, and only one server exists under load...
+   
+==============================
+Nice to have:
+==============================
+- Replication ContextAttributes	
+- Configure the McastService no accept every member.
+	- receive a secret key
+	- have a allow or deny list like RequestFilterValve
+	- Also receiver don't accept request from not allowed members
+- ReplicationListener and SocketReplicationListener only accept data from cluster member (low level ip restriction)
+- PooledSocketSender
+	Add more stats
+	check all Pooled sender checkKeepAlive
+- Implement a NonSerializable interface for session attributes that do not
+wish to be replicated
+        Then we must have ClusterNonSerializable at common classloader
+- Extend StandardSession if possible
+- Implement context attribute replication (?)
+	pero:
+		Also send Start/Stop messages from Context to complete cluster!
+        With 5.5.10 you can wrote a Cluster Lifecycle Manager that do this.
+            Register for AFTER_MANAGERREGISTER_EVENT and AFTER_MANAGERUNREGISTER_EVENT
+            and also to the context ServletContextAttributeEvent Listener
+            Access the Context
+            	((Manager)event.getData()).getContainer()                     	
+- Fix farm deployment for 5.5
+   pero:
+     Every start all application are deployed only to all running cluster nodes
+     	New registered nodes don't get the applications!
+     	Deploy must send a GET_ALL_APP to all other Deployers.
+        FH: Correction, you should not send GET_ALL_APP to all deployers, only
+to the main one. Which could be another property of the Member object, it
+would not make sense to transfer the same webapp over and over again.
+     		Only watchEnabled Deployer send this member all deployed application.
+		pero:
+		   Yes very true, but currently we distribute also all wars from watch node at begining.
+		   Waiting to start other nodes is only change to not got these war's!
+		   I have made some experiments to register war deployment at new memberAdded to cluster.	   
+     Add JMX Support
+     	Resend Deployed Applications to all or one cluster node.
+     	Show all watch Resource
+     	Processing Time
+     	Change fileMessage Buffersize.
+     	Start/Stop Cluster wide application
+     Deployer and Watcher sync with engine background thread! 
+     	Fixed!		
+     Last FileMessage fragment need longe ackTimeout	
+    	<Cluster ..> <Sender ... ackTimeout="60000"/> </Cluster> 	
+- Change the cluster protocol that developer can add there own data serialzable/deserialzable format (high risk)
+  Note from Filip: Lets not do this, last attempt caused a broken clustering piece for 4 versions. 
+   Currently 
+   	header 		    6 bytes (FLT2002)
+    compressflag    4 byte
+   	data.length     4 bytes
+   	data, 
+   	end header      6 bytes (TLF2003)
+   	
+   Optimized to 
+      header 		2 bytes (TC)
+      type   		1 byte
+      compressflag  1 byte
+      data.length 	4 bytes, 
+      data | <real uncompressed data.length (4 bytes)> data
+      
+      "type" means user defined type and receiver extract bytes and type and sende it to callback
+      	s. ObjectReader or SocketObjectReader
+                       
+       compress     1
+       first data 4 data bytes are the real uncompressed data length. ( Is for better memory management atr recevier side, S. XByteBuffer)
+       
+   change at DataSender.writeData and XByteBuffer and add flexible handling to ClusterSender and ClusterReceiver
+   
+- Add single sign on support
+
+==============================   
+COMPLETED
+==============================
+5.5.16 (fhanik)
+- Extensive logging when a member crashes
+  When a member crashes and you use pooled socket mode then 
+  the logs are spewing out info.
+  Instead, now we only report one IOException if it happens, and 
+  mark the member as suspect.
+
+5.5.16 (fhanik)
+- Average message size
+  For my test application, the average message size has increased from
+  526 bytes per message to over 750 bytes per message from version 5.0.28 to 5.5.15.
+  Need to investigate why this is the case and where the 200+ extra bytes are coming from.
+  Fix: The default compress value had changed. The new default is that no compression is used.
+  To re-enable compression, <Sender compress="true" in the sender element.
+
+5.5.15 (pero)
+- Optimized getMembers access from McastMembership
+    Member list was copied at every access. (Used inside ReplicationValve.invoke)
+    SimpleTcpCluster need a alive time sorted array
+
+5.5.11 (pero)
+- MemoryUser principal from UserDatabaseRealm not handled to replicated 
+	- look inside DeltaRequest.setPrincipal(Principal,boolean)
+		 detected by Dirk de Kok (tomdev 16.8.2005)
+	- only GenericPrincipal from all other realms are handled well.
+    - change JAASRealm and UserDatabaseRealm that also used GenericPrincipal
+5.5.10 (pero)
+- Cluster config at engine level (user request 06/05)
+	 Register a cluster infrastructur for many vhosts
+	 configure backup systems!
+	 Add Cluster Element to digister		
+- add mapping sender mapping properties file (IDataSenderFactory)
+	- let advanced people eaiser implemented there own sender mode
+- We register different application with same name from different host?
+	SimpleTcpManager register manager with app name + hostname when Cluster is configured as Engine element.
+- Configured DeltaManager inside context
+	- SimpleTcpCluster setProperty and transferproperty reflect changes only to defaultMode managers
+    - Look inside SimpleTcpCluster.addManager and DeltaManager.start?
+- Session serialization eat memory but now we can send session messages with blocks...
+	When all sessions serialze after GET_ALL_SESSION is received following works
+	- find all sessions
+	- serialize a block or all sessions as byte array
+	- serialize the complete SessionMessageImpl to transfer message
+- WaitForAck mode and resend probleme
+   - Now message creator can configure resend and compress mode!
+- Add a default simple cluster config with good defaults and only
+  one cluster element inside server.xml. Setup with fastasyncmode.
+  Service Elements
+  	ReplicationTransmitter,
+  	SocketReplicationListener,
+  	McastService,
+  	ClusterSessionListener
+  	ReplicationValve
+  You can change property setting with SimpleTcpCluster prefix "sender.XXX, receiver.XXX, valve.XXX, listener.XXX, service.XXX"	
+- Fix resend GET_ALL_SESSIONS when wait ACK failed at receiver side
+- Fix that ClusterValve not remove when cluster stops 
+- Set timestamp only at first time inside SessionMessageImpl
+- Set timestamp from findsessions when handling GET_ALL_SESSION
+    - Set this timestamp to all SEND_SESSION_DATA and TRANSFER Complete messages
+    - Drop all received message inside GET_ALL_SESSION message queue (DeltaManager)    
+
+- Mcast Service as JMX MBean (change cluster domain at runtime)    
+- send cluster domain with mcast ping
+    - With sendClusterDomainOnly=true only session message from same domain are received
+    - Session only replicated to members from same domain, with sendClusterDomainOnly=false
+      at Sender (ReplicationTransmitter) session messages send to all members.
+    - GET ALL Session send to first member inside same cluster domain
+- better restart szenario at DeltaManager after failure restart (java service wrapper).
+   queue all other session events
+   as STATE Transfer Complete is received, dequeue all received sessions messages.   
+- restructure methods at DeltaManager
+- extract handleXXS methods for better DeltaManager subclassing.
+- split big get all sessions from one server into blocks of sessions and separate STATE Transfer message!
+- no complete sync sessions when GET ALL Sessions event is received.
+- add JMX API for ClusteRreceiver
+- ClusterReceiver is now Callback when message is received
+- SimpleTcpCluster only receive ClusterMessage (API change)
+       Redesign SimpleTcpCluster message receiving to ClusterReceiverBase:
+          - optimized data uncompressed
+          - better extendablity
+          - XByteBuffer only buffer bytes and don't uncompress.
+          - Add receiver JMX stats with new attribute 'Receiver.doReceivedProcessingStats'   
+          - optimized createManager and addManager that also can configured normal StandardManager 
+            to use cluster message transfer without replication.
+- add support to dynamic property transfer from SimpleTcpCluster to the Manager
+    like ReplicationTransmitter
+        All manager attributes can be configured:
+          - expireSessionsOnShutdown (false)
+          - notifySessionListenersOnReplication (true)
+          - notifyListenersOnReplication (true)
+          - maxActiveSessions (-1)
+          - timeoutAllSession (60 sec)
+          - sessionIdLength (16)
+          - processExpiresFrequency (6 - exipre all six engine background periodic event (60 sec))
+          - algorithm (MD5)
+          - entropy
+          - randomFile
+          - randomClass
+- Setup the cluster without SessionReplication Manager
+         Only a message bus.
+         Configure the bus with you ClusterListener and valves and a StandardManager         
+- reduce cpu and memory consume (Receiver)
+    - set new compress sender flag at default=false ( < CPU usage)
+    - Make compact algo 
+        currently message receive data is split at XbyteBuffer#extractPackage and
+        SimpleTcpCluster#messageDataReceived     
+- reduce memory and cpu consume (send message)
+    - set new compress sender flag at default=false ( < CPU usage)
+    - don't copy the buffer to add message header
+        transfer this from SimpleTcpCluster to DataSender pushMessage
+        successfull refactored
+    - make it possible that a subclass crypt the transfered messages
+       sub class ReplicationTransmitter and override createMessageData
+    - don't copy START and END Header for every message, instead send dirctly and DataSender.writeData.   
+- Add a flag for replicated attribute events, to enable or disable them 
+     Now can configued with notifyListenersOnReplication=false at SimpleTCPCluster
+     Also can drop HttpSessionLsitener events
+         can configued with notifySessionListenersOnReplication=false at SimpleTCPCluster
+- Refactoring DeltaManager
+- Transfer attributes from Cluster config to DeltaManager
+- Fix at 5.5.9 cluster hang bug! 
+- Add more Valve to direct cluster config
+- Add Lifecycle Listener support to direct cluster config
+- Add ClusterListener support to direct cluster config
+- Add new SocketReplicationListener
+- Add Stats to DeltaManager
+
+5.5.9  (pero)
+- JMX friendly
+    pero:  Add some MBeanSupport to SimpleTCPCluster, ReplicationTransmitter and Senders
+- Add Keep Alive and WaitForAck at async mode implementation.
+       Make this feature configurable to Sender element at server.xml
+       Is include with 5.5.8
+- Add support to new Async Mode from Rainer Jung
+       Integrated with 5.5.9
+       fastasyncqueue mode
+ 

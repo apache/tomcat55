@@ -1,0 +1,48 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<td align="right" nowrap>
+<div class="page-title-text">
+<controls:actions label="Role Actions">
+
+  <controls:action selected="true">
+    ----<bean:message key="actions.available.actions"/>----
+  </controls:action>
+
+  <controls:action>
+    ---------------------------------
+  </controls:action>
+
+  <controls:action url='<%= "/users/setUpRole.do?databaseName=" +
+       URLEncoder.encode(request.getParameter("databaseName"),"UTF-8") %>'>
+    <bean:message key="users.actions.role.create"/>
+  </controls:action>
+
+  <controls:action url='<%= "/users/listRoles.do?databaseName=" +
+       URLEncoder.encode(request.getParameter("databaseName"),"UTF-8") +
+       "&forward=" + URLEncoder.encode("Roles Delete List","UTF-8") %>'>
+    <bean:message key="users.actions.role.delete"/>
+  </controls:action>
+
+  <controls:action url='<%= "/users/listRoles.do?databaseName=" +
+       URLEncoder.encode(request.getParameter("databaseName"),"UTF-8") +
+       "&forward=" + URLEncoder.encode("Roles List","UTF-8") %>'>
+    <bean:message key="users.actions.role.list"/>
+  </controls:action>
+
+</controls:actions>
+</div>
+</td>

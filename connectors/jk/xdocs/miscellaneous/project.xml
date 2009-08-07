@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project name="Apache Tomcat Connector Documentation - Miscellaneous Documentation"
+        href="http://tomcat.apache.org/">
+
+    <title>The Apache Tomcat Connector - Miscellaneous Documentation</title>
+
+    <logo href="/images/tomcat.gif">
+      The Apache Tomcat Connector - Miscellaneous Documentation
+    </logo>
+<body>
+
+    <menu name="Links">
+        <item name="Docs Home"                  href="../index.html"/>
+    </menu>
+
+    <menu name="Reference Guide">
+        <item name="workers.properties"         href="../reference/workers.html"/>
+        <item name="uriworkermap.properties"    href="../reference/uriworkermap.html"/>
+        <item name="Status Worker"              href="../reference/status.html"/>
+        <item name="Apache"                     href="../reference/apache.html"/>
+        <item name="IIS"                        href="../reference/iis.html"/>
+    </menu>
+
+    <menu name="Generic HowTo">
+        <item name="For the impatient"          href="../generic_howto/quick.html"/>
+        <item name="All about workers"          href="../generic_howto/workers.html"/>
+        <item name="Timeouts"                   href="../generic_howto/timeouts.html"/>
+        <item name="Load Balancing"             href="../generic_howto/loadbalancers.html"/>
+        <item name="Reverse Proxy"              href="../generic_howto/proxy.html"/>
+    </menu>
+
+    <menu name="Webserver HowTo">
+        <item name="Apache"                     href="../webserver_howto/apache.html"/>
+        <item name="IIS"                        href="../webserver_howto/iis.html"/>
+        <item name="Netscape/SunOne/Sun"        href="../webserver_howto/nes.html"/>
+    </menu>
+
+    <menu name="AJP Protocol Reference">
+        <item name="AJPv13"                     href="../ajp/ajpv13a.html"/>
+        <item name="AJPv13 Extension Proposal"  href="../ajp/ajpv13ext.html"/>
+    </menu>
+
+    <menu name="Miscellaneous Documentation">
+        <item name="Frequently asked questions" href="../miscellaneous/faq.html"/>
+        <item name="Changelog"                  href="../miscellaneous/changelog.html"/>
+        <item name="Current Tomcat Connectors bugs"     href="http://issues.apache.org/bugzilla/buglist.cgi?query_format=advanced&amp;short_desc_type=allwordssubstr&amp;short_desc=&amp;product=Tomcat+Connectors&amp;long_desc_type=substring&amp;long_desc=&amp;bug_file_loc_type=allwordssubstr&amp;bug_file_loc=&amp;keywords_type=allwords&amp;keywords=&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;emailassigned_to1=1&amp;emailtype1=substring&amp;email1=&amp;emailassigned_to2=1&amp;emailreporter2=1&amp;emailcc2=1&amp;emailtype2=substring&amp;email2=&amp;bugidtype=include&amp;bug_id=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;cmdtype=doit&amp;order=Reuse+same+sort+as+last+time&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0="/>
+        <item name="Contribute documentation"   href="../miscellaneous/doccontrib.html"/>
+        <item name="JK Status Ant Tasks"        href="../miscellaneous/jkstatustasks.html"/>
+        <item name="Reporting Tools"            href="../miscellaneous/reporttools.html"/>
+        <item name="Old JK/JK2 documentation"   href="http://tomcat.apache.org/connectors-doc-archive/jk2/index.html"/>
+    </menu>
+
+    <menu name="News">
+        <item name="2009"                       href="../news/20090301.html"/>
+        <item name="2008"                       href="../news/20081001.html"/>
+        <item name="2007"                       href="../news/20070301.html"/>
+        <item name="2006"                       href="../news/20060101.html"/>
+        <item name="2005"                       href="../news/20050101.html"/>
+        <item name="2004"                       href="../news/20041100.html"/>
+    </menu>
+
+</body>
+</project>

@@ -1,0 +1,123 @@
+================================================================================
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+================================================================================
+
+$Id$
+
+                         =================================
+                         Apache Tomcat 5.5 Patch Proposals
+                         =================================
+
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=38743
+  Warn if the user tries to set an invalid property.
+  Port of http://svn.apache.org/viewvc?view=rev&revision=565464
+  http://people.apache.org/~markt/patches/2009-07-02-bug38743.patch
+  +1: markt
+   0: fhanik - big step for an old branch, could be risky, I'd wait until after next release if we consider it
+  -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39231
+  http://svn.apache.org/viewvc?rev=791900&view=rev
+  http://svn.apache.org/viewvc?rev=792446&view=rev (Filip's suggestion)
+  JAAS LoginContext expects a call to logout()
+  +1: markt, fhanik
+  -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39844
+  Port r588477 (fix for #43668) by billbarker that corrected this for Tomcat 6
+  http://people.apache.org/~markt/patches/2009-07-11-bug39844.patch
+  +1: markt
+  -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43327
+  Port from 6.0.x
+  Required to investigate 39997
+  http://people.apache.org/~markt/patches/2009-07-12-apr-ipv6.patch
+  +1: markt, kkolinko
+  -1: 
+  kkolinko: This patch is a backport of rev.697046
+    A comment in STATUS.txt there ([1]) says
+    "use trunk >=r690600 of TC-native", thus it requires
+    TC-native 1.1.15 or .16.
+    Do we need to update REQUIRED_PATCH, RECOMMENDED_PV
+    in AprLifecycleListener?
+    [1] http://svn.apache.org/viewvc/tomcat/tc6.0.x/trunk/STATUS.txt?r1=697046&r2=697045&pathrev=697046
+  markt: We should update recommended.
+
+* Minor cleanups for AccessLogValve classes
+  Reuses StringBuffer, uses char instead of single-char String, etc.
+  http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_ALV.patch
+  http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_FCALV.patch
+  +1: kkolinko
+  -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46967
+  Better handling of errors when trying to use Manager.randomFile
+  Based on a patch by Kirk Wolf
+  Also make behaviour consistent when using a security manager
+  http://svn.apache.org/viewvc?view=rev&revision=777567
+  +1: kkolinko, markt, rjung
+  -1: 
+  rjung: minus the generics
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41661
+  Thread safety issue in JspConfig.init() seen in production
+  http://svn.apache.org/viewvc?rev=795210&view=rev
+  +1: markt, kkolinko, rjung
+  -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46907
+  Debug logging should not cause input stream to be swallowed
+  http://svn.apache.org/viewvc?view=rev&revision=797168
+  +1: markt, kkolinko, rjung
+  -1: 
+
+* https://issues.apache.org/bugzilla/show_bug.cgi?id=47566
+  Update to NSIS 2.45
+  http://svn.apache.org/viewvc?rev=797596&view=rev
+  +1: kkolinko, rjung
+  -1:
+  kkolinko: Now it also requires the following patch, but I hope that
+  sourceforge.net will fix their error:
+    http://svn.apache.org/viewvc?rev=797600&view=rev
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41824
+  Need to use canonical rather than binary form when writing code
+  http://svn.apache.org/viewvc?rev=797607&view=rev
+  +1: markt, rjung
+  -1: 
+
+* Improve build.properties comment in ant build files.
+  Backport from trunk, only the part on build.xml.
+  http://svn.apache.org/viewvc?rev=797425&view=rev
+  +1: rjung, kkolinko
+  -1:
+  kkolinko: (
+    1. Comments are documentation, thus CTR is fine for them.
+    2. The phrase "See "build.properties.default" in the top level directory"
+    is a bit wrong here: here it is in the build directory, not in the top
+    level one.
+
+    3. There are two other files besides build/build.xml in 5.5:
+     a) build/resources/build.xml that is copied
+     the top level directory of sources archive at build time. See *-src.zip
+     file from a release.
+     b) webapps/docs/build.xml It is mentioned in the docs (in building.html).
+  )
