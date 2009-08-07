@@ -1,0 +1,30 @@
+README for jakarta-tomcat-connector
+
+$Id$
+
+Please see doc/mod_jk-howto.html for more verbose instructions
+
+* What is jakarta-tomcat-connector ?
+
+jakarta-tomcat-connector is a new project to release web-servers connector
+for the jakarta Tomcat servlet engine.
+
+This project didn't start from null since it reuse the latest code from
+mod_jk for the native parts and tomcat 3.3 for the java side of the 
+force.
+
+From mod_jk we gain :
+
+* A connector (plugin) for many Web Server, including
+  Apache HTTP Server, Netscape/IPLanet NES and Microsoft IIS
+  It also support JNI (and seems to used at least by IBM under 
+  AS/400 for Apache/WebSphere connectivity).
+  
+* Fault-tolerance and load-balancing. mod_jk use the concept of 
+  workers which handle a particular request, and a special worker
+  , the lb worker, is a group (cluster ?) of physical workers.
+
+* Direct access to Tomcat 3.2/3.3/4.0/4.1 servlet engine via ajp13
+  protocol. 
+
+* OK, then how do I build web-connector ? Just take a look at BUILDING
