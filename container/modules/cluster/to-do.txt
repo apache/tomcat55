@@ -1,0 +1,45 @@
+1. Fix farm deployment for 5.5
+   pero:
+     Every start all application are deployed only to all running cluster nodes
+     	New registered nodes don't get the applications!
+     	Deploy must send a GET_ALL_APP to all other Deployers.
+        FH: Correction, you should not send GET_ALL_APP to all deployers, only
+to the main one. Which could be another property of the Member object, it
+would not make sense to transfer the same webapp over and over again.
+     		Only watchEnabled Deployer send this member all deployed application.
+		pero:
+		   Yes very true, but currently we distribute also all wars from watch node at begining.
+		   Waiting to start other nodes is only change to not got these war's!
+		   I have made some experiments to register war deployment at new memberAdded to cluster.	   
+     Add JMX Support
+     	Resend Deployed Applications to all or one cluster node.
+     	Show all watch Resource
+     	Processing Time
+     	Change fileMessage Buffersize.
+     	Start/Stop Cluster wide application
+     Deployer and Watcher sync with engine background thread! 
+     	Fixed!		
+     Last FileMessage fragment need longe ackTimeout	
+    	<Cluster ..> <Sender ... ackTimeout="60000"/> </Cluster> 	
+2. Extend StandardSession if possible
+3. Implement primary/secondary replication logic
+4. Implement fragmentation of large replication objects
+5. Implement a NonSerializable interface for session attributes that do not
+wish to be replicated
+6. Implement context attribute replication (?)
+	pero:
+		Also send Start/Stop messages from Context to complete cluster!
+7. JMX friendly
+    pero:  Add some MBeanSupport to SimpleTCPCluster, ReplicationTransmitter and Senders
+8. Documentation
+9. Add a flag for replicated  attribute events, to enable or disable them -
+	pero:
+		Why different defaults from notifyListenersOnReplication at SimpleTcpCluster and DeltaManager exists?
+COMPLETED
+10. Add single sign on support
+11. Add Keep Alive and WaitForAck at async mode implementation.
+       Make this feature configurable to Sender element at server.xml
+       Is include with 5.5.8
+12. Add support to new Async Mode from Rainer Jung
+       Integrated with 5.5.9
+       

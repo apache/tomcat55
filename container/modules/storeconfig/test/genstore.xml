@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="store" default="store" basedir=".">
+
+     <target name="store">
+        <delete file="conf/catalina.keystore"/>
+		<genkey alias="tomcat" storepass="changeit" keypass="changeit" 
+			keystore="conf/catalina.keystore" keyalg="rsa">
+			<dname>
+				<param name="CN" value="localhost"/>
+				<param name="OU" value="Software Deveploment Tomcat"/>
+				<param name="O" value="Apache Foundation"/>
+				<param name="L" value="Bochum"/>
+				<param name="C" value="DE"/>
+			</dname>
+		</genkey>
+    </target>
+
+</project>

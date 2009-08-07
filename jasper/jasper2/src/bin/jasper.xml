@@ -1,0 +1,97 @@
+<!--
+
+  XML file for launching Jasper applications using the Launcher.
+
+  To run any of the applications in the JDB debugger, execute the Launcher with
+  a "-Ddebug=true" argument.
+
+  To run any of the applications in JPDA mode, execute the Launcher with a
+  "-Djpda=true" argument.
+
+-->
+
+<project name="Jasper Launcher" default="jspc" basedir=".">
+
+  <!-- Set the application home to the parent directory of this directory -->
+  <property name="jasper.home" location="${basedir}/.."/>
+
+  <!-- Import the user's custom properties -->
+  <property file="${jasper.home}/bin/jasper.properties"/>
+
+  <!-- Set user configurable properties -->
+  <property name="jasper.jvm.args" value=""/>
+  <property name="jasper.source.path" value="${jasper.home}/../../jakarta-servletapi-5/src/share:${jasper.home}/../../jakarta-tomcat-jasper/jasper2/src/share"/>
+
+  <!-- Build the classpath relative to the application home -->
+  <path id="base.class.path">
+    <fileset dir="${jasper.home}/common/lib" includes="*.jar"/>
+    <fileset dir="${jasper.home}/common/endorsed" includes="*.jar"/>
+    <fileset dir="${jasper.home}/shared/lib" includes="*.jar"/>
+    <pathelement location="${jasper.home}/shared/classes"/>
+  </path>
+
+  <!-- Build the sysproperties relative to the application home -->
+  <syspropertyset id="base.sys.properties">
+    <sysproperty key="java.endorsed.dirs" file="${jasper.home}/common/endorsed"/>
+    <sysproperty key="jasper.home" file="${jasper.home}"/>
+  </syspropertyset>
+
+  <!-- Build the standard jvmargs -->
+  <jvmargset id="base.jvm.args">
+    <jvmarg line="${jasper.jvm.args}"/>
+    <jvmarg value="-Xdebug" if="jpda.settings"/>
+    <jvmarg value="-Xrunjdwp:${jpda.settings}" if="jpda.settings"/>
+    <jvmarg value="-sourcepath" if="jdb"/>
+    <jvmarg path="${jasper.source.path}" if="jdb"/>
+  </jvmargset>
+
+  <!-- Target that sets JDB properties when the "debug" property is set -->
+  <target name="setjdb" description="Set JDB properties" if="debug">
+
+    <property name="jdb" value="true"/>
+
+  </target>
+
+  <!-- Target that sets JPDA properties when the "jpda" property is set -->
+  <target name="setjpda" description="Set JPDA properties" if="jpda">
+
+    <condition property="jpda.transport" value="dt_shmem">
+      <os family="windows"/>
+    </condition>
+    <condition property="jpda.transport" value="dt_socket">
+      <not>
+        <os family="windows"/>
+      </not>
+    </condition>
+    <condition property="jpda.address" value="jdbconn">
+      <equals arg1="${jpda.transport}" arg2="dt_shmem"/>
+    </condition>
+    <condition property="jpda.address" value="8000">
+      <not>
+        <equals arg1="${jpda.transport}" arg2="dt_shmem"/>
+      </not>
+    </condition>
+    <property name="jpda.suspend" value="y"/>
+    <property name="jpda.settings" value="transport=${jpda.transport},address=${jpda.address},server=y,suspend=${jpda.suspend}"/>
+
+  </target>
+
+  <!-- Target that executes the JSPC compiler-->
+  <target name="jspc" description="Execute JSPC compiler"
+    depends="setjdb,setjpda">
+
+    <!-- Launch JSPC compiler -->
+    <launch classname="org.apache.jasper.JspC"
+      debug="${jdb}"
+      print="${print}"
+      usesystemin="false"
+      requiretools="true">
+        <jvmargset refid="base.jvm.args"/>
+        <arg value="jspc"/>
+        <syspropertyset refid="base.sys.properties"/>
+        <classpath refid="base.class.path"/>
+    </launch>
+
+  </target>
+
+</project>
