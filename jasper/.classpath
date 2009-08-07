@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/share"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-logging-1.0.4/commons-logging-api.jar"/>
+	<classpathentry kind="var" path="ANT_HOME/lib/ant.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-el-1.0/commons-el.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/eclipse/plugins/org.eclipse.jdt.core_3.1.1.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/jsp-api-2.0/lib/jsp-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/servlet-api-2.4/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

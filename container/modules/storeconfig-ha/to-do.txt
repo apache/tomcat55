@@ -1,0 +1,9 @@
+1. Fix new connector properties and protocolhandler for 5.5 (testcases)
+	 Work!
+2. Fix context default handling (hard stuff)
+3. Check cluster transient attributes
+4. add documentation
+5. replace old server implementation instead current listener implementation
+6. Context path attribute handling ( delete at external context.xml and used inside server.xml!)
+7. Test with Admin App
+

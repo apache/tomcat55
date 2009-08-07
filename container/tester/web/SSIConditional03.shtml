@@ -1,0 +1,8 @@
+Before if block.
+<!--#set var="test" value="unquoted multi-word value" -->
+<!--#if expr="\"$test\" = unquoted multi-word value" -->
+test = "unquoted multi-word value"
+<!--#else -->
+test = not "unquoted multi-word value"
+<!--#endif -->
+After if block.
