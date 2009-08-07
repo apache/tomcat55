@@ -1,0 +1,45 @@
+TOMCAT CONNECTORS (JK) STATUS:			-*-text-*-
+Last modified at [$Date$]
+
+Release:
+
+    1.2.25  : released August 7, 2007
+    1.2.24  : released July 27, 2007, withdrawn August 2, 2007
+    1.2.23  : released May 18, 2007
+    1.2.22  : released April 17, 2007
+    1.2.21  : released March 1, 2007
+    1.2.20  : released December 10, 2006
+    1.2.19  : released September 17, 2006
+    1.2.18  : released July, 2006
+    1.2.17  : not released
+    1.2.16  : not released
+    1.2.15  : released November 8, 2005
+    1.2.14  : released July 13, 2005
+    1.2.13  : released May 16, 2005
+    1.2.12  : released May 7, 2005
+    1.2.11  : released April 29, 2005
+    1.2.10  : released March 30, 2005
+    1.2.9   : not released
+    1.2.8   : released December 24, 2004
+    1.2.7   : not released
+    1.2.6   : released July 23, 2004
+    1.2.5   : released September 30, 2003 
+    1.2.4   : released May 27, 2003
+    1.2.3   : released May 16, 2003
+    1.2.2   : released December 17, 2002
+    
+
+
+RELEASE SHOWSTOPPERS:
+
+    
+    
+ 
+RELEASE NON-SHOWSTOPPERS BUT WOULD BE REAL NICE TO WRAP THESE UP:
+    
+
+
+
+STUFF FOR THE FUTURE:
+
+    * enter mature phase ... ?

@@ -1,0 +1,54 @@
+# Defines for example NSAPI programs running under SOLARIS
+
+# Choose between the settings for gcc or Sun Studio compiler
+
+# gcc
+# If you get relocation errors, try:
+#   1. compiling with Sun's cc
+#   2. statically linking with libgcc
+#   3. Adjusting LD_LIBRARY_PATH to grab libgcc_s
+CC=gcc
+# For 64 Bit builds, add "-m64" to EXTRA_CFLAGS
+EXTRA_CFLAGS=-fPIC -pthread
+LDFLAGS=-shared
+
+# Sun Studio cc compiler
+#CC=cc
+# For 64 Bit builds, add "-xtarget=generic64" to EXTRA_CFLAGS
+#EXTRA_CFLAGS=-xcode=pic32 -mt
+#LDFLAGS=-G
+
+CC_CMD=$(CC) $(CFLAGS) $(EXTRA_CFLAGS) \
+	-DNET_SSL -DSOLARIS -D_REENTRANT -DXP_UNIX -DMCC_HTTPD -DSPAPI20
+
+LD_SHAREDCMD=$(CC) $(LDFLAGS) $(CFLAGS) $(EXTRA_CFLAGS)
+
+all:
+
+prepare:
+
+OS_TYPE=solaris
+INCLUDEDIR=$(SUITSPOT_HOME)/include
+JAVA_INCLUDE=$(JAVA_HOME)/include
+JK_DIR=../common
+VPATH=.:$(JK_DIR)
+
+JK_SRCS = $(shell \ls $(JK_DIR)/*.c)
+JK_OBJS = $(patsubst $(JK_DIR)/%.c,%.o,$(JK_SRCS))
+
+PLUGIN_OBJ = jk_nsapi_plugin.o
+
+INCLUDE_FLAGS=	-I$(JK_DIR) -I$(INCLUDEDIR) -I$(INCLUDEDIR)/base \
+		-I$(INCLUDEDIR)/frame -I$(JAVA_INCLUDE) -I$(JAVA_INCLUDE)/$(OS_TYPE)
+
+all: nsapi_redirector.so 
+
+
+nsapi_redirector.so: $(JK_OBJS) $(PLUGIN_OBJ)
+	$(LD_SHAREDCMD) $(JK_OBJS) $(PLUGIN_OBJ) -o nsapi_redirector.so $(EXTRA_LDDEFINES)
+
+clean:
+	rm -f *.o nsapi_redirector.so $(JK_OBJS)
+
+%.o : %.c
+	$(CC_CMD) $(INCLUDE_FLAGS) -c $<

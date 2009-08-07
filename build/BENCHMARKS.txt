@@ -1,0 +1,53 @@
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+Benchmarking Tomcat
+-------------------
+
+Tomcat benchmarks are more than welcome, and people who are interested are
+encouraged to post results.
+
+This guide is designed to be a FAQ on how to configure Tomcat for maximum
+performance.
+
+- Please upgrade to the latest available version of the Tomcat branch you
+  would like to benchmark. Small incremental performance improvements are often
+  made in each release.
+
+- Use the most recent JDK available whenever possible. Usually, results are
+  dependent on the JDK, so results obtained with different JDK should not be
+  compared directly.
+
+- When benchmarking Jasper, set it in production mode. To do that, add a
+  "development" init parameter (with value set to "false") in the Jasper
+  section of $CATALINA_HOME/conf/web.xml. This increases maximum throughtput
+  of JSPs by about 20%, as well as removing a synchronization point.
+
+- When benchmarking a web application which creates sessions on each request,
+  be careful about not exhausting memory by having too many active sessions. If
+  a max number of sessions is set in the manager to avoid memory problems, this
+  will lead to requests failing when session creation is denied. To avoid that,
+  either limit the total number of requests, or increase the JVM memory.
+
+- Do not enable access logging (unless that is required by the benchmark), 
+  or any debug log.
+
+- Please post the benchmark web application used along with the results, so
+  that people may attempt to reproduce the results.
+
+- Definition of a standard webapp workload may be desirable, and contibutors
+  interested in doing that are welcome to discuss it on the Tomcat developer
+  mailing list.
