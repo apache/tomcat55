@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="changelog.html">
+
+  &project;
+
+  <properties>
+    <author email="mturk@apache.org">Mladen Turk</author>
+    <title>Changelog</title>
+  </properties>
+
+<body>
+
+<section name="Preface">
+  <p>
+  This is the Changelog for Jakarta Tomcat Connectors. This changelog
+  does not contain all updates and fixes to the Tomcat connectors (yet).
+  It should contain fixes made only after November 10th 2004, when the
+  new documentation project for JK was started.
+  </p>
+</section>
+<section name="Changes from the released JK 1.2.14">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+        Fix lb for worker mpm's with cachesize set to lower number then
+        ThreadsPerChild is. If retries is set to value larger then 3 sleep for
+        100 ms on each attempt. This enables to tune the connection cache,
+        and serialize incoming connections instead returning busy if connection
+        count is larger then cachesize. (mturk)
+      </fix>
+      <fix>
+      <bug>36525</bug>: Solaris core dump. (mturk)
+      </fix>
+      <fix>
+      <bug>36102</bug>: Worker actions do not persist. (mturk)
+      </fix>
+      <fix>
+      <bug>35864</bug>: Status worker doesn't list workers.
+      Patch provided by Martin Goldhahn. (mturk)
+      </fix>
+      <fix>
+      <bug>35809</bug>: JkMountCopy don't work for Apache 2.0 Patch provided by
+       Christophe Dubach. (mturk)
+      </fix>
+      <fix>
+      <bug>35298</bug>: Multiple JK/ISAPI redirectors on a single IIS site are not supported
+       Patch provided by Tim Whittington. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes from the released JK 1.2.13">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      <bug>34397</bug>: Emergency was handled as Error. (jfclere)
+      </fix>
+      <fix>
+      <bug>34474</bug>: // in URL were not handled correctly with Apache-1.3. (jfclere)
+      </fix>
+      <fix>
+      Use 64 bits int for transferred/read bytes.
+      </fix>
+      <update>
+      Added JkOptions +FlushPackets used to optimize memory
+      usage when sending large data. (mturk)
+      </update>
+      <update>
+      Added lock directive for load balancer that allows more acurate
+      load balancing in case of burst load. (mturk)
+      </update>      
+      <update>
+      Added worker.maintain directive to allow customizing default 10
+      second timeout. On busy servers this value needs to be set on
+      higher value. (mturk)
+      </update>      
+      <fix>
+      Fix for NetWare compiler to deal with different types between AP13
+      and AP2 SDKs. (fuankg)
+      </fix>
+      <update>
+      Emit much more legible user.dmp crash analysis output for WIN32. (wrowe)
+      </update>      
+     <fix>
+     <bug>34558</bug>: Fix first failover request. (mturk)
+     </fix>
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Changes from the released JK 1.2.12">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added ForwardLocallAddres JkOptions flag for passing local instead remote
+      address. Useful for remote addr valve. (mturk)
+      </update>      
+     <fix>Fix that worker not used, when stopped flag is true. (pero)
+     </fix>
+      <update>
+      Add loadbalance default worker secret attribute to the documentation (pero)
+      </update>      
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Changes from the released JK 1.2.11">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>Backport SC_M_JK_STORED from JK2 for passing arbitrary
+      methods instead failing the request. (mturk)
+      </fix>
+      <fix>Added missing SEARCH and ACL http methods. (mturk)
+      </fix>
+      <update>
+      Add worker secret attribute to the documentation (pero)
+      </update>      
+      <update>
+      Add a stopped flag to worker configuration. Set flag True and 
+      complete traffic to worker is stopped.
+      Also update the Ant JkStatusUpdateTask at Tomcat 5.5.10 release.
+      Only usefull in a replicated session cluster.(pero)
+      </update>
+      <update>Added worker maintain function that will maintain all
+      the workers instead just the current one. This enables to recycle
+      the connections on all workers. (mturk)
+      </update>
+      <update>Use shutdown when recycling connections instead hard
+      breaking the socket. (mturk)
+      </update>
+      <update>Add unique directives checking. The directives if
+      unique are now overwritten instead concatenated. (mturk)
+      </update>
+      <update>Allow multiple worker.list directives. (mturk)
+      </update>
+      <fix>
+      <bug>34577</bug>: For IIS log original request instead loging
+      the request for ISAPI extension. (mturk)
+      </fix>
+      <fix>
+      <bug>34558</bug>: Make sure the returned status codes are the same
+      for ajp and lb workers. (mturk)
+      </fix>
+      <fix>
+      <bug>34423</bug>: Use APR_USE_FLOCK_SERIALIZE for setting log lock
+      on platforms like FreeBSD. Patch provided by Allan Saddi. (mturk)
+      </fix>
+      <fix>
+      <bug>33843</bug>: Fix obtaining LDFLAGS that were used for building
+      Apache HTTPD. Patch provided by Beat Kneubuehl. (mturk)
+      </fix>
+      <fix>
+      <bug>34358</bug>: Enable load balancer method configuration. (glenn)
+      </fix>
+      <fix>
+      <bug>34357</bug>: In some situations Apache 2 mod_jk could segfault
+      when the JkAutoAlias directive is used. (glenn)
+      </fix>
+      <update>
+        Add --enable-prefork to the documentation (pero)
+      </update>      
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes from the released JK 1.2.10">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>Set default shared memory to 64K instead 1M. (mturk)
+      </update>
+      <fix>Do not mark the worker in error state if headers are
+      larger then AJP13 limit. (mturk)
+      </fix>
+      <update>
+      On Series you should use the latest PTF for Apache 2.0
+      (which is now 2.0.52) and ad minima SI17402/SI17061 or cumulative
+      including them. (hgomez)
+      </update>
+      <update>
+      Change the xml status format to xml attribute syntax (pero)
+      </update>
+      <fix>
+      <bug>33248</bug>: Fix builds where apxs defines multiple
+      directories for APR includes. (mturk)
+      </fix>
+      <fix>
+      <bug>32696</bug>: Return 404 instead 403 when WEB-INF is requested
+      to comply with Servlet spec. (mturk)
+      </fix>
+      <update>Added ANT task for managing jkstatus. (pero)
+      </update>
+      <update>
+      If socket_timeout is set, check if socket is alive before
+      sending any request to Tomcat. (mturk)
+      </update>
+      <update>
+      Added JkMountFile for Apache web servers. This file can contain
+      uri mappings in the form (/url=worker), and is checked for
+      updates at regular 60 second interval. (mturk)
+      </update>
+      <update>
+      Added status worker for managing worker runtime data using
+      web page. (mturk)
+      </update>
+      <update>
+      Added load balancer method directive that is used for setting
+      the algorithm used for balancing workers. Method can be either
+      Request (default) or Traffic. (mturk)
+      </update>
+      <update>
+      Added shared memory to allow dynamic configuration. Shared memory
+      is needed only for unix platform and web servers having multiple
+      child processes. For Apache web server two new directives has been
+      added (JkShmFile and JkShmSize). (mturk)
+      </update>
+      <update>
+      Added textupdate mode to status worker to handle remote updates
+      from ant tasks.(pero)
+      </update>
+      <fix>
+      <bug>33562</bug>: Fix Reply_timeout when recovery_options
+      is larger than 1. Patch provided by Takashi Satou. (mturk)
+      </fix>
+      <fix>
+      <bug>33308</bug>: Fix segfaults when ForwardDirectories is enabled
+        with Apache 1.3
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes from the released JK 1.2.8">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Allow anyone to debug and diagnose stack dumps using windbg or any
+      other debugging tool, and (if they add the .pdb files to their
+      installation) to make sense of dr watson logs.
+      Patch provided by William A. Rowe (wrowe)
+      </update>
+      <fix>
+      Fix in_addr_t usage by using the real struct ignoring typedef.
+      Patch provided by William A. Rowe (wrowe)
+      </fix>
+      <fix>
+      Fix url rewriting by restoring the in place uri from which the
+      jsessionid was removed. (mturk)
+      </fix>
+      <update>
+      Make load balancer algorithm thread safe by introducing mutex
+      to the load balancer worker. (mturk)
+      </update>
+      <fix>
+      Fix sending error pages for IIS to client by adding Content-Type header
+      using correct api function call. (mturk)
+      </fix>
+      <fix>
+      <bug>32696</bug>: Prevent IIS from crushing when web-inf url was requested. (mturk)
+      </fix>
+      <update>
+      Use default cachesize for servers that support discovering the number of
+      threads per child process. (mturk).
+      </update>
+      <fix>
+      Fix Apache content-length header parsing using case insensitive compare. (billbarker)
+      </fix>
+      <fix>
+      Fix parsing AJP headers using case insensitive compare. (mturk)
+      </fix>
+      <fix>
+      Use infinite socket timeout if socket_timeout is set to zero or less then zero. (mturk)
+      </fix>
+      <update>
+      Change <b>balanced_workers</b> to <b>balance_workers</b> but keep
+      backward compatibility preserving the old directive. (mturk).
+      </update>
+      <fix>
+      Fix ajp initialization for workers with cache_size set to zero. (mturk)
+      </fix>
+      <update>
+      <bug>32317</bug>: Making mod_jk replication aware (Clustering Support).
+      Patch provided by Rainer Jung. (mturk).
+      </update>
+      <fix>
+      <bug>31132</bug>: Core dump when JkLogFile is missing from conf. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes from the released JK 1.2.6">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added new property named recover_time that can be used to change the
+      default 60 second recover time. (mturk)
+      </update>
+      <update>
+      Added custom retries for worker, so we don't depend on default setting.
+      If set to a number grater then 3, it will sleep for 100ms on retry greater
+      then 3 and then try again. (mturk)
+      </update>
+      <update>
+      Added JkWorkerProperty directive that enables omiting workers.properties file.
+      For example: JkWorkerProperty worker.ajp13a.port=8009. (mturk)
+      </update>
+      <fix>
+      Check all JSESSIONID cookies for a valid jvmRoute. If you have multiple Tomcats
+      with overlapping domains, then you can get multiple cookies without a defined order.
+      This will route correctly as long as the different domains don't have any
+      Tomcats in common. (billbarker)
+      </fix>
+      <update>
+      Added JkUnMount directive for negative mappings that works as opposite to JkMount directives.
+      It is used for blocking of particular URL or content type. (mturk)
+      </update>
+      <update>
+      Added wildchar match uri mappings. One can now use JkMount to
+      map /app/*/servlet/* or /app?/*/*.jsp. (mturk)
+      </update>
+      <update>
+      Rewrite the logging by adding Trace options. (mturk)
+      </update>
+      <update>
+      Added socket_timeout property that sets the timeout
+      for the socket itself. (mturk)
+      </update>
+      <fix>
+      Changed socket_timeout property to recycle_timeout. This better
+      explains what the directive actually does. (mturk)
+      </fix>
+      <fix>
+        Changed the load balancer algorithm.
+        The idea behind this new scheduler is the following:
+        lbfactor is <i>how much we expect this worker to work</i>,
+        or <i>the worker's work quota</i>.
+        lbstatus is <i>how urgent this worker has to work to fulfill its quota
+        of work</i>. We distribute each worker's work quota to the worker, and then look
+        which of them needs to work most urgently (biggest lbstatus).  This
+        worker is then selected for work, and its lbstatus reduced by the
+        total work quota we distributed to all workers.  Thus the sum of all
+        lbstatus does not change.(*)
+        If some workers are disabled, the others will
+        still be scheduled correctly. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="JK 2">
+<p>JK2 has been put in maintainer mode and no further development will take place.
+The reason for shutting down JK2 development was the lack of developers interest.
+Other reason was lack of users interest in adopting JK2, caused by configuration
+complexity when compared to JK.
+</p>
+</section>
+
+</body>
+</document>

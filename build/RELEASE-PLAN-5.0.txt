@@ -1,0 +1,70 @@
+$Id$
+
+                      Release Plan for Apache Tomcat 5.0
+                      ==================================
+
+
+Introduction:
+------------
+
+This document is a release plan for the final release of Apache Tomcat 5.0.
+
+The goal of the Apache Tomcat 5.0 final release is to provide a stable
+container that supports 100% of the mandatory requirements of the Servlet 2.4
+and JSP 2.0 specifications, as well as to improve and add many useful 
+additional features on top of the existing Apache Tomcat 4.1.x releases.
+
+Apache Tomcat 5.0 includes the following major new features over 
+Apache Tomcat 4.1:
+
+    * Performance optimizations and reduced garbage collection
+    * Refactored application deployer, with an optional standalone deployer 
+      allowing validation and compilation of a web application before putting 
+      it in production
+    * Complete server monitoring using JMX and the manager web application
+    * Scalability and reliability enhancements
+    * Improved Taglibs handling, including advanced pooling and tag plugins
+    * Improved platform integration, with native Windows and Unix wrappers
+    * Embedding of Tomcat using JMX
+    * Expanded documentation
+
+Apache Tomcat 5.0 will use the build numbering and release process first used 
+in the Apache HTTPd 2.0.x project.
+Milestone builds, numbered 5.0.x, will be released as needed and will 
+recieve a stability rating after a one week testing period. The rating can be
+either: Alpha, Beta, or Stable.
+
+This Release Plan proposes the following prospective target dates 
+for stability:
+
+  Middle of August, 2003
+  ----------------------
+
+Tomcat 5.0 should reach Beta status by this date.
+
+  Servlet 2.4 and JSP 2.0 Final Specification Releases (expected by 09/2003)
+  ----------------------------------------------------
+
+At least another Beta rated release should be made simultaneous to the release
+of the specification.
+
+  Two to four weeks after Final Specification Releases
+  ----------------------------------------------------
+
+Best effort should be made for Tomcat 5.0 to reach Stable status as soon as
+possible after the specification releases. However, it should be pointed out 
+that wide testing cannot occur before the specifications are released, so
+a Stable release should only be made after a period of time.
+
+In order to complete a first Stable release, all outstanding Bugzilla bug 
+reports against Tomcat 5.0 above NORMAL severity need to be fixed or deferred 
+for later releases.
+
+This Release Plan proposes the following classification of current outstanding
+bug reports in the bug tracking system, sorted by component and their ID
+numbers in our bug tracking system at:
+
+http://nagoya.apache.org/bugzilla/
+
+Please review the bug reports, and their severity accordingly. 
+

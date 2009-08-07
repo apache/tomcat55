@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="workers.html">
+
+    &project; 
+
+    <properties>
+        <author email="mturk@apache.org">Mladen Turk</author>
+        <title>workers.properties configuration</title>
+    </properties>
+
+<body>
+
+<section name="Introduction">
+<br/>
+<p>
+A <b>Tomcat worker</b> is a Tomcat instance that is waiting to execute servlets or any other content
+on behalf of some web server. For example, we can have a web server such as
+Apache forwarding servlet requests to a Tomcat process (the worker) running behind it.
+</p>
+<p>
+The scenario described above is a very simple one; 
+in fact one can configure multiple Tomcat workers to serve servlets on 
+behalf of a certain web server. 
+The reasons for such configuration can be:
+</p>
+<ul>
+<li>
+We want different contexts to be served by different Tomcat workers to provide a 
+development environment where all the developers share the same web server but
+own a Tomcat worker of their own.
+</li>
+<li>
+We want different virtual hosts served by different Tomcat processes to provide a 
+clear separation between sites belonging to different companies.
+</li>
+<li>
+We want to provide load balancing, meaning run multiple Tomcat workers each on a 
+machine of its own and distribute the requests between them.
+</li>
+</ul>
+
+<p>
+There are probably more reasons for having multiple workers but I guess that this list is enough...
+Tomcat workers are defined in a properties file dubbed <b>workers.properties</b> and this tutorial 
+explains how to work with it.
+</p>
+</section>
+ 
+<section name="Directives">
+<br/>
+<p>Each workers.properties directive consists of three words separated by dot. The first word is always
+<b>worker</b>. The second word is the worker name that can be any name. The worker name reflects the
+name of the <b>jvmRoute</b> defined in Tomcat's server.xml configuration file.
+</p>
+<p>
+<warn>
+The name of the worker can contain only the alphanumeric characters <b>[a-z][A-Z][0-9]</b> and is case insensitive.
+</warn>
+</p>
+
+<subsection name="Defining workers">
+<br/>
+<p>The generic workers.properties directive is in the form:</p>
+<p><strong>worker.&lt;worker name&gt;.&lt;directive&gt;=&lt;value&gt;</strong></p>
+<p>Defining workers to the Tomcat web server plugin can be done using a properties file
+(a sample file named workers.properties is available in the conf/ directory).
+</p>
+<directives>
+<directive name="worker.list" default="ajp13" required="true">
+A comma separated list of workers names that the JK will use. When starting up,
+the web server plugin will instantiate the workers whose name appears in the
+worker.list property, these are also the workers to whom you can map requests. 
+</directive>
+<directive name="worker.maintain" default="60" required="false">
+Worker connection pool maintain timeout in seconds. If set to the positive
+value JK will scan all connections for all workers specified in worker.list
+directive and check if connections needs to be recycled.
+<p>
+This feature has been added in <b>jk 1.2.13</b>.
+</p>
+</directive>
+</directives>
+</subsection>
+
+<subsection name="Mandatory directives">
+<br/>
+<p>Mandatory directives are the one that each worker <b>must</b> contain. Without them the worker will
+be unavailable or will misbehave.
+</p>
+<directives>
+<directive name="type" default="ajp13" required="true">
+Type of the worker (can be one of ajp13, ajp14, jni, lb or status). The type of the worker
+defines the directives that can be applied to the worker.
+<p>AJP13 worker is the preferred worker type that JK uses for communication
+between web server and Tomcat. This type of worker uses sockets as communication
+channel. For detailed description of the AJP13 protocol stack browse to
+<a href="../common/ajpv13a.html">AJPv13 protocol specification</a>
+</p>
+</directive>
+</directives>
+</subsection>
+
+<subsection name="Connection directives">
+<p>Connection directives defines the parameters needed to connect and maintain
+the connections pool of persistent connections between JK and remote Tomcat.
+</p>
+<directives>
+
+<directive name="host" default="localhost" required="false">
+Host name or IP address of the backend Tomcat instance. The remote Tomcat must
+support the ajp13 protocol stack. The host name can have a <b>port</b> number
+embedded separated by the colon (':') character.
+</directive>
+
+<directive name="port" default="8009" required="false">
+Port number of the remote Tomcat instance listening for defined protocol requests.
+The default value depends on the worker type. For AJP13 workers the default port is
+<b>8009</b>, while for AJP14 type of worker that value is <b>8011</b>.
+</directive>
+
+<directive name="socket_timeout" default="0" required="false">
+Socket timeout in seconds used for communication channel between JK and remote host.
+If remote host does not respond inside that timeout the JK will generate an error,
+and retry again. If set to value zero (default) the JK will wait for infinite
+on all socket operations.
+</directive>
+
+<directive name="socket_keepalive" default="False" required="false">
+This directive should be used when you have a firewall between your webserver
+and the Tomcat engine, who tend to drop inactive connections. This flag will told Operating System
+to send <code>KEEP_ALIVE</code> message on inactive connections (interval depend on global OS settings,
+generally 120ms), and thus prevent the firewall to cut the connection.
+To enable keepalive set this property value to the number greater then <b>0</b>.
+<p>
+The problem with Firewall cutting inactive connections is that sometimes, neither webserver or tomcat
+have information about the cut and couldn't handle it.
+</p>
+</directive>
+
+<directive name="recycle_timeout" default="0" required="false">
+The number of seconds that told webserver to cut an ajp13 connection after some time of 
+inactivity. When choosing an endpoint for a request and the assigned socket is open, it will be
+closed if it was not used for the configured time.
+It's a good way to ensure that there won't too old threads living on Tomcat side, 
+with the extra cost you need to reopen the socket next time a request be forwarded.
+This property is very similar to <b>cache_timeout</b> but works also in non-cache mode.
+If set to value zero (default) no recycle will took place. 
+</directive>
+
+<directive name="retries" default="3" required="false">
+The number of retries that the worker will try in case of error returned from remote
+Tomcat. If the number of retries set is greater then three (the default value), on
+each retry after default an extra wait of 100ms will be inserted.
+</directive>
+
+<directive name="cachesize" default="1" required="false">
+Cachesize defines the number of connections made to the AJP backend that
+are maintained as a connection pool.
+It will limit the number of those connection that each web server child
+process can made.
+<p>
+Cachesize property is used only for multi threaded 
+web servers such as Apache 2.0 (worker), IIS and Netscape. The cachesize property
+should reflect the number of threads per child process. JK will discover
+the number of threads per child process on Apache 2 web server with worker-mpm and set
+its default value to match the ThreadsPerChild Apache directive. For IIS the default
+value is 10. For other web servers this value has to be set manually.
+</p>
+<warn>Do not use cachesize with values higher then 1 on <b>Apache 2.x prefork</b> or <b>Apache 1.3.x</b>!</warn>
+</directive>
+
+<directive name="cache_timeout" default="0" required="false">
+Cache timeout property should be used with <b>cachesize</b> to specify how to time JK should keep
+an open socket in cache before closing it. This property should be used to reduce the number of threads 
+on the Tomcat WebServer.
+<p> 
+Each child could open an ajp13 connection if it have to forward a request to Tomcat, creating
+a new ajp13 thread on Tomcat side.
+</p>
+<p>
+The problem is that after an ajp13 connection is created, the child won't drop it
+until killed. And since the webserver will keep its childs/threads running
+to handle high-load, even it the child/thread handle only static contents, you could
+finish having many unused ajp13 threads on the Tomcat side.
+</p>. 
+</directive>
+
+<directive name="lbfactor" default="1" required="false">
+Integer number used when the worker will be used inside load balancer worker,
+this is the load-balancing factor for the worker.
+The load-balancing factor is <i>how much we expect this worker to work</i>, or
+<i>the worker's work quota</i>. Load balancing factor is compared with other workers
+that makes the load balancer. For example if one worker has lb_factor 5 times higher then
+other worker, then it will receive five times more requests. 
+</directive>
+
+</directives>
+</subsection>
+
+<subsection name="Load balancing directives">
+<br/>
+<p>Load balancer is a virtual worker that does not really communicate with Tomcat workers.
+Instead it is responsible for the management of several "real" workers.
+The worker is supposed to be a load balancer if it's worker type is <b>lb</b>.
+See worker's <b>type</b> directive. The workers that
+are member of load balancer must not appear in the <b>worker.list</b> directive.
+</p>
+<p>Loadbalancer directives defines the parameters needed to create a workers that are
+connecting to a remote cluster of backend Tomcat servers. Each cluster node has to
+have a worker defined.
+</p>
+<p>
+Load balancer management includes:
+</p>
+
+<ul>
+<li>
+Instantiating the workers in the web server.
+</li>
+<li>
+Using the worker's load-balancing factor, perform weighed-round-robin load balancing where 
+high lbfactor means stronger machine (that is going to handle more requests)
+</li>
+<li>
+Keeping requests belonging to the same session executing on the same Tomcat worker.
+</li>
+<li>
+Identifying failed Tomcat workers, suspending requests to them and instead fall-backing on 
+other workers managed by the lb worker.
+</li>
+</ul>
+
+<p>
+The overall result is that workers managed by the same lb worker are load-balanced
+(based on their lbfactor and current user session) and also fall-backed so a single
+Tomcat process death will not "kill" the entire site.
+The following table specifies properties that the lb worker can accept:
+</p>
+
+<directives>
+<directive name="balance_workers" default="" required="true">
+A comma separated list of workers that the load balancer
+need to manage.
+<p>
+This directive replaces old <b>balanced_workers</b> directive and
+can be used only with mod_jk versions 1.2.7 and up.
+</p>
+<warn>These workers should <b>not</b> appear in the worker.list property!</warn>
+</directive>
+
+<directive name="sticky_session" default="True" required="false">
+Specifies whether requests with SESSION ID's should be routed back to the same
+Tomcat worker. If sticky_session is set to <b>True</b> or <b>1</b> sessions are sticky, otherwise
+sticky_session is set to <b>False</b>. Set sticky_session to <b>False</b> when Tomcat
+is using a Session Manager which can persist session data across multiple
+instances of Tomcat. By default sticky_session is set to True.
+</directive>
+
+<directive name="sticky_session_force" default="False" required="false">
+Specifies whether requests with SESSION ID's for workers that are in error state
+should be rejected. If sticky_session_force is set to <b>True</b> or <b>1</b>
+and the worker that matches that SESSION ID is in error state, client will
+recieve 500 (Server Error). If set to <b>False</b> or <b>0</b> failover on
+another worker will be issued with loosing client session. This directive is
+used only when you set <b>sticky_session=True</b>.
+<p>
+This feature has been added in <b>jk 1.2.9</b>.
+</p>
+</directive>
+
+<directive name="method" default="Request" required="false">
+Specifies what method load balancer is using for electing best worker.
+If method is set to <b>R[equest]</b> balancer will use number of requests
+to find the best worker. If set to <b>T[raffic]</b> balancer will use
+the network traffic between JK and Tomcat to find the best worker.
+<p>
+This feature has been added in <b>jk 1.2.9</b>.
+</p>
+</directive>
+
+<directive name="lock" default="Optimistic" required="false">
+Specifies what lock method the load balancer will use for synchronizing
+shared memory runtime data.
+If lock is set to <b>O[ptimistic]</b> balancer will not use shared memory lock
+to find the best worker. If set to <b>P[essimistic]</b> balancer will use
+shared memory lock. The balancer will work more accurately in case of
+Pessimistic locking, but can slow down the average response time.
+<p>
+This feature has been added in <b>jk 1.2.13</b>.
+</p>
+</directive>
+
+<directive name="secret" default="" required="false">
+Set a default secret word for all defined workers. 
+See worker secret attribute description for more info.
+<p>
+This feature has been added in <b>jk 1.2.12</b>.
+</p>
+</directive>
+
+</directives>
+
+</subsection>
+
+<subsection name="Status Worker directives">
+<br />
+<p>
+The status worker does not communicate with Tomcat.
+Instead it is responsible for the load balancer management. 
+</p>
+<directives>
+<directive name="css" default="" required="false">
+Specifies the url for cascading stylesheet to use.
+</directive>
+</directives>
+</subsection>
+
+<subsection name="Advanced worker directives">
+<br />
+<directives>
+<directive name="connect_timeout" default="0" required="false">
+Connect timeout property told webserver to send a PING request on ajp13 connection after 
+connection is established. The parameter is the delay in milliseconds to wait for the PONG reply.
+<p>
+This features has been added in <b>jk 1.2.6</b> to avoid problem with hung tomcat's and require ajp13 
+ping/pong support which has been implemented on Tomcat <b>3.3.2+, 4.1.28+ and 5.0.13+</b>.
+Disabled by default.
+</p>
+</directive>
+
+<directive name="prepost_timeout" default="0" required="false">
+Prepost timeout property told webserver to send a PING request on ajp13 connection before 
+forwarding to it a request. The parameter is the delay in milliseconds to wait for the PONG reply.
+<p>
+This features has been added in <b>jk 1.2.6</b> to avoid problem with hung tomcat's and require ajp13 
+ping/pong support which has been implemented on <b>Tomcat 3.3.2+, 4.1.28+ and 5.0.13+</b>.
+Disabled by default.
+</p>
+</directive>
+
+<directive name="reply_timeout" default="0" required="false">
+Reply_timeout property told webserver to wait some time for reply to a forwarded request
+before considering the remote tomcat is dead and eventually switch to another tomcat in a cluster
+group. By default webserver will wait forever which could be an issue for you.
+The parameter is the number of milliseconds to wait for reply, so adjust it carefully if you 
+have long running servlets.
+<p>
+This features has been added in <b>jk 1.2.6</b> to avoid problem with hung tomcat's and works on all
+servlet engines supporting ajp13.
+Disabled by default.
+</p> 
+</directive>
+
+<directive name="recovery_options" default="0" required="false">
+Recovery options property told webserver how to handle recovery when
+it detect that tomcat failed.
+By default, webserver will forward the request to another tomcat in LB mode
+(or to another ajp thread in ajp13 mode).
+values are : 0 (full recovery), 1 (don't recover if tomcat failed after getting the request),
+2 (don't recover if tomcat failed after sending the headers to client), 3 (don't recover if tomcat failed 
+getting the request or after sending the headers to client).
+<p>
+This features has been added in <b>jk 1.2.6</b> to avoid problem with hung/broken tomcat's 
+and works on all servlet engines supporting ajp13.
+Full recovery by default.
+</p>
+</directive>
+
+<directive name="domain" default="" required="false">
+Domain directive can be used only when the worker is a member of the load balancer.
+Workers that share the same domain name are treated as single worker. If sticky_session
+is used, then the domain name is used as session route.
+<p>This directive is used for large system with more then 6 Tomcats, to be able
+to cluster the Tomcats in two groups and thus lowering the session replication
+transfer between them.
+</p>
+<p>
+This feature has been added in <b>jk 1.2.8</b>.
+</p>
+</directive>
+
+<directive name="redirect" default="" required="false">
+Set to the preferred failover worker. If worker matching SESSION ID is in
+error state then the redirect worker will be used instead. It will be used
+even if being disabled, thus offering hot standby.
+<p>
+This feature has been added in <b>jk 1.2.9</b>.
+</p>
+</directive>
+
+<directive name="disabled" default="False" required="false">
+If set to <b>True</b> or <b>1</b> the worker will be disabled if member
+of load balancer. This flag can be changed at runtime using status worker.
+<p>
+This feature has been added in <b>jk 1.2.9</b>.
+</p>
+</directive>
+
+<directive name="stopped" default="False" required="false">
+If set to <b>True</b> or <b>1</b> the worker will be stopped if member
+of load balancer. The flag is needed for stop complete traffic of a sticky session
+worker. It is only usefull, when you have a cluster that replicated the sessions.
+This flag can be changed at runtime using status worker.
+<p>
+This feature has been added in <b>jk 1.2.11</b>.
+</p>
+</directive>
+
+<directive name="secret" default="" required="false">
+If set to AJP Connector secret keyword, only request with this keyword are successfull responding.
+Use <b>request.useSecret="true"</b> and <b>request.secret="secret key word"</b> at your tomcat ajp 
+Connector configuration.
+</directive>
+ 
+</directives>
+</subsection>
+
+</section>
+ 
+</body>
+</document>
