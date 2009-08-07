@@ -1,0 +1,89 @@
+To Do:
+===========================================
+
+Documentation:
+===========================================
+
+
+Code Tasks:
+===========================================
+
+
+8. WaitForCompletionInterceptor - waits for the message to get processed by all receivers before returning
+  (This is useful when synchronized=false and waitForAck=false, to improve
+parallel processing, but you want to have all messages sent in parallel and
+don't return until all have been processed on the remote end.)
+
+9. CoordinatorInterceptor - manages the selection of a cluster coordinator
+   just had a brilliant idea, if GroupChannel keeps its own view of members,
+   the coordinator interceptor can hold on to the member added/disappared event
+   It can also intercept down going messages if the coordinator disappeared
+   while a new coordinator is chosen
+   It can also intercept down going messages for members disappeared that the 
+   calling app not yet knows about, to avoid a ChannelException
+
+
+10. Xa2PhaseCommitInterceptor - make sure the message doesn't reach the receiver unless all members got it
+
+11. Code a ReplicatedFileSystem example, package org.apache.catalina.tipis
+
+12. LazyReplicatedHashMap - memory efficient clustered map.
+    This map can be used for PRIMARY/SECONDARY session replication
+    Ahh, the beauty of storing data in remote locations
+    The lazy hash map will only replicate its attribute names to all members in the group
+    with that name, it will also replicate the source (where to get the object)
+    and the backup member where it can find a backup if the source is gone.
+    If the source disappears, the backup node will replicate attributes that 
+    are stored to a new primary backups can be chosen on round robin.
+    When a new member arrives and requests state, that member will get all the attribute 
+    names and the locations.
+    It can replicate every X seconds, or on dirty flags by the objects stored,
+    or a request to scan for dirty flags, or a request with the objects.
+    
+13. StateTransfer interceptor
+    the ideas just come up in my head. the state transfer interceptor 
+    will hold all incoming messages until it has received a message
+    with a STATE_TRANSFER header as the first of the bytes.
+    Once it has received state, it will pretty much take itself out of the loop
+    The benefit of the new ParallelNioSender is that it doesn't require to know about
+    a member to transfer state, all it has to do is to reply to a message that came in.
+    beee-aaaa-uuuu-tiful. state is a one time deal for the entire channel, so a 
+    session replication cluster, would transfer state as one block, not one per context
+    
+14. Keepalive count and idle kill off for Nio senders
+
+15. remove DataSenderFactory and DataSender.properties -
+    these cause the settings to be hard coded ant not pluggable.
+
+Tasks Completed
+===========================================
+1. True synchronized/asynchronized replication enabled using flags
+Sender.sendAck/Receiver.waitForAck/Receiver.synchronized 
+Task Desc: waitForAck - should only mean, we received the message, not for the
+message to get processesed. This should improve throughput, and an interceptor
+can do waitForCompletion
+Status: Complete
+Notes: 
+
+2. Unique id, send it in byte array instead of string
+
+3. DataSender or ReplicationTransmitter swallows IOException, this should be
+Notes: This has only been fixed for the pooled synchronized. the fastasynch
+aint working that well
+
+4. ChannelMessage.getMessage should return streamable, that way we can wrap,
+pass it around and all those good things without having to copy byte arrays
+left and right
+Notes: Instead of using a streamable, this is implemented using the XByteBuffer, 
+       which is very easy to use. It also becomes a single spot for optimizations.
+       Ideally, there would be a pool of XByteBuffers, that all use direct ByteBuffers
+       for its data handling.
+
+5. OrderInterceptor - guarantees the order of messages
+Notes: completed
+
+6. NIO and IO DataSender, since the IO is blocking
+Notes: completed. works very well, have not implemented suspect error logging.
+
+7. FragmentationInterceptor - splits up messages that are larger than X bytes.
+Notes: complated
