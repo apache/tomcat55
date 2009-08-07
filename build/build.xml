@@ -30,7 +30,7 @@
 
   <!-- Project Properties -->
   <property name="name"                  value="Apache Tomcat" />
-  <property name="year"                  value="2006" />
+  <property name="year"                  value="2009" />
   <property name="version.major"         value="5" />
   <property name="version.minor"         value="5" />
   <property name="version.build"         value="0" />
@@ -1303,11 +1303,13 @@
     <copy todir="${tomcat.dist}" filtering="true" encoding="ISO-8859-1">
       <fileset dir=".">
         <include name="INSTALLING.txt"/>
-        <include name="LICENSE"/>
-        <include name="NOTICE"/>
         <include name="README.txt"/>
         <include name="RELEASE*"/>
         <include name="RUNNING.txt"/>
+      </fileset>
+      <fileset dir="..">
+        <include name="LICENSE"/>
+        <include name="NOTICE"/>
       </fileset>
     </copy>
 
@@ -1427,6 +1429,11 @@
     <copy todir="${tomcat.dist}/src">
       <fileset dir="${basedir}/resources">
         <include name="build.xml" />
+      </fileset>
+      <fileset dir="..">
+        <include name="LICENSE" />
+        <include name="NOTICE" />
+        <include name="KEYS" />
       </fileset>
     </copy>
 
@@ -1554,7 +1561,7 @@
    description="Create a Tomcat 5 packaged distribution">
 
     <filter token="VERSION" value="${version}"/>
-    <copy file="KEYS"
+    <copy file="../KEYS"
          todir="${tomcat.release}/v${version}"/>
     <copy file="RELEASE-NOTES"
          todir="${tomcat.release}/v${version}"
