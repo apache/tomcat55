@@ -1,0 +1,31 @@
+Categories
+  -- Membership
+  -- Sending data
+  -- Receiving data
+  
+
+Membership Testcase
+
+I. Membership 
+   - all data transferred
+   - discovery
+   - startup listen only
+   - startup broadcast only
+   - timeouts
+   - member leaves
+   - test failure detector, stop broadcasting, but everything else stays alive
+
+II. Message accuracy
+
+III. Message throughput
+
+IV. Tipis
+   - ReplicatedMap - state transfer
+   - Add element
+   - Remove element
+   - Change element
+   
+V. Channel
+   - Start/stop levels
+   - bogus flags in start/stop
+   
