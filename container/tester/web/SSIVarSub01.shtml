@@ -1,0 +1,3 @@
+<!--#set var="test" value="$DOCUMENT_URI" -->
+<!--#echo var="test" -->
+

@@ -1,0 +1,10 @@
+1. Fix farm deployment for 5.5
+2. Extend StandardSession if possible
+3. Implement primary/secondary replication logic
+4. Implement fragmentation of large replication objects
+5. Implementa NonSerializable interface for session attributes that do not
+wish to be replicated
+6. Implement context attribute replication (?)
+7. JMX friendly
+8. Documentation
+

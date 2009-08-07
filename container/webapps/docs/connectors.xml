@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="connectors.html">
+
+    &project;
+
+    <properties>
+        <author email="remm@apache.org">Remy Maucherat</author>
+        <title>Connectors How To</title>
+    </properties>
+
+<body>
+
+<section name="Introduction">
+
+<p>Choosing a connector to use with Tomcat can be difficult. This page will
+list the connectors which are supported with this Tomcat release, and will
+hopefully help you make the right choice according to your needs.</p>
+
+</section>
+
+<section name="Standalone HTTP/1.1">
+
+<p>The HTTP connector is setup by default with Tomcat, and is ready to use.</p>
+
+</section>
+
+<section name="Clustered HTTP/1.1">
+
+<p>The HTTP connector is setup by default with Tomcat, and is ready to use. A HTTP 
+load balancer <b>with support for web sessions stickiness</b> must be installed to
+direct the traffic to the Tomcat servers.</p>
+
+<p>
+Tomcat supports mod_proxy (included by default in Apache httpd 2.2) as the load 
+balancer. This version of mod_proxy can also be used with Apache httpd 2.0. It should
+be noted that the performance of HTTP proxying is usually lower than the performance
+of AJP, so AJP clustering is often preferable.
+</p>
+
+</section>
+
+<section name="Standalone AJP">
+
+<p>When using a single server, the performance when using a native webserver in 
+front of the Tomcat instance is most of the time significantly worse than a
+standalone Tomcat with its default HTTP connector, even if a large part of the web
+application is made of static files. If integration with the native webserver is 
+needed for any reason, an AJP connector will provide faster performance than 
+proxied HTTP.</p>
+
+<p>The native connectors supported with this Tomcat release are:
+<ul>
+<li>mod_jk 1.2.x</li>
+<li>mod_proxy on Apache httpd 2.2, with AJP support</li>
+</ul>
+</p>
+
+</section>
+
+<section name="Clustered AJP">
+
+<p>AJP clustering is the most efficient from the Tomcat perspective. It is otherwise
+functionally equivalent to HTTP clustering.</p>
+
+</section>
+
+</body>
+
+</document>
