@@ -1,0 +1,13 @@
+This is a source release of the mod_jk 1.2 web server connector for
+Tomcat. Only the web server connector source is included.  The Tomcat
+side of the connector is available with the normal Tomcat distribution.
+
+Documentation for how to build mod_jk 1.2 from source and configure
+it for your webserver is located in the native/BUILDING file in this
+source distribution.
+
+For the impatient Apache admins:
+$> cd native
+$> ./configure --with-apxs=/usr/sbin/apxs (or where ever the apxs/apxs2 is)
+$> make
+$> su -c 'make install'
