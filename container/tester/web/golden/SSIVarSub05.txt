@@ -1,0 +1,3 @@
+
+
+value of test\${test2}
