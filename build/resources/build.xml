@@ -1,0 +1,91 @@
+<project name="Tomcat 5.0 Netbuild" default="build" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <property file="${user.home}/build.properties"/>
+  <property file="build.properties"/>
+  <property file="build.properties.default"/>
+
+  <!-- Project Properties -->
+  <property name="name"                  value="Apache Tomcat" />
+  <property name="year"                  value="2005" />
+  <property name="version"               value="5.5" />
+  <property name="project"               value="jakarta-tomcat" />
+  <property name="final.name"            value="${project}-${version}" />
+  <property name="final-src.name"        value="${project}-${version}-src" />
+
+  <!-- SVNROOT -->
+  <property name="svnroot" 
+           value="http://svn.apache.org/repos/asf/" />
+
+  <!-- Subprojects -->
+  <property name="api.project"           value="servletapi" />
+  <property name="tomcat.project"        value="build" />
+  <property name="catalina.project"      value="container" />
+  <property name="jtc.project"           value="connectors" />
+  <property name="jasper.project"        value="jasper" />
+
+  <property name="current.loc"           value="tomcat/current/tc5.5.x" />
+
+  <!-- Source dependencies -->
+  <property name="api.home"
+           value="${basedir}/${api.project}"/>
+  <property name="catalina.home" 
+           value="${basedir}/${catalina.project}"/>
+  <property name="jasper.home"
+           value="${basedir}/${jasper.project}"/>
+  <property name="jtc.home"
+           value="${basedir}/${jtc.project}"/>
+  <property name="tomcat.home"
+           value="${basedir}/${tomcat.project}"/>
+
+  <target name="build" depends="check.source,get.source"
+   description="Builds all components">
+
+    <ant dir="${tomcat.home}" target="download" />
+    <ant dir="${tomcat.home}" target="deploy" />
+
+  </target>
+
+  <!-- Top-level clean target added per Bugzilla 33325 -->
+  <target name="clean"
+          description="Clean (delete) all project files">
+    <echo message="Deleting all project files" />
+    <delete dir="${api.home}" />
+    <delete dir="${catalina.home}" />
+    <delete dir="${jasper.home}" />
+    <delete dir="${jtc.home}" />
+    <delete dir="${tomcat.home}" />
+  </target>
+
+  <target name="checkout"
+          description="Update or checkout required sources from SVN">
+
+    <echo level="info"
+        message="If the checkout fails, - todo - " />
+
+    <exec dir="${basedir}" executable="svn">
+         <arg line="checkout ${svnroot}/${current.loc} ${basedir}" />
+    </exec>
+
+  </target>
+
+  <!-- *************** UTILITY TARGETS *************** -->
+
+  <target name="check.source">
+
+    <available property="source.exists"
+                   file="${basedir}/${tomcat.project}" type="dir" />
+
+  </target>
+
+  <target name="get.source" unless="source.exists">
+
+    <antcall target="checkout" />
+
+  </target>
+
+</project>
