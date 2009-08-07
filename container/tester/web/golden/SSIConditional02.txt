@@ -1,0 +1,6 @@
+Before if block.
+
+
+test = value2
+
+After if block.

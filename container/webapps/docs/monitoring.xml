@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="monitoring.html">
+
+  &project;
+
+  <properties>
+    <author email="remm@apache.org">Remy Maucherat</author>
+    <title>Monitoring and Managing Tomcat</title>
+  </properties>
+
+<body>
+
+  <section name="Introduction">
+
+
+
+  </section>
+
+  <section name="Enabling JMX Remote">
+
+     <p>The Sun website includes the list of options and how to configure JMX Remote on Java 5:
+        <a href="http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html">
+        http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html</a>.
+     </p>
+
+  </section>
+
+  <section name="Monitoring">
+
+
+
+  </section>
+
+  <section name="Management">
+
+
+
+  </section>
+
+</body>
+</document>

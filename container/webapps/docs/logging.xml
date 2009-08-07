@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="logging.html">
+
+  &project;
+
+  <properties>
+    <author email="remm@apache.org">Remy Maucherat</author>
+    <title>Logging in Tomcat</title>
+  </properties>
+
+<body>
+
+  <section name="Introduction">
+
+
+
+  </section>
+
+  <section name="java.util.logging">
+
+
+
+  </section>
+
+  <section name="log4j">
+
+
+
+  </section>
+
+</body>
+</document>
