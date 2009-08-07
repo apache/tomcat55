@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="changelog.html">
+
+  &project;
+
+  <properties>
+    <author email="remm@apache.org">Remy Maucherat</author>
+    <author email="yoavs@apache.org">Yoav Shapira</author>
+    <title>Changelog</title>
+  </properties>
+
+<body>
+
+<section name="Preface">
+  <p>
+  This is the Changelog for Tomcat 5.5.x, which was branched based on Tomcat 5.0.27.
+  For changes in Tomcat version 5.0.x, which preceded version 5.5.0, please see
+  <a href="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/changelog.html">The
+  Tomcat 5.0.x Changelog</a>.  As maintenance releases are cut on the 5.0.x branch,
+  most fixes will be ported into a 5.5.x release and noted both here and in the
+  above Changelog.  However, bugs fixed in Tomcat 5.0.28 and earlier are noted
+  only in the above changelog.
+  </p>
+</section>
+
+<section name="Tomcat 5.5.3 (yoavs)">
+
+  <subsection name="General">
+    <changelog>
+      <fix>
+        <bug>30568</bug>: Incomplete setup.html documentation for launching jsvc. (yoavs)
+      </fix>
+      <update>
+        Repackage naming features. (remm)
+      </update>
+      <fix>
+        Fix deployer packaging. (remm)
+      </fix>
+      <fix>
+        Fix embed packaging. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        Fix memory leak when Security Manager is turned on. (jfarcand)
+      </fix>
+      <fix>
+        When checking status codes for error handling, only check if
+        Response.isError() is true. This way, users may use setStatus() to set their own
+        error status without having the error page invoked. (in which case, the user should've
+        use sendError()) (funkman)
+      </fix>
+      <update>
+        Remove Digester code for Xerces workaround. (jfarcand)
+      </update>
+      <fix>
+        Give proper permission to the balancer app when running under the security manager. (jfarcand)
+      </fix>
+      <fix>
+        <bug>30869</bug>: Make sure JAAS realm name is legal. (yoavs)
+      </fix>
+      <update>
+          md5Helper, md5Encoder, and normalize are used by WebdavServlet,
+          not DefaultServelt so move them into WebdavServlet.
+      </update>
+      <fix>
+        <bug>31277</bug>: Clarified automatic application deployment section of Host configuration page. (yoavs)
+      </fix>
+     <fix>
+       <bug>28631</bug>: JAASRealm enhancements to support custom user and role classes  use Commons-Logging. (yoavs)
+     </fix>
+     <fix>
+       <bug>31364</bug>: Missing resource in org.apache.catalina.core.LocalString.properties. (yoavs)
+     </fix>
+     <fix>
+       <bug>31362</bug>: Missing -Xdebug in catalina.bat when launching with JPDA and Security. (yoavs)
+     </fix>
+     <fix>
+       <bug>31356</bug>: Duplicates not counted in session generation. (yoavs)
+     </fix>
+     <fix>
+       <bug>30949</bug>: Make sure ApplicationDispatcher unwraps request/response even if include error occurs. (yoavs)
+     </fix>
+      <fix>
+        Fixed StandardContext.getStartTime() to return actual start time/date instead of time (startupTime) it took to start context. (luehe)
+      </fix>
+      <update>
+        getRequest/getResponse should return the most relevant interface, to avoid casts. (remm)
+      </update>
+      <update>
+        Add check for directory before considering something is a compressed WAR. (remm)
+      </update>
+      <docs>
+        Update the connector documentation. (remm)
+      </docs>
+      <fix>
+        When parsing a context file, ignore the "path" attribute: 
+        the only place where it is acceptable is in server.xml. (remm)
+      </fix>
+      <fix>
+        Digester handling fixes: always call reset in a finally block after using a digester. (remm)
+      </fix>
+      <update>
+        Remove many fields from Connector, and tie the creation of the Connector to the 
+        creation of the protocol handler. (remm)
+      </update>
+      <update>
+        Remove package triggers from the classloader, which seem useless when using Java 5. (remm)
+      </update>
+      <fix>
+        Realms will now use set attribute to set themselves in their container when using JMX. (remm)
+      </fix>
+      <fix>
+        Fix JMX related operations with the Connector. (remm)
+      </fix>
+      <fix>
+        Fix save-to-XML for naming resources. (remm)
+      </fix>
+      <fix>
+        Remove authenticator "debug" attributes from the descriptors. (remm)
+      </fix>
+      <update>
+        Refactor org.apache.catalina.deploy.ContextXXX to use new super class ResourceBase. (pero)
+      </update>
+      <fix>
+        Enable Connector.findLifecycleListener that we can listen start/stop Connector events and save the listener to xml. (pero)
+      </fix>
+      <update>
+        Remove Watchdog references, as it is no longer used. (yoavs)
+      </update>
+      <fix>
+        <bug>31511</bug>: Don't call setenv.bat if not found, in *using-launcher scripts. (yoavs)
+      </fix>
+      <fix>
+        <bug>31549</bug>: Add name to WebappClassLoader's stopped message. (yoavs)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Coyote">
+    <changelog>
+      <update>
+        Allow customized server header for Standalone. (funkman)
+      </update>
+      <fix>
+        Digester.reset now removes the error handler, the root and calls clear, to prevent
+        any memory leak. (remm)
+      </fix>
+      <update>
+        Remove useless stuff in digester. (remm)
+      </update>
+      <update>
+        In HTTP, add a utility method to convert strings to byte arrays, and output the server header
+        directly as bytes. (remm)
+      </update>
+      <add>
+        Add a master slave thread pool based on the code from Tomcat 4.0. It is less exotic than the
+        default one, and might fare better on some picky systems, such as Redhat 9. The two threadpools
+        will likely be removed once we use the Java 5 API, although more investigation is needed. (remm)
+      </add>
+      <fix>
+        Fix issue with getProperty in IntrospectionUtils. (remm)
+      </fix>
+      <update>
+        Remove attribute translation for SSL in the HTTP protocol handler: it will now be done in the
+        Catalina Connector class. (remm)
+      </update>
+      <fix>
+        Fix handling of the "timeout" attribute of the HTTP protocol handler. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        <bug>31171</bug>: Wrap to avoid ClassCastException in PageContextImpl. (yoavs)
+      </fix>
+      <fix>
+        <bug>31257</bug>: Added specification of endorsed dirs if forking.  Note that this is fairly useless for now in 5.5 since it uses JDT and not javac by default. (yoavs)
+      </fix>
+      <docs>
+        Document new Jasper defaults, and update the production configuration. (remm)
+      </docs>
+      <fix>
+        Copied XML encoding detection logic into JASPER, so we're no longer dependent on Xerces. (luehe)
+      </fix>
+      <fix>
+        Fix cosmetic issue where extra CRLF would be inserted during each precompilation in web.xml. (remm)
+      </fix>
+      <update>
+        Allow configuring the interval following a compilation during which a JSP will not be checked
+        for modifications. (remm)
+      </update>
+      <fix>
+        <bug>31465</bug>: Ensure that the compiler reads the .java file using the same encoding as that with which it was written. (markt)
+      </fix>
+      <fix>
+        <bug>31510</bug>: Null out response in JspWriterImpl#recycle to aid in JBoss memory leak. (yoavs)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Cluster">
+    <changelog>
+      <update>
+        Added flag to the cluster (notifyListenersOnReplication) to enable/disable the 
+        notifications of attribute/context listeners upon replication of a session delta
+        Works only with the DeltaManager (fhanik)
+      </update>
+      <update>
+        Added flag to the cluster (Cluster/Sender/ackTimeout) to set the timeout in milliseconds
+        for a synchronous request to go through, defaults to 15000ms (fhanik)
+      </update>
+    </changelog>  
+  </subsection>
+
+  <subsection name="Webapps">
+    <changelog>
+      <fix>
+        <bug>29485</bug>: I broke the HTML manager when adding JavaScript confirmation, fixed now ;) (yoavs)
+      </fix>
+      <fix>
+        <bug>31058</bug>: Ensure StatusTransformer escapes query string for XML. (yoavs)
+      </fix>
+      <update>
+        Added contexts' start time (available from 'startTime' MBean attribute of StandardContext) to status page (luehe)
+      </update>
+      <fix>
+        <bug>31264</bug>: the deploy task should now behave correctly. (remm)
+      </fix>
+      <update>
+        Refactor the manager servlet to make calls to the deployer more robust. (remm)
+      </update>
+      <fix>
+        Use the more robust String.valueOf in the form edit action of the connector. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+
+
+<section name="Tomcat 5.5.2 (yoavs)">
+  <subsection name="General">
+    <changelog>
+      <fix>
+        The installer will now use the system's JRE. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        Fix URL generation for classloaders on Windows, causing common/classes and shared/classes
+        to be unusable (remm)
+      </fix>
+      <fix>
+        <bug>31110</bug>: Fix resource packaging bug for servlets (remm)
+      </fix>
+      <fix>
+        Fix 5.5 regression where going through the authenticator would create a session each time. (remm)
+      </fix>
+      <fix>
+        Fix classname of the connector in Embedded, and remove the socket factory. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        Redo server header handling again. (remm)
+      </fix>
+      <update>
+        Cleanup a little access to the headers using a local variable and 
+        use setValue for Server and Date headers. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        Remove maxTagNesting and curTagNesting since they are unused. (funkman)
+      </fix>
+      <fix>
+        Fix tag files handling with JDT, which were ususable, and refactor the lifecycle handling of
+        the page loader. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Cluster">
+    <changelog>
+    </changelog>
+  </subsection>
+
+  <subsection name="Webapps">
+    <changelog>
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Tomcat 5.5.1 (yoavs)">
+  <subsection name="General">
+    <changelog>
+      <update>
+        Tomcat 5.5 can be built on JDK 5.0. (yoavs)
+      </update>
+      <fix>
+        Windows installer polish. (mladen, remm)
+      </fix>
+      <update>
+        Remove dependency on Jakarta regexp. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        Allow overriding the location of the default context file, similar to the default
+        web.xml. (remm)
+      </fix>
+      <update>
+        Backport if-else logic for SSI servlet from 4.1 (funkman)
+      </update>
+      <fix>
+        Remove DefaultContext elements from the digester rules. (remm)
+      </fix>
+      <fix>
+        Fix ResourceLink handling. (remm)
+      </fix>
+      <fix>
+        Modify the auto deployer to get along with contexts which are statically defined in server.xml. (remm)
+      </fix>
+      <fix>
+        Externalize constant strings defining the location of deployment related resources. (remm)
+      </fix>
+      <fix>
+        <bug>31052</bug>: BeanFactory swallows root cause of exception. (yoavs)
+      </fix>
+      <fix>
+        Allow using deploy Ant task with just config attribute, submitted by Michael Schuerig. (remm)
+      </fix>
+      <add>
+        Added longest time an expired session had been alive to set of monitorable session manager attributes. (luehe)
+      </add>
+      <add>
+        Added average time an expired session had been alive to set of monitorable session manager attributes. (luehe)
+      </add>
+      <fix>
+        Clear a reference in the digester where a context would be referenced for more time than it
+        needed, until the next context deployment operation. (remm)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        <bug>31018</bug>: Race condition in SystemLogHandler. (yoavs)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        Use the "compiler" parameter to allow specifying that Ant should be used. (remm)
+      </fix>
+      <fix>
+        Ignore JDT compiler warnings. (remm)
+      </fix>
+      <add>
+        Added compilerTargetVM option support, "1.4" default. (yoavs)
+      </add>
+    </changelog>
+  </subsection>
+
+  <subsection name="Cluster">
+    <changelog>
+      <fix>
+        Fix adding the clustering valve, so that session replication actually occurs. (fhanik)
+      </fix>
+    </changelog>
+  </subsection>
+
+  <subsection name="Webapps">
+    <changelog>
+      <update>
+        Major documentation update with current Tomcat 5.5 changes. (remm)
+      </update>
+      <update>
+        Added JavaScript confirmation dialog to "dangerous" Manager servler links. (yoavs)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Tomcat 5.5.0 (yoavs)">
+  <subsection name="General">
+    <changelog>
+      <update>
+        Many updated and fixed JavaDocs. (yoavs)
+      </update>
+      <update>
+        Designed and tested Tomcat on J2SE 5.0 (aka JDK 1.5). (everyone)
+      </update>
+      <update>
+        Bundled Eclipse JDT (new dependency) to allow Tomcat to run on a JRE only, i.e. no JDK required. (remm)
+      </update>
+      <update>
+        Repackage commons-dbcp and its dependencies as a sigle smaller WAR, with renamed packages. (remm)
+      </update>
+      <update>
+        Removed dependencies on commons-digester, commons-beanutils, and commons-collections.
+        The relevant digester functionality is now merged in tomcat-util. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Catalina">
+    <changelog>
+      <update>
+        Removed usage of org.apache.catalina.Logger, increased usage of commons-logging everywhere. (remm)
+      </update>
+      <update>
+        Refactored classloader code to better handle JAR and general resource locking. (remm)
+      </update>
+      <update>
+        Written JMX-related code to play nicely with J2SE 5.0 built-in JMX abilities. (remm, costin)
+      </update>
+      <update>
+        Extensively profiled and optimized the server startup performance as well as the request mapping and processing pipeline. (remm)
+      </update>
+      <update>
+        The container will now always process a /META-INF/context.xml resource, unless the webapp has a specified external context file. (remm)
+      </update>
+      <update>
+        New default configuration mechanism for web applications, replacing DefaultContext. This uses a
+        shared context file located in conf/context.xml. (remm)
+      </update>
+      <update>
+        Revamped deployer, alloying full hotdeploy (note: on Windows, this requires the anti file locking
+        features). (remm)
+      </update>
+      <update>
+        Remove verbosity from the JNDI resources configuration, by allowing arbitrary attributes on the Resource element. (remm)
+      </update>
+      <update>
+        Simpler Valve interface, to allow smaller stack traces and reducing the amount of method calls. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Coyote">
+  </subsection>
+
+  <subsection name="Jasper">
+    <changelog>
+      <update>
+        Eclipse JDT is now the default Java compiler in Jasper. Source dependencies are now loaded from
+        the container classloader, and compilation times are much faster. (remm)
+      </update>
+      <update>
+        Jasper development mode should now have acceptable performance for heavily accessed pages.
+        Precompiling JSPs is still significantly more efficient, however. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Cluster">
+  </subsection>
+
+  <subsection name="Webapps">
+    <changelog>
+    </changelog>
+  </subsection>
+</section>
+
+</body>
+</document>
