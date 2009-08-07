@@ -1,0 +1,16 @@
+<!--#set var="test1" value="not one" -->
+<!--#set var="test2" value="not two" -->
+<!--#set var="test3" value="three" -->
+<!--#if expr="\"$test1\" = \"one\" || \"$test2\" = \"two\"" -->
+<!--#if expr="\"$test1\" = \"one\"" -->
+one
+<!--#elif expr="\"$test1\" = \"not one\"" -->
+not one
+<!--#endif -->
+<!--#else -->
+<!--#if expr="\"$test2\" = \"two\"" -->
+two
+<!--#elif expr="\"$test2\" = \"not two\"" -->
+not two
+<!--#endif -->
+<!--#endif -->
