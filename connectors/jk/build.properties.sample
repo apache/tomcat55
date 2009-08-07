@@ -1,0 +1,62 @@
+#
+# sample build.properties for ajp connector.
+# edit to taste...
+#
+
+# Directory where tomcat5 is installed
+tomcat5.home= ../../jakarta-tomcat-5/build
+
+# Directory where catalina is installed. It can 
+# be either 4.0 or 4.1
+tomcat40.home=../../jakarta-tomcat-4.0/build
+
+# If you want to build/install on  both 4.0 
+# and 4.1, set this to point to 4.0 and 'catalina.home'
+# to point to 4.0
+# ( most people need only the first, but developers should
+# have both )
+tomcat41.home=../../jakarta-tomcat-4.1/build
+
+# Directory where tomcat3.3 is installed
+tomcat33.home= ../../jakarta-tomcat/build/tomcat
+
+# Location of Apache2, Apache1.3, Netscape, IIS
+apache2.home=/opt/apache2
+apache13.home=/opt/apache13
+iplanet.home=/opt/iplanet6
+aolserver.home=/opt/aolserver-4.0
+# iplanet.home=d:/tools/sdk/netscape
+# iis.home=e:/
+
+# APR location - by default the version included in Apache2 is used.
+# Don't edit unless you install 'standalone' apr.
+apr.home=${apache2.home}
+
+apr.include=${apr.home}/include
+apr-util.include=${apr.home}/include
+
+apr.lib=${apr.home}/lib
+apr-util.lib=${apr.home}/lib
+apache2.lib=${apache2.home}/lib
+
+
+# Compile-time options for native code
+so.debug=true
+so.optimize=false
+so.profile=false
+
+# tools for other directories
+# Metrowerks and Novell ndk
+#mw.home=d:/tools/mw/6.0
+#novellndk.home=d:/tools/novell/ndk/nwsdk
+#novelllibc.home=d:/tools/novell/ndk/libc
+#build.compiler.base=${mw.home}
+#build.compiler.cc=${mw.home}/bin/mwccnlm
+#build.compiler.ld=${mw.home}/bin/mwldnlm
+#netscape.home=${iplanet.home}
+#option_no_reuse_worker=true
+
+# MSVC
+#mssdk.home=c:/Program Files/Microsoft Visual Studio/VC98
+
+
