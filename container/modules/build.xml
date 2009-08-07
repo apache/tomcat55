@@ -1,0 +1,72 @@
+<project name="Modules" default="dist" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <!--property file="build.properties"/>
+  <property file="../build.properties"/>
+  <property file="${user.home}/build.properties"/-->
+
+  <!-- =================== BUILD: Create Directories ====================== -->
+  <target name="build-prepare">
+    <available property="jdk1.4.present" classname="java.nio.Buffer" />
+  </target>
+
+
+  <!-- =================== BUILD: Compile Subprojects ===================== -->
+  <!-- Add a new target for each module subproject -->
+
+  <target name="cluster" if="jdk1.4.present">
+    <ant dir="${basedir}/cluster" target="dist"/>
+  </target>
+
+
+  <!-- ================= BUILD: Compile Server Components ================= -->
+  <!-- Update the depends list for each subproject -->
+  <target name="build" depends="build-prepare,cluster"/>
+
+
+  <!-- ======================= BUILD: Clean Directory ===================== -->
+  <target name="build-clean">
+  </target>
+
+
+  <!-- ==================== BUILD: Rebuild Everything ===================== -->
+  <target name="all" depends="build-clean,dist"/>
+
+
+  <!-- ================= DEPLOY: Deploy Webapps Projects ================== -->
+  <target name="deploy" depends="dist"
+   description="Build and deploy Modules component">
+
+  </target>
+
+
+  <!-- ================= DIST: Create Distribution Files ================== -->
+  <target name="dist" depends="build"/>
+
+
+  <!-- ======================= DIST: Clean Directory ====================== -->
+  <target name="dist-clean">
+  </target>
+
+
+  <!-- ====================== Convenient Synonyms ========================= -->
+  <target name="clean" depends="build-clean,dist-clean"
+   description="Clean build and dist directories"/>
+
+
+  <!-- ===================== TEST: Compile Unit Tests ===================== -->
+  <target name="build-tests" depends="dist" if="junit.present">
+  </target>
+
+
+  <!-- ===================== TEST: Execute Unit Tests ===================== -->
+  <target name="test" if="junit.present"
+   description="Run all unit test cases">
+  </target>
+
+
+</project>

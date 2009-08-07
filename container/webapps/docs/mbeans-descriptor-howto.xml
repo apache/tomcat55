@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="mbean-descriptor-howto.html">
+
+    &project;
+
+    <properties>
+        <author email="amyroh@apache.org">Amy Roh</author>
+        <title>MBean Descriptor How To</title>
+    </properties>
+
+<body>
+
+<section name="Introduction">
+
+<p>Tomcat 5 uses JMX MBeans as the technology for implementing 
+manageability of Tomcat.</p>
+
+<p>The descriptions of JMX MBeans for Catalina are in the 
+org.apache.catalina.mbeans.mbeans-descriptor.xml file.</p>
+
+<p>You will need to add MBean descriptions for your custom components 
+in order to avoid a "ManagedBean is not found" exception.</p>
+
+</section>
+
+<section name="Including your own mbean-descriptor files">
+
+<p>You may configure custom components (e.g. Valves/Realms) by including 
+your own mbean-descriptor file(s), and setting the "descriptors" 
+attribute to point to a ';' separated list of paths (in the ClassLoader sense) 
+of files to add to the default list under ServerLifecycleListener definition 
+in server.xml.</p>
+
+<source>
+&lt;Listener className="org.apache.catalina.mbeans.ServerLifecycleListener"
+          debug="0"
+          descriptors="/com/myfirm/mypackage/mbean-descriptor.xml"/&gt;
+</source>          
+
+
+</section>
+
+<section name="Adding MBean description to Catalina's mbean-descriptors.xml">
+
+<p>You may also add MBean descriptions for custom components in 
+org.apache.catalina.mbeans.mbeans-descriptor.xml file.</p>
+
+<source>
+  &lt;mbean         name="LDAPRealm"
+            className="org.apache.catalina.mbeans.ClassNameMBean"
+          description="Custom LDAPRealm"
+               domain="Catalina"
+                group="Realm"
+                 type="com.myfirm.mypackage.LDAPRealm"&gt;
+
+    &lt;attribute   name="className"
+          description="Fully qualified class name of the managed object"
+                 type="java.lang.String"
+            writeable="false"/&gt;
+
+    &lt;attribute   name="debug"
+          description="The debugging detail level for this component"
+                 type="int"/&gt;
+    .
+    .
+    .
+
+  &lt;/mbean&gt;
+</source>
+
+
+</section>
+
+</body>
+
+</document>

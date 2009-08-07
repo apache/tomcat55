@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="ajp.html">
+
+  &project;
+
+  <properties>
+    <author email="remm@apache.org">Remy Maucherat</author>
+    <author email="yoavs@apache.org">Yoav Shapira</author>
+    <title>The AJP Connector</title>
+  </properties>
+
+<body>
+
+
+<section name="Introduction">
+
+  <p>The <strong>AJP Connector</strong> element represents a
+  <strong>Connector</strong> component that communicates with a web
+  connector via the <code>AJP</code> protocol.  This is used for cases
+  where you wish to invisibly integrate Tomcat 5 into an existing (or new)
+  Apache installation, and you want Apache to handle the static content
+  contained in the web application, and/or utilize Apache's SSL
+  processing.</p>
+
+  <p>This connector supports load balancing when used in conjunction with
+  the <code>jvmRoute</code> attribute of the 
+  <a href="engine.html">Engine</a>.</p>
+
+</section>
+
+
+<section name="Attributes">
+
+  <subsection name="Common Attributes">
+
+  <p>All implementations of <strong>Connector</strong>
+  support the following attributes:</p>
+
+  <attributes>
+
+    <attribute name="address" required="false">
+      <p>For servers with more than one IP address, this attribute
+      specifies which address will be used for listening on the specified
+      port.  By default, this port will be used on all IP addresses
+      associated with the server.</p>
+    </attribute>
+
+    <attribute name="allowTrace" required="false">
+      <p>A boolean value which can be used to enable or disable the TRACE
+      HTTP method. If not specified, this attribute is set to false.</p>
+    </attribute>
+
+    <attribute name="enableLookups" required="false">
+      <p>Set to <code>true</code> if you want calls to
+      <code>request.getRemoteHost()</code> to perform DNS lookups in
+      order to return the actual host name of the remote client.  Set
+      to <code>false</code> to skip the DNS lookup and return the IP
+      address in String form instead (thereby improving performance).
+      By default, DNS lookups are enabled.</p>
+    </attribute>
+
+    <attribute name="maxPostSize" required="false">
+      <p>The maximum size in bytes of the POST which will be handled by 
+      the container FORM URL parameter parsing. The feature can be disbled by 
+      setting this attribute to a value inferior or equal to 0. 
+      If not specified, this attribute is set to 2097152 (2 megabytes).</p>
+    </attribute>
+
+    <attribute name="redirectPort" required="false">
+      <p>If this <strong>Connector</strong> is supporting non-SSL
+      requests, and a request is received for which a matching
+      <code>&lt;security-constraint&gt;</code> requires SSL transport,
+      Catalina will automatically redirect the request to the port
+      number specified here.</p>
+    </attribute>
+
+    <attribute name="scheme" required="false">
+      <p>Set this attribute to the name of the protocol you wish to have
+      returned by calls to <code>request.getScheme()</code>.  For
+      example, you would set this attribute to "<code>https</code>"
+      for an SSL Connector.  The default value is "<code>http</code>".</p>
+    </attribute>
+
+    <attribute name="secure" required="false">
+      <p>Set this attribute to <code>true</code> if you wish to have
+      calls to <code>request.isSecure()</code> to return <code>true</code>
+      for requests received by this Connector (you would want this on an
+      SSL Connector).  The default value is <code>false</code>.</p>
+    </attribute>
+
+    <attribute name="URIEncoding" required="false">
+      <p>This specifies the character encoding used to decode the URI bytes,
+      after %xx decoding the URL. If not specified, ISO-8859-1 will be used.
+      </p>
+    </attribute>
+
+    <attribute name="useBodyEncodingForURI" required="false">
+      <p>This specifies if the encoding specified in contentType should be used
+      for URI query parameters, instead of using the URIEncoding. This 
+      setting is present for compatibility with Tomcat 4.1.x, where the 
+      encoding specified in the contentType, or explicitely set using 
+      Request.setCharacterEncoding method was also used for the parameters from
+      the URL. The default value is <code>false</code>.
+      </p>
+    </attribute>
+
+  </attributes>
+
+  </subsection>
+
+  <subsection name="Standard Implementation">
+
+  <p>The standard implementation of <strong>AJP Connector</strong> is
+  <strong>org.apache.coyote.tomcat5.CoyoteConnector</strong>, but you
+  must specify the protocol attribute (see below).</p>
+
+  <p><strong>This implementation supports the AJP 1.3 protocol.</strong></p>
+
+  <p>It supports the following additional attributes (in addition to the
+  common attributes listed above):</p>
+
+  <attributes>
+
+    <attribute name="debug" required="false">
+      <p>The debugging detail level of log messages generated by this
+      component, with higher numbers creating more detailed output.
+      If not specified, this attribute is set to zero (0).</p>
+    </attribute>
+
+    <attribute name="protocol" required="true">
+      <p>This attribute value must be <code>AJP/1.3</code> to use the AJP
+      handler.</p>
+    </attribute>
+
+  </attributes>
+
+  </subsection>
+
+</section>
+
+
+<section name="Nested Components">
+
+  <p>None at this time.</p>
+
+</section>
+
+
+<section name="Configuration HOWTOs">
+
+  <p>Please refer to the 
+<a href="../../connectors-doc/jk2">JK documentation</a> 
+     for HOW-TOs and complete configuration information.
+  </p>
+
+</section>
+
+
+</body>
+
+</document>

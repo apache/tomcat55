@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document>
+
+    &project;
+
+    <properties>
+      <author>Remy Maucherat</author>
+      <title>Building Tomcat</title>
+    </properties>
+
+<body>
+
+<section name="Introduction">
+
+<p>
+Building Tomcat from CVS is very easy, and is the first step to contributing to
+Tomcat. The following is a step by step TODO list.
+</p>
+
+</section>
+
+<section name="Download and install a Java Development Kit 1.4.x or later">
+
+<p>
+Earlier releases would also work, but are harder to work with due to the need to
+download additional dependencies. Tomcat also runs much faster on 
+the latest 1.4 JDK.
+</p>
+
+<p>
+The Sun JDK can be downloaded <a href="http://java.sun.com/j2se/">here</a>.
+</p>
+
+<p>
+<b>IMPORTANT</b>: Set an environment variable JAVA_HOME to the pathname of the 
+directory into which you installed the JDK release.
+</p>
+
+</section>
+
+<section name="Install Apache Ant 1.5.x">
+
+<p>
+Download a binary distribution of Ant 1.5.x from 
+<a href="http://ant.apache.org/bindownload.cgi">here</a>.
+</p>
+
+<p>
+Unpack the binary distribution into a convenient location so that the
+Ant release resides in its own directory (conventionally named
+"jakarta-ant-1.5.1").  For the purposes of the remainder of this document,
+the symbolic name "${ant.home}" is used to refer to the full pathname of
+ the release directory.
+</p>
+
+<p>
+Create an ANT_HOME environment variable to point the directory ${ant.home}, 
+and modify the PATH environment variable to include directory
+"${ant.home}/bin" in its list.  This makes the "ant" command line script
+available, which will be used to actually perform the build.
+</p>
+
+</section>
+
+<section name="Building Tomcat">
+
+<p>
+Download the main build.xml script from <a href="build.xml">here</a>.
+</p>
+
+<p>
+Create a new directory, and copy the newly download build.xml to it. This
+  directory will be referred to as the ${tomcat.source} directory in the rest
+  of this document.
+</p>
+
+<p>
+Go to that directory, and do:
+<code><br/>
+    cd ${tomcat.source}<br/>
+    ant<br/>
+</code>
+</p>
+
+<p>
+NOTE: Users accessing the Internet through a proxy must use a properties
+  file to indicate to Ant the proxy configuration. Read below.
+</p>
+
+<p>
+WARNING: Running this command will checkout the Tomcat 5 sources from CVS, as
+  well as download binaries to the <code>/usr/share/java</code> directory. 
+  Make sure this is appropriate to do so on your computer. On Windows, 
+  this usually corresponds to the <code>C:\usr\share\java</code> directory, 
+  unless Cygwin is used. Read below to customize the directory used 
+  to download the binaries.
+</p>
+
+<p>
+The build can be controlled by creating a ${tomcat.source}/build.properties
+  file, and adding the following content to it:
+<code><br/>
+    # ----- Proxy setup -----<br/>
+    # Uncomment if using a proxy server.<br/>
+    #proxy.host=proxy.domain<br/>
+    #proxy.port=8080<br/>
+    #proxy.use=on<br/>
+<br/>
+    # ----- Default Base Path for Dependent Packages -----<br/>
+    # Replace this path with the directory path where<br/>
+    # dependencies binaries should be downloaded.<br/>
+    base.path=/usr/share/java<br/>
+</code>
+</p>
+
+</section>
+
+<section name="Updating and rebuilding Tomcat sources">
+
+<p>
+It is recommended to regularly update the downloaded Tomcat 5 sources. 
+To do this, execute the following commands:
+
+<code><br/>
+    cd ${tomcat.source}<br/>
+    ant checkout<br/>
+</code>
+</p>
+
+<p>
+For a quick rebuild of only modified code you can use:
+<code><br/>
+    cd ${tomcat.source}<br/>
+    ant build<br/>
+</code>
+
+</p>
+
+</section>
+
+<section name="Building with Eclipse">
+
+<p>
+<b>Important:</b>
+This is not a supported means of building Tomcat; this information is
+provided without warranty :-).
+The only supported means of building Tomcat is with the "ant build"
+described above.
+However, some developers like to work on Java code with a Java IDE,
+and the following steps have been used by some developers.
+</p>
+
+<p>
+Note that you <b>must</b> complete all the above steps to fetch
+the repositories and build some JAR files the first time.
+After you have completed the above steps, you can set up a
+series of Eclipse 3 projects.
+<b>Note</b> that this will not let you build everything under Eclipse;
+the build process requires use of Ant for the many stages that aren't
+simple Java compilations.
+However, it will allow you to view and edit the Java code,
+get warnings, reformat code, perform refactorings, run Tomcat
+under the IDE, and so on.
+</p>
+
+<p>
+Use File-&gt;New Project to create a new Java project 
+for each of the binaries repository (e.g., /usr/share/java), 
+tomcat-connectors, tomcat-catalina, jasper, servletapi.
+Unless you thought ahead to make the ${tomcat.source} directory be under
+your Workspace folder, tell Eclipse the external location.
+The obvious dependencies will be needed; the "repository" project
+needs to export all its jars, and be referred to by the other projects.
+Eclipse will find all source trees and jars, and
+hopefully compile without problems
+You will need to add ${ant-home}/lib/ant.jar as an "External Jar"
+under Project Properties for some of these projects (notably those that fail
+to compile for want of BuildException).
+</p>
+
+<p>
+To run Tomcat without a special IDE plug-in, you can simply use Run-&gt;Run...
+enter "org.apache.catalina.startup.Catalina" as the main class,
+"start" as program arguments, and
+"-Dcatalina.home=..." (with the name of your build directory) 
+as VM arguments.
+</p>
+
+<p>
+Note also that due to the way the Tomcat source is assembled
+from several CVS projects, you may not be able to use the Eclipse
+CVS client to update (nor to commit, if you are a committer).
+Use the external CVS client of your choice, then use the
+Eclipse PackageExplorer or Navigator "Refresh" context menu item
+to tell Eclipse that you've updated the files.
+</p>
+
+</section>
+
+<section name="Building with other IDEs">
+<p>
+The same caveats apply as for Eclipse, above.
+</p>
+
+<p>
+The same general idea should work in most IDEs; it has been reported
+to work in Idea, for example.
+</p>
+
+</section>
+
+</body>
+</document>

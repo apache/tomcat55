@@ -1,0 +1,13 @@
+# Pure catalina tasks
+deploy=org.apache.catalina.ant.DeployTask
+list=org.apache.catalina.ant.ListTask
+reload=org.apache.catalina.ant.ReloadTask
+resources=org.apache.catalina.ant.ResourcesTask
+roles=org.apache.catalina.ant.RolesTask
+start=org.apache.catalina.ant.StartTask
+stop=org.apache.catalina.ant.StopTask
+undeploy=org.apache.catalina.ant.UndeployTask
+validator=org.apache.catalina.ant.ValidatorTask
+
+# Jasper tasks
+jasper2=org.apache.jasper.JspC

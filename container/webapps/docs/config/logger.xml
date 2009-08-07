@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="logger.html">
+
+  &project;
+
+  <properties>
+    <author email="craigmcc@apache.org">Craig R. McClanahan</author>
+    <title>The Logger Component</title>
+  </properties>
+
+<body>
+
+
+<section name="Introduction">
+
+  <p>Tomcat uses the 
+     <a href="http://jakarta.apache.org/commons/logging/">Commons Logging</a>
+     package to implement all logging.  This includes the logging defined
+     by <code>ServletContext.log</code>.</p>
+
+  <p>If you are interested in producing access logs like a web server does
+  (for example, to run hit count analysis software), you will want to configure
+  an <a href="valve.html#Access Log Valve">Access Log Valve</a> component on
+  your <a href="engine.html#Access Logs">Engine</a>,
+  <a href="host.html#Access Logs">Host</a>, or
+  <a href="context.html#Access Logs">Context</a>.</p>
+
+    <blockquote><em>
+    <p>The description below uses the variable name $CATALINA_HOME
+    to refer to the directory into which you have installed Tomcat 5,
+    and is the base directory against which most relative paths are
+    resolved.  However, if you have configured Tomcat 5 for multiple
+    instances by setting a CATALINA_BASE directory, you should use
+    $CATALINA_BASE instead of $CATALINA_HOME for each of these
+    references.</p>
+    </em></blockquote>
+
+</section>
+
+
+<section name="Using Log4j">
+  <p>One of the options for logging is to use the
+     <a href="http://logging.apache.org/log4j/">Log4j</a> package to implement
+     the logging for Tomcat.  The simplest way to do this is to copy the
+     <code>log4j-x.x.x.jar</code> and the <code>commons-logging.jar</code>
+     to <em>$CATALINA_HOME/common/lib</em>.  The <em>log4j.xml</em> file
+     can then be placed in <em>$CATALINA_HOME/common/classes</em>.  An example
+     configuration is:</p>
+     <source>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"&gt;
+
+&lt;log4j:configuration  xmlns:log4j='http://jakarta.apache.org/log4j/'&gt;
+
+	&lt;appender name="STDOUT" class="org.apache.log4j.ConsoleAppender"&gt;
+           &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+             &lt;param name="ConversionPattern"
+		    value="%d %-5p [%t] %c (%F:%L) - %m%n"/&gt;
+           &lt;/layout&gt;	    
+	&lt;/appender&gt;
+        &lt;appender name="catalina" 
+                     class="org.apache.log4j.DailyRollingFileAppender"&gt;
+          &lt;param name="File" 
+                    value="${catalina.home}/logs/catalina_log.txt" /&gt;
+          &lt;param name="DatePattern" value="'.'yyy-MM-dd" /&gt;
+           &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+             &lt;param name="ConversionPattern"
+		    value="%-5p %d - %m%n"/&gt;
+           &lt;/layout&gt;	    
+        &lt;/appender&gt;
+        &lt;appender name="localhost" 
+                     class="org.apache.log4j.DailyRollingFileAppender"&gt;
+          &lt;param name="File" 
+                    value="${catalina.home}/logs/localhost_log.txt" /&gt;
+          &lt;param name="DatePattern" value="'.'yyy-MM-dd" /&gt;
+           &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+             &lt;param name="ConversionPattern"
+		    value="%-5p %d - %m%n"/&gt;
+           &lt;/layout&gt;	    
+        &lt;/appender&gt;
+        &lt;appender name="localhost.admin" 
+                     class="org.apache.log4j.DailyRollingFileAppender"&gt;
+          &lt;param name="File" 
+                    value="${catalina.home}/logs/localhost_admin_log.txt" /&gt;
+          &lt;param name="DatePattern" value="'.'yyy-MM-dd" /&gt;
+           &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+             &lt;param name="ConversionPattern"
+		    value="%-5p %d - %m%n"/&gt;
+           &lt;/layout&gt;	    
+        &lt;/appender&gt;
+	
+	&lt;category 
+             name="org.apache.catalina.core.ContainerBase.[Catalina]" 
+             additivity="false"&gt;
+	  &lt;priority value="info" /&gt;
+          &lt;appender-ref ref="catalina" /&gt;
+	&lt;/category&gt;
+	&lt;category 
+            name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost]" 
+            additivity="false"&gt;
+	  &lt;priority value="info" /&gt;
+          &lt;appender-ref ref="localhost" /&gt;
+	&lt;/category&gt;
+	&lt;category 
+           name="org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/admin]" 
+           additivity="false"&gt;
+	  &lt;priority value="info" /&gt;
+          &lt;appender-ref ref="localhost.admin" /&gt;
+	&lt;/category&gt;
+	
+	&lt;root&gt;
+	   &lt;priority value ="info" /&gt;
+   	   &lt;appender-ref ref="STDOUT" /&gt;
+	&lt;/root&gt;
+	
+&lt;/log4j:configuration&gt;
+     </source>
+</section>
+
+
+<section name="Using JDK1.4 logging">
+
+  <p><strong>TO DO</strong></p>
+
+</section>
+
+
+
+
+</body>
+
+
+</document>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="changelog.html">
+
+  &project;
+
+  <properties>
+    <author email="remm@apache.org">Remy Maucherat</author>
+    <author email="yoavs@apache.org">Yoav Shapira</author>
+    <title>Changelog</title>
+  </properties>
+
+<body>
+
+<section name="Preface">
+  <p>
+  This is the Changelog for Tomcat 5.5.x.  For changes in Tomcat version 5.0.x,
+  which preceded version 5.5.0, please see
+  <a href="http://jakarta.apache.org/tomcat/tomcat-5.0-doc/changelog.html">The
+  Tomcat 5.0.x Changelog</a>.  As maintenance releases are cut on the 5.0.x branch,
+  most fixes will be ported into a 5.5.x release and noted both here and in the
+  above Changelog.  However, bugs fixed in Tomcat 5.0.28 and earlier are noted
+  only in the above changelog.
+  </p>
+</section>
+
+<section name="Tomcat 5.5.0 (yoavs)">
+  <subsection name="General">
+    <changelog>
+      <update>
+        Many updated and fixed JavaDocs. (everyone)
+      </update>
+      <update>
+        Designed and tested Tomcat on J2SE 5.0 (aka JDK 1.5). (everyone)
+      </update>
+      <update> 
+        Bundled Eclipse JDT (new dependency) to allow Tomcat to run on a JRE only, i.e. no JDK required. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Catalina">
+    <changelog>
+      <update>
+        Removed usage of org.apache.catalina.Logger, increased usage of commons-logging everywhere. (remm)
+      </update>
+      <update>
+        Refactored classloader code to better handle JAR and general resource locking. (remm)
+      </update>
+      <update>
+        Written JMX-related code to play nicely with J2SE 5.0 built-in JMX abilities. (remm, costin)
+      </update>
+      <update>
+        Extensively profiled and optimized the server startup performance as well as the request mapping and processing pipeline. (remm)
+      </update>
+    </changelog>
+  </subsection>
+
+  <subsection name="Coyote">
+  </subsection>
+
+  <subsection name="Jasper">
+    <changelog>
+    </changelog>
+  </subsection>
+
+  <subsection name="Cluster">
+  </subsection>
+
+  <subsection name="Webapps">
+    <changelog>
+    </changelog>
+  </subsection>
+</section>
+
+</body>
+</document>
