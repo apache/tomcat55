@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mbeans-descriptors PUBLIC
+   "-//Apache Software Foundation//DTD Model MBeans Configuration File"
+   "http://jakarta.apache.org/commons/dtds/mbeans-descriptors.dtd">
+<mbeans-descriptors>
+    <mbean name="ClusterJvmRouteMoverValve" description="mod_jk jvmRoute jsessionid cookie backup correction" domain="Catalina"
+        group="Valve" type="org.apache.catalina.cluster.session.JvmRouteBinderValve">
+        <attribute name="info" 
+		           description="describe version" type="java.lang.String" writeable="false"/>
+        <attribute name="enabled" 
+		           description="enable a jvm Route check" type="boolean"/>
+        <attribute name="numberOfSessions"
+		           description="number of jvmRoute session corrections" type="long" writeable="false"/>
+        <attribute name="sessionIdAttribute" 
+		    description="Name of attribute with sessionid value before turnover a session" 
+		    type="java.lang.String" 
+		    />
+        <operation name="start" description="Stops the ClusterJvmRouteMoverValve" 
+		           impact="ACTION" returnType="void"/>
+        <operation name="stop" description="Stops the ClusterJvmRouteMoverValve" 
+		           impact="ACTION" returnType="void"/>
+    </mbean>
+	<mbean name="ClusterSessionIDMoverListener"
+		description="Monitors the jvmRoute activity"
+		domain="Catalina"
+        group="Listener"
+		type="org.apache.catalina.cluster.session.JvmRouteSessionIDBinderListener">
+        <attribute name="info" 
+		           description="describe version" type="java.lang.String" writeable="false"/>
+        <attribute name="numberOfSessions" 
+		    description="number of jvmRoute session corrections" 
+		    type="long" 
+		    writeable="false"/>
+    </mbean>
+
+</mbeans-descriptors>

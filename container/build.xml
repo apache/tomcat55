@@ -1,0 +1,188 @@
+<project name="Catalina 2.0" default="deploy" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <!--property file="build.properties"/>
+  <property file="${user.home}/build.properties"/-->
+
+  <!-- Build Defaults -->
+  <!--property name="catalina.build"   value="${basedir}/catalina/build"/-->
+
+  <!-- Source dependencies -->
+  <property name="api.home"
+           value="${basedir}/../jakarta-servletapi-5"/>
+  <property name="jtc.home"
+           value="${basedir}/../jakarta-tomcat-connectors"/>
+
+
+  <!-- =================== DETECT: Display configuration ================== -->
+  <target name="flags.display"
+   description="Display configuration and conditional compilation flags">
+
+    <ant dir="${basedir}/catalina" target="flags.display"/>
+    <ant dir="${basedir}/webapps/admin" target="flags.display"/>
+
+  </target>
+
+
+  <!-- ===================== DEPLOY: Create Directories =================== -->
+  <target name="deploy-prepare">
+    <mkdir dir="${tomcat.build}"/>
+  </target>
+
+
+  <!-- ====================== DEPLOY: Copy Static Files =================== -->
+  <target name="deploy-static" depends="deploy-prepare"/>
+
+
+  <!-- ====================== DEPLOY: Deploy Components =================== -->
+  <target name="deploy" depends="deploy-static"
+   description="Build and deploy all components">
+    <echo>Target: Catalina - Deploy ...</echo>
+    <ant dir="${basedir}/catalina" target="deploy"/>
+    <echo>Target: Webapps - Deploy ...</echo>
+    <ant dir="${basedir}/webapps"  target="deploy"/>
+  </target>
+
+  <!-- ====================== DEPLOY: Deploy Core Components =================== -->
+  <!-- used by gump to build just catalina and not the j-t-connectors -->
+  <target name="deploy-catalina" depends="deploy-static"
+   description="Build and deploy all components">
+    <echo>Target: Catalina - Deploy ...</echo>
+    <ant dir="${basedir}/catalina" target="deploy-catalina"/>
+    <echo>Target: Webapps - Deploy ...</echo>
+    <ant dir="${basedir}/webapps"  target="deploy"/>
+  </target>
+
+
+  <!-- ====================== COMBO: Clean All Directories ================ -->
+  <target name="clean"
+   description="Clean all components">
+    <delete dir="${tomcat.build}"/>
+    <echo>Target: Catalina - Clean ...</echo>
+    <ant dir="${basedir}/catalina" target="clean"/>
+    <echo>Target: Webapps - Clean ...</echo>
+    <ant dir="${basedir}/webapps"  target="clean"/>
+    <delete dir="${tomcat.dist}"/>
+  </target>
+
+
+  <!-- ======================= COMBO: Build All Components ================ -->
+  <target name="all"
+   description="Clean, build, and deploy all components">
+    <echo>Target: Catalina - All ...</echo>
+    <ant dir="${basedir}/catalina" target="all"/>
+    <echo>Target: Webapps - All ...</echo>
+    <ant dir="${basedir}/webapps"  target="all"/>
+  </target>
+
+
+  <!-- ======================= COMBO: Test All Components ================= -->
+  <target name="test"
+   description="Unit tests on all components">
+    <echo>Target: Catalina - Test ...</echo>
+    <ant dir="${basedir}/catalina" target="test"/>
+    <echo>Target: Webapps - Test ...</echo>
+    <ant dir="${basedir}/webapps"  target="test"/>
+  </target>
+
+
+  <!-- ====================== DIST: Create Directories ==================== -->
+  <target name="dist-prepare">
+    <mkdir dir="${tomcat.dist}"/>
+    <mkdir dir="${tomcat.dist}/bin"/>
+    <mkdir dir="${tomcat.dist}/common"/>
+    <mkdir dir="${tomcat.dist}/common/classes"/>
+    <mkdir dir="${tomcat.dist}/common/endorsed"/>
+    <mkdir dir="${tomcat.dist}/common/lib"/>
+    <mkdir dir="${tomcat.dist}/conf"/>
+    <mkdir dir="${tomcat.dist}/logs"/>
+    <mkdir dir="${tomcat.dist}/server"/>
+    <mkdir dir="${tomcat.dist}/server/classes"/>
+    <mkdir dir="${tomcat.dist}/server/lib"/>
+    <mkdir dir="${tomcat.dist}/shared/classes"/>
+    <mkdir dir="${tomcat.dist}/shared/lib"/>
+    <mkdir dir="${tomcat.dist}/webapps"/>
+    <mkdir dir="${tomcat.dist}/work"/>
+    <mkdir dir="${tomcat.dist}/temp"/>
+  </target>
+
+
+  <!-- ====================== DIST: Copy Static Files ===================== -->
+  <target name="dist-static" depends="dist-prepare">
+
+    <!-- Copy the top-level documentation files -->
+    <copy todir="${tomcat.dist}">
+      <fileset dir=".">
+        <include name="LICENSE"/>
+        <include name="INSTALLING.txt"/>
+        <include name="BUILDING.txt"/>
+        <include name="README.txt"/>
+        <include name="RELEASE*"/>
+        <include name="RUNNING.txt"/>
+      </fileset>
+    </copy>
+
+    <!-- Copy the contents of each "build" directory -->
+    <copy todir="${tomcat.dist}/bin">
+      <fileset dir="${tomcat.build}/bin" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/classes">
+      <fileset dir="${tomcat.build}/common/classes" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/endorsed">
+      <fileset dir="${tomcat.build}/common/endorsed" />
+    </copy>
+    <copy todir="${tomcat.dist}/common/lib">
+      <fileset dir="${tomcat.build}/common/lib" />
+    </copy>
+    <copy todir="${tomcat.dist}/conf">
+      <fileset dir="${tomcat.build}/conf" />
+    </copy>
+    <copy todir="${tomcat.dist}/server/classes">
+      <fileset dir="${tomcat.build}/server/classes" />
+    </copy>
+    <copy todir="${tomcat.dist}/server/lib">
+      <fileset dir="${tomcat.build}/server/lib" />
+    </copy>
+    <copy todir="${tomcat.dist}/server/webapps">
+      <fileset dir="${tomcat.build}/server/webapps" />
+    </copy>
+    <copy todir="${tomcat.dist}/shared/classes">
+      <fileset dir="${tomcat.build}/shared/classes" />
+    </copy>
+    <copy todir="${tomcat.dist}/shared/lib">
+      <fileset dir="${tomcat.build}/shared/lib" />
+    </copy>
+    <copy todir="${tomcat.dist}/webapps">
+      <fileset dir="${tomcat.build}/webapps" />
+    </copy>
+
+    <!-- Correct permissions and line endings on "bin" scripts -->
+    <fixcrlf srcdir="${tomcat.dist}/bin"   includes="*.sh"  eol="lf"/>
+    <fixcrlf srcdir="${tomcat.dist}/bin"   includes="*.bat" eol="crlf"/>
+    <chmod      dir="${tomcat.dist}/bin"   includes="*.sh"  perm="+x"/>
+
+  </target>
+
+
+  <!-- ====================== DIST: Create Javadoc ======================== -->
+  <target name="dist-javadoc">
+    <ant dir="${basedir}/catalina" target="javadoc"/>
+    <mkdir  dir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api"/>
+    <copy todir="${tomcat.dist}/webapps/tomcat-docs/catalina/docs/api">
+      <fileset dir="${catalina.build}/javadoc" />
+    </copy>
+  </target>
+
+
+  <!-- ====================== DIST: Create Archives ======================= -->
+  <target name="dist" depends="deploy,dist-static,dist-javadoc"
+   description="Create binary distribution">
+  </target>
+
+
+</project>
