@@ -1,0 +1,3 @@
+<!--#set var="test" value="value of test" -->
+<!--#set var="test3" value="${test}\${test2}" -->
+<!--#echo var="test3" -->
