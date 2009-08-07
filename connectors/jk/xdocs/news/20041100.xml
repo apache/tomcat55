@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="20041100.html">
+ 
+  &project;
+ 
+  <properties>
+    <author email="general.AT.tomcat.DOT.apache.DOT.org">Apache Jakarta Project</author>
+    <title>2004 News and Status</title>
+  </properties>
+
+<body>
+
+<section name="2004 News &amp; Status">
+<br />
+<!--
+<a name="2004****.1">
+<h3></h3>
+</a>
+<hr size="1" noshade="noshade" />
+-->
+<a name="20041224.1"> 
+<h3>17 December - JK-1.2.8 released</h3>
+</a> 
+<p>The Apache Jakarta Tomcat team is proud to announce the immediate availability
+of Jakarta Tomcat Connectors 1.2.8.
+</p>
+<p>
+ Please see the <a href="../miscellaneous/changelog.html">ChangeLog</a> for a full list of changes.
+</p>
+<p>If you find any bugs during testing this release, please fill in the
+<a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Tomcat%205">Bugzilla</a>
+Bug Report. When entering bug select <b>Native:JK</b> Component.
+</p>
+<hr size="1" noshade="noshade" />
+<a name="20041218.1"> 
+<h3>17 December - JK-1.2.8-rc-1 released</h3>
+</a> 
+<p>The Apache Jakarta Tomcat team is proud to announce the immediate availability
+of Jakarta Tomcat Connectors 1.2.8-rc-1 (Relase Canditate 1).
+</p>
+<p>
+We expect it to be ratified as a Stable release when the vote takes place
+in the next week.
+</p>
+<p>
+ Please see the <a href="../miscellaneous/changelog.html">ChangeLog</a> for a full list of changes.
+</p>
+<p>If you find any bugs during testing this release, please fill in the
+<a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Tomcat%205">Bugzilla</a>
+Bug Report. When entering bug select <b>Native:JK</b> Component.
+</p>
+<hr size="1" noshade="noshade" />
+<a name="20041213.1"> 
+<h3>13 December - JK-1.2.7-beta-3 released</h3>
+</a> 
+<p>The Apache Jakarta Tomcat team is proud to announce the immediate availability
+of Jakarta Tomcat Connectors 1.2.7-beta-3. The release contains a fix to few configuration
+problems detected with JK-1.2.7-beta-2 version.
+</p>
+<p>
+We expect it to be ratified as a Stable release when the vote takes place
+in the next week.
+</p>
+<p>
+ Please see the <a href="../miscellaneous/changelog.html">ChangeLog</a> for a full list of changes.
+</p>
+<p>If you find any bugs during testing this release, please fill in the
+<a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Tomcat%205">Bugzilla</a>
+Bug Report. When entering bug select <b>Native:JK</b> Component.
+</p>
+<hr size="1" noshade="noshade" />
+<a name="20041207.1"> 
+<h3>7 December - JK-1.2.7-beta-2 released</h3>
+</a> 
+<p>The Apache Jakarta Tomcat team is proud to announce the immediate availability
+of Jakarta Tomcat Connectors 1.2.7-beta-2. The release contains a fix to few compilation
+problems detected with JK-1.2.7-beta version. This release also introduces a new
+<b>domain</b> concept clustering support. See <bug>32317</bug> for details.
+</p>
+<p>
+We expect it to be ratified as a Stable release when the vote takes place
+in the next two weeks.
+</p>
+<p>
+ Please see the <a href="../miscellaneous/changelog.html">ChangeLog</a> for a full list of changes.
+</p>
+<p>If you find any bugs during testing this release, please fill in the
+<a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Tomcat%205">Bugzilla</a>
+Bug Report. When entering bug select <b>Native:JK</b> Component.
+</p>
+<hr size="1" noshade="noshade" />
+
+<a name="20041130.1"> 
+<h3>30 November - JK-1.2.7-beta released</h3>
+</a> 
+<p>The Apache Jakarta Tomcat team is proud to announce the immediate availability
+of Jakarta Tomcat Connectors 1.2.7-beta. The release contains a significant number
+of bug fixes and new features. 
+</p>
+<p>
+We expect it to be ratified as a Stable release when the vote takes place
+in the next two weeks.
+</p>
+<p>
+ Please see the <a href="../miscellaneous/changelog.html">ChangeLog</a> for a full list of changes.
+</p>
+<warn>
+Since release 1.2.7 the <b>socket_timeout</b> property has been renamed to
+<b>recycle_timeout</b>.
+The socket_timeout now sets the real timeout for socket operations.
+</warn>
+<p>If you find any bugs during testing this release, please fill in the
+<a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Tomcat%205">Bugzilla</a>
+Bug Report. When entering bug select <b>Native:JK</b> Component.
+</p>
+
+<hr size="1" noshade="noshade" />
+
+<a name="20041115.1"> 
+<h3>15 November - JK2 is officially unsupported</h3>
+</a> 
+<p>JK2 has been put in maintainer mode and no further development will take place.
+The reason for shutting down JK2 development was the lack of developers interest.
+Other reason was lack of users interest in adopting JK2, caused by configuration
+complexity when compared to JK.
+</p>
+<p>The latest official JK2 release is 2.0.4.
+</p>
+<p>JK2 will have it's successor within core Apache2.1/2.2 distribution.
+We have developed new <b>proxy_ajp</b> that is an addition to
+the mod_proxy and uses Tomcat's AJP protocol stack. It is developped in httpd-2.1
+and integrated in it. We have also developed a new <b>proxy_balancer</b> module
+for load balancing http and ajp protocol stacks.
+</p>
+<p>JK will be fully supported for all other web servers. The next JK release is
+planned for the end of November. Lots of code from JK2 has been ported to JK
+</p>
+<hr size="1" noshade="noshade" />
+
+</section>
+</body>
+</document>  

@@ -1,0 +1,1914 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="changelog.html">
+
+  &project;
+
+  <properties>
+    <author email="mturk@apache.org">Mladen Turk</author>
+    <author email="rjung@apache.org">Rainer Jung</author>
+    <author email="hgomez@apache.org">Henri Gomez</author>
+    <title>Changelog</title>
+  </properties>
+
+<body>
+
+<section name="Preface">
+  <p>
+  This is the Changelog for Tomcat Connectors. This changelog
+  does not contain all updates and fixes to the Tomcat connectors (yet).
+  It should contain fixes made only after November 10th 2004, when the
+  new documentation project for JK was started.
+  </p>
+</section>
+<section name="Changes between 1.2.28 and 1.2.29">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+        Docs: Update information about tools needed to create a release. (rjung)
+      </update>
+      <update>
+        Build: Force copy of automake files. (rjung)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.27 and 1.2.28">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <add>
+        Apache: Add more environment variables to overwrite request
+        information. Useful in case a proxy is in front of Apache and sends
+        us original request information e.g. via custom headers. (rjung)
+      </add>
+      <update>
+        Apache: No longer preallocate entries for JK request log. (rjung)
+      </update>
+      <fix>
+        <bug>46352</bug>: Apache: Fix crash when using SetHandler jakarta-servlet
+        in VHost without any JkMount. Crash due to incorrect initialization
+        of mount extensions. (rjung)
+      </fix>
+      <fix>
+        Apache: JkWatchdogInterval had wrong interval calculation
+        causing a 10 times higher watchdog interval then configured. (mturk)
+      </fix>
+      <fix>
+        Apache: Activate forwarding of SSL key size by default. (rjung)
+      </fix>
+      <fix>
+        <bug>46169</bug>: Apache 1.3: Backport use_server_errors mount extension. (rjung)
+      </fix>
+      <fix>
+        <bug>46763</bug>: Apache 2.0: Survive the log mutex during graceful
+        restart. Patch provided by Eiji Takahashi. (mturk)
+      </fix>
+      <fix>
+        <bug>46416</bug>: Apache 2.0 on Windows: Include mstcipip.h even if
+        the apr doesn't include it. (mturk)
+      </fix>
+      <update>
+        IIS: Update uriworkermap.properties file on
+        a regular interval. This requires both worker_mount_reload
+        and watchdog_interval to be defined. (mturk)
+      </update>
+      <update>
+        IIS: Remove obsolete entries from registry file. (mturk)
+      </update>
+      <fix>
+        <bug>46579</bug>: IIS: Use local environment table instead environment
+        variables for setting the JKISAPI_PATH and JKISAPI_NAME. (mturk)
+      </fix>
+      <update>
+        LB: Add new property error_escalation_time to fine tune
+        escalation of local errors to global errors. (rjung)
+      </update>
+      <update>
+        LB: If the sticky session affinity mark contains a dot, treat the
+        part before the dot as the domain name. This allows to have full node
+        session affinity with domain failover. (mturk)
+      </update>
+      <fix>
+        LB: make forced recovery work with local error states. (rjung)
+      </fix>
+      <fix>
+        LB: Only update error state and error time, if we actually have a new state. (rjung)
+      </fix>
+      <fix>
+        LB: Set global worker state to error when we reach max_reply_timeouts,
+        or fail_on_status triggered hard error. (rjung)
+      </fix>
+      <update>
+        AJP: Add a new error type JK_AJP_PROTOCOL_ERROR. (mturk)
+      </update>
+      <update>
+        AJP: Allow worker ports lower or equal to 1024. (rjung)
+      </update>
+      <update>
+        AJP: Improve some AJP error log messages. (mturk)
+      </update>
+      <update>
+        Status: Allow changing worker address and port of AJP workers.
+        The address is resolved on next request for that worker. (mturk)
+      </update>
+      <update>
+        Status: Allow update actions to show error messages in the result page. (rjung)
+      </update>
+      <update>
+        Status: Refactor update actions. (rjung)
+      </update>
+      <update>
+        Status: Do not redirect to the show or list page, if an error occured
+        during an action. (rjung)
+      </update>
+      <update>
+        Status: Include error time in display. (rjung)
+      </update>
+      <update>
+        Status: Remove redundant port information from worker display.
+        Rename address column and remove its explanation from the legend. (rjung)
+      </update>
+      <update>
+        Status: Optimize forced uriworkermap.properties reload. (mturk)
+      </update>
+      <fix>
+        Status: Fix crash in text display. (rjung)
+      </fix>
+      <fix>
+        Status: Show - Edit - Show always ends in single lb member show,
+        even when started from all members lb show. (rjung)
+      </fix>
+      <fix>
+        Status: Wildcards in sub worker names were broken for update actions. (rjung)
+      </fix>
+      <fix>
+        Status: Add use_server_errors to map display. (rjung)
+      </fix>
+      <update>
+        SHM: Move locking into the data pull and push methods. (rjung)
+      </update>
+      <update>
+        JNI: Deprecate JNI workers. (rjung)
+      </update>
+      <fix>
+        Netware: Missing define for MAX_PATH. Patch by Guenter Knauf. (rjung)
+      </fix>
+      <update>
+        Docs: Add a new HowTo page about reverse proxies. (rjung)
+      </update>
+      <update>
+        Docs: Add an explanation of local error states to the timeouts documentation. (rjung)
+      </update>
+      <update>
+        Docs: Clarify relation between socket_timeout and socket_connect_timeout. (rjung)
+      </update>
+      <update>
+        Docs: Clarify IIS URL rewrite feature. (rjung)
+      </update>
+      <fix>
+        <bug>46834</bug>,<bug>46734</bug>: Docs: Fix a couple of missing or broken links. (markt,rjung)
+      </fix>
+      <fix>
+        Docs: Add 2008 news to main page and menues. (mturk, rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.26 and 1.2.27">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+        <bug>46109</bug>: Decay reply_timeouts even when lb method is
+        busyness. Also reset reply_timeouts during forced recovery. (rjung)
+      </fix>
+      <update>
+        AJP13: Recycle connection if previous request didn't complete. (mturk)
+      </update>
+      <update>
+        Maintain should not run multiple times in parallel. (mturk)
+      </update>
+      <fix>
+        Apache: Fix small memory leak during restart. (mturk)
+      </fix>
+      <update>
+        Improve signal handling during socket shutdown. (mturk)
+      </update>
+      <add>
+        URI Map: Add debug dump function for uri worker map. (rjung)
+      </add>
+      <update>
+        Add revision number to version info for non-release builds. (rjung)
+      </update>
+      <add>
+        IIS: Optionally allow chunked encoding for responses.
+        At the moment only usable, if build with ISAPI_ALLOW_CHUNKING
+        defined. Based on patch by Tim Whittington. (rjung)
+      </add>
+      <update>
+        IIS: Optionally use raw headers instead of CGI
+        headers. Fixes problem "underscore=dash" problem in
+        header names. At the moment only available, if build with USE_RAW_HEADERS
+        defined. (rjung)
+      </update>
+      <update>
+        IIS: Optionally improve IIS 5.1 compatibility.
+        At the moment only available, if build with AUTOMATIC_AUTH_NOTIFICATION
+        defined. Based on patch by Tim Whittington. (rjung)
+      </update>
+      <fix>
+        IIS: Fix memory corruption due to parallel initialization
+        by multiple threads. (rjung)
+      </fix>
+      <update>
+        Windows: Use non-default socket keepalive interval. (mturk)
+      </update>
+      <add>
+        IIS: Add environment variables JKISAPI_PATH and JKISAPI_NAME. (mturk)
+      </add>
+      <add>
+        Added socket_connect_timeout directive for setting the
+        connect timeout for the socket. This enables to have low
+        connection timeout but higher operational timeouts. (mturk)
+      </add>
+      <fix>
+        AJP13: 
+        [<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-5519"><b>CVE-2008-5519</b></a>]
+        Always send initial POST packet even if the client
+        disconnected after sending request but before providing
+        POST data. In that case or in case the client broke the
+        connection in a middle of read send an zero size packet
+        informing container about broken client connection. (mturk) 
+      </fix>
+      <add>
+        AJP13: Added connection_acquire_timeout directive for setting the
+        absolute timeout the worker will wait for a free endpoint. (mturk)
+      </add>
+      <update>
+        Apache: Allow to set path parameter used when doing JkStripSession. (mturk)
+      </update>
+      <update>
+        Refactor retries implementation and change semantics of retries attributes. (mturk)
+      </update>
+      <update>
+        Status: Allow showing only a single member for a load balancer. (rjung)
+      </update>
+      <update>
+        Status: Add display of seconds since last statistics reset and access and
+        transfer rates. (rjung)
+      </update>
+      <add>
+        AJP13: Add a configurable retry_interval time. (rjung)
+      </add>
+      <update>
+        Documentation: Enhance description of connection_pool_size. (rjung)
+      </update>
+      <update>
+        IIS: Refactor error page generation. (mturk)
+      </update>
+      <fix>
+        IIS: SERVER_NAME variable can be the same for
+        multiple different server instances if requests
+        are handled according to the ip:port combination.
+        Use INSTANCE_ID variable to which the request
+        belongs instead. (mturk)
+      </fix>
+      <add>
+        Allow forwarding server error pages. This can be done
+        on per-uri basis using new use_server_errors extension.
+        (mturk)
+      </add>
+      <add>
+        Added session_cookie and session_path for configuring
+        default session identifiers. (mturk)
+      </add>
+      <update>
+        Use max_packet_size also as TCP send and receive buffer size. (mturk)
+      </update>
+      <update>
+        Apache: Do not allow Apache to start in multi-threaded mode if mod_jk
+        was only build for single threaded server (prefork). (mturk)
+      </update>
+      <fix>
+        <bug>45812</bug>: Add done() service method that
+        causes sending EOS bucket for Apache httpd 2.x.
+        This allows filter chain to work properly. (mturk)
+      </fix>
+      <add>
+        Added connection_ping_interval, ping_timeout and ping_mode directives.
+        (mturk)
+      </add>
+      <fix>
+        Apache: Use correct ld flags provided by apxs when building module.
+        Prevents some crashes on AIX for httpd 1.3 module. (rjung)
+      </fix>
+      <fix>
+        Documentation: "val" attribute numbering in status worker
+        needs to start with 0 instead of 1. (rjung)
+      </fix>
+      <update>
+        Documentation: Remove JNI parameters from sample configuration
+        in the workers generic howto. (rjung)
+      </update>
+      <fix>
+        <bug>45026</bug>: For Apache httpd 2.x add "Unknown Reason"
+        as the reason phrase, if we get an empty one from the backend.
+        Otherwise httpd 2.x returns status 500. (rjung)
+      </fix>
+      <fix>
+        Build: Fix Cygwin build. (rjung)
+      </fix>
+      <update>
+        Documentation: Add info to docs, that variables sent via JkEnvVar
+        are not listed in request.getAttributeNames(). (rjung)
+      </update>
+      <add>
+        Add watchdog background thread for Apache 2.x and IIS
+        doing internal maintenance (idle connection checks, backend probing).
+        See JkWatchdogInternal (Apache) and watchdog_interval (IIS). (mturk)
+      </add>
+      <update>
+        Change log level of some messages from error to info. (mturk)
+      </update>
+      <fix>
+        Documentation: Fix docs for worker attribute "secret". (rjung)
+      </fix>
+      <update>
+        Detect correct plugin name for various web servers via additional
+        preprocessor defines. (rjung)
+      </update>
+      <fix>
+        LB: Do not put loadbalancer node in error state if there is opened
+        channel. This fixes the bug when new connection fails due to
+        busyness, causing opened connections fail stickyness.
+        This brings back per-node busy counter and private state array
+        for each request. We can mark the state as error for failover to
+        work while still operating and reporting node as OK if there are
+        opened working connections. (mturk)
+      </fix>
+      <fix>
+        <bug>44738</bug>: Fix merging of JkOption ForwardURI* between virtual hosts.
+        Patch contributed by Toshihiro Sasajima. (rjung)
+      </fix>
+      <add>
+        URI Map: Add extension attributes to uri worker map.
+        Allowed are reply_timeout, active/disabled/stopped
+        and fail_on_status.
+        Usage currently only implemented for httpd and IIS. (rjung+mturk)
+      </add>
+      <fix>
+        URI Map: Make dynamic reloading atomic and free memory
+        not needed any longer. (rjung)
+      </fix>
+      <add>
+        Configure: Don't use post httpd 2.2.0 API functions when building
+        with new --enable-api-compatibility configure switch. (rjung)
+      </add>
+      <fix>
+        Apache: JkAutoAlias does not work in combination with JkMountCopy
+        if there are no JkMount in virtual host. (rjung)
+      </fix>
+      <update>
+        LB: Optimize state macros to improve performance. (rjung)
+      </update>
+      <add>
+        Apache: Allow dynamic setting of reply timeout using the environment
+        variable JK_REPLY_TIMEOUT. (rjung)
+      </add>
+      <add>
+        Status: Add manageability for ajp parameters of ajp
+        workers and ajp lb members. (rjung)
+      </add>
+      <update>
+        Status: Change parameter names of update action to
+        make them more easily distinguishable from other parameters. (rjung)
+      </update>
+      <add>
+        Status: Add ajp worker statistics also for
+        workers, that are not lb members. (rjung)
+      </add>
+      <update>
+        AJP: Refactor factories, move ajp13/ajp14 common parts into
+        ajp_factory. (rjung)
+      </update>
+      <update>
+        Status: Only sync shm worker config values of the workers
+        for which we changed values. (rjung)
+      </update>
+      <fix>
+        Status: Set lb_factor instead of distance. (rjung)
+      </fix>
+      <update>
+        Status: Minor layout changes, use drop down instead of multiple
+        text links. (rjung)
+      </update>
+      <update>
+        SHM: Use local copies of read mostly attributes of lb sub workers
+        in lb and status worker. (rjung)
+      </update>
+      <update>
+        Status: Add "dump" action to dump our initial configuration. (rjung)
+      </update>
+      <update>
+        Status: Use property table to decide which cmd action uses which
+        output elements. (rjung)
+      </update>
+      <update>
+        Common: Include original configuration map in worker_env
+        to make it available for workers, e.g. the status worker. (rjung)
+      </update>
+      <update>
+        LB: Refactor "route" return for httpd note. Don't use a
+        member of the worker_record, because that's not thread safe. (rjung)
+      </update>
+      <update>
+        Common: Refactor "retries", remove from service and jk_worker,
+        move into ajp worker instead. (rjung)
+      </update>
+      <update>
+        SHM: Use distinct structs for lb and ajp13 in shm.
+        Improves type safety and saves a few bytes. (rjung)
+      </update>
+      <update>
+        SHM: Remove unused attributes. (rjung)
+      </update>
+      <update>
+        SHM: Automatically determine shm size for all web servers. (rjung)
+      </update>
+      <update>
+        SHM: Make open/attach logging consistent for all web servers. (rjung)
+      </update>
+      <update>
+        Status: Include server local time in output. (rjung)
+      </update>
+      <fix>
+        <bug>44116</bug>: Fix handling of multiple JSESSIONID cookies. (rjung)
+      </fix>
+      <fix>
+        <bug>37850</bug>: Use thread safe localtime_r where appropriate. (rjung)
+      </fix>
+      <fix>
+        Use thread safe strtok_r on more platforms, especially AIX. (rjung)
+      </fix>
+      <update>
+        Status: Improve XSS hardening. (rjung)
+      </update>
+      <update>
+        <bug>35303</bug>: Move initialization of service members with defaults from
+        web server specific code to our generic jk_init_ws_service() function. (rjung)
+      </update>
+      <fix>
+        <bug>36385</bug>: Add missing prepost CPing/CPong directly after connect
+        in case prepost CPing is used, but no connect CPing. (rjung)
+      </fix>
+      <update>
+        <bug>37322</bug>: Apache: Enhance robustness of message formating
+        in jk_error_exit(). (rjung)
+      </update>
+      <fix>
+        <bug>44147</bug>: Multiple load balancing workers problem. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.25 and 1.2.26">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+        <bug>42003</bug>: Allocate memory instead using fixed size from
+        the stack. (mturk)
+      </fix>
+      <fix>
+        <bug>43229</bug>: Load balancer does not do fail over after
+        reply timeouts. (rjung)
+      </fix>
+      <fix>
+        JKStatus: Repair detailed Apache httpd version display.
+        This was broken for httpd version 2.2.4+. (rjung)
+      </fix>
+      <update>
+        LB/AJP: Refactoring of jk_connect.c, jk_ajp_common.c,
+        jk_lb_worker.c (rjung)
+      </update>
+      <fix>
+        Configure: Repair broken apxs auto-detection. (rjung)
+      </fix>
+      <update>
+        Configure: Remove trace logging from compiled code
+        via new --disable-trace configure switch. (rjung)
+      </update>
+      <update>
+        Common: Maintain idle connections in decreasing (LRU)
+        slot order. (rjung)
+      </update>
+      <update>
+        Apache: Create JK_WORKER_ROUTE and JK_REQUEST_DURATION notes for
+        access log even if no JkRequestLogFormat is set. (rjung)
+      </update>
+      <update>
+        JKStatus: Enhance URI to worker map listing for Apache httpd.
+        We now list maps for all virtual servers and not only
+        the one, in which JKStatus itself was called. (rjung)
+      </update>
+      <update>
+        JKStatus: Enhance URI to worker map listing.
+        Update stale uriworkermap.properties immediately. (rjung)
+      </update>
+      <fix>
+        <bug>43873</bug>: Fix small memory leak occuring during httpd restart. (rjung)
+      </fix>
+      <update>
+        Common: Allow '*' for the worker name in exclusion rules (resp. JkUnMount)
+        which will override all workers. (rjung)
+      </update>
+      <fix>
+        <bug>42038</bug>: Correct overlay of mounts and unmounts for IIS. (rjung)
+      </fix>
+      <fix>
+        <bug>43684</bug>: Replace JkMountFile by JkMountFileReload in
+        uriworkermap.properties docs. (rjung)
+      </fix>
+      <update>
+        Apache: Add new value "All" for JkMountCopy. (rjung)
+      </update>
+      <fix>
+        <bug>43516</bug>: Memory leak for Apache httpd module
+        of size 8KB for every virtual host without JK directive
+        after each restart. (rjung)
+      </fix>
+      <update>
+        Apache: Cleanup init and destroy of server configuration. (rjung)
+      </update>
+      <update>
+        Apache: Remove global configuration items from per server
+        configuration. (rjung)
+      </update>
+      <update>
+        Apache: Remove unused attributes secret_key and
+        automount/JkAutoMount. (rjung)
+      </update>
+      <update>
+        Cleanup of jk_uri_worker_map. (rjung)
+      </update>
+      <update>
+        Documentation: Small additions to JkShmFile documentation.
+        Contributed by Gerhardus Geldenhuis. (rjung)
+      </update>
+      <fix>
+        AJP13: Ignore flush packets before we received the response headers. (rjung)
+      </fix>
+      <fix>
+        Fix crash during startup when using worker configuration inheritance
+        (attribute "reference") and log level debug. (rjung)
+      </fix>
+      <fix>
+        AJP13: Match header names exactly against pre defined constants. Avoid
+        possible confusion with custom header names using a standard header name
+        as a prefix. (rjung)
+      </fix>
+      <fix>
+        jkstatus: Fix correct parameter validation at JkStatusUpdateTask and 
+        JkStatusUpdateLoadbalancerTask ant tasks. Reported by Christian Mittendorf. (pero)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.24 and 1.2.25">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+        IIS: Fix shm shutdown behaviour. (rjung)
+      </update>
+      <update>
+        General: fail_on_status used in a load balancer can optionally
+        do fail over without putting the failed worker in error state. (rjung)
+      </update>
+      <update>
+        NSAPI: Improve build description for Unix. (rjung)
+      </update>
+      <update>
+        NSAPI: Add initialization startup message containing JK version. (rjung)
+      </update>
+      <fix>
+        General: Declare static functions as static. (jim)
+      </fix>
+      <update>
+        Documentation: Clarify fail_on_status behaviour. (rjung)
+      </update>
+      <fix>
+        General: Do fail_on_status before returning the response headers. (rjung)
+      </fix>
+      <update>
+        NSAPI: Fix shm shutdown behaviour. (rjung)
+      </update>
+      <update>
+        NSAPI: Set return status even if request ended with an error. (rjung)
+      </update>
+      <update>
+        NSAPI: Allow using without shm_file on WIN32 and Netware. (rjung)
+      </update>
+      <fix>
+        NSAPI: Fix Crash of nsapi for log level debug and unset refect_unsafe. (rjung)
+      </fix>
+      <update>
+        NSAPI: Improve Solaris and Linux Makefiles for nsapi build. (rjung)
+      </update>
+      <fix>
+        Build: Improve pid_t type detection during configure on Solaris. (rjung)
+      </fix>
+      <update>
+        Build: Experimental build support for gcc on WIN32 and Netware. (fuankg)
+      </update>
+      <update>
+        Build: Makefile optimizations for Apache httpd 1.3/Netware . (fuankg)
+      </update>
+      <fix>
+        General: Fix missing flush bug introduced in 1.2.24. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.23 and 1.2.24">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Documentation: Improved workers.properties description in the
+      reference guide. (rjung)
+      </update>
+      <update>
+      Documentation: Add a HowTo about the various timeouts. rjung)
+      </update>
+      <update>
+      Logging: add milliseconds to the default timestamp format,
+      if we have gettimeofday(). (rjung)
+      </update>
+      <update>
+      Apache: add milliseconds (%Q) and microseconds (%q) as possible
+      JkLogStampFormat conversion specifiers. This does not use strftime(),
+      but needs gettimeofday(). (rjung)
+      </update>
+      <update>
+      IIS &amp; Sun: Log service failures also, if return code is negative. (rjung)
+      </update>
+      <fix>
+        <bug>42849</bug>: Abort startup of Apache httpd 1.3 in case
+        mod_jk initialization failed. We already do the same
+        for Apache httpd 2.x. (rjung)
+      </fix>
+      <fix>
+        <bug>42849</bug>: Refuse to operate with IIS in case the
+        initialization failed. Instead requesting isapi_redirect.dll
+        500 will be returned to the user. This is as closest as it
+        can get to Apache Httpd where we refuse to start the server
+        in case of fatal initialization errors. (mturk)
+      </fix>
+      <fix>
+      Load Balancer: Fix a deadlock in lb worker, which was exposed on Solaris
+      for threaded Apache MPMs. (rjung)
+      </fix>
+      <update>
+      Logging: handle LWP IDs as 32 Bit unsigned. Try to make
+      it work, although pthread IDs are opaque. (rjung)
+      </update>
+      <update>
+      JkStatus: Added manipulation of max_reply_timeouts. (rjung)
+      </update>
+      <update>
+      LB, Status: Add feature max_reply_timeouts, to make lb tolerant against
+      occasional long running requests. (rjung)
+      </update>
+      <update>
+      JkStatus: Added OK/IDLE as the successor of N/A. (rjung)
+      </update>
+      <update>
+      Status worker: Renamed runtime states. All states have a major
+      state (OK or ERR) and a substate. Changed the name N/A to OK/IDLE.
+      Added docs about the meaning of the states to the status worker
+      page in the reference guide.
+      No new states have been added to code. (rjung)
+      </update>
+      <update>
+      Common: Add recovery options for recovering idempotent http methods
+      HEAD and GET. (rjung)
+      </update>
+      <fix>
+      Correct documentation for worker attributes retries and
+      recovery_options. (rjung)
+      </fix>
+      <fix>
+      Make writing log lines and line endings more atomic. (rjung)
+      </fix>
+      <update>
+      Common: Refactored and unified jk_map_read_prop* and jk_map_load_prop*
+      for all use cases. (rjung)
+      </update>
+      <update>
+      Common/Apache/IIS/Netscape: Add an option to check decoded URLs for
+      potentially malicious constructions. (rjung)
+      </update>
+      <update>
+      IIS: Document auth_complete and uri_select. (rjung)
+      </update>
+      <update>
+      Apache/IIS/Netscape: Change the default forwarding encoding to the new
+      proxy method. (jfclere, rjung)
+      </update>
+      <update>
+      Common: Optionally reencode URIs before forwarding to the backend.
+      Based on the URI reencoding done bei httpd mod_proxy. (jfclere, rjung)
+      </update>
+      <update>
+      Common: auto-detect correct print format for pid_t.
+      This fixes at least compiler warnings on Solaris. (rjung)
+      </update>
+      <fix>
+        <bug>42608</bug>: Handle Content-length as unsigned 64Bit
+        to allow for huge up- and downloads. (rjung)
+      </fix>
+      <update>
+      Apache: Add forwarding uri to debug log. (rjung)
+      </update>
+      <update>
+      Docs: Clarify relation between worker names and jvmRoute for load balancing. (rjung)
+      </update>
+      <fix>
+      Use initial zero timeout for jk_is_socket_connected. The resulting
+      detection is the same but offers a huge performance increase
+      with mod_jk. In most cases the Operating System does not favor
+      the 1 microsecond timeout, but it rather rounds that up to much
+      higher value (frequency of interrupt timer which on most systems
+      defaults to 100Hz).
+      Patch provided by David McLaughlin. (mturk)
+      </fix>
+      <update>
+      NSAPI: Check correct log file and shm file configuration during startup. (rjung)
+      </update>
+      <fix>
+      NSAPI: Add support for the general options concerning retries, flushing
+      and connection persistance. (rjung)
+      </fix>
+      <fix>
+      NSAPI: fix crashes due to use of mount attribute in workers.properties.
+      Changed initialization order. (rjung)
+      </fix>
+      <fix>
+      Improved handling of libtool and discrepancies between CC env variable and
+      CC used during apache build by configure script. (rjung)
+      </fix>
+      <fix>
+      Always build with thread support, unless flag --enable-prefork
+      is set during for configure. (rjung)
+      </fix>
+      <update>
+      Use snprintf/vsnprintf from ap_snprintf.c for platforms other
+      than Windows, which might lack snprintf/vsnprintf implementations
+      when NOT build for Apache httpd 2.x/APR (e.g. Sub Web Server)
+      or without using configure. (fuankg)
+      </update>
+      <update>
+      Imported ap_snprintf() from Apache 1.3. (fuankg)
+      </update>
+      <fix>
+      Fix incorrect log object cleanup during statup,
+      leading to crashes at least on iSeries. (rjung)
+      </fix>
+      <update>
+      Add jk_stat() and jk_file_exists() as wrapper functions.
+      i5/OS V5R4 expects filename in ASCII for fopen but requires them
+      in EBCDIC for stat(). (hgomez)
+      </update>
+      <update>
+      i5/OS (AS/400) V5R4 port where Apache 2.0 modules should now use UTF8. (hgomez)
+      </update>
+      <update>
+      Docs: Add comments on i5/OS build for V5R4 and previous releases. (hgomez)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.22 and 1.2.23">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      [<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-0450"><b>CVE-2007-0450</b></a>]
+      and
+      [<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-1860"><b>CVE-2007-1860</b></a>]:
+      Change the default value of JkOptions to ForwardURICompatUnparsed.
+      The old default value was ForwardURICompat.
+      This should make URL interpretation between Apache httpd and
+      Tomcat consistent (prevent double decoding problems). (rjung)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.21 and 1.2.22">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      Refactor line endings logging to make it correct for all
+      platforms and webservers. (mturk)
+      </fix>
+      <update>
+      Added command line windows make files. (mturk)
+      </update>
+      <update>
+      Allow fail_on_status directive to be multi line. (mturk)
+      </update>
+      <fix>
+        <bug>42076</bug>: Fix name of new option from ForwardCertChain to
+        ForwardSSLCertChain as documented. (rjung)
+      </fix>
+      <fix>
+      Docs: Fix a couple of typos, change format of a few tables,
+      fix links to news pages. (rjung)
+      </fix>
+      <fix>
+      Fix correct URL for TC 6 examples in new IIS rewrite.properties
+      configuration example file. (rjung)
+      </fix>
+      <fix>
+      Add svn properties to several files. (rjung)
+      </fix>
+      <update>
+      Add TC 6 examples to uriworkermap.properties in config examples. (rjung)
+      </update>
+      <update>
+      Allow multiple status codes for fail_on_status directive.
+      The status codes can be delimited by space or comma characters. (mturk)
+      </update>
+      <update>
+        IIS. Added pcre like regular expressions for url rewrite rules. (mturk)
+      </update>
+      <fix>
+        <bug>41922</bug>: Apache 1.3. Enable JkEnvVar. (mturk)
+      </fix>
+      <update>
+        Apache. Add --enable-flock configure parameter for explicit
+        compilation of faster flock() system calls for OS supporting
+        those calls. By default the fcntl system call for locking will
+        be used that is a little bit slower but it can work on NFS
+        mounted volumes as well. (mturk)
+      </update>
+      <fix>
+        <bug>41562</bug>: Add Debug logging for read from client in ISAPI Redirector.
+         Contributed by Tim Whittington. (mturk)
+      </fix>
+      <update>
+        Apache. Add ForwardSSLCertChain JkOption.
+        Contributed by Patrik Schnellmann. (mturk)
+      </update>
+      <fix>
+        IIS. Do not forbid access to web-inf or meta-inf if there is
+        no mapped worker. This allows to have resource with those names
+        that are outside mapped contexts. (mturk)
+      </fix>
+      <update>
+        Apache. Use process id for creating shared memory name and delete shared
+        memory and shared memory lock files on exit. (mturk)
+      </update>
+      <fix>
+        IIS. Fix Keep-Alive regression introduced in 1.2.21. (mturk)
+      </fix>
+      <update>
+      Delete unused check for empty init_map during startup. (rjung)
+      </update>
+      <fix>
+        <bug>41770</bug>: Fix startup error if no JkWorkersFile is used. (rjung)
+      </fix>
+      <update>
+      Use JK_TRUE/JK_FALSE instead of OK/!OK as return values in init_jk(). (rjung)
+      </update>
+      <update>
+      Minor adjustments to apache startup log messages (when to use STDERR, remove
+      deprecated NOERRNO flag, shm warning and warnings for usage of default files). (rjung)
+      </update>
+      <update>
+      Replace APR precompiler directive by httpd mpm_query to detect MPM threading.
+      Add a debug log message about auto-detected pool size. (rjung)
+      </update>
+      <fix>
+        Make MMN check easier to understand and a little more precise
+        (for new ap_get_server_banner()/ap_get_server_description()).
+        We use the new API only for Apache httpd 2.3. This way our binaries are not
+        tightly coupled to a minor 2.0 version, and we don't use ap_get_server_banner()
+        any way. (rjung)
+      </fix>
+      <fix>
+        Use the full description string ap_get_server_description() instead of
+        the truncated info from ap_get_server_banner(), because this info gets used internally
+        (status worker display and ajp14 backend communication) and is not send back to the
+        normal user. (rjung)
+      </fix>
+      <fix>
+        <bug>41757</bug>: Document the "--enable-prefork" flag of configure. (rjung)
+      </fix>
+      <update>
+      Enhance log messages for failures when parsing attribute maps. (rjung)
+      </update>
+      <fix>
+        Correct log message during worker initialization, in case remote host could not be
+        resolved. We logged the default host name "localhost" instead of the configured one. (rjung)
+      </fix>
+      <fix>
+        <bug>41770</bug>: Fix the second part of the bug: local_worker and local_worker_only
+        is missing from the list of deprecated attributes (and not supported either), so prevents
+        the web server from startup. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.20 and 1.2.21">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+        [<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-0774"><b>CVE-2007-0774</b></a>]:
+        A denial of service and critical remote code execution vulnerability.
+        Caused by buffer overflow in map_uri_to_worker() when URL were longer that 4095 bytes.
+        Reported by ZDI (www.zerodayintiative.com).
+        Please note this issue only affected versions 1.2.19 and 1.2.20 of the
+        Apache Tomcat JK Web Server Connector and not previous versions.
+        Tomcat 5.5.20 and Tomcat 4.1.34
+        included a vulnerable version in their source packages.
+        Other versions of Tomcat were not affected.
+      </fix>
+      <add>
+      Check the worker. parameters and don't start if the parameter is not a valid one. (jfclere)
+      </add>
+      <add>
+        <bug>41439</bug>: Allow session IDs to get stripped off URLs of static
+        content in Apache by adding JkStripSession
+        directive (configurable per vhost). (mturk)
+      </add>
+      <add>
+      Change semantics of empty defaults for JkEnvVar variables.
+      Until 1.2.19: not allowed. In 1.2.20: send variables as empty strings, if
+      neither set to non empty in config, nor during runtime.
+      Starting with 1.2.21: If config has no second argument only send
+      variable if set (even when set to empty string) during runtime.
+      Allows good combination with condition attribute in tomcat access log. (rjung)
+      </add>
+      <fix>
+        <bug>41610</bug>: Fix incorrect detection of missing Content-Length
+        header leading to duplicate headers. Contributed by Boris Maras. (rjung)
+      </fix>
+      <fix>
+      Better build support for SunONE (Netscape/iPlanet) webservers. (jim)
+      </fix>
+      <add>
+      Add warning if duplicate map keys are read and are not allowed,
+      e.g. when parsing uriworkermap.properties. (rjung)
+      </add>
+      <fix>
+      Don't concat worker names, if uriworkermap.properties has a duplicate
+      pattern, instead overwrite the worker. (rjung)
+      </fix>
+      <fix>
+      Log deprecation message even in duplication case. (rjung)
+      </fix>
+      <fix>
+      uriworkermap.properties: Fix off-by-one problem when deleting
+      URL mapping during reloading of uriworkermap.properties. (rjung)
+      </fix>
+      <add>
+        <bug>41439</bug>: Allow session IDs to get stripped off URLs of static
+        content in IIS (configurable). (rjung)
+      </add>
+      <add>
+        <bug>41333</bug>: Refactoring isapi_plugin configuration reading. (rjung)
+      </add>
+      <add>
+        <bug>41332</bug>: Add some more errno logging and unify the format. (rjung)
+      </add>
+      <add>
+      JkStatus: Improved logging by adding status worker name to messages.
+      Added messages to the recover worker action. (rjung)
+      </add>
+      <add>
+      JkStatus: Refactoring searching for workers and sub workers. (rjung)
+      </add>
+      <add>
+        <bug>41318</bug>: Add configuration to make status worker user
+        name checks case insensitive. (rjung)
+      </add>
+      <add>
+      JkStatus: Add estimated time until next global maintenance to other
+      mime types and adopt jkstatus ant task. (rjung)
+      </add>
+      <add>
+      JkStatus: Show estimated time until next global maintenance.
+      Change displayed time until next recovery to a min/max pair. (rjung)
+      </add>
+      <add>
+      JkStatus: Allow a user of a read/write status worker to switch it
+      to and from read_only mode temporarily. (rjung)
+      </add>
+      <fix>
+      JkStatus: Do not show read/write commands in a read_only status worker. (rjung)
+      </fix>
+      <add>
+      JkStatus: Allow lb sub workers in error state to be marked for recovery
+      administratively from the status worker. (rjung)
+      </add>
+      <add>
+      Load Balancer: Do not try to recover multiple times in parallel.
+      Use additional runtime states "PROBE" and "FORCED". (rjung)
+      </add>
+      <fix>
+      JkStatus: Improve data synchronization between different processes. (rjung)
+      </fix>
+      <fix>
+        <bug>41381</bug>: Fix segfault in feature fail_on_status
+        (wrong order of log arguments). Patch by Juri Haberland. (rjung)
+      </fix>
+      <fix>
+      Use correct windows line endings for log file on WIN32 platform. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.19 and 1.2.20">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <add>
+      JkStatus Ant Task documentation page. (pero/rjung)
+      </add>
+      <add>
+      JkStatus Ant Tasks: Add new tasks for update and reset. (pero)
+      </add>
+      <update>
+      JkStatus Ant Tasks: Update for new xml status format. (pero)
+      </update>
+      <update>
+      Allow integer and string values when setting enumeration/boolean
+      attributes via status worker update action. (rjung)
+      </update>
+      <add>
+      Docs: New reference guide page for status worker. (rjung)
+      </add>
+      <update>
+      Docs: Renaming the config dir to reference and using the title
+      Reference Guide in the docs. (rjung)
+      </update>
+      <update>
+      Added retry_on_status for workers directive. (mturk)
+      </update>
+      <update>
+      Status Worker: Add directive to make property prefix
+      and good/bad rule configurable. (rjung)
+      </update>
+      <update>
+      Status Worker: Omit lb members when att=nosw. (rjung)
+      </update>
+      <update>
+      Status Worker: New command cmd=version for a short version output. (rjung)
+      </update>
+      <update>
+      Status Worker: New output stype mime=prop produces property lists. (rjung)
+      </update>
+      <fix>
+      Apache: Fix incorrect handling of JkEnvVar when Vars are set multiple times. (rjung)
+      </fix>
+      <update>
+      Renamed jvm_route to route. Deprecated jvm_route, but still use it as fallback
+      when parsing the worker configuration. (rjung)
+      </update>
+      <update>
+      IIS: Make uriworkermap file reload check interval configurable. (mturk)
+      </update>
+      <update>
+      Apache: Make uriworkermap file reload check interval configurable. (rjung)
+      </update>
+      <update>
+      Status Worker: Add directives for customizing the XML
+      output (ns, xmlns, doctype). (mturk)
+      </update>
+      <add>
+      Docs: New page with description of uriworkermap. (rjung)
+      </add>
+      <update>
+      Docs: Added short description of max_packet_size to worker
+      reference. (rjung)
+      </update>
+      <update>
+      Status Worker: All functions accessible also for xml and txt
+      mime types (list, show, update, reset). (rjung)
+      </update>
+      <update>
+      Status Worker: New global health indicators for load balancers
+      named bad (error, recovering or stopped), degraded (busy or disabled)
+      and good (the rest, active and OK or N/A). (rjung)
+      </update>
+      <update>
+      Status Worker: New edit page, to change one attribute for all
+      members of a load balancer. (rjung)
+      </update>
+      <update>
+      Status Worker: Standard logging for status worker. (rjung)
+      </update>
+      <update>
+      Status Worker: code refactoring. (rjung)
+      </update>
+      <update>
+      Status Worker: New attribute user (list) denies access, if
+      the request user in the sense of remote_user is not in this list.
+      Empty list = no deny (rjung)
+      </update>
+      <update>
+      Status Worker: New attribute read_only disables the parts
+      of the status worker, that change states and configurations. (rjung)
+      </update>
+      <fix>
+        <bug>36121</bug>: Don't change main uri when mod_jk serves
+        included uri. (markt)
+      </fix>
+      <update>
+      Apache VHosts: Merge JkOptions +base - -base + +vhost - -vhost. (rjung)
+      </update>
+      <update>
+      Apache Docs: Adding requirements, context information, default values and
+      inheritance rules to the Apache config documentation. (rjung)
+      </update>
+      <update>
+      Status Worker: Add source type to status worker, remove the redundant "context"
+      column in the map listing (context=uri). (rjung)
+      </update>
+      <update>
+      uriworkermap: On reload of the file, all old entries from the previous file
+      version get deleted, before the new ones are being read. (rjung)
+      </update>
+      <fix>
+      Keep normal maps and exclusion maps internally separate. Don't treat them
+      as the same when adding a rule. (rjung)
+      </fix>
+      <update>
+      Status Worker: Display mapping rules also for non-lb workers and in global view. (rjung)
+      </update>
+      <update>
+      Apache VHosts: Use the vhost log files instead of the main log. (rjung)
+      </update>
+      <update>
+      Apache VHosts: Allow individual timestamp formats by refactoring the formatting
+      method. (rjung)
+      </update>
+      <update>
+      Apache VHosts: Adding all missing config items to the virtual host level.
+      Don't overwrite the settings from the global server, but inherit them
+      in case they are not set in the virtual host. (rjung)
+      </update>
+      <update>
+      Apache: remove unnecessary function names from log messages. (rjung)
+      </update>
+      <update>
+      Apache: add a default log file location and a message, if the default gets used. (rjung)
+      </update>
+      <update>
+      Apache: add missing JK_IS_DEBUG_LEVEL() (rjung)
+      </update>
+      <update>
+      Apache VHosts: Allow JkWorkersFile, JKWorkerProperty, JkShmFile and JkShmFileSize
+      only in global virtual server. (rjung)
+      </update>
+      <update>
+      Add some more jk_close_socket() and reduce log level for some info messages. (rjung)
+      </update>
+      <update>
+      Load Balancer: Added the Sessions strategy. Contributed by Takayuki Kaneko. (rjung)
+      </update>
+      <update>
+      Docs: Minor enhancements and syncing with more recent versions. (rjung)
+      </update>
+      <fix>
+      <bug>40997</bug>: Separate uri mappings from their '!'
+      counterpart when checking for duplicates in uriworkermap
+      reloading. (rjung)
+      </fix>
+      <fix>
+      <bug>40877</bug>: Make sure the shared memory is reset on
+      attach for multiple web server child processes. (mturk)
+      </fix>
+      <update>
+      IIS: Added shm_size property to be able to deal with over 64
+      workers configurations. (mturk)
+      </update>
+      <update>
+      IIS: Increase default thread count to 250, so its the same as Apache Httpd
+      default configuration. (mturk)
+      </update>
+      <fix>
+      <bug>40966</bug>: Fix socket descriptor checks on windows. (mturk)
+      </fix>
+      <fix>
+      <bug>40965</bug>: Initialize missing service parameters. (mturk)
+      </fix>
+      <fix>
+      <bug>40938</bug>: Fix releasing of rewrite map.
+      Thanks to Chris Adams for spotting that. (mturk)
+      </fix>
+      <update>
+      Apache: Added +FlushHeader JkOptions. (mturk)
+      </update>
+      <update>
+      Added explicit flush when AJP body packet size is zero. (mturk)
+      </update>
+      <fix>
+      <bug>40856</bug>: Fixing case sensitivity bug in URL mapping. (rjung)
+      </fix>
+      <fix>
+      <bug>40793</bug>: Documentation: Improvements to Apache HowTo provided by
+      Paul Charles Leddy. (markt)
+      </fix>
+      <fix>
+      <bug>40774</bug>: Fixing wrong recursion termination. This one restricted the
+      "reference" feature unintentionally to 20 workers. (rjung)
+      </fix>
+      <fix>
+      <bug>40716</bug>: Adding "reference" feature to IIS and Netscape. (rjung)
+      </fix>
+      <fix>
+      Documentation: Corrected SetEnvIf syntax in JK_WORKER_NAME example. (rjung)
+      </fix>
+      <fix>
+      Documentation: Added forgotten STATE and ACTIVATION notes for load balancer logging in Apache. (rjung)
+      </fix>
+      <update>
+      Apache: Use instdso.sh instead libtool: libtool does not work on HP-UX for example. (jfclere)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.18 and 1.2.19">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Docs: Add SetHandler and new env var to Apache config docs. (rjung)
+      </update>
+      <update>
+      Apache 1.3: Backport "no-jk" feature. (rjung)
+      </update>
+      <update>
+      Apache: Add an environment variable to make SetHandler "jakarta-servlet" more
+      useful. The variable is JK_WORKER_NAME, but can be changed by the
+      new directive JkWorkerIndicator. (rjung)
+      </update>
+      <fix>
+      LB: Don't use single worker shortcut, if the single worker is being diabled. (rjung)
+      </fix>
+      <fix>
+      Status worker: Add short explanation of activation and error states to legend. (rjung)
+      </fix>
+      <fix>
+      Docs: Add meaning of zero timeout values for various timeouts
+      in workers.properties. (rjung)
+      </fix>
+      <fix>
+      LB: Cleanup of Mladens forced recovery. (rjung)
+      </fix>
+      <fix>
+      LB: Do not change lb_value for recovering workers to max, if
+      we are using BUSYNESS method. (rjung)
+      </fix>
+      <fix>
+      Apache: Since 1.2.14 mod_jk failed to detect client abort. (rjung)
+      </fix>
+      <fix>
+      Docs: Corrected description of JkEnvVar. (rjung)
+      </fix>
+      <fix>
+      Solaris: Detect filio.h in configure to make the new connection detection
+      build on solaris (r432825). (rjung)
+      </fix>
+      <update>
+      Add feature to force the recovery of workers that are
+      member of loadbalancer if all the members are in error
+      state. This fixes the time gap where 503 was returned
+      caused by recovery_timeout although the backend was
+      ready to handle the requests. (mturk)
+      </update>
+      <update>
+      Docs: Seperate deprecated directives in their own table. (rjung)
+      </update>
+      <update>
+      Docs: Allow "-" and "_" in worker names. (rjung)
+      </update>
+      <update>
+      Allow multiple lines with attributes "balance_workers" and "mount". (rjung)
+      </update>
+      <fix>
+      Make jk_is_some_property match more precisely. (rjung)
+      </fix>
+      <update>
+      JkStatus: Make refresh interval changeable. (rjung)
+      </update>
+      <fix>
+      JkStatus: Adjust display of recover time wrt. global maintenance. (rjung)
+      </fix>
+      <update>
+      LB: Resetting worker state from OK to NA, if worker has been idle
+      too long. (rjung)
+      </update>
+      <fix>
+      Avoid compiler warnings concerning the use of lb_*_type arrays.
+      Use functions instead. (rjung)
+      </fix>
+      <update>
+      Added %R JkRequestLogFormat option for Apache 1 and Apache 2. (mturk)
+      </update>
+      <update>
+      Allow changing jvm Route from status manager. (mturk)
+      </update>
+      <fix>
+      Do not retun 400 if Tomcat fails in the midle of the post
+      request. Return 500 insted. (mturk)
+      </fix>
+      <update>
+      LB: Combine ok/error/recovering/busy runtime states into a single scalar. (rjung)
+      </update>
+      <update>
+      LB: Combine active/disabled/stopped configuration states into a single scalar. (rjung)
+      </update>
+      <update>
+      LB: Add several Apache notes to enable standard logging for load balancer results. (rjung)
+      </update>
+      <update>
+      LB: Reorganisation of the main load balancer service loop. (rjung)
+      </update>
+      <update>
+      Implement hierarchical worker configuration via attribute "reference". (rjung)
+      </update>
+      <update>
+      Log deprecated properties. (rjung)
+      </update>
+      <fix>
+      IIS: Fix simple_rewrite for the cases where the
+      rewritten url is larger then the original one. (mturk)
+      </fix>
+      <update>
+      New JkOption "DisableReuse" to disable connection persistence. (jim)
+      </update>
+      <update>
+      LB: Move sessionid retrieval out of get_most_suitable_worker into service. (rjung)
+      </update>
+      <update>
+      Code cleanup for all service methods (use TRACE, JK_LOG_NULL_PARAMS, null pointer checks). (rjung)
+      </update>
+      <update>
+      JKSTATUS: add refresh link. No refresh for updates. Redirect to list view after update. (rjung)
+      </update>
+      <update>
+      Add new hook add_log_items into servers. (rjung)
+      </update>
+      <update>
+      APACHE httpd: Rename apache logging notes. (rjung)
+      </update>
+      <update>
+      LB: Rename lock and method constants. Add constants for defaults. (rjung)
+      </update>
+      <fix>
+      Default log level should be INFO and not DEBUG.
+      Default log level should be the same for all server types. (rjung)
+      </fix>
+      <fix>
+      Make rewrite_rule_map and log_level as non mandatory
+      directives for isapi_redirect. (mturk)
+      </fix>
+      <fix>
+      <bug>40107</bug>: Rewrite is_socket_connected function.
+      Non blocking socket is not used any more. (mturk)
+      </fix>
+      <update>
+      Allow building with VS2005 without too many warnings. (mturk)
+      </update>
+      <fix>
+      Decide by MMN, which piped log API we should use.
+      mod_jk 1.2.18 broke compilation with Apache 1.3 pre 1.3.28. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.17 and 1.2.18">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      Using socklen_t in getsockopt. Also introducing jk_sock_t. (mturk)
+      </fix>
+      <update>
+      Allow recovery wait time below 60 seconds (new minimum is 1 second). (mturk)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.16 and JK 1.2.17">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      Fix hanging jk status worker when certain attributes are being updated
+      due to double locking. (rjung)
+      </fix>
+      <update>
+      Allow JkMount to behave like uriworkermap.properties
+      by parsing pipe symbol as two directive marker. (mturk)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.15 and JK 1.2.16">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added simple rewrite capability for IIS. Although simple it
+      will fulfill most needs. (mturk)
+      </update>
+      <update>
+      Added RECOVER_ABORT_IF_CLIENTERROR recovery_option that closes
+      the connection if client connection is broken during the request. (mturk)
+      </update>
+      <update>
+      Renamed cache_timeout directive to connection_pool_timeout. (mturk)
+      </update>
+      <update>
+      Added connection_pool_minsize directive. (mturk)
+      </update>
+      <update>
+      Deprecate recycle_timeout directive. (mturk)
+      </update>
+      <update>
+      Corrected some HTML syntax bugs in output of status worker. (rjung)
+      </update>
+      <update>
+      Added the refresh=n parameter to the status worker. It will update the display every n seconds. (rjung)
+      </update>
+      <update>
+      Balancer: Add attribute distance to balanced workers to express preferences between workers. (rjung)
+      </update>
+      <update>
+      Balancer: Add attribute jvm_route to balanced workers to be able to use the same target in different balancers. (rjung)
+      </update>
+      <update>
+      Status: Add lb_mult to status. (rjung)
+      </update>
+      <update>
+      Balancer: Make different balancing strategies work in a similar way (use lb_value, use decay during global maintenance, use integer factors for weights. (rjung)
+      </update>
+      <update>
+      Balancer: Improve locking. (rjung)
+      </update>
+      <update>
+      Balancer: Workers start slower after recovering. (rjung)
+      </update>
+      <update>
+      Balancer: Make different balancing strategies work in a similar way (use lb_value, use decay during global maintenance, use integer factors lb_mult for weights). (rjung)
+      </update>
+      <update>
+      Balancer: Move recovery check to global maintenance. (rjung)
+      </update>
+      <update>
+      Balancer: Add global maintenance method, that is called in only one process. (rjung)
+      </update>
+      <update>
+      Extend our use of autoconf to find a 32Bit and a 64Bit unsigned type and their printf formats. (rjung)
+      </update>
+      <update>
+      Logging: piped loggers for JkLogFile and Apache 1.3. (rjung)
+      </update>
+      <update>
+      Logging: Add PID to log lines for each log level apart from REQUEST. (rjung)
+      </update>
+      <update>
+      Logging: flush buffered logs to keep lines in correct order. Output final newline together with log message. (rjung)
+      </update>
+      <update>
+      Reducing shm size. (rjung)
+      </update>
+      <update>
+      Only log removing of old worker, when we actually do it. (rjung)
+      </update>
+      <fix>
+      <bug>37469</bug>: Fix shared memory close for forked childs.
+      The shared memory will be closed by the parent process. (mturk)
+      </fix>
+      <fix>
+      <bug>37332</bug>: Fix potential misuse of buffer length with
+      snprintf functions. (mturk)
+      </fix>
+      <fix>
+      <bug>38859</bug>:
+      [<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-7197"><b>CVE-2006-7197</b></a>]
+      Protect mod_jk against buggy or malicious
+      AJP servers in the backend. Patch provided by Ruediger Pluem. (mturk)
+      </fix>
+      <fix>
+      <bug>38889</bug>: Use worker map sorting depending on the path
+      elements, to comply with Servlet spec. Patch provided by
+      Steve Revilak. (mturk)
+      </fix>
+      <update>
+      <bug>36138</bug>: Added Busyness lb method. Patch provided
+      by  Chris Lamprecht. (mturk)
+      </update>
+      <fix>
+      Fix pessimistic locking mode. The patch correctly handles the
+      burst load, by syncing the access to the shared memory data. (mturk)
+      </fix>
+      <fix>
+      <bug>38806</bug>: Reclycle worker even if it is disabled.
+      This fixes hot-standby workers in error state. (mturk)
+      </fix>
+      <fix>
+      <bug>37167</bug>: Allow building with BSD-ish like make. (mturk)
+      </fix>
+      <fix>
+      ISAPI plugin (isapi_redirect.dll) did not provide correct request data
+      for IIS
+ to include in the IIS log. (markt)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.14 and 1.2.15">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      Fix AJP13 Cookie2 parsing. Cookie2 was always send as Cookie.
+      Patch provided by Andre Gebers. (mturk)
+      </fix>
+      <fix>
+      <bug>35862</bug>: NSAPI plugin attempts to read freed memory and attempts to
+      dereference a null pointer. Patch provided by Brian Kavanagh. (markt)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.13 and 1.2.14">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+        Fix lb for worker mpm's with cachesize set to lower number then
+        ThreadsPerChild is. If retries is set to value larger then 3 sleep for
+        100 ms on each attempt. This enables to tune the connection cache,
+        and serialize incoming connections instead returning busy if connection
+        count is larger then cachesize. (mturk)
+      </fix>
+      <fix>
+      <bug>36525</bug>: Solaris core dump. (mturk)
+      </fix>
+      <fix>
+      <bug>36102</bug>: Worker actions do not persist. (mturk)
+      </fix>
+      <fix>
+      <bug>35864</bug>: Status worker doesn't list workers.
+      Patch provided by Martin Goldhahn. (mturk)
+      </fix>
+      <fix>
+      <bug>35809</bug>: JkMountCopy don't work for Apache 2.0 Patch provided by
+       Christophe Dubach. (mturk)
+      </fix>
+      <fix>
+      <bug>35298</bug>: Multiple JK/ISAPI redirectors on a single IIS site are not supported
+       Patch provided by Tim Whittington. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.12 and 1.2.13">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>
+      <bug>34397</bug>: Emergency was handled as Error. (jfclere)
+      </fix>
+      <fix>
+      <bug>34474</bug>: // in URL were not handled correctly with Apache-1.3. (jfclere)
+      </fix>
+      <fix>
+      Use 64 bits int for transferred/read bytes.
+      </fix>
+      <update>
+      Added JkOptions +FlushPackets used to optimize memory
+      usage when sending large data. (mturk)
+      </update>
+      <update>
+      Added lock directive for load balancer that allows more acurate
+      load balancing in case of burst load. (mturk)
+      </update>
+      <update>
+      Added worker.maintain directive to allow customizing default 10
+      second timeout. On busy servers this value needs to be set on
+      higher value. (mturk)
+      </update>
+      <fix>
+      Fix for NetWare compiler to deal with different types between AP13
+      and AP2 SDKs. (fuankg)
+      </fix>
+      <update>
+      Emit much more legible user.dmp crash analysis output for WIN32. (wrowe)
+      </update>
+     <fix>
+     <bug>34558</bug>: Fix first failover request. (mturk)
+     </fix>
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Changes between 1.2.11 and 1.2.12">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added ForwardLocallAddres JkOptions flag for passing local instead remote
+      address. Useful for remote addr valve. (mturk)
+      </update>
+     <fix>Fix that worker not used, when stopped flag is true. (pero)
+     </fix>
+      <update>
+      Add loadbalance default worker secret attribute to the documentation (pero)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+
+<section name="Changes between 1.2.10 and 1.2.11">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <fix>Backport SC_M_JK_STORED from JK2 for passing arbitrary
+      methods instead failing the request. (mturk)
+      </fix>
+      <fix>Added missing SEARCH and ACL http methods. (mturk)
+      </fix>
+      <update>
+      Add worker secret attribute to the documentation (pero)
+      </update>
+      <update>
+      Add a stopped flag to worker configuration. Set flag True and
+      complete traffic to worker is stopped.
+      Also update the Ant JkStatusUpdateTask at Tomcat 5.5.10 release.
+      Only usefull in a replicated session cluster.(pero)
+      </update>
+      <update>Added worker maintain function that will maintain all
+      the workers instead just the current one. This enables to recycle
+      the connections on all workers. (mturk)
+      </update>
+      <update>Use shutdown when recycling connections instead hard
+      breaking the socket. (mturk)
+      </update>
+      <update>Add unique directives checking. The directives if
+      unique are now overwritten instead concatenated. (mturk)
+      </update>
+      <update>Allow multiple worker.list directives. (mturk)
+      </update>
+      <fix>
+      <bug>34577</bug>: For IIS log original request instead loging
+      the request for ISAPI extension. (mturk)
+      </fix>
+      <fix>
+      <bug>34558</bug>: Make sure the returned status codes are the same
+      for ajp and lb workers. (mturk)
+      </fix>
+      <fix>
+      <bug>34423</bug>: Use APR_USE_FLOCK_SERIALIZE for setting log lock
+      on platforms like FreeBSD. Patch provided by Allan Saddi. (mturk)
+      </fix>
+      <fix>
+      <bug>33843</bug>: Fix obtaining LDFLAGS that were used for building
+      Apache HTTPD. Patch provided by Beat Kneubuehl. (mturk)
+      </fix>
+      <fix>
+      <bug>34358</bug>: Enable load balancer method configuration. (glenn)
+      </fix>
+      <fix>
+      <bug>34357</bug>: In some situations Apache 2 mod_jk could segfault
+      when the JkAutoAlias directive is used. (glenn)
+      </fix>
+      <update>
+        Add --enable-prefork to the documentation (pero)
+      </update>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.9 and 1.2.10">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>Set default shared memory to 64K instead 1M. (mturk)
+      </update>
+      <fix>Do not mark the worker in error state if headers are
+      larger then AJP13 limit. (mturk)
+      </fix>
+      <update>
+      On Series you should use the latest PTF for Apache 2.0
+      (which is now 2.0.52) and ad minima SI17402/SI17061 or cumulative
+      including them. (hgomez)
+      </update>
+      <update>
+      Change the xml status format to xml attribute syntax (pero)
+      </update>
+      <fix>
+      <bug>33248</bug>: Fix builds where apxs defines multiple
+      directories for APR includes. (mturk)
+      </fix>
+      <fix>
+      <bug>32696</bug>: Return 404 instead 403 when WEB-INF is requested
+      to comply with Servlet spec. (mturk)
+      </fix>
+      <update>Added ANT task for managing jkstatus. (pero)
+      </update>
+      <update>
+      If socket_timeout is set, check if socket is alive before
+      sending any request to Tomcat. (mturk)
+      </update>
+      <update>
+      Added JkMountFile for Apache web servers. This file can contain
+      uri mappings in the form (/url=worker), and is checked for
+      updates at regular 60 second interval. (mturk)
+      </update>
+      <update>
+      Added status worker for managing worker runtime data using
+      web page. (mturk)
+      </update>
+      <update>
+      Added load balancer method directive that is used for setting
+      the algorithm used for balancing workers. Method can be either
+      Request (default) or Traffic. (mturk)
+      </update>
+      <update>
+      Added shared memory to allow dynamic configuration. Shared memory
+      is needed only for unix platform and web servers having multiple
+      child processes. For Apache web server two new directives has been
+      added (JkShmFile and JkShmSize). (mturk)
+      </update>
+      <update>
+      Added textupdate mode to status worker to handle remote updates
+      from ant tasks.(pero)
+      </update>
+      <fix>
+      <bug>33562</bug>: Fix Reply_timeout when recovery_options
+      is larger than 1. Patch provided by Takashi Satou. (mturk)
+      </fix>
+      <fix>
+      <bug>33308</bug>: Fix segfaults when ForwardDirectories is enabled
+        with Apache 1.3
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.7 and 1.2.8">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Allow anyone to debug and diagnose stack dumps using windbg or any
+      other debugging tool, and (if they add the .pdb files to their
+      installation) to make sense of dr watson logs.
+      Patch provided by William A. Rowe (wrowe)
+      </update>
+      <fix>
+      Fix in_addr_t usage by using the real struct ignoring typedef.
+      Patch provided by William A. Rowe (wrowe)
+      </fix>
+      <fix>
+      Fix url rewriting by restoring the in place uri from which the
+      jsessionid was removed. (mturk)
+      </fix>
+      <update>
+      Make load balancer algorithm thread safe by introducing mutex
+      to the load balancer worker. (mturk)
+      </update>
+      <fix>
+      Fix sending error pages for IIS to client by adding Content-Type header
+      using correct api function call. (mturk)
+      </fix>
+      <fix>
+      <bug>32696</bug>: Prevent IIS from crushing when web-inf url was requested. (mturk)
+      </fix>
+      <update>
+      Use default cachesize for servers that support discovering the number of
+      threads per child process. (mturk).
+      </update>
+      <fix>
+      Fix Apache content-length header parsing using case insensitive compare. (billbarker)
+      </fix>
+      <fix>
+      Fix parsing AJP headers using case insensitive compare. (mturk)
+      </fix>
+      <fix>
+      Use infinite socket timeout if socket_timeout is set to zero or less then zero. (mturk)
+      </fix>
+      <update>
+      Change <b>balanced_workers</b> to <b>balance_workers</b> but keep
+      backward compatibility preserving the old directive. (mturk).
+      </update>
+      <fix>
+      Fix ajp initialization for workers with cache_size set to zero. (mturk)
+      </fix>
+      <update>
+      <bug>32317</bug>: Making mod_jk replication aware (Clustering Support).
+      Patch provided by Rainer Jung. (mturk).
+      </update>
+      <fix>
+      <bug>31132</bug>: Core dump when JkLogFile is missing from conf. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="Changes between 1.2.6 and 1.2.7">
+  <br />
+  <subsection name="Native">
+    <changelog>
+      <update>
+      Added new property named recover_time that can be used to change the
+      default 60 second recover time. (mturk)
+      </update>
+      <update>
+      Added custom retries for worker, so we don't depend on default setting.
+      If set to a number grater then 3, it will sleep for 100ms on retry greater
+      then 3 and then try again. (mturk)
+      </update>
+      <update>
+      Added JkWorkerProperty directive that enables omiting workers.properties file.
+      For example: JkWorkerProperty worker.ajp13a.port=8009. (mturk)
+      </update>
+      <fix>
+      Check all JSESSIONID cookies for a valid jvmRoute. If you have multiple Tomcats
+      with overlapping domains, then you can get multiple cookies without a defined order.
+      This will route correctly as long as the different domains don't have any
+      Tomcats in common. (billbarker)
+      </fix>
+      <update>
+      Added JkUnMount directive for negative mappings that works as opposite to JkMount directives.
+      It is used for blocking of particular URL or content type. (mturk)
+      </update>
+      <update>
+      Added wildchar match uri mappings. One can now use JkMount to
+      map /app/*/servlet/* or /app?/*/*.jsp. (mturk)
+      </update>
+      <update>
+      Rewrite the logging by adding Trace options. (mturk)
+      </update>
+      <update>
+      Added socket_timeout property that sets the timeout
+      for the socket itself. (mturk)
+      </update>
+      <fix>
+      Changed socket_timeout property to recycle_timeout. This better
+      explains what the directive actually does. (mturk)
+      </fix>
+      <fix>
+        Changed the load balancer algorithm.
+        The idea behind this new scheduler is the following:
+        lbfactor is <i>how much we expect this worker to work</i>,
+        or <i>the worker's work quota</i>.
+        lbstatus is <i>how urgent this worker has to work to fulfill its quota
+        of work</i>. We distribute each worker's work quota to the worker, and then look
+        which of them needs to work most urgently (biggest lbstatus).  This
+        worker is then selected for work, and its lbstatus reduced by the
+        total work quota we distributed to all workers.  Thus the sum of all
+        lbstatus does not change.(*)
+        If some workers are disabled, the others will
+        still be scheduled correctly. (mturk)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
+<section name="JK 2">
+<p>JK2 has been put in maintainer mode and no further development will take place.
+The reason for shutting down JK2 development was the lack of developers interest.
+Other reason was lack of users interest in adopting JK2, caused by configuration
+complexity when compared to JK.
+</p>
+</section>
+
+</body>
+</document>
