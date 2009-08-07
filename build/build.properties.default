@@ -1,0 +1,287 @@
+# -----------------------------------------------------------------------------
+# build.properties.sample
+#
+# This is an example "build.properties" file, used to customize building Tomcat
+# for your local environment.  It defines the location of all external
+# modules that Tomcat depends on.  Copy this file to "build.properties"
+# in the top-level source directory, and customize it as needed.
+#
+# $Id$
+# -----------------------------------------------------------------------------
+
+
+# ----- Compile Control Flags -----
+compile.debug=on
+compile.deprecation=off
+compile.optimize=off
+
+
+# ----- Build Control Flags
+
+#Build all components
+#full.dist=on
+
+#Hide configuration flags display
+#flags.hide=on
+
+
+# ----- Proxy setup -----
+#proxy.host=proxy.domain
+#proxy.port=8080
+#proxy.use=on
+
+
+# ----- CVS root for the jakarta repositories ------
+cvsroot=":pserver:anoncvs@cvs.apache.org:/home/cvspublic"
+
+# ----- Default Base Path for Dependent Packages -----
+base.path=/usr/share/java
+#base.path=../repository
+#base.path=/usr/local
+
+# ----- Jakarta files base location -----
+base-jakarta.loc=http://archive.apache.org/dist/jakarta
+
+# ----- XML files base location -----
+base-xml.loc=http://archive.apache.org/dist/xml
+
+# ----- Sourceforge files base location -----
+base-sf.loc=http://telia.dl.sourceforge.net/sourceforge
+
+# --------------------------------------------------
+#                REQUIRED LIBRARIES
+# --------------------------------------------------
+
+
+# ----- Commons Beanutils, version 1.4 or later -----
+commons-beanutils.home=${base.path}/commons-beanutils-1.7.0
+commons-beanutils.lib=${commons-beanutils.home}
+commons-beanutils.jar=${commons-beanutils.lib}/commons-beanutils.jar
+commons-beanutils.loc=${base-jakarta.loc}/commons/beanutils/binaries/commons-beanutils-1.7.0.tar.gz
+
+
+# ----- Commons Launcher, version 0.9 or later -----
+commons-launcher.home=${base.path}/commons-launcher-0.9
+commons-launcher.lib=${commons-launcher.home}
+commons-launcher.bin=${commons-launcher.home}/bin
+commons-launcher.jar=${commons-launcher.bin}/commons-launcher.jar
+commons-launcher.bootstrap.class=${commons-launcher.bin}/LauncherBootstrap.class
+commons-launcher.loc=${base-jakarta.loc}/commons/launcher/binaries/launcher-0.9.tar.gz
+
+
+# ----- Commons Daemon, version 1.0-Alpha or later -----
+commons-daemon.home=${base.path}/commons-daemon-1.0
+commons-daemon.lib=${commons-daemon.home}
+commons-daemon.jar=${commons-daemon.lib}/commons-daemon.jar
+commons-daemon.loc=${base-jakarta.loc}/commons/daemon/binaries/commons-daemon-1.0.tar.gz
+commons-daemon.jsvc.tar.gz=${commons-daemon.lib}/bin/jsvc.tar.gz
+
+
+# ----- Commons Digester, version 1.4 or later -----
+commons-digester.home=${base.path}/commons-digester-1.5
+commons-digester.lib=${commons-digester.home}
+commons-digester.jar=${commons-digester.lib}/commons-digester.jar
+commons-digester.loc=${base-jakarta.loc}/commons/digester/binaries/commons-digester-1.5.tar.gz
+
+
+# ----- Commons Expression Language (EL), version 1.0 or later -----
+commons-el.home=${base.path}/commons-el-1.0
+commons-el.lib=${commons-el.home}
+commons-el.jar=${commons-el.lib}/commons-el.jar
+commons-el.loc=${base-jakarta.loc}/commons/el/binaries/commons-el-1.0.tar.gz
+
+
+# ----- Commons Logging, version 1.0.1 or later -----
+commons-logging.home=${base.path}/commons-logging-1.0.4
+commons-logging.lib=${commons-logging.home}
+commons-logging-api.jar=${commons-logging.lib}/commons-logging-api.jar
+commons-logging.jar=${commons-logging.lib}/commons-logging.jar
+commons-logging.loc=${base-jakarta.loc}/commons/logging/binaries/commons-logging-1.0.4.tar.gz
+
+
+# ----- Commons Modeler, version 1.1 or later -----
+commons-modeler.home=${base.path}/commons-modeler-1.1
+#commons-modeler.lib=${commons-modeler.home}
+commons-modeler.lib=${commons-modeler.home}
+commons-modeler.jar=${commons-modeler.lib}/commons-modeler.jar
+commons-modeler.loc=${base-jakarta.loc}/commons/modeler/binaries/modeler-1.1.tar.gz
+
+
+# ----- Java Naming and Directory Interface (JNDI), version 1.2 or later -----
+# Note: Optional with JDK 1.3+
+jndi.home=${base.path}/jndi-1.2.1
+jndi.lib=${jndi.home}/lib
+jndi.jar=${jndi.lib}/jndi.jar
+ldap.jar=${jndi.lib}/ldap.jar
+jaas.jar=${jndi.lib}/jaas.jar
+
+
+# ----- Xerces XML Parser, version 2.6.2 -----
+xerces.home=${base.path}/xerces-2_6_2
+xerces.lib=${xerces.home}
+xercesImpl.jar=${xerces.lib}/xercesImpl.jar
+xml-apis.jar=${xerces.lib}/xml-apis.jar
+xerces.loc=${base-xml.loc}/xerces-j/binaries/Xerces-J-bin.2.6.2.tar.gz
+
+
+# ----- Eclipse JDT, version 3.0 or later -----
+jdt.home=${base.path}/eclipse/plugins/org.eclipse.jdt.core_3.0.0
+jdt.lib=${jdt.home}
+jdt.jar=${jdt.lib}/jdtcore.jar
+jdt.loc=http://sunsite.informatik.rwth-aachen.de/eclipse/downloads/drops/R-3.0-200406251208/eclipse-JDT-3.0.zip
+
+
+# --------------------------------------------------
+#              CORE OPTIONAL LIBRARIES
+# --------------------------------------------------
+
+
+# ----- Log4j, version 1.2 or later -----
+log4j.home=${base.path}/jakarta-log4j-1.2.8
+log4j.lib=${log4j.home}
+log4j.jar=${log4j.lib}/dist/lib/log4j-1.2.8.jar
+log4j.loc=${base-jakarta.loc}/log4j/binaries/jakarta-log4j-1.2.8.tar.gz
+
+
+# ----- Commons DBCP, version 1.1 or later -----
+commons-dbcp.version=1.2.1
+commons-dbcp.home=${base.path}/commons-dbcp-1.2.1
+commons-dbcp-src.loc=${base-jakarta.loc}/commons/dbcp/source/commons-dbcp-1.2.1-src.tar.gz
+
+
+# ----- Commons HttpClient, version 2.0 or later -----
+commons-httpclient.home=${base.path}/commons-httpclient-2.0
+commons-httpclient.lib=${commons-httpclient.home}
+commons-httpclient.jar=${commons-httpclient.lib}/commons-httpclient-2.0.jar
+commons-httpclient.loc=${base-jakarta.loc}/commons/httpclient/binary/commons-httpclient-2.0.tar.gz
+
+
+# ----- Commons Pool, version 1.1 or later -----
+commons-pool.home=${base.path}/commons-pool-1.2
+commons-pool-src.loc=${base-jakarta.loc}/commons/pool/source/commons-pool-1.2-src.tar.gz
+
+
+# ----- Commons Collections, version 2.0 or later -----
+commons-collections.home=${base.path}/commons-collections-3.1
+commons-collections.lib=${commons-collections.home}
+commons-collections.jar=${commons-collections.lib}/commons-collections-3.1.jar
+commons-collections.loc=${base-jakarta.loc}/commons/collections/binaries/commons-collections-3.1.tar.gz
+commons-collections-src.loc=${base-jakarta.loc}/commons/collections/source/commons-collections-3.1-src.tar.gz
+
+
+# ----- Commons FileUpload, version 1.0-20030531 or later -----
+commons-fileupload.home=${base.path}/commons-fileupload-1.0
+commons-fileupload.lib=${commons-fileupload.home}
+commons-fileupload.jar=${commons-fileupload.lib}/commons-fileupload-1.0.jar
+commons-fileupload.loc=${base-jakarta.loc}/commons/fileupload/binaries/commons-fileupload-1.0.tar.gz
+
+# ----- Java Management Extensions (JMX), JMX RI 1.2.1 or later or MX4J 2.0.1 or later -----
+jmx.home=${base.path}/mx4j-2.0.1
+jmx.lib=${jmx.home}/lib
+jmx.jar=${jmx.lib}/mx4j.jar
+jmx-tools.jar=${jmx.lib}/mx4j-tools.jar
+jmx.loc=${base-sf.loc}/mx4j/mx4j-2.0.1.zip
+
+
+# ----- JUnit Unit Test Suite, version 3.7 or later -----
+junit.home=${base.path}/junit3.8.1
+junit.lib=${junit.home}
+junit.jar=${junit.lib}/junit.jar
+junit.loc=${base-sf.loc}/junit/junit3.8.1.zip
+
+
+# ----- NSIS, version 2.0 or later -----
+nsis.home=${base.path}/nsis-2.0
+nsis.exe=${nsis.home}/makensis.exe
+nsis.installoptions.dll=${nsis.home}/Plugins/InstallOptions.dll
+nsis.nsexec.dll=${nsis.home}/Plugins/nsExec.dll
+nsis.loc=${base-sf.loc}/nsis/nsis20.exe
+
+
+# ----- Struts, version 1.1 or later -----
+struts.home=${base.path}/jakarta-struts-1.1
+struts.lib=${struts.home}/lib
+struts.jar=${struts.lib}/struts.jar
+struts.loc=${base-jakarta.loc}/struts/binaries/jakarta-struts-1.1.tar.gz
+
+
+# --------------------------------------------------
+#                OPTIONAL LIBRARIES
+# --------------------------------------------------
+
+
+# ----- Java Activation Framework (JAF), version 1.0.1 or later -----
+activation.home=${base.path}/jaf-1.0.1
+activation.lib=${activation.home}
+activation.jar=${activation.lib}/activation.jar
+
+
+# ----- Jaxen ( required by taglibs/standard required by jasper ) -----
+jaxen.home=${base.path}/jaxen-1.0-FCS
+jaxen.jar=${jaxen.home}/jaxen-full.jar
+jaxen.loc=${base-sf.loc}/jaxen/jaxen-1.0-FCS.tar.gz
+
+
+# ----- Saxpath ( required by taglibs/standard required by jasper ) -----
+saxpath.home=${base.path}/saxpath-1.0-FCS
+saxpath.jar=${saxpath.home}/saxpath.jar
+saxpath.loc=${base-sf.loc}/saxpath/saxpath-1.0.tar.gz
+
+
+# ----- Java Database Connectivity (JDBC) Optional Package, version 2.0 -----
+jdbc20ext.home=${base.path}/jdbc2_0-stdext
+jdbc20ext.lib=${jdbc20ext.home}
+jdbc20ext.jar=${jdbc20ext.lib}/jdbc2_0-stdext.jar
+
+
+# ----- Java Secure Sockets Extension (JSSE), version 1.0.3 or later -----
+jsse.home=${base.path}/jsse-1.0.3
+jsse.lib=${jsse.home}/lib
+jcert.jar=${jsse.lib}/jcert.jar
+jnet.jar=${jsse.lib}/jnet.jar
+jsse.jar=${jsse.lib}/jsse.jar
+
+
+# ----- Java Transaction API (JTA), version 1.0.1a or later -----
+jta.home=${base.path}/jta-1_0_1a
+jta.lib=${jta.home}
+jta.jar=${jta.lib}/jta.jar
+
+
+# ----- Java Mail, version 1.2 or later -----
+mail.home=${base.path}/javamail-1.3.1
+mail.lib=${mail.home}
+mail.jar=${mail.lib}/mail.jar
+
+# ----- Java Activation Framework, version 1.0.1 or later -----
+activation.home=${base.path}/jaf-1.0.2
+activation.lib=${activation.home}
+activation.jar=${activation.lib}/activation.jar
+
+# ----- PureTLS Extension, version 0.9 or later -----
+puretls.home=${base.path}/puretls-0.9b4
+puretls.lib=${puretls.home}/build
+puretls.jar=${puretls.lib}/puretls.jar
+
+
+# ----- Servlet 2.3, version 20020801 or later -----
+servlet23api.home=${base.path}/servletapi-4
+servlet23api.lib=${servlet23api.home}/lib
+servlet23api.jar=${servlet23api.lib}/servlet23api.jar
+servlet23api.loc=jakarta-servletapi-4
+
+servlet-api.home=${base.path}/servlet-api-2.4
+servlet-api.lib=${servlet-api.home}/lib
+servlet-api.jar=${servlet-api.lib}/servlet-api.jar
+
+jsp-api.home=${base.path}/jsp-api-2.0
+jsp-api.lib=${jsp-api.home}/lib
+jsp-api.jar=${jsp-api.lib}/jsp-api.jar
+
+
+# ----- Watchdog, version 20020801 or later -----
+watchdog.home=${base.path}/jakarta-watchdog-4.0
+watchdog.webapps=${watchdog.home}/dist/webapps
+watchdog.war=${watchdog.webapps}/servlet-tests.war
+watchdog.loc=jakarta-watchdog-4.0
+watchdog.target=all
