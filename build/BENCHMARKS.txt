@@ -1,0 +1,38 @@
+
+Benchmarking Tomcat
+-------------------
+
+Tomcat benchmarks are more than welcome, and people who are interested are
+encouraged to post results.
+
+This guide is designed to be a FAQ on how to configure Tomcat for maximum
+performance.
+
+- Please upgrade to the latest available version of the Tomcat branch you
+  would like to benchmark. Small incremental performance improvements are often
+  made in each release.
+
+- Use the most recent JDK available whenever possible. Usually, results are
+  dependent on the JDK, so results obtained with different JDK should not be
+  compared directly.
+
+- When benchmarking Jasper, set it in production mode. To do that, add a
+  "development" init parameter (with value set to "false") in the Jasper
+  section of $CATALINA_HOME/conf/web.xml. This increases maximum throughtput
+  of JSPs by about 20%, as well as removing a synchronization point.
+
+- When benchmarking a web application which creates sessions on each request,
+  be careful about not exhausting memory by having too many active sessions. If
+  a max number of sessions is set in the manager to avoid memory problems, this
+  will lead to requests failing when session creation is denied. To avoid that,
+  either limit the total number of requests, or increase the JVM memory.
+
+- Do not enable access logging (unless that is required by the benchmark), 
+  or any debug log.
+
+- Please post the benchmark web application used along with the results, so
+  that people may attempt to reproduce the results.
+
+- Definition of a standard webapp workload may be desirable, and contibutors
+  interested in doing that are welcome to discuss it on the Tomcat developer
+  mailing list.
