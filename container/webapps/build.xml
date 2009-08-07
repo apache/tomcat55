@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project name="Webapps" default="dist" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <!--property file="build.properties"/>
+  <property file="../build.properties"/>
+  <property file="${user.home}/build.properties"/-->
+
+  <property name="build.compiler"  value="modern"/>
+  <property name="webapps.build"   value="${basedir}/build"/>
+  <property name="webapps.deploy"  value="${basedir}/../build"/>
+  <property name="webapps.dist"    value="${basedir}/dist"/>
+
+
+  <!-- =================== BUILD: Create Directories ====================== -->
+  <target name="build-prepare">
+
+    <available classname="junit.framework.TestCase" property="junit.present" />
+
+    <mkdir dir="${webapps.build}"/>
+    <mkdir dir="${webapps.dist}"/>
+
+  </target>
+
+
+  <!-- =================== BUILD: Compile Subprojects ===================== -->
+  <!-- Add a new target for each webapp subproject -->
+
+  <target name="ROOT">
+    <ant dir="${basedir}/ROOT" target="dist"/>
+  </target>
+
+  <target name="admin">
+    <ant dir="${basedir}/admin" target="dist"/>
+  </target>
+
+  <target name="manager">
+    <ant dir="${basedir}/manager" target="dist"/>
+  </target>
+
+	<target name="host-manager">
+	    <ant dir="${basedir}/host-manager" target="dist"/>
+	  </target>
+
+  <target name="docs">
+    <ant dir="${basedir}/docs" target="dist"/>
+  </target>
+
+  <target name="balancer">
+    <ant dir="${basedir}/balancer" target="dist"/>
+  </target>
+
+  <target name="webdav">
+    <ant dir="${basedir}/webdav" target="dist"/>
+  </target>
+
+
+  <!-- ================= BUILD: Compile Server Components ================= -->
+  <!-- Update the depends list for each subproject -->
+  <target name="build" depends="build-prepare,ROOT,admin,manager,host-manager,docs,balancer,webdav" />
+
+
+  <!-- ======================= BUILD: Clean Directory ===================== -->
+  <target name="build-clean">
+    <delete dir="${webapps.build}"/>
+  </target>
+
+
+  <!-- ==================== BUILD: Rebuild Everything ===================== -->
+  <target name="all" depends="build-clean,dist"/>
+
+
+  <!-- ================= DEPLOY: Deploy Webapps Projects ================== -->
+  <target name="deploy" depends="dist"
+   description="Build and deploy Webapps component">
+
+    <!-- General Purpose Applications -->
+    <mkdir dir="${webapps.deploy}/webapps"/>
+    <copy todir="${webapps.deploy}/webapps">
+      <fileset dir="${webapps.build}" excludes="admin/**,manager/**"/>
+    </copy>
+
+    <!-- Administrative Applications -->
+    <mkdir     dir="${webapps.deploy}/server/webapps"/>
+
+    <copy    todir="${webapps.deploy}/webapps"
+              file="${webapps.build}/admin/admin.xml"/>
+    <mkdir     dir="${webapps.deploy}/server/webapps/admin"/>
+    <copy    todir="${webapps.deploy}/server/webapps/admin">
+      <fileset dir="${webapps.build}/admin" excludes="admin.xml"/>
+    </copy>
+
+    <copy    todir="${webapps.deploy}/webapps"
+              file="${webapps.build}/manager/manager.xml"/>
+    <mkdir     dir="${webapps.deploy}/server/webapps/manager"/>
+    <copy    todir="${webapps.deploy}/server/webapps/manager">
+      <fileset dir="${webapps.build}/manager" excludes="manager.xml"/>
+    </copy>
+
+    <copy    todir="${webapps.deploy}/webapps"
+              file="${webapps.build}/host-manager/host-manager.xml"/>
+    <mkdir     dir="${webapps.deploy}/server/webapps/host-manager"/>
+    <copy    todir="${webapps.deploy}/server/webapps/host-manager">
+      <fileset dir="${webapps.build}/host-manager" excludes="host-manager.xml"/>
+    </copy>
+
+  </target>
+
+
+  <!-- ================= DIST: Create Distribution Files ================== -->
+  <target name="dist" depends="build"/>
+
+
+  <!-- ======================= DIST: Clean Directory ====================== -->
+  <target name="dist-clean">
+    <delete dir="${webapps.dist}"/>
+  </target>
+
+
+  <!-- ====================== Convenient Synonyms ========================= -->
+  <target name="clean" depends="build-clean,dist-clean"
+   description="Clean build and dist directories"/>
+
+
+  <!-- ===================== TEST: Compile Unit Tests ===================== -->
+  <target name="build-tests" depends="dist" if="junit.present">
+  </target>
+
+
+  <!-- ===================== TEST: Execute Unit Tests ===================== -->
+  <target name="test" if="junit.present"
+   description="Run all unit test cases">
+  </target>
+
+
+</project>

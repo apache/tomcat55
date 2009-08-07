@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project name="Cluster" default="dist" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <property file="../../../build.properties" />
+  <property file="../../../build/build.properties" />
+  <property file="../../../build/build.properties.default" />
+
+  <!-- Build Defaults -->
+  <property name="catalina.home"  location="../.."/>
+  <property name="catalina.build" location="../../../build/build"/>
+  <property name="cluster.build"  value="${catalina.home}/modules/cluster/build"/>
+  <property name="cluster.dist"   value="${catalina.home}/modules/cluster/dist"/>
+
+    <!-- Construct Catalina classpath -->
+  <path id="cluster.classpath">
+    <pathelement location="${catalina.build}/server/lib/catalina.jar"/>
+    <pathelement location="${catalina.build}/server/lib/tomcat-util.jar"/>
+    <pathelement location="${commons-modeler.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${jmx.jar}"/>
+    <pathelement location="${catalina.build}/common/lib/servlet-api.jar"/>
+  </path>
+
+    <!-- Source path -->
+  <path id="javadoc.sourcepath">
+    <pathelement location="src/share"/>
+  </path>
+
+
+  <!-- =================== BUILD: Set compile flags ======================= -->
+  <target name="flags">
+    <!-- JDK flags -->
+    <available property="jdk.1.2.present" classname="java.util.HashMap" />
+    <available property="jdk.1.3.present" 
+     classname="java.lang.reflect.Proxy" />
+    <available property="jdk.1.4.present" classname="java.nio.Buffer" />
+  </target>
+
+
+  <!-- =================== BUILD: Set compile flags ======================= -->
+  <target name="flags.display" depends="flags" unless="flags.hide">
+
+    <echo message="--- Build environment for Catalina ---" />
+
+    <echo message="If ${property_name} is displayed, then the property is not set)" />
+
+    <echo message="--- Build options ---" />
+    <echo message="full.dist=${full.dist}" />
+    <echo message="build.sysclasspath=${build.sysclasspath}" />
+    <echo message="compile.debug=${compile.debug}" />
+    <echo message="compile.deprecation=${compile.deprecation}" />
+    <echo message="compile.optimize=${compile.optimize}" />
+
+    <echo message="--- Ant Flags ---" />
+    <echo message="&lt;style&gt; task available (required)=${style.available}" />
+
+    <echo message="--- JDK ---" />
+    <echo message="jdk.1.2.present=${jdk.1.2.present}" />
+    <echo message="jdk.1.3.present=${jdk.1.3.present}" />
+    <echo message="jdk.1.4.present=${jdk.1.4.present}" />
+
+  </target>
+
+  <!-- =================== BUILD: Create Directories ====================== -->
+  <target name="build-prepare">
+    <mkdir dir="${catalina.build}"/>
+    <mkdir dir="${catalina.build}/classes"/>
+    <mkdir dir="${cluster.dist}"/>
+  </target>
+
+
+
+
+  <!-- ================ BUILD: Compile Catalina Components ================ -->
+  
+  <target name="build-catalina-cluster" depends="build-prepare">
+    <!-- Compile internal server components -->
+    <javac srcdir="${basedir}/src/share" destdir="${catalina.build}/classes"
+           debug="${compile.debug}" deprecation="${compile.deprecation}"
+           optimize="${compile.optimize}"
+           excludes="**/CVS/**"
+           encoding="ISO-8859-1">
+        <classpath refid="cluster.classpath" />
+    </javac>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/LocalStrings.properties"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/LocalStrings.properties"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/session/LocalStrings.properties"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/session/LocalStrings.properties"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/tcp/LocalStrings.properties"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/tcp/LocalStrings.properties"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/tcp/DataSenders.properties"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/tcp/DataSenders.properties"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/session/mbeans-descriptors.xml"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/session/mbeans-descriptors.xml"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/tcp/mbeans-descriptors.xml"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/tcp/mbeans-descriptors.xml"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/mcast/LocalStrings.properties"
+    	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/mcast/LocalStrings.properties"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/mcast/mbeans-descriptors.xml"
+     	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/mcast/mbeans-descriptors.xml"/>
+    <copy file="${basedir}/src/share/org/apache/catalina/cluster/authenticator/mbeans-descriptors.xml"
+     	  tofile="${catalina.build}/classes/org/apache/catalina/cluster/authenticator/mbeans-descriptors.xml"/>
+   </target>
+
+
+  <!-- ================ BUILD: Create Catalina Javadocs =================== -->
+  <target name="javadoc">
+    <delete dir="${catalina.build}/javadoc"/>
+    <mkdir dir="${catalina.build}/javadoc"/>
+    <javadoc packagenames="org.apache.catalina.*,org.apache.naming.*"
+      classpathref="catalina.classpath"
+      sourcepathref="javadoc.sourcepath"
+      destdir="${catalina.build}/javadoc"
+      author="true"
+      version="true"
+      windowtitle="Catalina Internal API Documentation"
+      doctitle="Catalina API"
+      bottom="Copyright &#169; 2000-2007 Apache Software Foundation.  All Rights Reserved."
+    />
+  </target>
+
+
+  <!-- ======================= BUILD: Clean Directory ===================== -->
+  <target name="build-clean">
+    <delete dir="${catalina.build}"/>
+  </target>
+
+
+  <!-- ==================== BUILD: Rebuild Everything ===================== -->
+
+
+
+
+  <!-- ================ DIST: Create Distribution ========================= -->
+  <target name="dist" depends="build-catalina-cluster">
+    
+    <jar destfile="${cluster.dist}/catalina-cluster.jar"
+         basedir="${catalina.build}/classes">
+       <include name="org/apache/catalina/cluster/**" />
+       <exclude name="**/package.html" />
+       <exclude name="**/LocalStrings_*" />
+    </jar>
+  </target>
+
+  <target name="copy" depends="dist" >
+     <copy file="${cluster.dist}/catalina-cluster.jar" todir="${catalina.build}/server/lib" />
+  </target>
+  
+  <!-- ======================== DIST: Clean Directory ===================== -->
+
+
+  <!-- ====================== Convenient Synonyms ========================= -->
+
+
+</project>

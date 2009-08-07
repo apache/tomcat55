@@ -1,0 +1,332 @@
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+To Do:
+===========================================
+
+Documentation:
+===========================================
+ Why is tribes unique compared to JGroups/Appia and other group comm protocols
+
+ 1. Uses NIO and TCP for guaranteed delivery and the ability to join large groups
+
+ 2. Guarantees messages the following way
+    a) TCP messaging, with a following READ for NIO to ensure non broken channel
+    b) ACK messages from the receiver
+    c) ACK after processing
+
+ 3. Same (single) channel can handle all types of guarantees (a,b,c) at the same time
+    and both process synchronous and asynchronous messaging.
+    This is key to support different requirements for messaging through
+    the same channel to save system resources.
+
+ 4. For async messaging, errors are reported through an error handler, callback
+
+ 5. Ability to send on multiple streams at the same time, in parallel, to improve performance
+
+ 6. Designed with replication in mind, that some pieces of data don't need to be totally ordered.
+
+ 7. Its not built with the uniform group model in mind, but it can be accomplished using interceptors.
+
+ 8. Future version will have WAN membership and replication
+
+ 9. Silent members, the ability to send messages to a node not in the membership
+
+10. Sender burst, concurrent messaging between two or more nodes
+
+11. Multicasting can still be done on a per message basis using a MulticastInterceptor
+
+Bugs:
+===========================================
+ a) Somehow the first NIO connection made, always closes down, why
+
+ b) pull the network cord and watch the membership layer freak out
+ 
+ c) AbstractReplicatedMap.size() throws ConcurrentModificationException,
+    implement a size counter instead
+
+Code Tasks:
+===========================================
+51. NioSender.setData should not expand the byte buffer if its too large
+    instead just refill it from the XByteBuffer
+
+50. On top of versioning, implement version syncs from primary to backup
+    Or when a backup receives an update that is out of sync
+
+49. Implement versioning on the AbstractReplicatedMap
+
+48. Periodic refresh of the replicated map (primary ->backup)
+
+47. Delta(session) versioning. increase version number each time, easier to keep maps in sync
+
+41. Build a tipi that is a soft membership
+
+38. Make the AbstractReplicatedMap accept non serializable elements, but just don't replicate them
+
+36. UDP Sender and Receiver, initially without flow control and guaranteed delivery.
+    This can be easily done as an interceptor, and operate in parallel with the TCP sender.
+    It can implement an auto detect, so that if the message is going to a destination in the same network
+    patch, then send it over UDP.
+
+35. The ability to share one channel amongst multiple processes
+
+32. Replicated JNDI entries in Tomcat in the format
+    cluster:<map name>/<entry key> for example
+    cluster:myapps/db/shared/dbinfo
+
+31. A layer on top of the GroupChannel, to allow multiple processes share
+    a channel to send/receive message to conserve system resources - this is way in the future.
+
+30. CookieBasedReplicationMap - a very simple extension to the LazyReplicatedMap
+    but instead of randomly selecting a backup node and then publishing the PROXY to all
+    the other nodes in the group, this will simply
+    read/write a cookie, for a backup location, so the nodes will
+    never know until the request comes in.
+    This is useful in extremely large clusters, and essentially reduces
+    very much of the network chatter, this task is dependent on task25
+    Question to be answered: How does the map know of the cookie?
+    Potential answer: Use a thread local and bind the request/response to it
+    Question: is there one cookie per map, or one cookie per server.
+    Potential answer: One cookie per app allows for heterogenous instances
+                      is there a limit on number of cookies
+                      per netscape and RFC 2109, section 6.3,, its 20
+                      http://wp.netscape.com/newsref/std/cookie_spec.html
+    To work around the cookie limit problem there would be a suggested setting
+    of storing the preferred backup order, or simply require homogeneous instances.
+
+29. Thread pool, shrink dynamically
+
+27. XmlConfigurator - read an XML file to configure the channel.
+
+26. JNDIChannel - a way to bind the group channel in a JNDI tree,
+    so that shared resources can access it.
+
+23. TotalOrderInterceptor - fairly straight forward implementation
+    This interceptor would depend on the fact that there is some sort of
+    membership coordinator, see task 9.
+    Once there is a coordinator in the group, the total order protocol is the same
+    as the OrderInterceptor, except that it gets its message number from
+    the coordinator, prior to sending it out.
+    The TotalOrderInterceptor, will keep a order number per member,
+    this way, ordering is kept intact when different messages are sent
+    two different members, ie
+    Message A - all members - total order (mbrA-2, mbrB-2, mbrC-2, mbrD-2)
+    Message B - mbrC,mbrD only - total order (mbrA-2, mbrB-2, mbrC-3, mbrD-3)
+    - The combination of Member uniqueId,orderId is unique, nothing else
+      this way, if a member crashes, we don't hold the queue, instead we start over.
+    - A TotalOrder token, will contain the coordinator uniqueId as well.
+    - One parameter should be "receive sequence timeout" incase the coordinator is not responding.
+    - OPTION A)
+      the coordinator doesn't forward the message
+      since the app will not receive the proper error message,
+      instead the sequencer just returns the sequence, then the member itself sends the message
+      pros: the app will find out if the send failed/succeeded
+      cons: if the send fails, the sequencer is out of sync for the failed member
+      OPTION B)
+      The coordinator, receives the message, adds on the sequence number
+      then sends the message on behalf of the requesting members
+      pros: sequencer is in charge of the sequence
+      cons: the sequence can become overloaded, since it has to do all the trafficing
+            the requesting member will not know if the message failed/succeeded
+      OPTION C) Research papers on total order, better algorithms exist.
+      NOTES! THIS CANT BE DONE USING A SEQUENCER THAT SENDS THE MESSAGE SINCE WE
+      LOSE THE ABILITY TO REPORT FEEDBACK
+
+21. Implement a WAN membership layer, using a WANMbrInterceptor and a
+    WAN Router/Forwarder (Tipi on top of a ManagedChannel)
+
+20. Implement a TCP membership interceptor, for guaranteed functionality, not just discovery
+
+18. Implement SSL encryption over message transfers, BIO and NIO
+
+8. WaitForCompletionInterceptor - waits for the message to get processed by all receivers before returning
+   (This is useful when synchronized=false and waitForAck=false, to improve
+   parallel processing, but you want to have all messages sent in parallel and
+   don't return until all have been processed on the remote end.)
+
+11. Code a ReplicatedFileSystem example, package org.apache.catalina.tipis
+
+13. StateTransfer interceptor
+    the ideas just come up in my head. the state transfer interceptor
+    will hold all incoming messages until it has received a message
+    with a STATE_TRANSFER header as the first of the bytes.
+    Once it has received state, it will pretty much take itself out of the loop
+    The benefit of the new ParallelNioSender is that it doesn't require to know about
+    a member to transfer state, all it has to do is to reply to a message that came in.
+    State is a one time deal for the entire channel, so a
+    session replication cluster, would transfer state as one block, not one per context
+
+14. Keepalive count and idle kill off for Nio senders
+
+17. Implement transactions - the ability to start a transaction, send several messages,
+                             and then commit the transaction
+
+Tasks Completed
+===========================================
+1. True synchronized/asynchronized replication enabled using flags
+Sender.sendAck/Receiver.waitForAck/Receiver.synchronized
+Task Desc: waitForAck - should only mean, we received the message, not for the
+message to get processesed. This should improve throughput, and an interceptor
+can do waitForCompletion
+Status: Complete
+Notes:
+
+2. Unique id, send it in byte array instead of string
+
+3. DataSender or ReplicationTransmitter swallows IOException, this should be
+Notes: This has only been fixed for the pooled synchronized. the fastasynch
+aint working that well
+
+4. ChannelMessage.getMessage should return streamable, that way we can wrap,
+pass it around and all those good things without having to copy byte arrays
+left and right
+Notes: Instead of using a streamable, this is implemented using the XByteBuffer,
+       which is very easy to use. It also becomes a single spot for optimizations.
+       Ideally, there would be a pool of XByteBuffers, that all use direct ByteBuffers
+       for its data handling.
+
+5. OrderInterceptor - guarantees the order of messages
+Notes: completed
+
+6. NIO and IO DataSender, since the IO is blocking
+Notes: completed. works very well, have not implemented suspect error logging.
+
+7. FragmentationInterceptor - splits up messages that are larger than X bytes.
+Notes: complated
+
+15. remove DataSenderFactory and DataSender.properties -
+    these cause the settings to be hard coded ant not pluggable.
+Notes: Completed, now you can initialize a transport class
+
+12. LazyReplicatedHashMap - memory efficient clustered map.
+    This map can be used for PRIMARY/SECONDARY session replication
+    Ahh, the beauty of storing data in remote locations
+    The lazy hash map will only replicate its attribute names to all members in the group
+    with that name, it will also replicate the source (where to get the object)
+    and the backup member where it can find a backup if the source is gone.
+    If the source disappears, the backup node will replicate attributes that
+    are stored to a new primary backups can be chosen on round robin.
+    When a new member arrives and requests state, that member will get all the attribute
+    names and the locations.
+    It can replicate every X seconds, or on dirty flags by the objects stored,
+    or a request to scan for dirty flags, or a request with the objects.
+Notes: the map has been completed
+
+22. sendAck and synchronized should not have to be a XML config,
+    it can be configured on a per packet basis using ClusterData.getOptions()
+Notes: see Channel.SEND_OPT_XXXX variables
+
+28. Thread pool should have maxThreads and minThreads and grow dynamically
+
+24. MessageDispatchInterceptor - for asynchronous sending
+    - looks at the options flag SEND_OPTIONS_ASYNCHRONOUS
+    - has two modes
+      a) async parallel send - each message to all destinations before next message
+      b) async per/member - one thread per member using the FastAsyncQueue (good for groups with slow receivers)
+    - Callback error handler - for when messages fail, and the application wishes to become notified
+    - MUST HAVE A LIMIT QUEUE SIZE IN MB, to avoid OOM errors or persist the queue.
+    - MUST USE ClusterData.deepclone() to ensure thread safety if ClusterData objects get recycled
+Notes: Simple implementation, one thread, invokes all senders in parallel.
+       Deep cloning is configurable as optimization.
+
+37. Interceptor.getOptionFlag() - lets the system configure a flag to be used
+    for the interceptor. that way, all constants don't have to be configured
+    in Channel.SEND_FLAG_XXXX.
+    Also, the GroupChannel will make a conflict check upon startup,
+    so that there is no conflict. I will change options to a long,
+    so that we can have 63 flags, hence up to 60 interceptors.
+Notes: Completed, remained an int, so 31 flags
+
+ b) State synchronization for the map - will need to add in MSG_INIT
+ Fixed map bug
+
+ c) RpcChannel - collect "no reply" replies, so that we don't have to time out
+The RpcChannel now works together with the group channel, so that when it receives an RPC message
+and no one accepts it, then it can reply immediately. this way the rpc sender doesn't have to time out.
+
+39. Support for IPv6
+Notes: Completed. The membership now carries a variable length host address to support IPv6
+
+40. channel.stop() - should broadcast a stop message, to avoid timeout
+Notes: Completed.
+
+42. When the option SEND_OPTIONS_SYNCHRONIZED_ACK, and an error happens during
+    processing on the remote node, a FAIL_ACK command should be sent
+    so that the sending node doesn't have to time out
+Notes: Completed. The error will be wrapped in a ChannelException and marked as a
+       RemoteProcessException for that node.
+       To receive this exception, one must turn on
+
+43. Silent member, node discovery.
+    Add in the ability to start up tribes, but don't start the membership broadcast
+    component, only the listener
+Notes: Completed. added in correct startup sequences.
+
+46. Heartbeat Interface, to notify listeners as well
+Notes: Implemented
+
+44. Soft membership failure detection, ie if a webapp is stopped, but
+    the AbstractReplicatedMap doesn't broadcast a stop message
+    This is one potential solution:
+    1. keep a static WeakHashMap of all map implementations running
+       so that we can share one heartbeat thread for timeouts
+    2. everytime a message is received, update the last check time for that
+       member so that we don't need the thread to actively check
+    3. when the thread wakes up, it will check maps that are outside
+       the valid range for check time,
+    4. send a RPC message, if no reply, remove the map from itself
+    Other solution, use the TcpFailureDetector, catch send errors
+Notes: Implemented using a periodic ping in the AbstractReplicatedMap
+
+45. McastServiceImpl.receive should have a SO_TIMEOUT so that we can check
+    for members dropping on the same thread
+Notes: Completed
+
+33. TcpFailureDetector, when a member is reported missing, first check TCP path too.
+Notes: Completed
+
+34. Configurable payload for the membership heartbeat, so that the app can decide what to heartbeat.
+    such as JMX management port, ala Andy Piper's suggestion.
+Notes: Completed
+
+49. Make sure that membership is established before the start process returns.
+Notes: Completed
+
+16. Guaranteed delivery of messages, ie either all get it or none get it.
+    Meaning, that all receivers get it, then wait for a process command.
+    ala Gossip protocol - this is fairly redundant with a Xa2PhaseCommitInterceptor
+    except it doesn't keep a transaction log.
+Notes: Completed in another task
+
+10. Xa2PhaseCommitInterceptor - make sure the message doesn't reach the receiver unless all members got it
+Notes: Completed
+
+25. Member.uniqueId - 16 bytes unique for a member, UUID
+    Needed to not confuse a crashed member with a revived member on the same port
+Notes: Completed
+
+19. Implement a hardcoded tcp membership
+Notes: Completed
+
+9. CoordinatorInterceptor - manages the selection of a cluster coordinator
+   just had a brilliant idea, if GroupChannel keeps its own view of members,
+   the coordinator interceptor can hold on to the member added/disappared event
+   It can also intercept down going messages if the coordinator disappeared
+   while a new coordinator is chosen
+   It can also intercept down going messages for members disappeared that the
+   calling app not yet knows about, to avoid a ChannelException
+   The coordinator is needed because of the mixup when two channels startup instantly
+Notes: Completed. org.apache.catalina.tribes.group.interceptors.NonBlockingCoordinatorInterceptor
+       implements an automerging algorithm.

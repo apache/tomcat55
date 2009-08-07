@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+  <display-name>Tomcat Administration Application</display-name>
+  <description>
+    Tomcat HTML based administration web application.
+  </description>
+
+  <!-- Example filter to set character encoding on each request.
+       Uncomment this filter definition and the mapping to use
+       the filter to decode post and get parameters -->
+
+  <filter>
+    <filter-name>Set Character Encoding</filter-name>
+    <filter-class>org.apache.webapp.admin.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF8</param-value>
+    </init-param>
+  </filter>
+
+  <!-- Example filter mapping to apply the "Set Character Encoding" filter
+       to *all* requests processed by this web application -->
+
+  <filter-mapping>
+    <filter-name>Set Character Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- Action Servlet Configuration -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>
+      org.apache.webapp.admin.ApplicationServlet
+    </servlet-class>
+<!-- Deprecated
+    <init-param>
+      <param-name>application</param-name>
+      <param-value>
+        org.apache.webapp.admin.ApplicationResources
+      </param-value>
+    </init-param>
+-->
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+<!-- Deprecated   
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>0</param-value>
+    </init-param>
+-->
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>0</param-value>
+    </init-param>
+<!-- Deprecated
+    <init-param>
+      <param-name>locale</param-name>
+      <param-value>true</param-value>
+    </init-param>
+-->
+<!-- Deprecated
+    <init-param>
+      <param-name>nocache</param-name>
+      <param-value>true</param-value>
+    </init-param>
+-->
+    <init-param>
+      <param-name>validate</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <!-- Label to be displayed for rootnode. If absent, rootnode is not rendered -->
+    <!--
+    <init-param>
+      <param-name>rootnodename</param-name>
+      <param-value>Tomcat Root</param-value>
+    </init-param>
+    -->
+    <init-param>
+      <param-name>treebuilders</param-name>
+      <param-value>
+        org.apache.webapp.admin.TomcatTreeBuilder,
+        org.apache.webapp.admin.resources.ResourcesTreeBuilder,
+        org.apache.webapp.admin.users.UsersTreeBuilder
+    </param-value>
+    </init-param>
+    <init-param>
+      <param-name>domain</param-name>
+      <param-value>Catalina</param-value>
+    </init-param>
+  </servlet>
+
+  <!-- Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <!-- Security is active on entire directory -->
+  <security-constraint>
+    <display-name>Tomcat Server Configuration Security Constraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <!-- Define the context-relative URL(s) to be protected -->
+      <url-pattern>*.jsp</url-pattern>
+      <url-pattern>*.do</url-pattern>
+      <url-pattern>*.html</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <!-- Anyone with one of the listed roles may access this area -->
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!-- Login configuration uses form-based authentication -->
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>Tomcat Server Configuration Form-Based Authentication Area</realm-name>
+    <form-login-config>
+      <form-login-page>/login.jsp</form-login-page>
+      <form-error-page>/error.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <!-- Security roles referenced by this web application -->
+  <security-role>
+    <description>
+      The role that is required to log in to the Administration Application
+    </description>
+    <role-name>admin</role-name>
+  </security-role>
+
+</web-app>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project name="admin" default="build-main" basedir=".">
+
+
+  <!-- ===================== Initialize Property Values =================== -->
+
+  <!-- See "build.properties.sample" in the top level directory for all     -->
+  <!-- property values you must customize for successful building!!!        -->
+  <property file="build.properties"/>
+  <property file="../build.properties"/>
+  <property file="../../build.properties"/>
+  <property file="${user.home}/build.properties"/>
+
+  <!-- Build Defaults -->
+  <property name="build.compiler"  value="modern"/>
+  <property name="webapps.build"   value="${basedir}/../build"/>
+  <property name="webapps.dist"    value="${basedir}/../dist"/>
+  <property name="webapp.name"     value="admin"/>
+
+  <!-- Dependent JARs and files -->
+  <property name="servlet-api.jar" value="${api.home}/jsr154/dist/lib/servlet-api.jar"/>
+  <property name="jsp-api.jar"     value="${api.home}/jsr152/dist/lib/jsp-api.jar"/>
+  <property name="struts-core.jar" value="${struts.jar}" />
+  <property name="struts-taglib.jar" value="${struts.jar}" />
+
+  <!-- Construct Admin classpath -->
+  <path id="admin.classpath">
+    <pathelement location="${commons-modeler.jar}"/>
+    <pathelement location="${jmx.jar}"/>
+    <pathelement location="${servlet-api.jar}"/>
+    <pathelement location="${jsp-api.jar}"/>
+    <pathelement location="${struts-core.jar}"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <pathelement location="${commons-digester.jar}"/>
+  </path>
+
+
+  <!-- =================== BUILD: Set compile flags ======================= -->
+  <target name="flags">
+
+    <!-- JDK flags -->
+    <available property="jdk.1.2.present" classname="java.util.HashMap" />
+    <available property="jdk.1.3.present"
+     classname="java.lang.reflect.Proxy" />
+    <available property="jdk.1.4.present" classname="java.nio.Buffer" />
+
+    <!-- Ant flags -->
+    <available property="style.available"
+     classname="org.apache.tools.ant.taskdefs.optional.TraXLiaison" />
+
+    <!-- Class availability flags -->
+    <condition property="jaxp.present">
+      <and>
+        <available classname="javax.xml.parsers.SAXParser"
+         classpath="${xerces.jar}" />
+        <available classname="org.xml.sax.ContentHandler"
+         classpath="${xerces.jar}" />
+      </and>
+    </condition>
+    <available property="jmx.present"
+     classname="javax.management.MBeanServer"
+     classpath="${jmx.jar}" />
+    <available property="modeler.present"
+     classname="org.apache.commons.modeler.Registry"
+     classpath="${commons-modeler.jar}:${jmx.jar}"/>
+    <available property="servlet.present"
+     classname="javax.servlet.Servlet"
+     classpath="${servlet-api.jar}" />
+    <available property="jsp.present"
+     classname="javax.servlet.jsp.JspPage"
+     classpath="${jsp-api.jar}" />
+    <available property="struts.present"
+     classname="org.apache.struts.action.ActionForm"
+     classpath="${struts-core.jar}" />
+    <available property="beanutils.present"
+     classname="org.apache.commons.beanutils.PropertyUtils"
+     classpath="${commons-beanutils.jar}" />
+
+
+    <!-- JAR files availability flags -->
+    <available property="jmx.jar.present"   file="${jmx.jar}" />
+    <available property="modeler.jar.present" file="${commons-modeler.jar}" />
+    <available property="servlet-api.jar.present" file="${servlet-api.jar}" />
+    <available property="jsp-api.jar.present" file="${jsp-api.jar}" />
+    <available property="struts.jar.present"  file="${struts-core.jar}" />
+    <available property="beanutils.jar.present" file="${commons-beanutils.jar}" />
+
+    <!-- Conditional compilation flags (determined from the flags above) -->
+    <condition property="compile.admin">
+      <or>
+        <equals arg1="${full.dist}" arg2="on" />
+        <and>
+          <equals arg1="${struts.present}" arg2="true" />
+          <equals arg1="${jmx.present}" arg2="true" />
+          <equals arg1="${modeler.present}" arg2="true" />
+        </and>
+      </or>
+    </condition>
+
+    <!-- Conditional copy flags (determined from the flags above) -->
+    <condition property="copy.struts.jar">
+      <or>
+        <equals arg1="${full.dist}" arg2="on" />
+        <equals arg1="${struts.jar.present}" arg2="true" />
+      </or>
+    </condition>
+
+  </target>
+
+
+  <!-- =================== BUILD: Set compile flags ======================= -->
+  <target name="flags.display" depends="flags" unless="flags.hide">
+
+    <echo message="--- Build environment for Tomcat Server Configuration Application ---" />
+
+    <echo message="If ${property_name} is displayed, then the property is not set)" />
+
+    <echo message="--- Build options ---" />
+    <echo message="full.dist=${full.dist}" />
+    <echo message="build.sysclasspath=${build.sysclasspath}" />
+    <echo message="compile.debug=${compile.debug}" />
+    <echo message="compile.deprecation=${compile.deprecation}" />
+    <echo message="compile.optimize=${compile.optimize}" />
+
+    <echo message="--- Ant Flags ---" />
+    <echo message="&lt;style&gt; task available (required)=${style.available}" />
+
+    <echo message="--- JDK ---" />
+    <echo message="jdk.1.2.present=${jdk.1.2.present}" />
+    <echo message="jdk.1.3.present=${jdk.1.3.present}" />
+    <echo message="jdk.1.4.present=${jdk.1.4.present}" />
+
+    <echo message="--- Required Libraries ---" />
+    <echo message="jaxp.present=${jaxp.present}" />
+    <echo message="jmx.present=${jmx.present}" />
+    <echo message="modeler.present=${modeler.present}" />
+    <echo message="servlet.present=${servlet.present}" />
+    <echo message="jsp.present=${jsp.present}" />
+
+    <echo message="--- Required JARs ---" />
+    <echo message="jmx.jar.present=${jmx.jar.present}" />
+    <echo message="modeler.jar.present=${modeler.jar.present}" />
+    <echo message="servlet-api.jar.present=${servlet-api.jar.present}" />
+    <echo message="jsp-api.jar.present=${jsp-api.jar.present}" />
+    <echo message="struts.jar.present=${struts.jar.present}" />
+    <echo message="beanutils.jar.present=${beanutils.jar.present}" />
+
+    <echo message="--- Optional JARs ---" />
+
+    <echo message="--- Conditional compilation flags ---" />
+    <echo message="compile.admin=${compile.admin}" />
+
+    <echo message="--- Distribution flags ---" />
+    <echo message="copy.struts.jar=${copy.struts.jar}" />
+
+  </target>
+
+
+  <!-- ======================== BUILD: Copy JARs ========================== -->
+  <target name="copy-struts.jar" if="struts.present">
+    <copy todir="${webapps.build}/${webapp.name}/WEB-INF/lib" file="${struts-core.jar}"/>
+    <copy todir="${webapps.build}/${webapp.name}/WEB-INF/lib" file="${struts-taglib.jar}" />
+  	<copy todir="${webapps.build}/${webapp.name}/WEB-INF">
+  	  <fileset dir="${struts.lib}">
+  	    <include name="*.tld" />
+      </fileset>
+  	</copy>
+  </target>
+
+
+  <!-- =================== BUILD: Create Directories ====================== -->
+  <target name="build-prepare">
+    <mkdir dir="${webapps.build}"/>
+    <mkdir dir="${webapps.build}/${webapp.name}"/>
+    <mkdir dir="${webapps.build}/${webapp.name}/WEB-INF"/>
+    <mkdir dir="${webapps.build}/${webapp.name}/WEB-INF/classes"/>
+    <mkdir dir="${webapps.build}/${webapp.name}/WEB-INF/lib"/>
+  </target>
+
+
+  <!-- ================ BUILD: Copy Static Files ========================== -->
+  <target name="build-static" depends="flags,flags.display,build-prepare,copy-struts.jar">
+    <copy todir="${webapps.build}/${webapp.name}/WEB-INF/lib" file="${commons-beanutils.jar}"/>
+    <copy tofile="${webapps.build}/${webapp.name}/WEB-INF/lib/commons-collections.jar" 
+    	file="${commons-collections.jar}"/>
+    <copy todir="${webapps.build}/${webapp.name}/WEB-INF/lib" file="${commons-digester.jar}"/>
+    <copy todir="${webapps.build}/${webapp.name}">
+      <fileset dir=".">
+        <exclude name="build.*"/>
+        <exclude name="**/*.java"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+  <!-- ================= BUILD: Compile Server Components ================= -->
+  <target name="build-main" depends="build-static" if="compile.admin">
+  
+    <javac   srcdir="WEB-INF/classes"
+             destdir="${webapps.build}/${webapp.name}/WEB-INF/classes"
+             debug="${compile.debug}" deprecation="${compile.deprecation}"
+             optimize="${compile.optimize}"
+             excludes="**/CVS/**"
+             encoding="ISO-8859-1">
+      <classpath refid="admin.classpath" />
+    </javac>
+
+  </target>
+
+
+  <!-- ==================== BUILD: Rebuild Everything ===================== -->
+  <target name="all" depends="build-clean,build-main"
+   description="Clean and build admin webapp"/>
+
+
+  <!-- ======================= BUILD: Clean Directory ===================== -->
+  <target name="build-clean">
+    <delete dir="${webapps.build}"/>
+  </target>
+
+
+  <!-- ======================= DIST: Create Directories =================== -->
+  <target name="dist-prepare">
+    <mkdir dir="${webapps.dist}"/>
+  </target>
+
+
+  <!-- ======================= DIST: Create Distribution Files ============ -->
+  <target name="dist" depends="build-main,dist-prepare"
+   description="Create admin webapp binary distribution">
+      <jar   jarfile="${webapps.dist}/${webapp.name}.war"
+             basedir="${webapps.build}/${webapp.name}" includes="**"/>
+  </target>
+
+
+  <!-- ======================= DIST: Clean Directory ====================== -->
+  <target name="dist-clean">
+    <deltree dir="${dist.dir}"/>
+  </target>
+
+
+  <!-- ====================== Convenient Synonyms ========================= -->
+  <target name="clean" depends="build-clean,dist-clean"
+   description="Clean build and dist directories"/>
+
+
+</project>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project name="Tribes" default="dist" basedir="..">
+    
+  <property file="${user.home}/build.properties"/>
+  <property file="build/build.properties"/>
+  <property file="build/build.properties.default"/>
+  
+  <property name="tribes.version" value="1.0-SNAPSHOT"/>
+
+  <!--Independent build script for Tribes, to not require the entire Tomcat tree to build 
+        this module-->
+    
+  <path id="java.sourcepath">
+    <pathelement location="${basedir}/src/share"/>
+    <pathelement location="${basedir}/test/java"/>
+  </path>
+
+  <path id="javadoc.sourcepath">
+    <pathelement location="${basedir}/src/share"/>
+    <pathelement location="${basedir}/test/java"/>
+  </path>
+
+
+  <property name="dist.path" value="${basedir}/dist/tribes"/>
+  <property name="temp.path" value="${basedir}/dist/temp"/>
+  <property name="compile.path" value="${temp.path}/classes"/>
+  <property name="docs.path" value="${temp.path}/docs"/>
+  <property name="javadoc.path" value="${temp.path}/javadoc"/>
+  <property name="download.path" value="${base.path}"/>
+
+  <path id="tribes.classpath">
+    <!--
+    <pathelement location="${basedir}/build/commons-logging-api.jar"/>
+    <pathelement location="${basedir}/build/commons-logging.jar"/>
+    -->
+    <pathelement location="${junit.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-logging-api.jar}"/>
+
+  </path>
+
+  <!--Borrowed from the tomcat build script to download dependencies-->
+  <target name="testexist">
+    <echo message="Testing  for ${destfile}"/>
+    <available file="${destfile}" property="exist"/>
+  </target>
+  
+  <target name="downloadzip" unless="exist" depends="testexist">
+    <!-- Download and extract the package -->
+    <get src="${sourcefile}" dest="${download.path}/file.zip" />
+    <mkdir dir="${download.path}" />
+    <unzip src="${download.path}/file.zip" dest="${lib.path}"/>
+    <delete file="${download.path}/file.zip"/>
+  </target>
+  
+  <target name="downloadgz" unless="exist" depends="testexist">
+    <!-- Download and extract the package -->
+    <get src="${sourcefile}" dest="${download.path}/file.tar.gz" />
+    <gunzip src="${download.path}/file.tar.gz" dest="${download.path}/file.tar"/>
+    <untar src="${download.path}/file.tar" dest="${lib.path}"/>
+    <delete file="${download.path}/file.tar"/>
+    <delete file="${download.path}/file.tar.gz"/>
+  </target>
+  
+  <target name="clean">
+      <delete dir="${dist.path}"/>  
+      <delete dir="${temp.path}"/>  
+  </target>
+  
+  <target name="dependencies" depends="clean">
+    <antcall target="downloadzip">       
+      <param name="sourcefile" value="${junit.loc}"/>
+      <param name="destfile" value="${junit.jar}"/>
+    </antcall>  
+    <antcall target="downloadgz">
+      <param name="sourcefile" value="${commons-logging.loc}"/>
+      <param name="destfile" value="${commons-logging.jar}"/>
+    </antcall> 
+  </target>
+  
+  <target name="init" depends="clean">
+      <mkdir dir="${dist.path}"/>
+      <mkdir dir="${compile.path}"/>
+      <mkdir dir="${docs.path}"/>
+      <mkdir dir="${javadoc.path}"/>
+      <mkdir dir="${download.path}"/>
+      <mkdir dir="${lib.path}"/>
+  </target>
+  
+  <target name="compile" depends="init,dependencies">
+    <javac debug="true" 
+           deprecation="true" 
+           destdir="${compile.path}" 
+           nowarn="true" 
+           source="1.4" 
+           target="1.4"
+           encoding="ISO-8859-1">
+      <classpath refid="tribes.classpath"/>     
+      <src refid="java.sourcepath" />
+    </javac>
+    <!--include all the other resources, including source code-->
+    <copy todir="${compile.path}">
+        <fileset dir="${basedir}/src/share"/>
+        <fileset dir="${basedir}/test/java"/>
+    </copy>
+  </target>
+  
+  <target name="docs">
+    <style basedir="${basedir}/doc"
+           destdir="${docs.path}"
+           extension=".html"
+           style="tomcat-docs.xsl"
+           excludes="build.xml project.xml *_transform.xml"
+           includes="*.xml">
+      <param name="relative-path" expression="."/>
+    </style>
+    <copy todir="${docs.path}">
+        <fileset dir="${basedir}/doc"/>
+    </copy>
+  </target>
+  
+  <target name="javadoc">
+    <javadoc packagenames="org.apache.catalina.*"
+      sourcepathref="java.sourcepath"
+      destdir="${javadoc.path}"
+      author="true"
+      version="true"
+      windowtitle="Tribes API Documentation"
+      doctitle="Tribes API"
+      bottom="Copyright &#169; 2000-2006 Apache Software Foundation.  All Rights Reserved."
+      verbose="false">
+      <classpath refid="tribes.classpath"/>
+    </javadoc>
+  </target>
+
+  <target name="dist" depends="compile,docs,javadoc">
+    <jar destfile="${dist.path}/apache-tribes.jar">
+      <fileset dir="${compile.path}"/>
+      <fileset dir="${basedir}">
+        <include name="VERSION"/>
+      </fileset>
+    </jar>
+    <mkdir dir="${dist.path}/archive"/>
+    <copyfile src="${dist.path}/apache-tribes.jar" dest="${dist.path}/archive/tribes-${tribes.version}-sources.jar"/>
+    <delete dir="${compile.path}">
+        <include name="**/*.java"/>
+    </delete>
+    <jar destfile="${dist.path}/apache-tribes-bin.jar">
+      <fileset dir="${compile.path}"/>
+      <fileset dir="${basedir}">
+        <include name="VERSION"/>
+      </fileset>
+    </jar>
+    <copyfile src="${dist.path}/apache-tribes-bin.jar" dest="${dist.path}/archive/tribes-${tribes.version}.jar"/>
+
+    <jar destfile="${dist.path}/tribes-all.zip">
+      <fileset dir="${dist.path}">
+        <include name="apache-tribes.jar"/>
+        <include name="apache-tribes-bin.jar"/>
+        <include name="archive/*.jar"/>
+        
+      </fileset>
+      <fileset dir="${temp.path}">
+        <exclude name="classes/**"/>
+      </fileset>
+      <fileset dir="${basedir}">
+        <include name="VERSION"/>
+      </fileset>
+    </jar>
+  </target>
+  
+  <target name="mvn" depends="dist">
+      <mkdir dir="${dist.path}/mvn"/>
+      <copy todir="${dist.path}/mvn">
+          <fileset dir="${dist.path}/archive">
+              <include name="tribes-${tribes.version}-sources.jar"/>
+              <include name="tribes-${tribes.version}.jar"/>
+          </fileset>
+      </copy>
+      <copy tofile="${dist.path}/mvn/tribes-${tribes.version}.pom"
+            file="${basedir}/build/mvn/tribes.pom"
+            encoding="ISO-8859-1">
+          <filterset>
+              <filter token="tribes.version" value="${tribes.version}"/>
+          </filterset>
+      </copy>
+      <exec dir="${dist.path}/mvn" 
+            executable="openssl" 
+            input="${dist.path}/mvn/tribes-${tribes.version}.jar"
+            output="${dist.path}/mvn/tribes-${tribes.version}.jar.sha1">
+          <arg line="sha1"/>
+      </exec>
+      <exec dir="${dist.path}/mvn" 
+            executable="openssl" 
+            input="${dist.path}/mvn/tribes-${tribes.version}-sources.jar"
+            output="${dist.path}/mvn/tribes-${tribes.version}-sources.jar.sha1">
+          <arg line="sha1"/>
+      </exec>
+      <exec dir="${dist.path}/mvn" 
+            executable="openssl" 
+            input="${dist.path}/mvn/tribes-${tribes.version}.pom"
+            output="${dist.path}/mvn/tribes-${tribes.version}.pom.sha1">
+          <arg line="sha1"/>
+      </exec>
+  </target>
+  
+</project>
