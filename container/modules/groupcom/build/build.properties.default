@@ -1,0 +1,19 @@
+base.path=build/temp
+lib.path=build/lib
+
+base-sf.loc=http://switch.dl.sourceforge.net/sourceforge
+base-jakarta.loc=http://archive.apache.org/dist/jakarta
+base-logging.loc=http://archive.apache.org/dist/logging
+
+# ----- Commons Logging, version 1.0.1 or later -----
+commons-logging.home=${lib.path}/commons-logging-1.0.4
+commons-logging.lib=${commons-logging.home}
+commons-logging-api.jar=${commons-logging.lib}/commons-logging-api.jar
+commons-logging.jar=${commons-logging.lib}/commons-logging.jar
+commons-logging.loc=${base-jakarta.loc}/commons/logging/binaries/commons-logging-1.0.4.tar.gz
+
+# ----- JUnit Unit Test Suite, version 3.7 or later -----
+junit.home=${lib.path}/junit3.8.1
+junit.lib=${junit.home}
+junit.jar=${junit.lib}/junit.jar
+junit.loc=${base-sf.loc}/junit/junit3.8.1.zip
