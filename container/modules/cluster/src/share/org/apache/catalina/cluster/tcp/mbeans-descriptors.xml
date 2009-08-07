@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mbeans-descriptors PUBLIC
+   "-//Apache Software Foundation//DTD Model MBeans Configuration File"
+   "http://jakarta.apache.org/commons/dtds/mbeans-descriptors.dtd">
+<mbeans-descriptors>
+
+  <mbean         name="SimpleTcpCluster"
+           description="Tcp Cluster implementation"
+               domain="Catalina"
+                group="Cluster"
+                 type="org.apache.catalina.cluster.tcp.SimpleTcpCluster">
+
+    <attribute   name="notifyListenersOnReplication"
+          description="notify session attribute listener at backups"
+                 type="boolean"/>
+    <attribute   name="clusterName"
+          description="name of cluster"
+                 type="java.lang.String"/>
+    <attribute   name="managerClassName"
+          description="session mananager classname"
+                 type="java.lang.String"/>                 
+    <attribute   name="nrOfMsgsReceived"
+          description="number of messages received from other nodes"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="msgSendTime"
+          description="total time message received"
+                 type="long"
+                 writeable="false"/>
+    <operation   name="send"
+               description="send message to all cluster members"
+               impact="ACTION"
+               returnType="void">
+      <parameter name="message"
+                 description="replication message"
+                 type="org.apache.catalina.cluster.ClusterMessage"/>
+    </operation>
+        
+    <operation   name="send"
+               description="send message to one cluster member"
+               impact="ACTION"
+               returnType="void">
+      <parameter name="message"
+                 description="replication message"
+                 type="org.apache.catalina..cluster.ClusterMessage"/>
+      <parameter name="member"
+                 description="cluster member"
+                 type="org.apache.catalina.cluster.Member"/>
+    </operation>
+
+    <operation   name="start"
+               description="Start the cluster"
+               impact="ACTION"
+               returnType="void">
+    </operation>
+    
+    <operation name="stop"
+               description="Stop the cluster"
+               impact="ACTION"
+               returnType="void">
+    </operation>
+                 
+  </mbean>
+
+  <mbean         name="ReplicationTransmitter"
+          description="Tcp replicatio transmitter"
+               domain="Catalina"
+                group="ClusterSender"
+                 type="org.apache.catalina.cluster.tcp.ReplicationTransmitter">
+
+    <attribute   name="replicationMode"
+          description="replication mode (synchnous,pooled.asynchnous)"
+                 type="java.lang.String"/>
+    <attribute   name="ackTimeout"
+          description="acknowledge timeout"
+                 type="long"/>
+    <attribute   name="nrOfRequests"
+          description="number of send messages to other members"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="totalBytes"
+          description="number of bytes transfered"
+                 type="long"
+                 writeable="false"/>
+
+    <operation   name="start"
+               description="Start the cluster"
+               impact="ACTION"
+               returnType="void">
+    </operation>
+    
+    <operation name="stop"
+               description="Stop the cluster"
+               impact="ACTION"
+               returnType="void">
+    </operation>
+  </mbean>
+
+  <mbean         name="AsyncSocketSender"
+          description="Async Cluster Sender"
+               domain="Catalina"
+                group="IDataSender"
+                 type="org.apache.catalina.cluster.tcp.AsyncSocketSender">
+
+    <attribute   name="address"
+          description="sender ip address"
+                 type="java.net.InetAddress"
+                 writeable="false"/>
+    <attribute   name="port"
+          description="sender port"
+                 type="int"
+                 writeable="false" />
+    <attribute   name="suspect"
+          description="Socket is gone"
+                 type="boolean"/>
+    <attribute   name="ackTimeout"
+          description="acknowledge timeout"
+                 type="long"/>
+    <attribute   name="queueSize"
+                 writeable="false"
+          description="queue size"
+                 type="int"/>
+    <attribute   name="connected"
+                 is="true"
+          description="socket connected"
+                 type="boolean"
+                 writeable="false"/>
+    <attribute   name="nrOfRequests"
+          description="number of send messages to other members"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="totalBytes"
+          description="number of bytes transfered"
+                 type="long"
+                 writeable="false"/>
+  </mbean>
+
+  <mbean         name="PooledSocketSender"
+          description="Pooled Cluster Sender"
+               domain="Catalina"
+                group="IDataSender"
+                 type="org.apache.catalina.cluster.tcp.PooledSocketSender">
+
+
+    <attribute   name="address"
+          description="sender ip address"
+                 type="java.net.InetAddress"
+                 writeable="false"/>
+    <attribute   name="port"
+          description="sender port"
+                 type="int"
+                 writeable="false" />
+    <attribute   name="suspect"
+          description="Socket is gone"
+                 type="boolean"/>
+    <attribute   name="ackTimeout"
+          description="acknowledge timeout"
+                 type="long"/>
+    <attribute   name="maxPoolSocketLimit"
+          description="Max parallel sockets"
+                 type="int"/>
+    <attribute   name="keepAliveTimeout"
+          description="active socket keep alive timeout"
+                 type="long"/>
+    <attribute   name="keepAliveMaxRequestCount"
+          description="max request over this socket"
+                 type="int"/>
+    <attribute   name="keepAliveCount"
+          description="keep Alive request count"
+                 type="int"
+                 writeable="false"/>
+    <attribute   name="keepAliveConnectTime"
+          description="Connect time for keep alive"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="connected"
+                 is="true"
+          description="socket connected"
+                 type="boolean"
+                 writeable="false"/>
+    <attribute   name="nrOfRequests"
+          description="number of send messages to other members"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="totalBytes"
+          description="number of bytes transfered"
+                 type="long"
+                 writeable="false"/>
+  </mbean>
+
+  <mbean         name="SocketSender"
+          description="Sync Cluster Sender"
+               domain="Catalina"
+                group="IDataSender"
+                 type="org.apache.catalina.cluster.tcp.SocketSender">
+
+
+    <attribute   name="address"
+          description="sender ip address"
+                 type="java.net.InetAddress"
+                 writeable="false"/>
+    <attribute   name="port"
+          description="sender port"
+                 type="int"
+                 writeable="false" />
+    <attribute   name="suspect"
+          description="Socket is gone"
+                 type="boolean"/>
+    <attribute   name="ackTimeout"
+          description="acknowledge timeout"
+                 type="long"/>
+    <attribute   name="maxPoolSocketLimit"
+          description="Max parallel sockets"
+                 type="int"/>
+    <attribute   name="keepAliveTimeout"
+          description="active socket keep alive timeout"
+                 type="long"/>
+    <attribute   name="keepAliveMaxRequestCount"
+          description="max request over this socket"
+                 type="int"/>
+    <attribute   name="keepAliveCount"
+          description="keep Alive request count"
+                 type="int"
+                 writeable="false"/>
+    <attribute   name="keepAliveConnectTime"
+          description="Connect time for keep alive"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="connected"
+                 is="true"
+          description="socket connected"
+                 type="boolean"
+                 writeable="false"/>
+    <attribute   name="nrOfRequests"
+          description="number of send messages to other members"
+                 type="long"
+                 writeable="false"/>
+    <attribute   name="totalBytes"
+          description="number of bytes transfered"
+                 type="long"
+                 writeable="false"/>
+  </mbean>
+    
+  <mbean         name="ReplicationValve"
+          description="Valve for simple tcp replication"
+               domain="Catalina"
+                group="Valve"
+                 type="org.apache.catalina.cluster.tcp.ReplicationValve">
+
+    <attribute   name="filter"
+          description="resource filter to disable session replication check"
+                 type="java.lang.String"/>
+
+  </mbean>
+
+
+</mbeans-descriptors>
