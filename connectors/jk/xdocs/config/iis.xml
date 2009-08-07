@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY project SYSTEM "project.xml">
+]>
+<document url="iis.html">
+
+    &project; 
+
+    <properties>
+        <author email="mturk@apache.org">Mladen Turk</author>
+        <title>Configuring IIS</title>
+    </properties>
+
+<body>
+
+<section name="Requirements">
+<p>
+The Tomcat redirector requires three entities:
+
+<ul>
+<li>
+<b>isapi_redirect.dll</b> - The IIS server plugin, either obtain a pre-built DLL or build it yourself (see the build section).
+</li>
+<li>
+<b>workers.properties</b> - A file that describes the host(s) and port(s) used by the workers (Tomcat processes). 
+A sample workers.properties can be found under the conf directory.
+</li>
+<li>
+<b>uriworkermap.properties</b> - A file that maps URL-Path patterns to workers. 
+A sample uriworkermap.properties can be found under the conf directory as well.
+</li>
+</ul>
+</p>
+
+<p>
+The installation includes the following parts:
+
+<ul>
+<li>
+Configuring the ISAPI redirector with a default /examples context and checking that you can serve servlets with IIS.
+</li>
+<li>
+Adding more contexts to the configuration.
+</li>
+</ul>
+</p>
+</section>
+<section name="Registry settings">
+<p>
+ISAPI redirector reads configuration from the registry, create a new registry key named :
+</p>
+<p>
+<b>"HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Jakarta Isapi Redirector\1.0"</b>
+</p>
+<attributes name="Key Name">
+<attribute name="extension_uri" required="true"><p>
+A string value pointing to the ISAPI extension <b>/jakarta/isapi_redirect.dll</b>
+</p></attribute>
+<attribute name="log_file" required="false"><p>
+A value pointing to location where log file will be created.
+(for example <b>c:\jakarta-tomcat\logs\isapi.log</b>)
+</p></attribute>
+<attribute name="log_level" required="false"><p>
+A string value for log level 
+(can be debug, info, warn, error or trace).
+</p></attribute>
+<attribute name="worker_file" required="true"><p>
+A string value with the full path to workers.properties file
+(for example <b>c:\jakarta-tomcat\conf\workers.properties</b>)
+</p></attribute>
+<attribute name="worker_mount_file" required="true"><p>
+A string value with is the full path to uriworkermap.properties file
+(for example <b>c:\jakarta-tomcat\conf\uriworkermap.properties</b>)
+</p></attribute>
+
+</attributes>
+</section> 
+<section name="Using a properties file for configuration">
+<p>
+The ISAPI redirector can read it's configuration from a properties file instead of the registry. 
+This has the advantage that you can use multiple ISAPI redirectors with independant configurations on the same server.
+The redirector will check for the properties file during initialisation, and use it in preference to the registry if present.
+</p>
+<p>
+Create a properties file in the same directory as the ISAPI redirector called <b>isapi_redirect.properties</b> i.e. with the same name as the ISAPI redirector DLL but with a <em>.properties</em> extension. A sample isapi_redirect.properties can be found under the conf directory.
+</p>
+<p>
+The property names and values in the properties file are the same as for the registry settings described above. For example:
+</p>
+<p>
+<source>
+# Configuration file for the Jakarta ISAPI Redirector
+
+# The path to the ISAPI Redirector Extension, relative to the website
+# This must be in a virtual directory with execute privileges
+extension_uri=/jakarta/isapi_redirect.dll
+
+# Full path to the log file for the ISAPI Redirector
+log_file=c:\jakarta-tomcat\logs\isapi_redirect.log
+
+# Log level (debug, info, warn, error or trace)
+log_level=info
+
+# Full path to the workers.properties file
+worker_file=c:\jakarta-tomcat\conf\workers.properties
+
+# Full path to the uriworkermap.properties file
+worker_mount_file=c:\jakarta-tomcat\conf\uriworkermap.properties
+</source>
+</p>
+<p>
+    Notes: 
+    <ul>
+        <li>
+            Back-slashes - '\' - are not escape characters.
+        </li>
+        <li>
+            Comment lines begin with '#'.
+        </li>
+    </ul>
+</p>
+</section>
+</body>
+</document>
