@@ -1,0 +1,8 @@
+<!--#set var="test1" value="not one" -->
+<!--#set var="test2" value="two" -->
+<!--#set var="test3" value="three" -->
+<!--#if expr="\"$test1\" = \"one\" && (\"$test2\" = \"two\" || \"$test3\" = \"three\")" -->
+true
+<!--#else -->
+false
+<!--#endif -->

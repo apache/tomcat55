@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="jasper2/src/share"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-logging-1.0.4/commons-logging-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/apache-ant-1.6.5/lib/ant.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-el-1.0/commons-el.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/eclipse/plugins/org.eclipse.jdt.core_3.1.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/servletapi"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

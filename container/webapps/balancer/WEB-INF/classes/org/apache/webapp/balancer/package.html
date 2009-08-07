@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>org.apache.webapp.balancer Package Overview</title>
+</head>
+<body>
+This package contains all classes used by the balancer
+webapp other than actual rule implementations.
+<p>
+The {@link org.apache.webapp.balancer.BalancerFilter Filter} is how the webapp
+is typically used: see the web.xml file in this distribution
+for an example.
+</p>
+
+<p>
+A {@link org.apache.webapp.balancer.RuleChain} is simply a list of rules to be
+evaluated in order.
+</p>
+
+<p>
+The {@link org.apache.webapp.balancer.RulesParser} uses 
+<a href="http://jakarta.apache.org/commons/digester">Digester</a> 
+to parse the rules configuration file.
+</p>
+
+</body>
+</html>

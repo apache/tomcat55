@@ -1,0 +1,10 @@
+Before if block.
+<!--#set var="test" value="value1" -->
+<!--#if expr="\"$test\" = \"value1\"" -->
+test = value1
+<!--#elif expr="\"$test\" = \"value2\"" -->
+test = value2
+<!--#else -->
+test = neither value1 or value2
+<!--#endif -->
+After if block.
