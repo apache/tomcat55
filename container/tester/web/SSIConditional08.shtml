@@ -1,0 +1,7 @@
+<!--#set var="test" value="one" -->
+<!--#if expr="\"$test\" = \"one\"" -->
+<!--#set var="test" value="two" -->
+<!--#else -->
+<!--#set var="test" value="three" -->
+<!--#endif -->
+<!--#echo var="test" -->
