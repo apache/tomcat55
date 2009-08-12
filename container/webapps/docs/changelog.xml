@@ -69,6 +69,10 @@
       <fix>
         <bug>41661</bug>: Fix thread safety issue in JspConfig.init() (markt)
       </fix>
+      <fix>
+        <bug>46907</bug>: Don't swallow input stream when debug logging is
+        enabled. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Cluster">

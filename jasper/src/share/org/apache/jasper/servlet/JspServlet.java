@@ -19,7 +19,6 @@ package org.apache.jasper.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.Enumeration;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -251,13 +250,6 @@ public class JspServlet extends HttpServlet {
             log.debug("\t        RealPath: " + context.getRealPath(jspUri));
             log.debug("\t      RequestURI: " + request.getRequestURI());
             log.debug("\t     QueryString: " + request.getQueryString());
-            log.debug("\t  Request Params: ");
-            Enumeration e = request.getParameterNames();
-            while (e.hasMoreElements()) {
-                String name = (String) e.nextElement();
-                log.debug("\t\t " + name + " = " 
-                          + request.getParameter(name));
-            }
         }
 
         try {
