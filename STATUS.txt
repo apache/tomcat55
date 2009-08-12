@@ -121,3 +121,8 @@ PATCHES PROPOSED TO BACKPORT:
      file from a release.
      b) webapps/docs/build.xml It is mentioned in the docs (in building.html).
   )
+
+* Fix a couple of Java 1.5 uses that should be 1.4 compatible
+  http://people.apache.org/~markt/patches/2009-08-12-tc5.5.x-java14.patch
+  +1: markt
+  -1: 
