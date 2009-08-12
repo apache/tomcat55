@@ -29,7 +29,7 @@
 
   <!-- Project Properties -->
   <property name="name"                  value="Apache Tomcat" />
-  <property name="year"                  value="2006" />
+  <property name="year"                  value="2009" />
   <property name="version"               value="5.5" />
   <property name="project"               value="apache-tomcat" />
   <property name="final.name"            value="${project}-${version}" />
@@ -46,7 +46,7 @@
   <property name="jtc.project"           value="connectors" />
   <property name="jasper.project"        value="jasper" />
 
-  <property name="current.loc"           value="tomcat/current/tc5.5.x" />
+  <property name="trunk.loc"           value="tomcat/tc5.5.x/trunk" />
 
   <!-- Source dependencies -->
   <property name="api.home"
@@ -93,7 +93,7 @@
           inputstring="t${line.separator}"
           failonerror="true">
       <arg value="checkout" />
-      <arg value="${svnroot}/${current.loc}" />
+      <arg value="${svnroot}/${trunk.loc}" />
       <arg value="${basedir}" />
     </exec>
 
