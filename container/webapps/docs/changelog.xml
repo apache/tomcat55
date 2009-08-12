@@ -66,6 +66,9 @@
   </subsection>
   <subsection name="Jasper">
     <changelog>
+      <fix>
+        <bug>41661</bug>: Fix thread safety issue in JspConfig.init() (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Cluster">
