@@ -219,8 +219,11 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
 
 
     private class PrivilegedSetRandomFile implements PrivilegedAction{
-        
-        public Object run(){               
+        public PrivilegedSetRandomFile(String s) {
+            devRandomSource = s;
+        }
+
+        public Object run(){
             try {
                 File f=new File( devRandomSource );
                 if( ! f.exists() ) return null;
@@ -230,6 +233,16 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
                     log.debug( "Opening " + devRandomSource );
                 return randomIS;
             } catch (IOException ex){
+                log.warn("Error reading " + devRandomSource, ex);
+                if (randomIS != null) {
+                    try {
+                        randomIS.close();
+                    } catch (Exception e) {
+                        log.warn("Failed to close randomIS.");
+                    }
+                }
+                devRandomSource = null;
+                randomIS=null;
                 return null;
             }
         }
@@ -502,10 +515,11 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
      *  - so use it if available.
      */
     public void setRandomFile( String s ) {
-        // as a hack, you can use a static file - and genarate the same
+        // as a hack, you can use a static file - and generate the same
         // session ids ( good for strange debugging )
         if (System.getSecurityManager() != null){
-            randomIS = (DataInputStream)AccessController.doPrivileged(new PrivilegedSetRandomFile());          
+            randomIS = (DataInputStream) AccessController
+                    .doPrivileged(new PrivilegedSetRandomFile(s));
         } else {
             try{
                 devRandomSource=s;
@@ -516,12 +530,15 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
                 if( log.isDebugEnabled() )
                     log.debug( "Opening " + devRandomSource );
             } catch( IOException ex ) {
-                try {
-                    randomIS.close();
-                } catch (Exception e) {
-                    log.warn("Failed to close randomIS.");
+                log.warn("Error reading " + devRandomSource, ex);
+                if (randomIS != null) {
+                    try {
+                        randomIS.close();
+                    } catch (Exception e) {
+                        log.warn("Failed to close randomIS.");
+                    }
                 }
-                
+                devRandomSource = null;
                 randomIS=null;
             }
         }

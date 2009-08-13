@@ -55,6 +55,10 @@
         ENABLE_CLEAR_REFERENCES. Patch by Curt Arnold. (markt) 
       </fix>
       <fix>
+        <bug>46967</bug>: Better handling of errors when trying to use
+        Manager.randomFile. Based on a patch by Kirk Wolf. (kkolinko)
+      </fix>
+      <fix>
         <bug>47518</bug>: Correct reference in Valve Javadoc that referred to an
         old method. Patch provided by Christopher Schultz. (markt)
       </fix>

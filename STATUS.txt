@@ -68,15 +68,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46967
-  Better handling of errors when trying to use Manager.randomFile
-  Based on a patch by Kirk Wolf
-  Also make behaviour consistent when using a security manager
-  http://svn.apache.org/viewvc?view=rev&revision=777567
-  +1: kkolinko, markt, rjung
-  -1: 
-  rjung: minus the generics
-
 * https://issues.apache.org/bugzilla/show_bug.cgi?id=47566
   Update to NSIS 2.45
   http://svn.apache.org/viewvc?rev=797596&view=rev
