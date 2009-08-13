@@ -80,7 +80,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41824
   Need to use canonical rather than binary form when writing code
   http://svn.apache.org/viewvc?rev=797607&view=rev
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
 
 * Improve build.properties comment in ant build files.
