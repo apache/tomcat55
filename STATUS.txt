@@ -71,11 +71,12 @@ PATCHES PROPOSED TO BACKPORT:
 * https://issues.apache.org/bugzilla/show_bug.cgi?id=47566
   Update to NSIS 2.45
   http://svn.apache.org/viewvc?rev=797596&view=rev
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, markt
   -1:
   kkolinko: Now it also requires the following patch, but I hope that
   sourceforge.net will fix their error:
     http://svn.apache.org/viewvc?rev=797600&view=rev
+  markt: +1 to the additional change if still required
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41824
   Need to use canonical rather than binary form when writing code
