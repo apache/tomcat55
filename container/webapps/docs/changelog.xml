@@ -74,6 +74,10 @@
         <bug>41661</bug>: Fix thread safety issue in JspConfig.init() (markt)
       </fix>
       <fix>
+        <bug>41824</bug>: Need to use canonical rather than binary form when
+        writing code. (markt)
+      </fix>
+      <fix>
         <bug>46907</bug>: Don't swallow input stream when debug logging is
         enabled. (markt)
       </fix>

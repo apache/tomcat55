@@ -502,7 +502,7 @@ public class JspUtil {
 	 * or, if it's a primitive, the name of its correspondent boxed
 	 * type.
          */
-	String targetType = expectedType.getName();
+	String targetType = getCanonicalName(expectedType);
 	String primitiveConverterMethod = null;
 	if (expectedType.isPrimitive()) {
 	    if (expectedType.equals(Boolean.TYPE)) {
