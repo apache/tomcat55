@@ -28,6 +28,11 @@ do the following:
 
 (0) Download and Install a Java Development Kit
 
+* The default distribution of Tomcat 5.5.x requires a 5.0 or later JDK. 
+  Tomcat can be built using a 1.4.x JDK but you will need to copy the contents
+  of the compat directory (created by the build process) to your build directory
+  before Tomcat will start.
+ 
 * If the JDK is already installed, skip to (1).
 
 * Download a Java Development Kit (JDK) release (version 1.4.x or later) from:
@@ -64,6 +69,9 @@ do the following:
 
 (2) Install Subversion 1.3.x or later on your computer
 
+* Subversion is only needed if you wish to checkout the source from SVN.
+  It is not needed when building Tomcat from source.
+
 * If Subversion 1.3.x or later is already installed on your computer, skip to (3).
 
 * Download a binary distribution of Subversion 1.3.x or later from:
@@ -78,37 +86,24 @@ do the following:
   of the subversion release directory. This makes the "svn" command
   available, which will be used to checkout the tomcat sources.
 
-* NOTE: If you're running behind a proxy server, the SVN checkout of Tomcat
-  source code may fail.  See http://subversion.tigris.org/faq.html#proxy for
-  ways to work around this.
-
 (3) Building Tomcat 5.5
 
-(3.1) Download main build script and build binary distribution
-
-* Download the main build.xml script from:
-  http://tomcat.apache.org/tomcat-5.5-doc/build.xml
-
-* Create a new directory, and copy the newly download build.xml to it. This
-  directory will be referred to as the ${tomcat.source} directory in the rest
-  of this document
-
-(3.2) Building
-
-* Go to that directory, and do:
-
-    cd ${tomcat.source}
-    ant
+* This assumes that the Tomcat source is available in the directory tree starting
+  at ${tomcat.source}. 
+  
+    cd ${tomcat.source}/build
+    ant download
+    ant [deploy]
 
 * NOTE: Users accessing the Internet through a proxy must use a properties
   file to indicate to Ant the proxy configuration. Read below.
 
-* WARNING: Running this command will checkout the Tomcat 5 sources from the Apache
-  source code repository, as
-  well as download binaries to the /usr/share/java directory. Make sure this is
-  appropriate to do on your computer. On Windows, this usually corresponds
-  to the "C:\usr\share\java" directory, unless Cygwin is used. Read below to 
-  customize the directory used to download the binaries.
+* WARNING: 
+  Running the "ant download" command will download binaries to the
+  /usr/share/java directory. Make sure this is appropriate to do on your
+  computer. On Windows, this usually corresponds to the "C:\usr\share\java"
+  directory, unless Cygwin is used. Read below to customize the directory used
+  to download the binaries.
 
 * The build can be controlled by creating a ${tomcat.source}/build.properties
   file, and adding the following content to it:
@@ -131,14 +126,15 @@ It is recommended that you regularly update the downloaded Tomcat 5 sources.
 To do this, execute the following commands:
 
     cd ${tomcat.source}
-    ant checkout
+    svn update
 
+[This does not apply if you are building Tomcat from a source archive].
 
 (5) Rebuilds
 
 For a quick rebuild of only modified code you can use 
    
-    cd ${tomcat.source}
+    cd ${tomcat.source}/build
     ant build
 
 In addition, "ant build-depends" will build packages that 
@@ -153,8 +149,8 @@ is placed in the server classpath.  See "RUNNING.txt" in this
 directory for running instructions.  To build the compat
 package, do
 
-    cd ${tomcat.source}
-    ant build-compat
+    cd ${tomcat.source}/build
+    ant compat
 
 (7) Building the servlet and jsp API documentation
 
@@ -168,3 +164,10 @@ do
     cd ${tomcat.source}/build
     ant release
 
+Note that this deletes any existing build output.
+
+(9) Running tests
+
+do
+    cd ${tomcat.source}/build
+    ant clean-tester run-tester
