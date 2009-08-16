@@ -46,6 +46,9 @@
         install, and allow it to automatically select the correct one for the
         current platform. (kkolinko/mturk)
       </update>
+      <update>
+        Update Windows installer to use NSIS 2.45. (kkolinko)
+      </update>
     </changelog>
   </subsection>
   <subsection name="Catalina">
