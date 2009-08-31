@@ -179,7 +179,14 @@ public class McastServiceImpl
         } else {
             socket = new MulticastSocket(port);
         }
-        socket.setLoopbackMode(false); //hint that we don't need loop back messages
+
+        /**
+         * The argument of setLoopbackMode() is named disable.
+         * We set it to false, because we need loopback messages for the case
+         * when multiple cluster nodes reside on the same machine.
+         */
+        socket.setLoopbackMode(false);
+
         if (mcastBindAddress != null) {
 			if(log.isInfoEnabled())
                 log.info("Setting multihome multicast interface to:" +mcastBindAddress);
