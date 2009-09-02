@@ -84,5 +84,6 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
   Threading issue in classloading. Adds a sync so please check performance
+  http://svn.apache.org/viewvc?rev=805182&view=rev
   +1: markt
   -1: 
