@@ -87,3 +87,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=805182&view=rev
   +1: markt
   -1: 
+
+* Fix regression in fix for
+  https://issues.apache.org/bugzilla/show_bug.cgi?id=38797
+  http://svn.apache.org/viewvc?rev=809131&view=rev
+  +1: markt
+  -1: 
