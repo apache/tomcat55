@@ -103,3 +103,12 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung, pero
   -1: 
 
+* Port r795052 from modules/ha to modules/cluster
+  Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=40551
+  Enable the JvmRouteBinderValve to work with PersistentManagers as well as clusters
+  Patch by Chris Chandler
+  http://svn.apache.org/viewvc?rev=795052&view=rev
+  This has already been applied to OACC: http://svn.apache.org/viewvc?rev=812446&view=rev
+  +1: rjung
+  -1: 
+
