@@ -99,6 +99,6 @@ PATCHES PROPOSED TO BACKPORT:
   not get replicated before the expiration replication message.
   That's a problem in case a session listener needs the changed attribute.
   Patch: http://people.apache.org/~rjung/patches/TC5.5-cluster-replicate-before-expire.patch
-  +1: rjung
+  +1: rjung, pero
   -1: 
 
