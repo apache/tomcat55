@@ -112,3 +112,7 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung
   -1: 
 
+* Add additional permission required by JULI
+  http://svn.apache.org/viewvc?rev=813001&view=rev 
+  +1: markt
+  -1:
