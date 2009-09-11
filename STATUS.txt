@@ -122,7 +122,8 @@ PATCHES PROPOSED TO BACKPORT:
   the main thread doesn't see the changed stateTransfered flag,
   and thus waits until the transfer timeout occurs.
   Observed on Solaris. Switching to volatile fixes it.
-  Patch: http://people.apache.org/~rjung/patches/cluster-volatile.patch
+  Backport from trunk: http://svn.apache.org/viewvc?rev=814024&view=rev
+  Need to patch both copies of DeltaManager (ha and cluster).
   +1: rjung
   -1: 
 
