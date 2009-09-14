@@ -114,8 +114,9 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Add additional permission required by JULI
   http://svn.apache.org/viewvc?rev=813001&view=rev 
-  +1: markt
+  +1: markt, rjung
   -1:
+  rjung: Should we also add ${catalina.base}/bin/tomcat-juli.jar as a codeBase?
 
 * Spurious startup errors in the cluster
   Although the secondary node is able to retrieve all sessions,
@@ -131,5 +132,8 @@ PATCHES PROPOSED TO BACKPORT:
   Correct synchronisation problem that leads to cluster members permanently
   disappearing
   https://issues.apache.org/bugzilla/attachment.cgi?id=24253
-  +1: markt
+  +1: markt, rjung
   -1: 
+  rjung: the same fix seems to be necessary for
+  container/modules/groupcom/src/share/org/apache/catalina/tribes/membership/McastServiceImpl.java
+  (plus another use of the mutex also in receive() around membership.removeMember(m).
