@@ -137,3 +137,12 @@ PATCHES PROPOSED TO BACKPORT:
   rjung: the same fix seems to be necessary for
   container/modules/groupcom/src/share/org/apache/catalina/tribes/membership/McastServiceImpl.java
   (plus another use of the mutex also in receive() around membership.removeMember(m).
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
+  Adds support for SSL renegotiation when CLIENT-CERT auth is required due to a
+  security constraint
+  Note: Patch cannot be applied until tc-native 1.1.17 has been released
+        since it depends on a new native method
+  http://svn.apache.org/viewvc?rev=815418&view=rev
+  +1: markt
+  -1: 
