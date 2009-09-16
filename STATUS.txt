@@ -146,3 +146,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=815418&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47225
+  Buffer length should be end-offset
+  http://svn.apache.org/viewvc?rev=815972&view=rev
+  +1: markt
+  -1: 
+
