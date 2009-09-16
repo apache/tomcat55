@@ -153,3 +153,21 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
+* Remove native test and examples classes from TC 5.5
+  (connectors/jni/test, connectors/jni/examples).
+  They have been recovered in native trunk and are also part of
+  the native 1.1.x branch.
+  They are not present in TC 6.0 and trunk.
+  svn rm https://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/connectors/jni/test
+  svn rm https://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/connectors/jni/examples
+  +1: rjung
+  -1: 
+
+* Clean up native classes (connectors/jni) in TC 5.5:
+  - Remove all tasks in build.xml except for compile-only
+    That's the only task used (called) by our top level build.xml
+  - Remove build.properties.default. All that's needed is in
+    the top level file
+  +1: rjung
+  -1: 
+
