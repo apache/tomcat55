@@ -171,3 +171,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung
   -1: 
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
+  Return 404's rather than a permanent 500 if a JSP is deleted
+  http://svn.apache.org/viewvc?view=rev&revision=439565
+  +1: markt
+  -1: 
