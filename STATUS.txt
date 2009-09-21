@@ -176,3 +176,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=rev&revision=439565
   +1: markt
   -1: 
+
+* Fix copyright year on manager app
+  http://svn.apache.org/viewvc?rev=817442&view=rev
+  +1: markt
+  -1: 
+  
