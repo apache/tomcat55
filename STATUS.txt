@@ -100,7 +100,7 @@ PATCHES PROPOSED TO BACKPORT:
   That's a problem in case a session listener needs the changed attribute.
   Patch: http://people.apache.org/~rjung/patches/TC5.5-cluster-replicate-before-expire.patch
   This has already been applied to OACC: http://svn.apache.org/viewvc?rev=812427&view=rev
-  +1: rjung, pero
+  +1: rjung, pero, markt
   -1: 
 
 * Port r795052 from modules/ha to modules/cluster
@@ -109,7 +109,7 @@ PATCHES PROPOSED TO BACKPORT:
   Patch by Chris Chandler
   http://svn.apache.org/viewvc?rev=795052&view=rev
   This has already been applied to OACC: http://svn.apache.org/viewvc?rev=812446&view=rev
-  +1: rjung
+  +1: rjung, markt
   -1: 
 
 * Add additional permission required by JULI
@@ -125,7 +125,7 @@ PATCHES PROPOSED TO BACKPORT:
   Observed on Solaris. Switching to volatile fixes it.
   Backport from trunk: http://svn.apache.org/viewvc?rev=814024&view=rev
   Need to patch both copies of DeltaManager (ha and cluster).
-  +1: rjung
+  +1: rjung, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46384
@@ -160,7 +160,7 @@ PATCHES PROPOSED TO BACKPORT:
   They are not present in TC 6.0 and trunk.
   svn rm https://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/connectors/jni/test
   svn rm https://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/connectors/jni/examples
-  +1: rjung
+  +1: rjung, markt
   -1: 
 
 * Clean up native classes (connectors/jni) in TC 5.5:
@@ -168,7 +168,7 @@ PATCHES PROPOSED TO BACKPORT:
     That's the only task used (called) by our top level build.xml
   - Remove build.properties.default. All that's needed is in
     the top level file
-  +1: rjung
+  +1: rjung, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
