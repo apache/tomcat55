@@ -88,6 +88,11 @@
   </subsection>
   <subsection name="Cluster">
     <changelog>
+      <fix>
+        DeltaManager needs to replicate changed attributes even if session
+        gets invalidated. Otherwise session listeners will not see the right
+        data on the secondary nodes. (rjung)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">

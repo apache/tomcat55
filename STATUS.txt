@@ -94,15 +94,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Fix cluster replication problem: session expiration uses a replication
-  shortcut, so that attributes changed immediately before invalidation do
-  not get replicated before the expiration replication message.
-  That's a problem in case a session listener needs the changed attribute.
-  Patch: http://people.apache.org/~rjung/patches/TC5.5-cluster-replicate-before-expire.patch
-  This has already been applied to OACC: http://svn.apache.org/viewvc?rev=812427&view=rev
-  +1: rjung, pero, markt
-  -1: 
-
 * Port r795052 from modules/ha to modules/cluster
   Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=40551
   Enable the JvmRouteBinderValve to work with PersistentManagers as well as clusters

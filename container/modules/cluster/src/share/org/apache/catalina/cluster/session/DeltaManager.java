@@ -1308,6 +1308,25 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
      * @return a SessionMessage to be sent,
      */
     public ClusterMessage requestCompleted(String sessionId) {
+        return requestCompleted(sessionId, false);
+    }
+
+    /**
+     * When the request has been completed, the replication valve will notify
+     * the manager, and the manager will decide whether any replication is
+     * needed or not. If there is a need for replication, the manager will
+     * create a session message and that will be replicated. The cluster
+     * determines where it gets sent.
+     * 
+     * Session expiration also calls this method, but with expires == true.
+     * 
+     * @param sessionId -
+     *            the sessionId that just completed.
+     * @param expires -
+     *            whether this method has been called during session expiration
+     * @return a SessionMessage to be sent,
+     */
+    public ClusterMessage requestCompleted(String sessionId, boolean expires) {
         try {
             DeltaSession session = (DeltaSession) findSession(sessionId);
             DeltaRequest deltaRequest = session.getDeltaRequest();
@@ -1325,7 +1344,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
                 }  
             }
             if(!isDeltaRequest) {
-                if(!session.isPrimarySession()) {               
+                if(!expires && !session.isPrimarySession()) {
                     counterSend_EVT_SESSION_ACCESSED++;
                     msg = new SessionMessageImpl(getName(),
                             SessionMessage.EVT_SESSION_ACCESSED, null, sessionId,
@@ -1343,9 +1362,10 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
                         getName(), sessionId));
                 }
             }
-            session.setPrimarySession(true);
+            if (!expires)
+                session.setPrimarySession(true);
             //check to see if we need to send out an access message
-            if ((msg == null)) {
+            if (!expires && (msg == null)) {
                 long replDelta = System.currentTimeMillis()
                         - session.getLastTimeReplicated();
                 if (replDelta >= updateActiveInterval*1000 ||

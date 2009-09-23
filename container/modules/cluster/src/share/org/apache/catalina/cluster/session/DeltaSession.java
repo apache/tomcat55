@@ -49,7 +49,9 @@ import org.apache.catalina.Manager;
 import org.apache.catalina.Session;
 import org.apache.catalina.SessionEvent;
 import org.apache.catalina.SessionListener;
+import org.apache.catalina.cluster.CatalinaCluster;
 import org.apache.catalina.cluster.ClusterSession;
+import org.apache.catalina.cluster.ClusterMessage;
 import org.apache.catalina.realm.GenericPrincipal;
 import org.apache.catalina.util.Enumerator;
 import org.apache.catalina.util.StringManager;
@@ -716,6 +718,19 @@ public class DeltaSession implements HttpSession, Session, Serializable,
                 return;
 
             expiring = true;
+
+            if(expiredId != null && manager instanceof DeltaManager) {
+                DeltaManager dmanager = (DeltaManager)manager;
+                CatalinaCluster cluster = dmanager.getCluster();
+                ClusterMessage msg = dmanager.requestCompleted(expiredId, true);
+                if (msg != null) {
+                    if(dmanager.isSendClusterDomainOnly()) {
+                        cluster.sendClusterDomain(msg);
+                    } else {
+                        cluster.send(msg);
+                    }
+                }
+            }
 
             // Notify interested application event listeners
             // FIXME - Assumes we call listeners in reverse order
