@@ -150,7 +150,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47225
   Buffer length should be end-offset
   http://svn.apache.org/viewvc?rev=815972&view=rev
-  +1: markt
+  +1: markt, rjung
   -1: 
 
 * Remove native test and examples classes from TC 5.5
@@ -179,6 +179,6 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix copyright year on manager app
   http://svn.apache.org/viewvc?rev=817442&view=rev
-  +1: markt
+  +1: markt, rjung
   -1: 
   
