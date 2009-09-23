@@ -172,4 +172,13 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=817442&view=rev
   +1: markt, rjung
   -1: 
-  
+
+* Fix cluster replication problem for o.a.c.ha: session expiration
+  uses a replication shortcut, so that attributes changed immediately
+  before invalidation do not get replicated before the expiration
+  replication message. That's a problem in case a session listener
+  needs the changed attribute.
+  Has already been fixed in trunk, OACC and tc5.5.x (only in o.a.c.cluster).
+  http://svn.apache.org/viewvc?rev=818062&view=rev (trunk)
+  +1: rjung
+  -1:
