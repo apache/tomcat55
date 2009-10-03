@@ -127,12 +127,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47225
-  Buffer length should be end-offset
-  http://svn.apache.org/viewvc?rev=815972&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Remove native test and examples classes from TC 5.5
   (connectors/jni/test, connectors/jni/examples).
   They have been recovered in native trunk and are also part of
