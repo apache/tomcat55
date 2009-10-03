@@ -150,3 +150,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=818062&view=rev (trunk)
   +1: rjung
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47826
+  Correct error in debug message in org.apache.catalina.Bootstrap.
+  Already fixed in TC 6.0.
+  http://svn.apache.org/viewvc?rev=817110&view=rev
+  +1: kkolinko
+  -1:
