@@ -98,12 +98,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung, markt
   -1: 
 
-* Add additional permission required by JULI
-  http://svn.apache.org/viewvc?rev=813001&view=rev 
-  +1: markt, rjung, kkolinko
-  -1:
-  rjung: Should we also add ${catalina.base}/bin/tomcat-juli.jar as a codeBase?
-
 * Spurious startup errors in the cluster
   Although the secondary node is able to retrieve all sessions,
   the main thread doesn't see the changed stateTransfered flag,

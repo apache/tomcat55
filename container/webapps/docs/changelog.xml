@@ -65,6 +65,10 @@
         <bug>47518</bug>: Correct reference in Valve Javadoc that referred to an
         old method. Patch provided by Christopher Schultz. (markt)
       </fix>
+      <fix>
+        Add an additional permission required by JULI when running under newer
+        JDKs and a security manager. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
@@ -92,6 +96,9 @@
         DeltaManager needs to replicate changed attributes even if session
         gets invalidated. Otherwise session listeners will not see the right
         data on the secondary nodes. (rjung)
+      </fix>
+      <fix>
+        Remove unnecessary Java5 dependencies. (markt)
       </fix>
     </changelog>
   </subsection>
