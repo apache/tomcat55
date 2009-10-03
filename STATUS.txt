@@ -151,11 +151,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Fix copyright year on manager app
-  http://svn.apache.org/viewvc?rev=817442&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix cluster replication problem for o.a.c.ha: session expiration
   uses a replication shortcut, so that attributes changed immediately
   before invalidation do not get replicated before the expiration
