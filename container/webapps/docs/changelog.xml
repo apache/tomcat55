@@ -104,7 +104,7 @@
     </changelog>
   </subsection>
 </section>
-<section name="Tomcat 5.5.28 (fhanik)">
+<section name="Tomcat 5.5.28 (fhanik)" rtext="released 2009-09-04">
   <subsection name="General">
     <changelog>
       <fix>
@@ -471,7 +471,7 @@
     </changelog>
   </subsection>
 </section>
-<section name="Tomcat 5.5.27 (fhanik)">
+<section name="Tomcat 5.5.27 (fhanik)" rtext="released 2008-09-08">
   <subsection name="General">
     <changelog>
       <fix>
@@ -643,7 +643,7 @@
     </changelog>
   </subsection>
 </section>
-<section name="Tomcat 5.5.26 (fhanik)">
+<section name="Tomcat 5.5.26 (fhanik)" rtext="released 2008-02-05">
   <subsection name="General">
     <changelog>
       <update>
@@ -859,7 +859,7 @@
   </subsection>
 </section>
      
-<section name="Tomcat 5.5.25 (fhanik)">
+<section name="Tomcat 5.5.25 (fhanik)" rtext="released 2007-09-08">
   <subsection name="General">
     <changelog>
       <docs>
@@ -993,7 +993,7 @@
     </changelog>
   </subsection>
 </section>
-<section name="Tomcat 5.5.24 (fhanik)">
+<section name="Tomcat 5.5.24 (fhanik)" rtext="not released">
   <subsection name="General">
     <changelog>
       <update>
@@ -1193,7 +1193,7 @@
   </subsection>
 </section>
 
-<section name="Tomcat 5.5.23 (fhanik)">
+<section name="Tomcat 5.5.23 (fhanik)" rtext="released 2007-03-09">
   <subsection name="Catalina">
     <changelog>
       <fix>
@@ -1224,7 +1224,7 @@
   </subsection>
 </section>
 
-<section name="Tomcat 5.5.22 (fhanik)">
+<section name="Tomcat 5.5.22 (fhanik)" rtext="not released">
   <subsection name="General">
     <changelog>
       <fix>
@@ -1235,7 +1235,7 @@
   </subsection>
 </section>
 
-<section name="Tomcat 5.5.21 (fhanik)">
+<section name="Tomcat 5.5.21 (fhanik)" rtext="not released">
   <subsection name="Catalina">
     <changelog>
       <fix>
@@ -1620,7 +1620,7 @@
 </section>
 
 
-<section name="Tomcat 5.5.20 (fhanik)">
+<section name="Tomcat 5.5.20 (fhanik)" rtext="released 2006-09-28">
   <subsection name="Catalina">
     <changelog>
       <fix>
@@ -1667,7 +1667,7 @@
 </section>
 
 
-<section name="Tomcat 5.5.19 (fhanik)">
+<section name="Tomcat 5.5.19 (fhanik)" rtext="not released">
   <subsection name="General">
     <changelog>
       <update>
@@ -1711,7 +1711,7 @@
 </section>
 
 
-<section name="Tomcat 5.5.18 (yoavs)">
+<section name="Tomcat 5.5.18 (yoavs)" rtext="not released">
   <subsection name="General">
     <changelog>
       <update>
@@ -1812,7 +1812,7 @@
   </subsection>   
 </section>
 
-<section name="Tomcat 5.5.17 (yoavs)">
+<section name="Tomcat 5.5.17 (yoavs)" rtext="released 2006-04-27">
   <subsection name="General">
     <changelog>
       <update>
@@ -1993,7 +1993,7 @@
   </subsection>
  </section>
 
-<section name="Tomcat 5.5.16 (yoavs)">
+<section name="Tomcat 5.5.16 (yoavs)" rtext="released 2006-03-15">
   <subsection name="General">
     <changelog>
       <update>
@@ -2187,7 +2187,7 @@
   </subsection>
 </section>
 
-<section name="Tomcat 5.5.15 (yoavs)">
+<section name="Tomcat 5.5.15 (yoavs)" rtext="released 2006-01-21">
   <subsection name="General">
     <changelog>
       <fix>
@@ -2346,7 +2346,7 @@
         <bug>37284</bug>: Guess JSE 5.0 location on Mac OS X, patch by Stepan Koltsov. (yoavs)
       </add>
       <fix>
-        <bug></bug>: Wrong class name in antlib.xml for JkStatusUpdateTask. (yoavs)
+        Wrong class name in antlib.xml for JkStatusUpdateTask. (yoavs)
       </fix>
     </changelog>
   </subsection>
