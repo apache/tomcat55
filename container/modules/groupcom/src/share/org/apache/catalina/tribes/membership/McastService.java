@@ -159,7 +159,9 @@ public class McastService implements MembershipService,MembershipListener {
             }
             localMember.getData(true, true);
         }catch ( IOException x ) {
-            throw new IllegalArgumentException(x);
+            IllegalArgumentException iae = new IllegalArgumentException();
+            iae.initCause(x);
+            throw iae;
         }
     }
     
