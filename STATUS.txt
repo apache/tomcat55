@@ -160,5 +160,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Upgrade to Commons-Pool 1.5.3. 1.5.2 had a leak
   http://svn.apache.org/viewvc?rev=821412&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1: 
