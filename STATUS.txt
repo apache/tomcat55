@@ -127,14 +127,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Clean up native classes (connectors/jni) in TC 5.5:
-  - Remove all tasks in build.xml except for compile-only
-    That's the only task used (called) by our top level build.xml
-  - Remove build.properties.default. All that's needed is in
-    the top level file
-  +1: rjung, markt, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
   http://svn.apache.org/viewvc?view=rev&revision=439565
@@ -155,10 +147,10 @@ PATCHES PROPOSED TO BACKPORT:
   Correct error in debug message in org.apache.catalina.Bootstrap.
   Already fixed in TC 6.0.
   http://svn.apache.org/viewvc?rev=817110&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Upgrade to Commons-Pool 1.5.3. 1.5.2 had a leak
   http://svn.apache.org/viewvc?rev=821412&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
