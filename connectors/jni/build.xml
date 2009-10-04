@@ -151,21 +151,21 @@ limitations under the License.--&gt;">
             </fileset>
         </copy>
     </target>
-      <target name="compile-only"
-              description="Compile shareable components">
 
-        <javac  srcdir="${source.home}"
-               destdir="${build.home}/classes"
-                 debug="${compile.debug}"
-           deprecation="${compile.deprecation}"
-              optimize="${compile.optimize}"
-              encoding="ISO-8859-1">
-          <classpath refid="classpath"/>
-        </javac>
-        <copy    todir="${build.home}/classes" filtering="on" encoding="ISO-8859-1">
-          <fileset dir="${source.home}" excludes="**/*.java"/>
-        </copy>
-      </target>
+    <target name="compile-only"
+            description="Compile shareable components">
+      <javac  srcdir="${source.home}"
+             destdir="${build.home}/classes"
+               debug="${compile.debug}"
+         deprecation="${compile.deprecation}"
+            optimize="${compile.optimize}"
+            encoding="ISO-8859-1">
+        <classpath refid="classpath"/>
+      </javac>
+      <copy    todir="${build.home}/classes" filtering="on" encoding="ISO-8859-1">
+        <fileset dir="${source.home}" excludes="**/*.java"/>
+      </copy>
+    </target>
 
     <!-- ================================================================== -->
     <!-- Make Tomcat Native jar                                             -->
