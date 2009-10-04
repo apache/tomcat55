@@ -338,55 +338,55 @@
 
   </target>
 
-      <target name="build-tomcatapr"
-              unless="tomcatapr.build.notrequired"
-              depends="init" description="builds j-t-c/apr">
-        <echo>========== Building: tomcat-apr </echo>
+  <target name="build-tomcatapr"
+          unless="tomcatapr.build.notrequired"
+          depends="init" description="builds j-t-c/apr">
+    <echo>========== Building: tomcat-apr </echo>
 
-        <ant dir="${jtc.home}/jni" target="compile-only">
-          <property name="build.home" value="${tomcat.build}"/>
-          <!--
-          <property name="tomcat-http11.jar" value="${tomcat.build}/server/lib/tomcat-http11.jar"/>
-          <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
-          -->
-          <property name="commons-logging.jar" value="${commons-logging.jar}"/>
-        </ant>
+    <ant dir="${jtc.home}/jni" target="compile-only">
+      <property name="build.home" value="${tomcat.build}"/>
+      <!--
+      <property name="tomcat-http11.jar" value="${tomcat.build}/server/lib/tomcat-http11.jar"/>
+      <property name="tomcat-coyote.jar" value="${tomcat.build}/server/lib/tomcat-coyote.jar" />
+      -->
+      <property name="commons-logging.jar" value="${commons-logging.jar}"/>
+    </ant>
 
-        <!-- APR -->
-        <jar jarfile="${tomcat.build}/server/lib/tomcat-apr.jar" index="true">
-          <fileset dir="${tomcat.build}/classes">
-            <include name="org/apache/tomcat/jni/**" />
-            <!-- Javadoc and i18n exclusions -->
-            <exclude name="**/package.html" />
-            <exclude name="**/LocalStrings_*" />
-          </fileset>
-        </jar>
+    <!-- APR -->
+    <jar jarfile="${tomcat.build}/server/lib/tomcat-apr.jar" index="true">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="org/apache/tomcat/jni/**" />
+        <!-- Javadoc and i18n exclusions -->
+        <exclude name="**/package.html" />
+        <exclude name="**/LocalStrings_*" />
+      </fileset>
+    </jar>
 
-      </target>
+  </target>
 
-      <target name="build-juli"
-              unless="tomcatjuli.build.notrequired"
-              depends="init" description="builds j-t-c/juli">
-        <echo>========== Building: tomcat-juli </echo>
+  <target name="build-juli"
+          unless="tomcatjuli.build.notrequired"
+          depends="init" description="builds j-t-c/juli">
+    <echo>========== Building: tomcat-juli </echo>
 
-        <ant dir="${jtc.home}/juli" target="compile-only">
-          <property name="build.home" value="${tomcat.build}"/>
-        </ant>
+    <ant dir="${jtc.home}/juli" target="compile-only">
+      <property name="build.home" value="${tomcat.build}"/>
+    </ant>
 
-        <!-- Java.util.logging Implementation -->
-        <jar jarfile="${tomcat.build}/bin/tomcat-juli.jar" index="true">
-          <fileset dir="${tomcat.build}/classes">
-            <include name="org/apache/juli/**" />
-            <!-- Javadoc and i18n exclusions -->
-            <exclude name="**/package.html" />
-            <exclude name="**/LocalStrings_*" />
-          </fileset>
-        </jar>
+    <!-- Java.util.logging Implementation -->
+    <jar jarfile="${tomcat.build}/bin/tomcat-juli.jar" index="true">
+      <fileset dir="${tomcat.build}/classes">
+        <include name="org/apache/juli/**" />
+        <!-- Javadoc and i18n exclusions -->
+        <exclude name="**/package.html" />
+        <exclude name="**/LocalStrings_*" />
+      </fileset>
+    </jar>
 
-        <copy file="${basedir}/resources/logging.properties"
-             todir="${tomcat.build}/conf" />
+    <copy file="${basedir}/resources/logging.properties"
+         todir="${tomcat.build}/conf" />
 
-      </target>
+  </target>
 
   <target name="build-jasper"
           unless="jasper.build.notrequired"
