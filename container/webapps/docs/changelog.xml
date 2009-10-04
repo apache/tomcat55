@@ -66,6 +66,10 @@
         old method. Patch provided by Christopher Schultz. (markt)
       </fix>
       <fix>
+        <bug>47826</bug>: Correct error in debug message in
+        org.apache.catalina.Bootstrap (markt)
+      </fix>
+      <fix>
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>

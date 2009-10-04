@@ -143,13 +143,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47826
-  Correct error in debug message in org.apache.catalina.Bootstrap.
-  Already fixed in TC 6.0.
-  http://svn.apache.org/viewvc?rev=817110&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Upgrade to Commons-Pool 1.5.3. 1.5.2 had a leak
   http://svn.apache.org/viewvc?rev=821412&view=rev
   +1: markt, kkolinko, rjung
