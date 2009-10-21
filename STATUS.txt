@@ -147,3 +147,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=821412&view=rev
   +1: markt, kkolinko, rjung
   -1: 
+
+* Refix https://issues.apache.org/bugzilla/show_bug.cgi?id=37848
+  Don't output info messages when there is no terminal
+  http://svn.apache.org/viewvc?rev=828225&view=rev
+  +1: markt
+  -1: 
