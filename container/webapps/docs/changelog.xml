@@ -49,6 +49,9 @@
       <update>
         Update Windows installer to use NSIS 2.45. (kkolinko)
       </update>
+      <update>
+        Update to commons-pool 1.5.3. This fixes a known leak in 1.5.2. (markt)
+      </update>
     </changelog>
   </subsection>
   <subsection name="Catalina">
