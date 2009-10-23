@@ -148,3 +148,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=828225&view=rev
   +1: markt
   -1: 
+
+* Loading tcnative is broken since r795039.
+  https://issues.apache.org/bugzilla/show_bug.cgi?id=47712
+  https://issues.apache.org/bugzilla/attachment.cgi?id=24411
+  +1: rjung
+  -1: 
