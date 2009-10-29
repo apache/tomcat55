@@ -86,7 +86,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix regression in fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=38797
   http://svn.apache.org/viewvc?rev=809131&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1: 
 
 * Port r795052 from modules/ha to modules/cluster
