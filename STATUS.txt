@@ -154,3 +154,21 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=24411
   +1: rjung, kkolinko
   -1: 
+
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
+  There are two patches to be applied:
+  1) Make WebappClassLoader to do not swallow AccessControlException
+  http://svn.apache.org/viewvc?rev=831828&view=rev
+  +1: kkolinko
+  -1:
+
+  2) Patch for SecurityClassLoad to preload o.a.c.loader.ResourceEntry class
+  http://svn.apache.org/viewvc?rev=831830&view=rev
+  +1: kkolinko
+  -1:
+
+* Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
+  http://svn.apache.org/viewvc?rev=831819&view=rev
+  +1: kkolinko
+  -1:
