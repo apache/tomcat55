@@ -35,6 +35,9 @@
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">
     <changelog>
+      <update>
+        Deprecate the jni Buffer class. (rjung)
+      </update>
       <fix>
         Update the version of Tomcat Native DLL installed by the Windows
         installer to be 1.1.16. It was using some very old (1.1.4) version

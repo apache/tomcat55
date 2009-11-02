@@ -23,6 +23,8 @@ import java.nio.ByteBuffer;
  *
  * @author Mladen Turk
  * @version $Revision: $, $Date: $
+ * @deprecated This class is not used by Tomcat itself and does no
+ * longer exist in Tomcat 6 and beyond.
  */
 
 public class Buffer {
