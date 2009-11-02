@@ -34,18 +34,10 @@ PATCHES PROPOSED TO BACKPORT:
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39231
-  http://people.apache.org/~markt/patches/2009-08-16-bug39231.patch
-  JAAS LoginContext expects a call to logout()
-  +1: markt, fhanik
-  -1: kkolinko: It works for classes that call JAASRealm#createPrincipal(String,Subject),
-    but breaks those ones that overwrite that method, because overwritten
-    method will not be called by the base class. An alternative patch is proposed below.
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39231
   It is updated version of Mark's patch,
   where the new method in JAASRealm calls the old one.
   http://people.apache.org/~kkolinko/patches/2009-11-02_bug39231.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
  
@@ -163,7 +155,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Loading tcnative is broken since r795039.
   https://issues.apache.org/bugzilla/show_bug.cgi?id=47712
   https://issues.apache.org/bugzilla/attachment.cgi?id=24411
-  +1: rjung, kkolinko
+  +1: rjung, kkolinko, markt
   -1: 
 
 
