@@ -36,7 +36,7 @@
   <subsection name="General">
     <changelog>
       <update>
-        Deprecate the jni Buffer class. (rjung)
+        Deprecate the jni Buffer and Thread classes. (rjung)
       </update>
       <fix>
         Update the version of Tomcat Native DLL installed by the Windows
