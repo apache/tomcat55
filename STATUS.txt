@@ -152,13 +152,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko
   -1: 
 
-* Loading tcnative is broken since r795039.
-  https://issues.apache.org/bugzilla/show_bug.cgi?id=47712
-  https://issues.apache.org/bugzilla/attachment.cgi?id=24411
-  +1: rjung, kkolinko, markt
-  -1: 
-
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
   There are two patches to be applied:
   1) Make WebappClassLoader to do not swallow AccessControlException
@@ -175,3 +168,4 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=831819&view=rev
   +1: kkolinko
   -1:
+

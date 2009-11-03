@@ -81,16 +81,16 @@ public class AprLifecycleListener
                 Class clazz = Class.forName("org.apache.tomcat.jni.Library");
                 Method method = clazz.getMethod(methodName, paramTypes);
                 method.invoke(null, paramValues);
+
+                major = clazz.getField("TCN_MAJOR_VERSION").getInt(null);
+                minor = clazz.getField("TCN_MINOR_VERSION").getInt(null);
+                patch = clazz.getField("TCN_PATCH_VERSION").getInt(null);
                 
                 methodName = "randSet";
                 paramValues[0] = SSLRandomSeed;
                 clazz = Class.forName("org.apache.tomcat.jni.SSL");
                 method = clazz.getMethod(methodName, paramTypes);
                 method.invoke(null, paramValues);
-
-                major = clazz.getField("TCN_MAJOR_VERSION").getInt(null);
-                minor = clazz.getField("TCN_MINOR_VERSION").getInt(null);
-                patch = clazz.getField("TCN_PATCH_VERSION").getInt(null);
             } catch (Throwable t) {
                 if (!log.isDebugEnabled()) {
                     log.info(sm.getString("aprListener.aprInit", 

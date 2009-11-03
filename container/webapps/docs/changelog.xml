@@ -35,6 +35,9 @@
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">
     <changelog>
+      <fix>
+        <bug>47712</bug>: Loading tcnative was broken in 5.5.28. (rjung)
+      </fix>
       <update>
         Deprecate the jni Buffer and Thread classes. (rjung)
       </update>
