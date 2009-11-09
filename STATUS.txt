@@ -159,8 +159,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-  2) Patch for SecurityClassLoad to preload o.a.c.loader.ResourceEntry class
-  http://svn.apache.org/viewvc?rev=831830&view=rev
+  2) Add a new PrivilegedAction. Patch by markt
+  http://svn.apache.org/viewvc?rev=834080&view=rev
   +1: kkolinko
   -1:
 
