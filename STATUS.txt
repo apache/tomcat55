@@ -143,7 +143,7 @@ PATCHES PROPOSED TO BACKPORT:
   needs the changed attribute.
   Has already been fixed in trunk, OACC and tc5.5.x (only in o.a.c.cluster).
   http://svn.apache.org/viewvc?rev=818062&view=rev (trunk)
-  +1: rjung
+  +1: rjung, markt
   -1:
 
 * Refix https://issues.apache.org/bugzilla/show_bug.cgi?id=37848
@@ -156,17 +156,17 @@ PATCHES PROPOSED TO BACKPORT:
   There are two patches to be applied:
   1) Make WebappClassLoader to do not swallow AccessControlException
   http://svn.apache.org/viewvc?rev=831828&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
   2) Add a new PrivilegedAction. Patch by markt
   http://svn.apache.org/viewvc?rev=834080&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
   http://svn.apache.org/viewvc?rev=831819&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
@@ -174,12 +174,12 @@ PATCHES PROPOSED TO BACKPORT:
   security constraint
   Backport of http://svn.apache.org/viewvc?rev=832222&view=rev
   http://people.apache.org/~rjung/patches/tc5.5.x-backport-BZ46950-r815418-20091102.patch
-  +1: rjung
+  +1: rjung, markt
   -1:
 
 * Fix Close Stream at WebappClassLoader after read error
   http://svn.apache.org/viewvc?rev=832351&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix CVE-2009-3548 - Windows installer uses insecure default password
