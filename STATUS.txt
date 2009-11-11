@@ -187,18 +187,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Backport cookie changes
-  - Add option to control treatment of / as a separator
-  - Single quote is not a spearator
-  - Link ALWAYS_ADD_EXPIRES so STRICT_SERVLET_COMPLIANCE
-  - Add option to enforce cookie naming rules
-  - Add option to allow = in cookie values
-  - Auto switching is not a spec breach
-  - Auto switch on use of comment
-  http://people.apache.org/~markt/patches/2009-11-09-tc5-cookies.patch
-  +1: markt
-  -1: 
-  
 * Disable TLS renegotiation be default with an option to re-enable it
   Based on Costin's patch for trunk with Mark's modifications
   http://people.apache.org/~markt/patches/2009-11-10-cve-2009-3555-tc5.patch
