@@ -77,7 +77,7 @@ PATCHES PROPOSED TO BACKPORT:
   simple tags and tags and can't find any regression issues. The TCK also
   passes.
   http://svn.apache.org/viewvc?rev=804734&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
