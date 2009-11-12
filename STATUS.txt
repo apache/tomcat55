@@ -31,7 +31,7 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2009-07-02-bug38743.patch
   +1: markt
    0: fhanik - big step for an old branch, could be risky, I'd wait until after next release if we consider it
-  -1: 
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39231
   It is updated version of Mark's patch,
@@ -40,20 +40,20 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
- 
+
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39844
   Port r588477 (fix for #43668) by billbarker that corrected this for Tomcat 6
   http://people.apache.org/~markt/patches/2009-07-11-bug39844.patch
   +1: markt
-  -1: 
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43327
   Port from 6.0.x
   Required to investigate 39997
   http://people.apache.org/~markt/patches/2009-07-12-apr-ipv6.patch
   +1: markt, kkolinko
-  -1: 
+  -1:
   kkolinko: This patch is a backport of rev.697046
     A comment in STATUS.txt there ([1]) says
     "use trunk >=r690600 of TC-native", thus it requires
@@ -78,19 +78,19 @@ PATCHES PROPOSED TO BACKPORT:
   passes.
   http://svn.apache.org/viewvc?rev=804734&view=rev
   +1: markt
-  -1: 
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
   Threading issue in classloading. Adds a sync so please check performance
   http://svn.apache.org/viewvc?rev=805182&view=rev
   +1: markt
-  -1: 
+  -1:
 
 * Fix regression in fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=38797
   http://svn.apache.org/viewvc?rev=809131&view=rev
-  +1: markt, kkolinko
-  -1: 
+  +1: markt, kkolinko, mturk
+  -1:
 
 * Port r795052 from modules/ha to modules/cluster
   Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=40551
@@ -98,8 +98,8 @@ PATCHES PROPOSED TO BACKPORT:
   Patch by Chris Chandler
   http://svn.apache.org/viewvc?rev=795052&view=rev
   This has already been applied to OACC: http://svn.apache.org/viewvc?rev=812446&view=rev
-  +1: rjung, markt
-  -1: 
+  +1: rjung, markt, mturk
+  -1:
 
 * Spurious startup errors in the cluster
   Although the secondary node is able to retrieve all sessions,
@@ -108,15 +108,15 @@ PATCHES PROPOSED TO BACKPORT:
   Observed on Solaris. Switching to volatile fixes it.
   Backport from trunk: http://svn.apache.org/viewvc?rev=814024&view=rev
   Need to patch both copies of DeltaManager (ha and cluster).
-  +1: rjung, markt
-  -1: 
+  +1: rjung, markt, mturk
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46384
   Correct synchronisation problem that leads to cluster members permanently
   disappearing
   https://issues.apache.org/bugzilla/attachment.cgi?id=24253
   +1: markt, rjung
-  -1: 
+  -1:
   rjung: the same fix seems to be necessary for
   container/modules/groupcom/src/share/org/apache/catalina/tribes/membership/McastServiceImpl.java
   (plus another use of the mutex also in receive() around membership.removeMember(m).
@@ -127,14 +127,14 @@ PATCHES PROPOSED TO BACKPORT:
   Note: Patch cannot be applied until tc-native 1.1.17 has been released
         since it depends on a new native method
   http://svn.apache.org/viewvc?rev=815418&view=rev
-  +1: markt
-  -1: 
+  +1: markt, mturk
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
   http://svn.apache.org/viewvc?view=rev&revision=439565
   +1: markt
-  -1: 
+  -1:
 
 * Fix cluster replication problem for o.a.c.ha: session expiration
   uses a replication shortcut, so that attributes changed immediately
@@ -143,14 +143,14 @@ PATCHES PROPOSED TO BACKPORT:
   needs the changed attribute.
   Has already been fixed in trunk, OACC and tc5.5.x (only in o.a.c.cluster).
   http://svn.apache.org/viewvc?rev=818062&view=rev (trunk)
-  +1: rjung, markt
+  +1: rjung, markt, mturk
   -1:
 
 * Refix https://issues.apache.org/bugzilla/show_bug.cgi?id=37848
   Don't output info messages when there is no terminal
   http://svn.apache.org/viewvc?rev=828225&view=rev
-  +1: markt, kkolinko
-  -1: 
+  +1: markt, kkolinko, mturk
+  -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
   There are two patches to be applied:
@@ -174,21 +174,21 @@ PATCHES PROPOSED TO BACKPORT:
   security constraint
   Backport of http://svn.apache.org/viewvc?rev=832222&view=rev
   http://people.apache.org/~rjung/patches/tc5.5.x-backport-BZ46950-r815418-20091102.patch
-  +1: rjung, markt
+  +1: rjung, markt, mturk
   -1:
 
 * Fix Close Stream at WebappClassLoader after read error
   http://svn.apache.org/viewvc?rev=832351&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, mturk
   -1:
 
 * Fix CVE-2009-3548 - Windows installer uses insecure default password
   http://svn.apache.org/viewvc?rev=834047&view=rev
-  +1: markt
-  -1: 
+  +1: markt, mturk
+  -1:
 
 * Disable TLS renegotiation be default with an option to re-enable it
   Based on Costin's patch for trunk with Mark's modifications
   http://people.apache.org/~markt/patches/2009-11-10-cve-2009-3555-tc5.patch
-  +1: markt
-  -1: 
+  +1: markt, mturk
+  -1:
