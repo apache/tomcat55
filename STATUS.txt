@@ -186,6 +186,17 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=834047&view=rev
   +1: markt, mturk
   -1:
+   kkolinko: It cannot be applied cleanly, because manager and
+   host-manager are at different paths in TC5.5.
+
+  Alternative patch:
+  Fix CVE-2009-3548 - Windows installer uses insecure default password
+  Also removes some old commented-out code and changes some message strings.
+  This patch file is a backport of revs. 834047, 836036, 836045, 836209
+  http://people.apache.org/~kkolinko/patches/2009-11-14_Installer_password_tc55.patch
+  +1: kkolinko
+  -1:
+
 
 * Disable TLS renegotiation be default with an option to re-enable it
   Based on Costin's patch for trunk with Mark's modifications
