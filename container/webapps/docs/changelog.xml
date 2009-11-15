@@ -82,6 +82,9 @@
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>
+      <fix>
+        Close resource stream in WebappClassLoader after read error. (pero)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
