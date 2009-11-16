@@ -85,6 +85,8 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=805182&view=rev
   +1: markt
   -1:
+   0: kkolinko: ( There is a different patch for tc6.0.x now ).
+
 
 * Fix regression in fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=38797
@@ -140,6 +142,16 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=rev&revision=439565
   +1: markt
   -1:
+   0: kkolinko (
+     - In general looks good, but I do not like Compiler.java part of the
+     patch. Printing exceptions to stderr aka catalina.out is not good, but
+     silently swallowing them is not good either. Though that is to be
+     fixed in tc6.0.x first.
+     - I would like rev.832102 to be combined with this one.
+     - Just a note: This issue won't affect configurations where Jasper
+     runs with development=false.
+  )
+
 
 * Fix cluster replication problem for o.a.c.ha: session expiration
   uses a replication shortcut, so that attributes changed immediately
@@ -168,6 +180,17 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=834080&view=rev
   +1: kkolinko, markt
   -1:
+
+  3) Remove use of WebappClassLoader$PrivilegedFindResource,
+  because all findResourceInternal(String,String) calls are now already
+  wrapped with AccessController.doPrivileged, so additional wrapping is not
+  needed. Add preloading of the new PrivilegedFindResourceByName class,
+  (to fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097#c13
+  )
+  http://people.apache.org/~kkolinko/patches/2009-11-12_PrivilegedFindResource_tc6.patch
+  +1: kkolinko
+  -1:
+
 
 * Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
   http://svn.apache.org/viewvc?rev=831819&view=rev
