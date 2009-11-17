@@ -242,3 +242,8 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=881088&view=rev
   +1: kkolinko
   -1:
+
+* Update to commons-pool 1.5.4
+  http://svn.apache.org/viewvc?rev=881412&view=rev
+  +1: markt
+  -1: 
