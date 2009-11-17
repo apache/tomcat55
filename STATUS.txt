@@ -236,3 +236,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=830999&view=rev
   +1: markt, kkolinko
   -1: 
+
+* Implement https://issues.apache.org/bugzilla/show_bug.cgi?id=37847
+  Make location and filename of catalina.out configurable in catalina.sh
+  http://svn.apache.org/viewvc?rev=881088&view=rev
+  +1: kkolinko
+  -1:
