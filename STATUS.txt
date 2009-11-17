@@ -236,27 +236,3 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=830999&view=rev
   +1: markt, kkolinko
   -1: 
-
-* Provide an option to allow = in cookie values
-  http://people.apache.org/~markt/patches/2009-11-15-cookie-allow-equals.patch
-  +1: markt
-  -1: kkolinko: (
-    It does not work.
-    In Cookies.java#processCookieHeader(byte bytes[], int off, int len) line 367:
-      pos = nameEnd = getTokenEndPosition(bytes,pos,end);
-    will parse "a=b=c" cookie as having a name of "a=b=c".
-
-    Go to http://localhost:8080/servlets-examples/servlet/CookieExample
-    Create a cookie with name "foo" and value "bar"
-    Refresh the page. It says:
-Cookie Name: foo=bar
-Cookie Value:
-
-    Also
-     - ALLOW_EQUALS_IN_VALUE declaration in Cookies.java is better to be
-     moved upper. I do not like that it is in between "SEPARATORS" and
-     "separators".
-
-     - A typo in systemprops.xml patch: "default value": "value" is
-     mentioned twice.
-   )
