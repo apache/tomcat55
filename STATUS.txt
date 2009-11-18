@@ -81,12 +81,10 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
-  Threading issue in classloading. Adds a sync so please check performance
-  http://svn.apache.org/viewvc?rev=805182&view=rev
+  Threading issue in class loading (using Filip's suggestion)
+  http://people.apache.org/~markt/patches/2009-11-18-bug44041.patch
   +1: markt
   -1:
-   0: kkolinko: ( There is a different patch for tc6.0.x now ).
-
 
 * Fix regression in fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=38797
