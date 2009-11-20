@@ -250,4 +250,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2009-11-17-cookie-allow-equals.patch
   +1: markt
   -1: 
-  
+
+* Alternative fix for CVE-2009-3555 SSL MITN
+  The current patch uses an async callback to close the socket. It is
+  technically possible an attack may suceed before the socket is closed
+  The new patch only logs failed server initiated negotiations 
+  http://people.apache.org/~markt/patches/2009-11-20-cve2009-3555-v2.patch
+  +1: markt
+  -1: 
