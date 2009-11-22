@@ -258,3 +258,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2009-11-20-cve2009-3555-v2.patch
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47609
+  Implment fail-safe EOL conversion for source disributions
+  Based on a patch provided by sebb
+  http://svn.apache.org/viewvc?rev=883125&view=rev
+  +1: markt
+  -1: 
