@@ -291,3 +291,10 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48049
+  Fix copy and paste error and call correct function
+  Patch provided by gingyang.xu
+  http://svn.apache.org/viewvc?rev=883177&view=rev
+  +1: markt
+  -1: 
