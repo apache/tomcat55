@@ -285,3 +285,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=883146&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
+  httpOnly flag not applied to migrated session cookie
+  https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
+  +1: markt
+  -1: 
