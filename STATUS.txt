@@ -278,3 +278,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=883134&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47453
+  Need to be able to override metadata complete if set in the global web.xml
+  Patch provided by Keiichi Fujino
+  http://svn.apache.org/viewvc?rev=883146&view=rev
+  +1: markt
+  -1: 
