@@ -265,3 +265,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=883125&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47718
+  Correct file descriptor leak on context stop/reload
+  Patch provided by George Sexton
+  http://svn.apache.org/viewvc?rev=883130&view=rev
+  +1: markt
+  -1: 
+  
