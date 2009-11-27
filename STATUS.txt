@@ -147,18 +147,9 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-
 * Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
   http://svn.apache.org/viewvc?rev=831819&view=rev
   +1: kkolinko, markt
-  -1:
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
-  Adds support for SSL renegotiation when CLIENT-CERT auth is required due to a
-  security constraint
-  Backport of http://svn.apache.org/viewvc?rev=832222&view=rev
-  http://people.apache.org/~rjung/patches/tc5.5.x-backport-BZ46950-r815418-20091102.patch
-  +1: rjung, markt, mturk
   -1:
 
 * Fix CVE-2009-3548 - Windows installer uses insecure default password
