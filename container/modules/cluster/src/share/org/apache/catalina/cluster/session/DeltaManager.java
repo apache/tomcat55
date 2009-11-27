@@ -129,7 +129,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
 
     private boolean notifySessionListenersOnReplication = true;
 
-    private boolean stateTransfered = false ;
+    private volatile boolean stateTransfered = false ;
 
     private int stateTransferTimeout = 60;
 
