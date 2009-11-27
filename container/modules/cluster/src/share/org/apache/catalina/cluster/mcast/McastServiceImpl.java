@@ -265,23 +265,25 @@ public class McastServiceImpl
             McastMember m = McastMember.getMember(data);
             if(log.isDebugEnabled())
                 log.debug("Mcast receive ping from member " + m);
-            if ( membership.memberAlive(m) ) {
-                if(log.isDebugEnabled())
-                    log.debug("Mcast add member " + m);
-                service.memberAdded(m);
+            synchronized (membershipMutex) {
+                if ( membership.memberAlive(m) ) {
+                    if(log.isDebugEnabled())
+                        log.debug("Mcast add member " + m);
+                    service.memberAdded(m);
+                }
             }
         } finally {
             checkExpire();
         }
     }
 
-    protected Object expiredMutex = new Object();
+    protected final Object membershipMutex = new Object();
 
     /**
      * check member expire or alive
      */
     protected void checkExpire() {
-        synchronized (expiredMutex) {
+        synchronized (membershipMutex) {
             McastMember[] expired = membership.expire(timeToExpiration);
             for ( int i=0; i<expired.length; i++) {
                 if(log.isDebugEnabled())

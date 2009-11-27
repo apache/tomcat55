@@ -123,6 +123,10 @@
       <fix>
         Remove unnecessary Java5 dependencies. (markt)
       </fix>
+      <fix>
+        <bug>46384</bug>: Correct synchronisation issue that could lead to a
+        cluster member disappering permanently. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">

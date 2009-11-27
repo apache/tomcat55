@@ -84,13 +84,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46384
-  Correct synchronisation problem that leads to cluster members permanently
-  disappearing
-  https://issues.apache.org/bugzilla/attachment.cgi?id=24253
-  +1: markt, rjung, kkolinko
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
   Adds support for SSL renegotiation when CLIENT-CERT auth is required due to a
   security constraint
