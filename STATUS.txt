@@ -52,14 +52,6 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2009-07-12-apr-ipv6.patch
   +1: markt, kkolinko
   -1:
-  kkolinko: This patch is a backport of rev.697046
-    A comment in STATUS.txt there ([1]) says
-    "use trunk >=r690600 of TC-native", thus it requires
-    TC-native 1.1.15 or .16.
-    Do we need to update REQUIRED_PATCH, RECOMMENDED_PV
-    in AprLifecycleListener?
-    [1] http://svn.apache.org/viewvc/tomcat/tc6.0.x/trunk/STATUS.txt?r1=697046&r2=697045&pathrev=697046
-  markt: We should update recommended.
 
 * Minor cleanups for AccessLogValve classes
   Reuses StringBuffer, uses char instead of single-char String, etc.
