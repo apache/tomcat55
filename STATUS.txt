@@ -130,7 +130,7 @@ PATCHES PROPOSED TO BACKPORT:
   (to fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097#c13
   )
   http://people.apache.org/~kkolinko/patches/2009-11-12_PrivilegedFindResource_tc6.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
@@ -156,7 +156,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Align server.xml installed by .exe installer with the one bundled in
   zip/tgz archives
   http://people.apache.org/~kkolinko/patches/2009-11-15_Installer_serverxml_tc55.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Single quote should be not be treated as a separator
@@ -167,7 +167,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Implement https://issues.apache.org/bugzilla/show_bug.cgi?id=37847
   Make location and filename of catalina.out configurable in catalina.sh
   http://svn.apache.org/viewvc?rev=881088&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Update to commons-pool 1.5.4
