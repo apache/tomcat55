@@ -29,6 +29,8 @@ import java.net.SocketException;
 import java.security.KeyStore;
 import java.util.Vector;
 
+import javax.net.ssl.HandshakeCompletedEvent;
+import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -75,7 +77,8 @@ public abstract class JSSESocketFactory
     protected String clientAuth = "false";
     protected SSLServerSocketFactory sslProxy = null;
     protected String[] enabledCiphers;
-   
+    protected boolean allowUnsafeLegacyRenegotiation = false;
+
 
     public JSSESocketFactory () {
     }
@@ -115,12 +118,37 @@ public abstract class JSSESocketFactory
         SSLSocket asock = null;
         try {
              asock = (SSLSocket)socket.accept();
+             if (!allowUnsafeLegacyRenegotiation) {
+                 asock.addHandshakeCompletedListener(
+                         new DisableSslRenegotiation());
+             }
+
              configureClientAuth(asock);
         } catch (SSLException e){
           throw new SocketException("SSL handshake error" + e.toString());
         }
         return asock;
     }
+
+    
+    private static class DisableSslRenegotiation 
+            implements HandshakeCompletedListener {
+        private volatile boolean completed = false;
+     
+        public void handshakeCompleted(HandshakeCompletedEvent event) {
+            if (completed) {
+                try {
+                    log.warn("SSL renegotiation is disabled, closing connection");
+                    event.getSession().invalidate();
+                    event.getSocket().close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+            completed = true;
+        }
+    }
+
 
     public void handshake(Socket sock) throws IOException {
         ((SSLSocket)sock).startHandshake();
@@ -371,7 +399,6 @@ public abstract class JSSESocketFactory
         String requestedProtocols = (String) attributes.get("protocols");
         setEnabledProtocols(socket, getEnabledProtocols(socket, 
                                                          requestedProtocols));
-
         // we don't know if client auth is needed -
         // after parsing the request we may re-handshake
         configureClientAuth(socket);

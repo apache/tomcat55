@@ -129,6 +129,9 @@ public class JSSE13SocketFactory extends JSSESocketFactory
             enabledCiphers = getEnabledCiphers(requestedCiphers,
                      sslProxy.getSupportedCipherSuites());
 
+            allowUnsafeLegacyRenegotiation =
+                "true".equals(attributes.get("allowUnsafeLegacyRenegotiation"));
+
             // Check the SSL config is OK
             checkConfig();
 

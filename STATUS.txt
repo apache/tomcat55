@@ -153,12 +153,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-* Disable TLS renegotiation be default with an option to re-enable it
-  Based on Costin's patch for trunk with Mark's modifications
-  http://people.apache.org/~markt/patches/2009-11-10-cve-2009-3555-tc5.patch
-  +1: markt, mturk, kkolinko
-  -1:
-
 * Align server.xml installed by .exe installer with the one bundled in
   zip/tgz archives
   http://people.apache.org/~kkolinko/patches/2009-11-15_Installer_serverxml_tc55.patch

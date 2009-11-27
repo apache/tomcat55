@@ -96,7 +96,9 @@ class JSSE14Support extends JSSESupport {
                 break;
             }
         }
-        socket.setSoTimeout(oldTimeout);
+        if (!socket.isClosed()) {
+            socket.setSoTimeout(oldTimeout);
+        }
         if (listener.completed == false) {
             throw new SocketException("SSL Cert handshake timeout");
         }

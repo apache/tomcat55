@@ -101,6 +101,10 @@
         <bug>47225</bug>: Fix error in calculation of a buffer length in the
         mapper. (markt)
       </fix>
+      <fix>
+        CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
+        (markt/costin) 
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">
