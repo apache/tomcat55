@@ -90,14 +90,6 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=24253
   +1: markt, rjung, kkolinko
   -1:
-  rjung: the same fix seems to be necessary for
-  container/modules/groupcom/src/share/org/apache/catalina/tribes/membership/McastServiceImpl.java
-  (plus another use of the mutex also in receive() around membership.removeMember(m).
-
-  kkolinko: re rjung's comment: Those /tribes/membership/ classes
-  are not included in TC 5.5 releases. Thus no need to patch them.
-  I wonder if those can be removed from /tc5.5.x/trunk, but I actually do
-  not mind.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
   Adds support for SSL renegotiation when CLIENT-CERT auth is required due to a
