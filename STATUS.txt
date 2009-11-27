@@ -111,12 +111,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: rjung, markt, mturk
   -1:
 
-* Refix https://issues.apache.org/bugzilla/show_bug.cgi?id=37848
-  Don't output info messages when there is no terminal
-  http://svn.apache.org/viewvc?rev=828225&view=rev
-  +1: markt, kkolinko, mturk
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
   There are two patches to be applied:
   1) Make WebappClassLoader to do not swallow AccessControlException

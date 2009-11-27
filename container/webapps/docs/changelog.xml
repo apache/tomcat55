@@ -63,6 +63,10 @@
   <subsection name="Catalina">
     <changelog>
       <fix>
+        <bug>37848</bug>: Re-fix. Don't display info output when there is no
+        terminal. (markt)
+      </fix>
+      <fix>
         <bug>41059</bug>: Reduce the chances of errors when using
         ENABLE_CLEAR_REFERENCES. Patch by Curt Arnold. (markt) 
       </fix>
