@@ -98,6 +98,9 @@
   <subsection name="Jasper">
     <changelog>
       <fix>
+        <bug>38797</bug>: Fix regression in previous fix for this bug. (markt)
+      </fix>
+      <fix>
         <bug>41661</bug>: Fix thread safety issue in JspConfig.init() (markt)
       </fix>
       <fix>
