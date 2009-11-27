@@ -227,3 +227,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=883177&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48300
+  Only the APR lifecycle listener should try and initialise APR
+  Patch also syncs all APR lifecycle listener changes from 6.0.x to 5.5.x
+  http://people.apache.org/~markt/patches/2009-11-27-bug48300-tc5.patch
+  +1: markt
+  -1: 
