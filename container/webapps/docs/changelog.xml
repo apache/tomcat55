@@ -147,6 +147,10 @@
         <bug>41564</bug>: Add some information on installing Tomcat as a service
         on operating systems with User Account Control, e.g. Vista. (markt)
       </fix>
+      <fix>
+        <bug>47656</bug>: Add information to documentation on system property
+        replacement in configuration files. (markt)
+      </fix>
     </changelog>
   </subsection>
 </section>
