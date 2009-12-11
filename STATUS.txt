@@ -234,3 +234,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2009-11-27-bug48300-tc5.patch
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47537
+  Return an error page rather than a zero length 200 reposne if the forward to
+  the login or error page fails during FORM authentication
+  http://svn.apache.org/viewvc?rev=889606&view=rev
+  +1: markt
+  -1: 
