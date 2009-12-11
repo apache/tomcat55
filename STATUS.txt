@@ -241,3 +241,13 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=889606&view=rev
   +1: markt
   -1: 
+
+* Address https://issues.apache.org/bugzilla/show_bug.cgi?id=45255
+  Prevent session fixation by changing session ID on authentication by default
+  If you don't like the session ID changing by default, feel free to caveat your
+  vote. If there is suggicient support for the patch but insufficient support
+  for changing the ID by default I'll apply the patch with the default set to
+  not change the session ID
+  http://svn.apache.org/viewvc?rev=889716&view=rev
+  +1: markt
+  -1: 
