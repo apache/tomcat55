@@ -138,7 +138,7 @@ performed in a separate JVM from Tomcat? <code>true</code> or
 <li><strong>javaEncoding</strong> - Java file encoding to use for generating
 java source files. Default <code>UTF8</code>.</li>
 
-<li><strong>genStringAsCharArray</strong> - Should text strings be generated as char
+<li><strong>genStrAsCharArray</strong> - Should text strings be generated as char
 arrays, to improve performance in some cases? Default <code>false</code>.</li>
 
 <li><strong>keepgenerated</strong> - Should we keep the generated Java source
