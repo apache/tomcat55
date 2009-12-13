@@ -151,6 +151,10 @@
         <bug>47656</bug>: Add information to documentation on system property
         replacement in configuration files. (markt)
       </fix>
+      <fix>
+        <bug>48381</bug>: Add information on how Tomcat treats host names to the
+        host configuration documentation. (markt)
+      </fix>
     </changelog>
   </subsection>
 </section>
