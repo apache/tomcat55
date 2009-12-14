@@ -152,6 +152,11 @@
         replacement in configuration files. (markt)
       </fix>
       <fix>
+        <bug>47769</bug>: Clarify the JNDI docs with repect to use of
+        &lt;resource-ref&gt; and related elements, specifically when they are
+        required and when they may be omitted. (markt) 
+      </fix>
+      <fix>
         <bug>48381</bug>: Add information on how Tomcat treats host names to the
         host configuration documentation. (markt)
       </fix>
