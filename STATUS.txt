@@ -172,7 +172,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Update to commons-pool 1.5.4
   http://svn.apache.org/viewvc?rev=881412&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1: 
 
 * Provide new option to allow = in cookie values
