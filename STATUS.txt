@@ -213,7 +213,8 @@ PATCHES PROPOSED TO BACKPORT:
   Patch provided by Keiichi Fujino
   http://svn.apache.org/viewvc?rev=883146&view=rev
   +1: markt
-  -1: 
+  -1: kkolinko: Not applicable. The metadata-complete attribute is @since
+   Servlet 2.5, thus TC 6 and later.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
   httpOnly flag not applied to migrated session cookie
