@@ -208,14 +208,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47462
-  Need to be able to override metadata complete if set in the global web.xml
-  Patch provided by Keiichi Fujino
-  http://svn.apache.org/viewvc?rev=883146&view=rev
-  +1: markt
-  -1: kkolinko: Not applicable. The metadata-complete attribute is @since
-   Servlet 2.5, thus TC 6 and later.
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
   httpOnly flag not applied to migrated session cookie
   https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
