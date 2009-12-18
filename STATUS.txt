@@ -263,3 +263,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=890350&view=rev
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
+  Ensure HTTP header values meet the requirements of RFC2616
+  http://svn.apache.org/viewvc?rev=892293&view=rev
+  +1: markt
+  -1: 
