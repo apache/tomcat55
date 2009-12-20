@@ -102,6 +102,10 @@
   <subsection name="Coyote">
     <changelog>
       <fix>
+        <bug>43327</bug>: Allow APR/native connector to work correctly on
+        systems when IPv6 is enabled. (markt)
+      </fix>
+      <fix>
         <bug>46950</bug>: Support SSL renegotiation with APR/native connector.
         Note that this requires APR/native 1.1.17 or later. (markt)
       </fix>
