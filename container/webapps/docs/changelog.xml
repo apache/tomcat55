@@ -71,6 +71,10 @@
         (markt/kkolinko)
       </fix>
       <fix>
+        <bug>39844</bug>: Fix NPE when performing a non-HTTP forward.
+        (billbarker)
+      </fix>
+      <fix>
         <bug>41059</bug>: Reduce the chances of errors when using
         ENABLE_CLEAR_REFERENCES. Patch by Curt Arnold. (markt) 
       </fix>
