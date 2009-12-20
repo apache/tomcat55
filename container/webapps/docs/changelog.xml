@@ -67,6 +67,10 @@
         terminal. (markt)
       </fix>
       <fix>
+        <bug>39231</bug>: Call LoginModule.logout() when using JAASRealm.
+        (markt/kkolinko)
+      </fix>
+      <fix>
         <bug>41059</bug>: Reduce the chances of errors when using
         ENABLE_CLEAR_REFERENCES. Patch by Curt Arnold. (markt) 
       </fix>

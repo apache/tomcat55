@@ -429,7 +429,7 @@ public class JAASRealm
             log.debug(sm.getString("jaasRealm.loginContextCreated", username));
 
         // Return the appropriate Principal for this authenticated Subject
-        Principal principal = createPrincipal(username, subject);
+        Principal principal = createPrincipal(username, subject, loginContext);
         if (principal == null) {
             log.debug(sm.getString("jaasRealm.authenticateFailure", username));
             return (null);
@@ -480,16 +480,8 @@ public class JAASRealm
 
 
     /**
-     * Identify and return a <code>java.security.Principal</code> instance
-     * representing the authenticated user for the specified <code>Subject</code>.
-     * The Principal is constructed by scanning the list of Principals returned
-     * by the JAASLoginModule. The first <code>Principal</code> object that matches
-     * one of the class names supplied as a "user class" is the user Principal.
-     * This object is returned to tha caller.
-     * Any remaining principal objects returned by the LoginModules are mapped to  
-     * roles, but only if their respective classes match one of the "role class" classes. 
-     * If a user Principal cannot be constructed, return <code>null</code>.
-     * @param subject The <code>Subject</code> representing the logged-in user
+     * @deprecated
+     * Use {@link JAASRealm#createPrincipal(String, Subject, LoginContext)}
      */
     protected Principal createPrincipal(String username, Subject subject) {
         // Prepare to scan the Principals for this Subject
@@ -539,6 +531,29 @@ public class JAASRealm
 
         // Return the resulting Principal for our authenticated user
         return new GenericPrincipal(this, username, null, roles, userPrincipal);
+    }
+
+    /**
+     * Identify and return a <code>java.security.Principal</code> instance
+     * representing the authenticated user for the specified <code>Subject</code>.
+     * The Principal is constructed by scanning the list of Principals returned
+     * by the JAASLoginModule. The first <code>Principal</code> object that matches
+     * one of the class names supplied as a "user class" is the user Principal.
+     * This object is returned to the caller.
+     * Any remaining principal objects returned by the LoginModules are mapped to  
+     * roles, but only if their respective classes match one of the "role class" classes. 
+     * If a user Principal cannot be constructed, return <code>null</code>.
+     * @param subject The <code>Subject</code> representing the logged-in user
+     * @param loginContext Associated with the Principal so
+     *                     {@link LoginContext#logout()} can be called later
+     */
+    protected Principal createPrincipal(String username, Subject subject,
+            LoginContext loginContext) {
+        Principal principal = createPrincipal(username, subject);
+        if (principal instanceof GenericPrincipal) {
+            ((GenericPrincipal) principal).setLoginContext(loginContext);
+        }
+        return principal;
     }
 
      /**

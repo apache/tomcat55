@@ -33,13 +33,6 @@ PATCHES PROPOSED TO BACKPORT:
    0: fhanik - big step for an old branch, could be risky, I'd wait until after next release if we consider it
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39231
-  It is updated version of Mark's patch,
-  where the new method in JAASRealm calls the old one.
-  http://people.apache.org/~kkolinko/patches/2009-11-02_bug39231.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=39844
   Port r588477 (fix for #43668) by billbarker that corrected this for Tomcat 6
   http://people.apache.org/~markt/patches/2009-07-11-bug39844.patch
