@@ -238,6 +238,10 @@ PATCHES PROPOSED TO BACKPORT:
   rjung: I'd prefer off by default, because 5.5 is assumed to be very stable,
   and changing by default can break things like e.g. existing profiles for
   automated stress testing.
+  Provide setter for the new AuthenticatorBase property
+  http://svn.apache.org/viewvc?rev=892415&view=rev
+  +1: markt
+  -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47689
   Enable the test Ant target to work
