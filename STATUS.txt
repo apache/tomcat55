@@ -56,15 +56,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=46950
-  Adds support for SSL renegotiation when CLIENT-CERT auth is required due to a
-  security constraint
-  Note: Patch cannot be applied until tc-native 1.1.17 has been released
-        since it depends on a new native method
-  http://svn.apache.org/viewvc?rev=815418&view=rev
-  +1: markt, mturk, rjung
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
   http://svn.apache.org/viewvc?view=rev&revision=439565
