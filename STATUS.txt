@@ -233,3 +233,8 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=892612&view=rev
   +1: markt
   -1: 
+
+* Remove unneeded line from the method that normalizes decodedURI.
+  http://svn.apache.org/viewvc?rev=892812&view=rev
+  +1: kkolinko
+  -1:
