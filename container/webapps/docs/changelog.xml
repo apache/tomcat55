@@ -172,6 +172,11 @@
         <bug>48381</bug>: Add information on how Tomcat treats host names to the
         host configuration documentation. (markt)
       </fix>
+      <add>
+        <bug>48530</bug>: Add information on the Manager Server Status page to
+        the Manager How-To in the documentation webapp. Based on a patch by
+        Arnaud Espy. (markt)
+      </add>
     </changelog>
   </subsection>
 </section>
