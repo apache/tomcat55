@@ -177,6 +177,11 @@
         the Manager How-To in the documentation webapp. Based on a patch by
         Arnaud Espy. (markt)
       </add>
+      <add>
+        <bug>48532</bug>: Add information to the BIO/NIO SSL configuration page
+        in the documentation web application to specify how the defaults for the
+        various trust store attributes are determined. (markt)
+      </add>
     </changelog>
   </subsection>
 </section>
