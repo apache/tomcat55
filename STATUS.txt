@@ -95,11 +95,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt, rjung
   -1:
 
-* Include root cause exception into the one produced by ApplicationContextFacade#doPrivileged()
-  http://svn.apache.org/viewvc?rev=831819&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Fix CVE-2009-3548 - Windows installer uses insecure default password
   http://svn.apache.org/viewvc?rev=834047&view=rev
   +1: markt, mturk

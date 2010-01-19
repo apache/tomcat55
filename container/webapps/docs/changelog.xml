@@ -97,6 +97,10 @@
       <fix>
         Close resource stream in WebappClassLoader after read error. (pero)
       </fix>
+      <fix>
+        Do not swallow exceptions in ApplicationContextFacade.doPrivileged()
+        (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
