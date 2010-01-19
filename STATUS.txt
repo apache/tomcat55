@@ -139,7 +139,7 @@ PATCHES PROPOSED TO BACKPORT:
   Correct file descriptor leak on context stop/reload
   Patch provided by George Sexton
   http://svn.apache.org/viewvc?rev=883130&view=rev
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
   
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
@@ -151,7 +151,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
   httpOnly flag not applied to migrated session cookie
   http://svn.apache.org/viewvc?rev=891304&view=rev
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48049
@@ -183,13 +183,16 @@ PATCHES PROPOSED TO BACKPORT:
   not change the session ID
   http://svn.apache.org/viewvc?rev=889716&view=rev
   +1: markt, rjung
+  +1: kkolinko: with r892415
   -1: 
   rjung: I'd prefer off by default, because 5.5 is assumed to be very stable,
   and changing by default can break things like e.g. existing profiles for
   automated stress testing.
+  kkolinko: I agree to have off by default
+
   Provide setter for the new AuthenticatorBase property
   http://svn.apache.org/viewvc?rev=892415&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47689
@@ -201,7 +204,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Pre-load class required to obtain SSL key size if running under a security
   manager
   http://svn.apache.org/viewvc?rev=890349&view=rev
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47744
