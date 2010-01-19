@@ -114,6 +114,9 @@ public class WebappClassLoader
     public static final boolean ENABLE_CLEAR_REFERENCES = 
         Boolean.valueOf(System.getProperty("org.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES", "true")).booleanValue();
 
+    /**
+     * @deprecated Not used
+     */
     protected class PrivilegedFindResource
         implements PrivilegedAction {
 
@@ -127,6 +130,23 @@ public class WebappClassLoader
 
         public Object run() {
             return findResourceInternal(file, path);
+        }
+
+    }
+
+    protected class PrivilegedFindResourceByName
+        implements PrivilegedAction {
+
+        protected String name;
+        protected String path;
+
+        PrivilegedFindResourceByName(String name, String path) {
+            this.name = name;
+            this.path = path;
+        }
+
+        public Object run() {
+            return findResourceInternal(name, path);
         }
 
     }
@@ -961,7 +981,13 @@ public class WebappClassLoader
 
         ResourceEntry entry = (ResourceEntry) resourceEntries.get(name);
         if (entry == null) {
-            entry = findResourceInternal(name, name);
+            if (securityManager != null) {
+                PrivilegedAction dp =
+                    new PrivilegedFindResourceByName(name, name);
+                entry = (ResourceEntry) AccessController.doPrivileged(dp);
+            } else {
+                entry = findResourceInternal(name, name);
+            }
         }
         if (entry != null) {
             url = entry.source;
@@ -1844,7 +1870,13 @@ public class WebappClassLoader
 
         ResourceEntry entry = null;
 
-        entry = findResourceInternal(name, classPath);
+        if (securityManager != null) {
+            PrivilegedAction dp =
+                new PrivilegedFindResourceByName(name, classPath);
+            entry = (ResourceEntry) AccessController.doPrivileged(dp);
+        } else {
+            entry = findResourceInternal(name, classPath);
+        }
 
         if (entry == null)
             throw new ClassNotFoundException(name);
@@ -1927,8 +1959,7 @@ public class WebappClassLoader
     }
 
     /**
-     * Find specified resource in local repositories. This block
-     * will execute under an AccessControl.doPrivilege block.
+     * Find specified resource in local repositories.
      *
      * @return the loaded resource, or null if the resource isn't found
      */
@@ -1987,13 +2018,7 @@ public class WebappClassLoader
 
                 // Note : Not getting an exception here means the resource was
                 // found
-                 if (securityManager != null) {
-                    PrivilegedAction dp =
-                        new PrivilegedFindResource(files[i], path);
-                    entry = (ResourceEntry)AccessController.doPrivileged(dp);
-                 } else {
-                    entry = findResourceInternal(files[i], path);
-                 }
+                entry = findResourceInternal(files[i], path);
 
                 ResourceAttributes attributes =
                     (ResourceAttributes) resources.getAttributes(fullPath);

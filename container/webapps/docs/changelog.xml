@@ -95,6 +95,11 @@
         AccessControlException. (kkolinko)
       </update>
       <fix>
+        <bug>48097</bug>: Avoid throwing an AccessControlException which can
+        lead to a NoClassDefFoundError on first access of first jsp.
+        (kkolinko/markt)
+      </fix>
+      <fix>
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>

@@ -72,25 +72,6 @@ PATCHES PROPOSED TO BACKPORT:
   )
 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
-  There are two patches to be applied:
-
-  2) Add a new PrivilegedAction. Patch by markt
-  http://svn.apache.org/viewvc?rev=834080&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-  rjung: minus generics
-
-  3) Remove use of WebappClassLoader$PrivilegedFindResource,
-  because all findResourceInternal(String,String) calls are now already
-  wrapped with AccessController.doPrivileged, so additional wrapping is not
-  needed. Add preloading of the new PrivilegedFindResourceByName class,
-  (to fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097#c13
-  )
-  http://people.apache.org/~kkolinko/patches/2009-11-12_PrivilegedFindResource_tc6.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Fix CVE-2009-3548 - Windows installer uses insecure default password
   http://svn.apache.org/viewvc?rev=834047&view=rev
   +1: markt, mturk
