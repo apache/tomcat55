@@ -74,10 +74,6 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48097
   There are two patches to be applied:
-  1) Make WebappClassLoader to do not swallow AccessControlException
-  http://svn.apache.org/viewvc?rev=831828&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
 
   2) Add a new PrivilegedAction. Patch by markt
   http://svn.apache.org/viewvc?rev=834080&view=rev
