@@ -110,6 +110,13 @@
         Do not swallow exceptions in ApplicationContextFacade.doPrivileged()
         (kkolinko)
       </fix>
+      <fix>
+        Various related (un)deploy improvements including: better handling of
+        failed (un)deployment; adding checking for invalid zip file entries that
+        don't make sense in a WAR file; and improved validation of WAR file
+        names. These changes address CVE-2009-2693, CVE-2009-2901 and
+        CVE-2009-2902.
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
