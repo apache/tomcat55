@@ -109,7 +109,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Provide new option to allow = in cookie values
   http://people.apache.org/~markt/patches/2009-11-17-cookie-allow-equals.patch
-  +1: markt
+  +1: markt, kkolinko
   -1: 
 
 * Alternative fix for CVE-2009-3555 SSL MITN
@@ -117,7 +117,7 @@ PATCHES PROPOSED TO BACKPORT:
   technically possible an attack may succeed before the socket is closed
   The new patch only logs failed server initiated negotiations.
   http://people.apache.org/~markt/patches/2009-11-20-cve2009-3555-v2.patch
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47609
@@ -242,7 +242,7 @@ PATCHES PROPOSED TO BACKPORT:
   +1: 
   -1: 
 
- Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
   Allow applications to set the Server header
   http://svn.apache.org/viewvc?rev=898527&view=rev
   +1: markt
@@ -252,5 +252,5 @@ PATCHES PROPOSED TO BACKPORT:
   Prevent possible NPE in JNDIRealm when user does not exist
   Patch provided by Kevin Conaway
   http://svn.apache.org/viewvc?rev=898558&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1: 
