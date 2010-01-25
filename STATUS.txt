@@ -90,12 +90,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-* Align server.xml installed by .exe installer with the one bundled in
-  zip/tgz archives
-  http://people.apache.org/~kkolinko/patches/2009-11-15_Installer_serverxml_tc55.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Single quote should be not be treated as a separator
   http://svn.apache.org/viewvc?rev=830999&view=rev
   +1: markt, kkolinko

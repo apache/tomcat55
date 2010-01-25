@@ -1,4 +1,4 @@
-               maxHttpHeaderSize="8192"
+ maxHttpHeaderSize="8192"
                maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" redirectPort="8443" acceptCount="100"
                connectionTimeout="20000" disableUploadTimeout="true" />
@@ -58,6 +58,14 @@
            containers, check out the "RequestDumperFilter" Filter in the
            example application (the source for this filter may be found in
            "$CATALINA_HOME/webapps/examples/WEB-INF/classes/filters").
+
+           Note that this Valve uses the platform's default character encoding.
+           This may cause problems for developers in another encoding, e.g.
+           UTF-8.  Use the RequestDumperFilter instead.
+
+           Also note that enabling this Valve will write a ton of stuff to your
+           logs.  They are likely to grow quite large.  This extensive log writing
+           will definitely slow down your server.
 
            Request dumping is disabled by default.  Uncomment the following
            element to enable it. -->
@@ -124,13 +132,13 @@
 
              className = the fully qualified name of the cluster class
 
-             name = a descriptive name for your cluster, can be anything
+             clusterName = a descriptive name for your cluster, can be anything
 
              mcastAddr = the multicast address, has to be the same for all the nodes
 
              mcastPort = the multicast port, has to be the same for all the nodes
              
-             mcastBindAddr = bind the multicast socket to a specific address
+             mcastBindAddress = bind the multicast socket to a specific address
              
              mcastTTL = the multicast TTL if you want to limit your broadcast
              
@@ -227,16 +235,19 @@
             <Sender
                 className="org.apache.catalina.cluster.tcp.ReplicationTransmitter"
                 replicationMode="pooled"
-                ackTimeout="15000"/>
+                ackTimeout="15000"
+                waitForAck="true"/>
 
             <Valve className="org.apache.catalina.cluster.tcp.ReplicationValve"
-                   filter=".*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;"/>
+                   filter=".*\.gif;.*\.js;.*\.jpg;.*\.png;.*\.htm;.*\.html;.*\.css;.*\.txt;"/>
                    
             <Deployer className="org.apache.catalina.cluster.deploy.FarmWarDeployer"
                       tempDir="/tmp/war-temp/"
                       deployDir="/tmp/war-deploy/"
                       watchDir="/tmp/war-listen/"
                       watchEnabled="false"/>
+                      
+            <ClusterListener className="org.apache.catalina.cluster.session.ClusterSessionListener"/>
         </Cluster>
         -->        
 

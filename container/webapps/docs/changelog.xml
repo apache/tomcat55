@@ -58,6 +58,10 @@
       <update>
         Update to commons-pool 1.5.4. This fixes regressions in 1.5.2. (markt)
       </update>
+      <fix>
+        Align server.xml installed by the Windows installer with the one
+        bundled in zip/tar.gz archives. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">
