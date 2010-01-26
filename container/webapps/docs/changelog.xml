@@ -62,6 +62,10 @@
         Align server.xml installed by the Windows installer with the one
         bundled in zip/tar.gz archives. (kkolinko)
       </fix>
+      <add>
+        <bug>37847</bug>: Make location and filename of catalina.out configurable
+        in catalina.sh. (fhanik/kkolinko)
+      </add>
     </changelog>
   </subsection>
   <subsection name="Catalina">

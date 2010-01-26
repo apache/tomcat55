@@ -95,12 +95,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko
   -1: 
 
-* Implement https://issues.apache.org/bugzilla/show_bug.cgi?id=37847
-  Make location and filename of catalina.out configurable in catalina.sh
-  http://svn.apache.org/viewvc?rev=881088&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Provide new option to allow = in cookie values
   http://people.apache.org/~markt/patches/2009-11-17-cookie-allow-equals.patch
   +1: markt, kkolinko

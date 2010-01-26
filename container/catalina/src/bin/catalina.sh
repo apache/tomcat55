@@ -10,6 +10,10 @@
 #                   of a Catalina installation.  If not present, resolves to
 #                   the same directory that CATALINA_HOME points to.
 #
+#   CATALINA_OUT    (Optional) Full path to a file where stdout and stderr
+#                   will be redirected. 
+#                   Default is $CATALINA_BASE/logs/catalina.out
+#
 #   CATALINA_OPTS   (Optional) Java runtime options used when the "start",
 #                   or "run" command is executed.
 #
@@ -139,6 +143,10 @@ if [ -z "$CATALINA_BASE" ] ; then
   CATALINA_BASE="$CATALINA_HOME"
 fi
 
+if [ -z "$CATALINA_OUT" ] ; then
+  CATALINA_OUT="$CATALINA_BASE"/logs/catalina.out
+fi
+
 if [ -z "$CATALINA_TMPDIR" ] ; then
   # Define the java.io.tmpdir to use for Catalina
   CATALINA_TMPDIR="$CATALINA_BASE"/temp
@@ -261,7 +269,7 @@ elif [ "$1" = "run" ]; then
 elif [ "$1" = "start" ] ; then
 
   shift
-  touch "$CATALINA_BASE"/logs/catalina.out
+  touch "$CATALINA_OUT"
   if [ "$1" = "-security" ] ; then
     if [ $have_tty -eq 1 ]; then
       echo "Using Security Manager"
@@ -275,7 +283,7 @@ elif [ "$1" = "start" ] ; then
       -Dcatalina.home="$CATALINA_HOME" \
       -Djava.io.tmpdir="$CATALINA_TMPDIR" \
       org.apache.catalina.startup.Bootstrap "$@" start \
-      >> "$CATALINA_BASE"/logs/catalina.out 2>&1 &
+      >> "$CATALINA_OUT" 2>&1 &
 
       if [ ! -z "$CATALINA_PID" ]; then
         echo $! > $CATALINA_PID
@@ -287,7 +295,7 @@ elif [ "$1" = "start" ] ; then
       -Dcatalina.home="$CATALINA_HOME" \
       -Djava.io.tmpdir="$CATALINA_TMPDIR" \
       org.apache.catalina.startup.Bootstrap "$@" start \
-      >> "$CATALINA_BASE"/logs/catalina.out 2>&1 &
+      >> "$CATALINA_OUT" 2>&1 &
 
       if [ ! -z "$CATALINA_PID" ]; then
         echo $! > $CATALINA_PID
