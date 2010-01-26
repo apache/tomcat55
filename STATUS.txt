@@ -126,13 +126,6 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47718
-  Correct file descriptor leak on context stop/reload
-  Patch provided by George Sexton
-  http://svn.apache.org/viewvc?rev=883130&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-  
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
   Process changes for all naming contexts, not just the global one
   http://svn.apache.org/viewvc?rev=883134&view=rev
