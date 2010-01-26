@@ -198,13 +198,16 @@ PATCHES PROPOSED TO BACKPORT:
   Prevent medium term memory leak if using SSL under a security manager
   Based on a patch by Greg Vanore
   http://svn.apache.org/viewvc?rev=890350&view=rev
-  +1: markt, rjung
+  +1: markt, rjung, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
   Prevent use of non-RFC2616 compliant custom status messages
   http://svn.apache.org/viewvc?rev=892612&view=rev
   +1: markt
+  +1: kkolinko:  +1 to use r892777 instead of proposed r892612
+     - TC 6.0 version of the patch is more applicable here, than the one of
+     trunk.
   -1: 
 
 * Remove unneeded line from the method that normalizes decodedURI.
