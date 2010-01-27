@@ -188,10 +188,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko
   -1:
 
-* Update Tomcat-Native included in TC distributives to 1.1.18
-  (or 1.1.19 if that will be officially released at the time when this
-  patch is to be applied)
-  http://people.apache.org/~kkolinko/patches/2010-01-05_tc55_native-x18.patch
+* Update Tomcat-Native included in TC distributives to 1.1.19
+  http://people.apache.org/~kkolinko/patches/2010-01-27_tc55_native-x19.patch
   +1: kkolinko
   -1:
 
@@ -199,7 +197,8 @@ PATCHES PROPOSED TO BACKPORT:
   No update on the required version (17)
   http://svn.apache.org/viewvc?rev=895703&view=rev
   We should not vote before 1.1.19 is officially released.
-  +1: 
+  Patch by rjung
+  +1: kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
