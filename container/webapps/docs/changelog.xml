@@ -156,6 +156,11 @@
         mapper. (markt)
       </fix>
       <fix>
+        <bug>47744</bug>: Prevent a medium term memory leak if using SSl with
+        the JSSE provider and also using a security manager. Based on a patch by
+        Greg Vanore. (markt)
+      </fix>
+      <fix>
         CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
         (markt/costin) 
       </fix>

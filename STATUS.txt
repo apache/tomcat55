@@ -174,13 +174,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47744
-  Prevent medium term memory leak if using SSL under a security manager
-  Based on a patch by Greg Vanore
-  http://svn.apache.org/viewvc?rev=890350&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
   Prevent use of non-RFC2616 compliant custom status messages
   http://svn.apache.org/viewvc?rev=892612&view=rev

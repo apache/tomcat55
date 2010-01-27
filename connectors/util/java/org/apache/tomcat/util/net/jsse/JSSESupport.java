@@ -20,6 +20,8 @@ package org.apache.tomcat.util.net.jsse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.cert.CertificateFactory;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
@@ -44,6 +46,10 @@ import org.apache.tomcat.util.net.SSLSupport;
 class JSSESupport implements SSLSupport {
     private static org.apache.commons.logging.Log log =
 	org.apache.commons.logging.LogFactory.getLog(JSSESupport.class);
+
+    // Map<SSLSession,Integer>
+    private static final Map keySizeCache = 
+        new WeakHashMap();
 
     protected SSLSocket ssl;
 
@@ -138,7 +144,12 @@ class JSSESupport implements SSLSupport {
         SSLSupport.CipherData c_aux[]=ciphers;
         if (session == null)
             return null;
-        Integer keySize = (Integer) session.getValue(KEY_SIZE_KEY);
+
+        Integer keySize = null;
+        synchronized(keySizeCache) {
+            keySize = (Integer) keySizeCache.get(session);
+        }
+
         if (keySize == null) {
             int size = 0;
             String cipherSuite = session.getCipherSuite();
@@ -149,7 +160,9 @@ class JSSESupport implements SSLSupport {
                 }
             }
             keySize = new Integer(size);
-            session.putValue(KEY_SIZE_KEY, keySize);
+            synchronized(keySizeCache) {
+                keySizeCache.put(session, keySize);
+            }
         }
         return keySize;
     }
