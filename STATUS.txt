@@ -148,13 +148,6 @@ PATCHES PROPOSED TO BACKPORT:
      it could be described in ssl-howto.html, see 6.0.  2. BZ 48613 is
      an issue that existed before this patch, but it makes it noticeable.
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47537
-  Return an error page rather than a zero length 200 response if the forward to
-  the login or error page fails during FORM authentication
-  http://svn.apache.org/viewvc?rev=889606&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Address https://issues.apache.org/bugzilla/show_bug.cgi?id=45255
   Prevent session fixation by changing session ID on authentication by default
   If you don't like the session ID changing by default, feel free to caveat your

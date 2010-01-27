@@ -95,6 +95,11 @@
         old method. Patch provided by Christopher Schultz. (markt)
       </fix>
       <fix>
+        <bug>47537</bug>: Return an error page rather than a zero length 200
+        response if the forward to the login or error page fails during FORM
+        authentication. (markt)
+      </fix>
+      <fix>
         <bug>47718</bug>: Fix file descriptor leak on context stop/reload. Patch
         provided by George Sexton. (markt)
       </fix>
