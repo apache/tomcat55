@@ -102,6 +102,11 @@
         <bug>47826</bug>: Correct error in debug message in
         org.apache.catalina.Bootstrap (markt)
       </fix>
+      <fix>
+        <bug>48049</bug>: Fix copy and paste error so
+        <code>NamingContext.destroySubContext()</code> works correctly.
+        Patch provided by gingyang.xu (markt)
+      </fix>
       <update>
         <bug>48097</bug>: Make WebappClassLoader to do not swallow
         AccessControlException. (kkolinko)
