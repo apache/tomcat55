@@ -174,12 +174,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, rjung
   -1: 
 
-* Pre-load class required to obtain SSL key size if running under a security
-  manager
-  http://svn.apache.org/viewvc?rev=890349&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47744
   Prevent medium term memory leak if using SSL under a security manager
   Based on a patch by Greg Vanore
