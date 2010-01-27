@@ -42,6 +42,7 @@
   <property name="tomcat-coyote.home"     value="${jtc.home}/coyote"/>
   <property name="tomcat-jk.home"         value="${jtc.home}/jk"/>
   <property name="tomcat-http11.home"     value="${jtc.home}/http11"/>
+  <property name="tomcat-jni.home"        value="${jtc.home}/jni"/>
 
   <!-- Dependent JARs and files -->
   <property name="ant.jar" value="${ant.home}/lib/ant.jar"/>
@@ -53,7 +54,7 @@
   <property name="tomcat-jk2.jar"
            value="${tomcat-jk.home}/build/lib/tomcat-jk2.jar"/>
   <property name="tomcat-jni.jar"
-           value="${tomcat-jk.home}/build/lib/tomcat-jni.jar"/>
+           value="${tomcat-jni.home}/dist/tomcat-jni.jar"/>
   <property name="jk2.properties"
            value="${tomcat-jk.home}/build/conf/jk2.properties"/>
   <property name="tomcat-http11.jar"
@@ -74,6 +75,7 @@
     <pathelement location="${commons-modeler.jar}"/>
     <pathelement location="${tomcat-util.jar}"/>
     <pathelement location="${tomcat-coyote.jar}"/>
+    <pathelement location="${tomcat-http11.jar}"/>
     <pathelement location="${jaas.jar}"/>
     <pathelement location="${javagroups.jar}"/>
     <pathelement location="${jcert.jar}"/>
@@ -591,7 +593,7 @@
 
 
   <!-- =================== BUILD: Build tomcat-util ======================= -->
-  <target name="build-tomcat-util">
+  <target name="build-tomcat-util" depends="build-tomcat-jni">
 
     <ant dir="${tomcat-util.home}" target="build-main">
        <property name="jmx.jar" value="${jmx.jar}" />
@@ -601,6 +603,25 @@
 
     <copy todir="${catalina.build}/server/lib"
            file="${tomcat-util.jar}"/>
+
+  </target>
+
+
+  <!-- =================== BUILD: Build tomcat-jni ======================== -->
+  <target name="build-tomcat-jni">
+
+    <ant dir="${tomcat-jni.home}" target="jar" inheritAll="false" >
+      <property name="final.name" value="tomcat-jni" />
+    </ant>
+
+  </target>
+
+
+  <!-- =================== BUILD: Build tomcat-jni ======================== -->
+  <target name="build-webapps">
+
+    <ant dir="../webapps" target="ROOT" inheritAll="false" >
+    </ant>
 
   </target>
 
@@ -695,6 +716,7 @@
   <target name="build-tomcat-coyote">
 
     <ant dir="${tomcat-coyote.home}" target="compile">
+      <property name="build.home" value="${tomcat-coyote.home}/build" />
       <property name="catalina.home" value="${catalina.deploy}"/>
       <property name="servlet.jar"   value="${servlet-api.jar}"/>
       <property name="commons-logging.jar" value="${commons-logging.jar}"/>
@@ -736,6 +758,7 @@
   <target name="build-tomcat-http11">
 
     <ant dir="${tomcat-http11.home}" target="compile">
+      <property name="build.home" value="${tomcat-http11.home}/build" />
       <property name="commons-logging.jar" value="${commons-logging.jar}"/>
       <property name="commons-modeler.jar" value="${commons-modeler.jar}"/>
       <property name="jmx.jar" value="${jmx.jar}"/>
@@ -749,7 +772,8 @@
 
 
   <!-- ================= BUILD: Compile All Server Components ============= -->
-  <target name="build-main" depends="build-static,build-tomcat-util,build-catalina">
+  <target name="build-main"
+       depends="build-static,build-tomcat-util,build-tomcat-coyote,build-tomcat-http11,build-catalina,build-webapps">
   </target>
 
 
@@ -797,9 +821,14 @@
     <delete dir="${catalina.build}"/>
 
     <ant dir="${tomcat-util.home}" target="clean"/>
-    <ant dir="${tomcat-coyote.home}" target="clean"/>
+    <ant dir="${tomcat-coyote.home}" target="clean">
+      <property name="build.home" value="${tomcat-coyote.home}/build" />
+    </ant>
     <ant dir="${tomcat-jk.home}" target="clean"/>
-    <ant dir="${tomcat-http11.home}" target="clean"/>
+    <ant dir="${tomcat-http11.home}" target="clean" >
+      <property name="build.home" value="${tomcat-http11.home}/build" />
+    </ant>
+    <ant dir="${tomcat-jni.home}" target="clean"/>
 
   </target>
 

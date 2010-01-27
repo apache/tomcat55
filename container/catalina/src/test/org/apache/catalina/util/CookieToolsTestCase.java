@@ -77,13 +77,13 @@ public class CookieToolsTestCase extends TestCase {
      */
     public void setUp() {
 
-        version0 = new Cookie("Version 0 Name", "Version 0 Value");
+        version0 = new Cookie("Version-0-Name", "Version 0 Value");
         version0.setComment("Version 0 Comment");
         version0.setDomain("localhost");
         version0.setPath("/version0");
         version0.setVersion(0);
 
-        version1 = new Cookie("Version 1 Name", "Version 1 Value");
+        version1 = new Cookie("Version-1-Name", "Version 1 Value");
         version1.setComment("Version 1 Comment");
         version1.setDomain("localhost");
         version1.setPath("/version1");
@@ -139,13 +139,13 @@ public class CookieToolsTestCase extends TestCase {
         sb = new StringBuffer();
         CookieTools.getCookieHeaderValue(version0, sb);
         assertEquals("Version 0 cookie header value",
-                     "Version 0 Name=Version 0 Value;Domain=localhost;Path=/version0",
+                     "Version-0-Name=Version 0 Value; Domain=localhost; Path=/version0",
                      sb.toString());
 
         sb = new StringBuffer();
         CookieTools.getCookieHeaderValue(version1, sb);
         assertEquals("Version 1 cookie header value",
-                     "Version 1 Name=\"Version 1 Value\";Version=1;Comment=\"Version 1 Comment\";Domain=localhost;Discard;Path=\"/version1\"",
+                     "Version-1-Name=\"Version 1 Value\"; Version=1; Comment=\"Version 1 Comment\"; Domain=localhost; Discard; Path=\"/version1\"",
                      sb.toString());
 
     }

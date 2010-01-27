@@ -85,7 +85,7 @@ public abstract class BaseDirContextTestCase extends TestCase {
      * assumed to be Resources.
      */
     protected static final String dirContextNames[] =
-    { "classes", "images", "jsp", "lib", "META-INF", "WEB-INF" };
+    { "classes", "images", "jsp", "lib", "META-INF", "WEB-INF", "admin" };
 
 
     /**
@@ -93,7 +93,8 @@ public abstract class BaseDirContextTestCase extends TestCase {
      * directory context.
      */
     protected static final String topLevelNames[] =
-    { "index.jsp", "jakarta-banner.gif", "tomcat.gif", "tomcat-power.gif", "META-INF", "WEB-INF" };
+    { "index.jsp", "asf-logo-wide.gif", "tomcat.gif", "tomcat-power.gif",
+        "admin", "META-INF", "WEB-INF", "favicon.ico" };
 
     /**
      * The set of names that should be present in the WEB-INF
@@ -310,7 +311,7 @@ public abstract class BaseDirContextTestCase extends TestCase {
                    next instanceof NameClassPair);
             NameClassPair ncp = (NameClassPair) next;
 
-            assertTrue("Name '" + ncp.getName() + "' is expected",
+            assertTrue("Name '" + ncp.getName() + "' is unexpected",
                    isListed(ncp.getName(), list));
 
             if (isDirContext(ncp.getName())) {

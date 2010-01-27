@@ -40,6 +40,9 @@
         in catalina.sh. (fhanik/kkolinko)
       </add>
       <fix>
+        <bug>47689</bug>: Enable the test Ant target to work. (markt)
+      </fix>
+      <fix>
         <bug>47712</bug>: Loading tcnative was broken in 5.5.28. (rjung)
       </fix>
       <update>

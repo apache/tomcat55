@@ -168,12 +168,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47689
-  Enable the test Ant target to work
-  https://issues.apache.org/bugzilla/attachment.cgi?id=24704
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
   Prevent use of non-RFC2616 compliant custom status messages
   http://svn.apache.org/viewvc?rev=892612&view=rev
