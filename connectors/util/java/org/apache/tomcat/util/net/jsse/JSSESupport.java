@@ -132,6 +132,16 @@ class JSSESupport implements SSLSupport {
 
     protected void handShake() throws IOException {
         ssl.setNeedClientAuth(true);
+        
+        if (ssl.getEnabledCipherSuites().length == 0) {
+            // Handshake is never going to be successful.
+            // Assume this is because handshakes are disabled
+            log.warn("SSL server initiated renegotiation is disabled, closing connection");
+            ssl.getSession().invalidate();
+            ssl.close();
+            return;
+        }
+
         ssl.startHandshake();
     }
     /**
