@@ -102,16 +102,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48311
-  Only the APR lifecycle listener should try and initialise APR
-  Patch also syncs all APR lifecycle listener changes from 6.0.x to 5.5.x
-  http://people.apache.org/~markt/patches/2009-11-27-bug48300-tc5.patch
-  +1: markt, rjung, kkolinko
-  -1: 
-    kkolinko: 1. It introduces SSLEngine property in AprLifecycleListener,
-     it could be described in ssl-howto.html, see 6.0.  2. BZ 48613 is
-     an issue that existed before this patch, but it makes it noticeable.
-
 * Address https://issues.apache.org/bugzilla/show_bug.cgi?id=45255
   Prevent session fixation by changing session ID on authentication by default
   If you don't like the session ID changing by default, feel free to caveat your

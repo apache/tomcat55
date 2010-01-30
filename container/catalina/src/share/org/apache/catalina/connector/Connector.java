@@ -32,6 +32,7 @@ import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Service;
+import org.apache.catalina.core.AprLifecycleListener;
 import org.apache.catalina.core.StandardEngine;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
@@ -607,23 +608,7 @@ public class Connector
      */
     public void setProtocol(String protocol) {
 
-        // Test APR support
-        boolean apr = false;
-        try {
-            String methodName = "initialize";
-            Class paramTypes[] = new Class[1];
-            paramTypes[0] = String.class;
-            Object paramValues[] = new Object[1];
-            paramValues[0] = null;
-            Method method = Class.forName("org.apache.tomcat.jni.Library")
-                .getMethod(methodName, paramTypes);
-            method.invoke(null, paramValues);
-            apr = true;
-        } catch (Throwable t) {
-            // Ignore
-        }
-
-        if (apr) {
+        if (AprLifecycleListener.isAprAvailable()) {
             if ("HTTP/1.1".equals(protocol)) {
                 setProtocolHandlerClassName
                     ("org.apache.coyote.http11.Http11AprProtocol");

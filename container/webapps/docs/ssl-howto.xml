@@ -281,23 +281,97 @@ which contains further references for this issue.</p>
 </subsection>
 
 <subsection name="Edit the Tomcat Configuration File">
+<p>
+Tomcat can use two different implementations of SSL:
+<ul>
+<li>the JSSE implementation provided as part of the Java runtime (since 1.4)</li>
+<li>the APR implementation, which uses the OpenSSL engine by default.</li>
+</ul>
+The exact configuration details depend on which implementation is being used.
+The implementation used by Tomcat is chosen automatically unless it is overriden as described below.
+If the installation uses <a href="apr.html">APR</a> 
+- i.e. you have installed the Tomcat native library -
+then it will use the APR SSL implementation, otherwise it will use the Java JSSE implementation.  
+</p>
 
-<p>The final step is to configure your secure socket in the
-<code>$CATALINA_HOME/conf/server.xml</code> file, where
-<code>$CATALINA_HOME</code> represents the directory into which you
-installed Tomcat 5.  An example <code>&lt;Connector&gt;</code> element
+<p>
+  To avoid auto configuration you can define which implementation to use by specifying a classname 
+  in the <b>protocol</b> attribute of the Connector.<br/>
+  To define a Java (JSSE) connector, regardless of whether the APR library is loaded or not do:
+<source>
+&lt;-- Define a blocking Java SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
+&lt;Connector protocol="org.apache.coyote.http11.Http11Protocol"
+           port="8443" .../&gt;
+
+&lt;-- Define a non-blocking Java SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
+&lt;Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+           port="8443" .../&gt;
+</source>
+Alternatively, to specify an APR connector (the APR library must be available) use:
+<source>
+&lt;-- Define a APR SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
+&lt;Connector protocol="org.apache.coyote.http11.Http11AprProtocol"
+           port="8443" .../&gt;
+</source>
+
+</p>
+
+<p>If you are using APR, you have the option of configuring an alternative engine to OpenSSL.
+<source>
+&lt;Listener className="org.apache.catalina.core.AprLifecycleListener"
+          SSLEngine="someengine" SSLRandomSeed="somedevice" /&gt;
+</source>
+The default value is
+<source>
+&lt;Listener className="org.apache.catalina.core.AprLifecycleListener"
+          SSLEngine="on" SSLRandomSeed="builtin" /&gt;
+</source>
+So to use SSL under APR, make sure the SSLEngine attribute is set to something other than <code>off</code>.
+The default value is <code>on</code> and if you specify another value, it has to be a valid engine name.
+<br/>
+If you haven't compiled in SSL support into your Tomcat Native library, then you can turn this initialization off
+<source>
+&lt;Listener className="org.apache.catalina.core.AprLifecycleListener"
+          SSLEngine="off" /&gt;
+</source>
+SSLRandomSeed allows to specify a source of entropy. Productive system needs a reliable source of entropy
+but entropy may need a lot of time to be collected therefore test systems could use no blocking entropy
+sources like "/dev/urandom" that will allow quicker starts of Tomcat.
+
+</p>
+
+<p>The final step is to configure the Connector in the
+<code>$CATALINA_BASE/conf/server.xml</code> file, where
+<code>$CATALINA_BASE</code> represents the base directory for the
+Tomcat 6 instance.  An example <code>&lt;Connector&gt;</code> element
 for an SSL connector is included in the default <code>server.xml</code>
-file installed with Tomcat.  It will look something like this:</p>
+file installed with Tomcat.  For JSSE, it should look something like this:</p>
 <source>
 &lt;-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
 &lt;!--
 &lt;Connector 
-           port="8443" minProcessors="5" maxProcessors="75"
-           enableLookups="true" disableUploadTimeout="true"
-           acceptCount="100" debug="0" scheme="https" secure="true";
+           port="8443" maxThreads="200"
+           scheme="https" secure="true" SSLEnabled="true"
+           keystoreFile="${user.home}/.keystore" keystorePass="changeit"
            clientAuth="false" sslProtocol="TLS"/&gt;
 --&gt;
 </source>
+<p>
+  The example above will throw an error if you have the APR and the Tomcat Native libraries in your path,
+  as Tomcat will try to use the APR connector. The APR connector uses different attributes for 
+  SSL keys and certificates. An example of an APR configuration is:
+<source>
+&lt;-- Define a SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
+&lt;!--
+&lt;Connector 
+           port="8443" maxThreads="200"
+           scheme="https" secure="true" SSLEnabled="true"
+           SSLCertificateFile="/usr/local/ssl/server.crt" 
+           SSLCertificateKeyFile="/usr/local/ssl/server.pem"
+           clientAuth="optional" SSLProtocol="TLSv1"/&gt;
+--&gt;
+</source>
+</p>
 
 <p>You will note that the Connector element itself is commented out by default,
 so you will need to remove the comment tags around it.  Then, you can
@@ -319,93 +393,17 @@ numbers lower than 1024 on many operating systems.</p>
   value specified for the <code>redirectPort</code> attribute on the
   non-SSL connector.  This allows Tomcat to automatically redirect
   users who attempt to access a page with a security constraint specifying
-  that SSL is required, as required by the Servlet 2.4 Specification.</p>
+  that SSL is required, as required by the Servlet Specification.</p>
   </em></blockquote>
 
-<p>There are additional option used to configure the SSL protocol.
-  You may need to add or change the following attribute
-values, depending on how you configured your keystore earlier:</p>
-
-<table border="1">
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td><code>clientAuth</code></td>
-    <td>Set this value to <code>true</code> if you want Tomcat to require
-        all SSL clients to present a client Certificate in order to use
-        this socket.  Set this value to <code>want</code> if you want Tomcat
-        to request a client Certificate, but not fail if one isn't presented.
-        For using clientAuth on a per-user or per-session basis, check out
-        the tips in 
-        <a href="http://issues.apache.org/bugzilla/show_bug.cgi?id=34643" title="Bugzilla 34643">Bugzilla 34643</a>.
-    </td>
-  </tr>
-  <tr>
-    <td><code>keystoreFile</code></td>
-    <td>Add this attribute if the keystore file you created is not in
-        the default place that Tomcat expects (a file named
-        <code>.keystore</code> in the user home directory under
-        which Tomcat is running).  You can specify an absolute pathname,
-        or a relative pathname that is resolved against the
-        <code>$CATALINA_BASE</code> environment variable.</td>
-  </tr>
-  <tr>
-    <td><code>keystorePass</code></td>
-    <td>Add this element if you used a different keystore (and Certificate)
-        password than the one Tomcat expects (<code>changeit</code>).</td>
-  </tr>
-  <tr>
-    <td><code>keystoreType</code></td>
-    <td>Add this element if using a keystore type other than
-    <code>JKS</code>.</td>
-  </tr>
-  <tr>
-    <td><code>sslProtocol</code></td>
-    <td>The encryption/decryption protocol to be used on this socket.
-        It is not recommended to change this value if you are using Sun's
-        JVM.  It is reported that IBM's 1.4.1 implementation
-        of the TLS protocol is not compatible with some popular browsers.
-        In this case, use the value <code>SSL</code>.</td>
-  </tr>
-  <tr>
-    <td><code>ciphers</code></td>
-    <td>The comma separated list of encryption ciphers that this socket is 
-        allowed to use. By default, the default ciphers for the JVM will be
-        used. Note that this usually means that the weak export grade ciphers
-        will be included in the list of available ciphers. The ciphers are
-        specified using the JSSE cipher naming convention.</td>
-  </tr>
-  <tr>
-    <td><code>algorithm</code></td>
-    <td>The <code>X509</code> algorithm to use.  This defaults to the Sun 
-        implementation (<code>SunX509</code>).  For IBM JVMs you should use
-        the value <code>IbmX509</code>.  For other vendors, consult the JVM
-        documentation for the correct value.
-    </td>
-  </tr>
-  <tr>
-   <td><code>truststoreFile</code></td>
-   <td>The TrustStore file to use to validate client certificates.</td>
-  </tr>
-  <tr>
-   <td><code>truststorePass</code></td>
-   <td>The password to access the TrustStore.  This defaults to the value
-       of <code>keystorePass</code>.</td>
-  </tr>
-  <tr>
-   <td><code>truststoreType</code></td>
-    <td>Add this element if your are using a different format for the 
-        TrustStore then you are using for the KeyStore.</td>
-  </tr>
-  <tr>
-   <td><code>keyAlias</code></td>
-    <td>Add this element if your have more than one key in the KeyStore.
-        If the element is not present the first key read in the KeyStore
-        will be used.</td>
-  </tr>
-</table>
+<p>There are additional options used to configure the SSL protocol. You may
+need to add or change some attributes, depending on how you configured your
+keystore earlier. If you are using a Java JSSE based SSL connector then
+configuration options are documented in the
+<a href="config/http.html">Java HTTP connector</a> configuration
+reference. If you are using the APR/native connector then refer to the
+<a href="apr.html">APR connector</a> configuration guide for details of the
+available configuration options.</p>
 
 <p>After completing these configuration changes, you must restart Tomcat as
 you normally do, and you should be in business.  You should be able to access
