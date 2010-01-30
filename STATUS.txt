@@ -124,11 +124,8 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
   Prevent use of non-RFC2616 compliant custom status messages
-  http://svn.apache.org/viewvc?rev=892612&view=rev
-  +1: markt
-  +1: kkolinko:  +1 to use r892777 instead of proposed r892612
-     - TC 6.0 version of the patch is more applicable here, than the one of
-     trunk.
+  http://svn.apache.org/viewvc?view=revision&revision=892777
+  +1: markt, kkolinko
   -1: 
 
 * Remove unneeded line from the method that normalizes decodedURI.
