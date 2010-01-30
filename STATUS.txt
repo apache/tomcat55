@@ -158,3 +158,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=898558&view=rev
   +1: markt, kkolinko
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47987
+  http://svn.apache.org/viewvc?rev=832200&view=rev
+  Limit size of not found resources cache
+  +1: markt
+  -1: 
+ 
