@@ -89,20 +89,12 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47609
   Implement fail-safe EOL conversion for source distributions
   Based on a patch provided by sebb
-  http://people.apache.org/~markt/patches/2009-12-31-bug47609.patch
-  +1: markt
-  -1: kkolinko: 1) extra comma in "*.java" pattern, 2) missing
-   extentionless names, 3) native sources are no more included, so *.c etc.
-   patterns are not needed.
-
-  Corrected patch:
-  I should add that this patch is required, because otherwise the *.keystore
+  This patch is required, because otherwise the *.keystore
   files used in storeconfig[-ha] module tests become broken in the -src.tar.gz
   bundle.
   http://people.apache.org/~kkolinko/patches/2010-01-05_tc55_bug47609.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
-
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
   Process changes for all naming contexts, not just the global one
