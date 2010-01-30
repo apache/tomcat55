@@ -76,7 +76,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1: 
 
-* Single quote should be not be treated as a separator
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48322
+  Single quote should be not be treated as a separator
   http://svn.apache.org/viewvc?rev=830999&view=rev
   +1: markt, kkolinko
   -1: 
