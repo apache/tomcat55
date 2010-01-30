@@ -197,9 +197,11 @@ public class AprLifecycleListener
                      + minor + "." + patch));
         }
         // Log APR flags
-        log.info(sm.getString("aprListener.flags", Library.APR_HAVE_IPV6,
-                Library.APR_HAS_SENDFILE, Library.APR_HAS_SO_ACCEPTFILTER,
-                Library.APR_HAS_RANDOM));
+        log.info(sm.getString("aprListener.flags",
+                Boolean.valueOf(Library.APR_HAVE_IPV6),
+                Boolean.valueOf(Library.APR_HAS_SENDFILE),
+                Boolean.valueOf(Library.APR_HAS_SO_ACCEPTFILTER),
+                Boolean.valueOf(Library.APR_HAS_RANDOM)));
         aprAvailable = true;
     }
 
