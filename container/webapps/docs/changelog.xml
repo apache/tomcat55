@@ -201,6 +201,10 @@
         <bug>46384</bug>: Correct synchronisation issue that could lead to a
         cluster member disappering permanently. (markt)
       </fix>
+      <fix>
+        <bug>47554</bug>: Include httpOnly attribute when re-writing session
+        cookie after fail over. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">

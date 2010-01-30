@@ -102,12 +102,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47554
-  httpOnly flag not applied to migrated session cookie
-  http://svn.apache.org/viewvc?rev=891304&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48311
   Only the APR lifecycle listener should try and initialise APR
   Patch also syncs all APR lifecycle listener changes from 6.0.x to 5.5.x
