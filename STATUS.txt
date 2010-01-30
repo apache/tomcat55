@@ -143,7 +143,7 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=895703&view=rev
   We should not vote before 1.1.19 is officially released.
   Patch by rjung
-  +1: kkolinko
+  +1: kkolinko, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
