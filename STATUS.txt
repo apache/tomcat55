@@ -164,5 +164,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=832200&view=rev
   Limit size of not found resources cache
   +1: markt
+  +1: kkolinko (minus generics)
   -1: 
+   kkolinko: LinkedHashMap is present in JDK 1.4 (At first I thought it was
+   added in 1.5 only, but I was wrong).
+
  
