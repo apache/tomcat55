@@ -47,8 +47,8 @@ PATCHES PROPOSED TO BACKPORT:
   simple tags and tags and can't find any regression issues. The TCK also
   passes.
   http://svn.apache.org/viewvc?rev=804734&view=rev
-  +1: markt, kkolinko
-  -1:
+  +1: kkolinko
+  -1: markt - The concerns were valid. The patch caused bug 48616.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
   Threading issue in class loading (using Filip's suggestion)
