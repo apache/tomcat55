@@ -173,3 +173,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2010-02-02-bug48581.patch
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48577
+  Filter URL when displaying missing included page
+  Patch by markt
+  http://svn.apache.org/viewvc?rev=905735&view=rev
+  +1: kkolinko
+  -1: 
