@@ -178,5 +178,5 @@ PATCHES PROPOSED TO BACKPORT:
   Filter URL when displaying missing included page
   Patch by markt
   http://svn.apache.org/viewvc?rev=905735&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1: 
