@@ -205,3 +205,10 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=24966
   +1: markt, kkolinko
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48582
+  Avoid NPE on background compile
+  http://svn.apache.org/viewvc?rev=910471&view=rev
+  Patch by markt
+  +1: kkolinko
+  -1: 
