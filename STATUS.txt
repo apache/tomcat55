@@ -125,51 +125,53 @@ PATCHES PROPOSED TO BACKPORT:
 
   Provide setter for the new AuthenticatorBase property
   http://svn.apache.org/viewvc?rev=892415&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47963
   Prevent use of non-RFC2616 compliant custom status messages
   http://svn.apache.org/viewvc?view=revision&revision=892777
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Remove unneeded line from the method that normalizes decodedURI.
   http://svn.apache.org/viewvc?rev=892812&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Update Tomcat-Native included in TC distributives to 1.1.19
   http://people.apache.org/~kkolinko/patches/2010-01-27_tc55_native-x19.patch
   +1: kkolinko, markt
+  +1: rjung (1.1.20)
   -1:
+  rjung: guess that means 1.1.20 now.
 
 * Update recommended tcnative version to the forthcoming 1.1.19.
   No update on the required version (17)
   http://svn.apache.org/viewvc?rev=895703&view=rev
   We should not vote before 1.1.19 is officially released.
   Patch by rjung
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
   Allow applications to set the Server header
   http://svn.apache.org/viewvc?rev=898527&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48516
   Prevent possible NPE in JNDIRealm when user does not exist
   Patch provided by Kevin Conaway
   http://svn.apache.org/viewvc?rev=898558&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47987
   http://svn.apache.org/viewvc?rev=832200&view=rev
   Limit size of not found resources cache
   +1: markt
-  +1: kkolinko (minus generics)
+  +1: kkolinko, rjung (minus generics)
   -1: 
    kkolinko: LinkedHashMap is present in JDK 1.4 (At first I thought it was
    added in 1.5 only, but I was wrong).
@@ -177,14 +179,14 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48581
   Avoid security exception on first access
   http://people.apache.org/~markt/patches/2010-02-02-bug48581.patch
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48577
   Filter URL when displaying missing included page
   Patch by markt
   http://svn.apache.org/viewvc?rev=905735&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
@@ -197,18 +199,18 @@ PATCHES PROPOSED TO BACKPORT:
   Extend try/finally to ensure InputStream is closed
   Patch by markt
   http://svn.apache.org/viewvc?rev=907819&view=rev
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48686
   Fix NPE in host delete
   https://issues.apache.org/bugzilla/attachment.cgi?id=24966
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48582
   Avoid NPE on background compile
   http://svn.apache.org/viewvc?rev=910471&view=rev
   Patch by markt
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1: 
