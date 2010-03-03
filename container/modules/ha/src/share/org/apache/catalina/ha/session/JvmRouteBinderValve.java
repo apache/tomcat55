@@ -213,13 +213,14 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
              // valve cluster can access manager - other cluster handle turnover 
              // at host level - hopefully!
              Manager manager = request.getContext().getManager();
-
+             
              if (manager != null && (
                      (manager instanceof ClusterManager
                        && getCluster() != null
                        && getCluster().getManager(((ClusterManager)manager).getName()) != null)
                      ||
                      (manager instanceof PersistentManager)))
+             
                  handlePossibleTurnover(request, response);
         }
         // Pass this request on to the next valve in our pipeline
