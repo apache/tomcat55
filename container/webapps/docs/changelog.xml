@@ -121,6 +121,10 @@
         (kkolinko/markt)
       </fix>
       <fix>
+        <bug>48516</bug>: Prevent NPE in JNDIRealm if requested user does not
+        exist. Patch provided by Kevin Conaway. (markt)
+      </fix>
+      <fix>
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>

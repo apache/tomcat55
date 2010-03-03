@@ -140,13 +140,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48516
-  Prevent possible NPE in JNDIRealm when user does not exist
-  Patch provided by Kevin Conaway
-  http://svn.apache.org/viewvc?rev=898558&view=rev
-  +1: markt, kkolinko, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47987
   http://svn.apache.org/viewvc?rev=832200&view=rev
   Limit size of not found resources cache

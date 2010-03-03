@@ -1576,8 +1576,12 @@ public class JNDIRealm extends RealmBase {
         
         User user = getUser(context, username);
         
-        return new GenericPrincipal(this, user.username, user.password ,
-                getRoles(context, user));
+        if (user != null) {
+            return new GenericPrincipal(this, user.username, user.password,
+                    getRoles(context, user));
+        }
+
+        return null;
     }
 
     /**
