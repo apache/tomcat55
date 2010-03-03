@@ -172,6 +172,10 @@
         CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
         (markt/costin) 
       </fix>
+      <fix>
+        Remove unneeded line from the method that normalizes decodedURI.
+        (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">

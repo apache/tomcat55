@@ -539,8 +539,8 @@ public class CoyoteAdapter
     public static boolean normalize(MessageBytes uriMB) {
 
         ByteChunk uriBC = uriMB.getByteChunk();
-        byte[] b = uriBC.getBytes();
-        int start = uriBC.getStart();
+        final byte[] b = uriBC.getBytes();
+        final int start = uriBC.getStart();
         int end = uriBC.getEnd();
 
         // An empty URL is not acceptable
@@ -632,8 +632,6 @@ public class CoyoteAdapter
             uriBC.setEnd(end);
             index = index2;
         }
-
-        uriBC.setBytes(b, start, end);
 
         return true;
 

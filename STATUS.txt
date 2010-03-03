@@ -134,11 +134,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, rjung
   -1: 
 
-* Remove unneeded line from the method that normalizes decodedURI.
-  http://svn.apache.org/viewvc?rev=892812&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Update Tomcat-Native included in TC distributives to 1.1.19
   http://people.apache.org/~kkolinko/patches/2010-01-27_tc55_native-x19.patch
   +1: kkolinko, markt
