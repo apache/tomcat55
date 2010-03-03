@@ -144,11 +144,6 @@
       <srcfiles dir="${jtc.home}/jk/java" includes="**" />
     </uptodate>
 
-   <uptodate property="tomcatjkstatus.build.notrequired"
-              targetfile="${tomcat.build}/server/lib/tomcat-jkstatus-ant.jar">
-      <srcfiles dir="${jtc.home}/jk/jkstatus/src/share" includes="**" />
-    </uptodate>
-
     <uptodate property="tomcatcoyote.build.notrequired"
               targetfile="${tomcat.build}/server/lib/tomcat-coyote.jar">
       <srcfiles dir="${jtc.home}/coyote/src" includes="**" />
@@ -293,25 +288,6 @@
 
   </target>
 
-  <target name="build-tomcatjkstatus" 
-          unless="tomcatjkstatus.build.notrequired" 
-          depends="init" description="Build j-t-c/jkstatus">
-    <echo>========== Building: tomcat-jkstatus-ant </echo>
-
-    <ant dir="${jtc.home}/jk/jkstatus" target="dist">
-      <property name="catalina.build" value="${tomcat.build}"/>
-      <property name="jtc.home" value="${jtc.home}"/>
-    </ant>
-
-  	<!-- jkstatus ant API -->
-  	<!--<delete file="${tomcat.build}/server/lib/tomcat-jkstatus-ant.jar" />-->
-    <ant dir="${jtc.home}/jk/jkstatus" target="copy">
-      <property name="catalina.build" value="${tomcat.build}"/>
-      <property name="jtc.home" value="${jtc.home}"/>
-    </ant>
-
-  </target>
-  
   <target name="build-tomcathttp11"
           unless="tomcathttp11.build.notrequired"
           depends="init" description="builds j-t-c/http11">
@@ -619,7 +595,6 @@
     <antcall target="build-catalina"/>
 
     <antcall target="build-tomcatjk"/>
-    <antcall target="build-tomcatjkstatus"/>
 
     <antcall target="build-juli"/>
 
@@ -1494,8 +1469,6 @@
         <exclude name="coyote/build/**"/>
         <exclude name="http11/build/**"/>
         <exclude name="jk/build/**"/>
-        <exclude name="jk/jkstatus/build/**"/>
-        <exclude name="jk/jkstatus/dist/**"/>
         <exclude name="util/build/**"/>
         <exclude name="webapp/**"/>
         <exclude name="lib/**"/>
