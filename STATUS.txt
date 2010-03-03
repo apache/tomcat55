@@ -42,17 +42,9 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=42390
   Fix compilation error with some nested tag files and simple tags
-  Concerns were raised regarding possible regressions. I have tested tag files,
-  simple tags and tags and can't find any regression issues. The TCK also
-  passes.
-  http://people.apache.org/~markt/patches/2010-02-02-bug42390-tc5.patch
-  +1: markt
-  -1: kkolinko: The same concerns as for TC 6 patch
-
-  Alternative proposal:
   https://issues.apache.org/bugzilla/show_bug.cgi?id=48616#c22
   (https://issues.apache.org/bugzilla/attachment.cgi?id=24993)
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
