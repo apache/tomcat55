@@ -339,5 +339,11 @@ public final class Constants {
      */
     public static final String POST = "POST";
 
+    /**
+     * Should custom status messages be allowed in headers? Replicated to avoid
+     * an exception on first access if running under a security manager.
+     */
+    public static final boolean USE_CUSTOM_STATUS_MSG_IN_HEADER =
+        org.apache.coyote.Constants.USE_CUSTOM_STATUS_MSG_IN_HEADER;
 
 }

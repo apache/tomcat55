@@ -100,12 +100,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48581
-  Avoid security exception on first access
-  http://people.apache.org/~markt/patches/2010-02-02-bug48581.patch
-  +1: markt, kkolinko, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
   Improve processing of TLD cache file
   https://issues.apache.org/bugzilla/attachment.cgi?id=24918

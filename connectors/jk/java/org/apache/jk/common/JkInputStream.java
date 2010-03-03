@@ -280,7 +280,7 @@ public class JkInputStream implements InputBuffer, OutputBuffer {
         outputMsg.appendInt( res.getStatus() );
         
         String message = null;
-        if (org.apache.coyote.Constants.USE_CUSTOM_STATUS_MSG_IN_HEADER &&
+        if (AjpConstants.USE_CUSTOM_STATUS_MSG_IN_HEADER &&
                 HttpMessages.isSafeInHttpHeader(res.getMessage())) {
             message = res.getMessage();
         } 

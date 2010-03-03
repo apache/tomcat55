@@ -187,6 +187,9 @@
         listener is not enabled. (markt)
       </fix>
       <fix>
+        <bug>48581</bug>: Avoid security exception on first access. (markt)
+      </fix>
+      <fix>
         CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
         (markt/costin) 
       </fix>

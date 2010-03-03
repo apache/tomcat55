@@ -195,4 +195,11 @@ public class AjpConstants {
      */
     public static final int  MAX_READ_SIZE = MAX_PACKET_SIZE - H_SIZE - 2;
 
+    /**
+     * Should custom status messages be allowed in headers? Replicated to avoid
+     * an exception on first access if running under a security manager.
+     */
+    public static final boolean USE_CUSTOM_STATUS_MSG_IN_HEADER =
+        org.apache.coyote.Constants.USE_CUSTOM_STATUS_MSG_IN_HEADER;
+
 }
