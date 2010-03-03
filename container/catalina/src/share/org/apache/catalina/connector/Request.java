@@ -2167,6 +2167,50 @@ public class Request
 
 
     /**
+     * Change the ID of the session that this request is associated with. There
+     * are several things that may trigger an ID change. These include moving
+     * between nodes in a cluster and session fixation prevention during the
+     * authentication process.
+     * 
+     * @param session   The session to change the session ID for
+     */
+    public void changeSessionId(String newSessionId) {
+        // This should only ever be called if there was an old session ID but
+        // double check to be sure
+        if (requestedSessionId != null && requestedSessionId.length() > 0) {
+            requestedSessionId = newSessionId;
+        }
+        
+        if (context != null && !context.getCookies())
+            return;
+        
+        if (response != null) {
+            Cookie newCookie = new Cookie(Globals.SESSION_COOKIE_NAME,
+                    newSessionId);
+            newCookie.setMaxAge(-1);
+            String contextPath = null;
+            if (!response.getConnector().getEmptySessionPath()
+                    && (context != null)) {
+                contextPath = context.getEncodedPath();
+            }
+            if ((contextPath != null) && (contextPath.length() > 0)) {
+                newCookie.setPath(contextPath);
+            } else {
+                newCookie.setPath("/");
+            }
+            if (isSecure()) {
+                newCookie.setSecure(true);
+            }
+            if (context == null) {
+            	response.addCookieInternal(newCookie, false);
+            } else {
+            	response.addCookieInternal(newCookie, context.getUseHttpOnly());
+            }
+        }
+    }
+
+    
+    /**
      * Return the session associated with this Request, creating one
      * if necessary and requested.
      *

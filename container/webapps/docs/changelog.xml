@@ -85,6 +85,11 @@
         <bug>41059</bug>: Reduce the chances of errors when using
         ENABLE_CLEAR_REFERENCES. Patch by Curt Arnold. (markt) 
       </fix>
+      <add>
+        <bug>45255</bug>: Add the ability to change session ID on
+        authentication to protect against session fixation attacks. This is
+        disabled by default. (markt/kkolinko)
+      </add>
       <fix>
         <bug>46967</bug>: Better handling of errors when trying to use
         Manager.randomFile. Based on a patch by Kirk Wolf. (kkolinko)

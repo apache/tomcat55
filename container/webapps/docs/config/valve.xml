@@ -435,6 +435,13 @@
         <strong>org.apache.catalina.authenticator.BasicAuthenticator</strong>.</p>
       </attribute>
 
+      <attribute name="changeSessionIdOnAuthentication" required="false">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>false</code> will be
+        used.</p>
+      </attribute>
+
       <attribute name="disableProxyCaching" required="false">
         <p>Controls the caching of pages that are protected by security
         constraints. Setting this to <code>false</code> may help work around
@@ -487,6 +494,13 @@
         <strong>org.apache.catalina.authenticator.DigestAuthenticator</strong>.</p>
       </attribute>
 
+      <attribute name="changeSessionIdOnAuthentication" required="false">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>false</code> will be
+        used.</p>
+      </attribute>
+
       <attribute name="disableProxyCaching" required="false">
         <p>Controls the caching of pages that are protected by security
         constraints. Setting this to <code>false</code> may help work around
@@ -537,6 +551,13 @@
       <attribute name="className" required="true">
         <p>Java class name of the implementation to use.  This MUST be set to
         <strong>org.apache.catalina.authenticator.FormAuthenticator</strong>.</p>
+      </attribute>
+
+      <attribute name="changeSessionIdOnAuthentication" required="false">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>false</code> will be
+        used.</p>
       </attribute>
 
       <attribute name="characterEncoding" required="false">
@@ -595,6 +616,13 @@
       <attribute name="className" required="true">
         <p>Java class name of the implementation to use.  This MUST be set to
         <strong>org.apache.catalina.authenticator.SSLAuthenticator</strong>.</p>
+      </attribute>
+
+      <attribute name="changeSessionIdOnAuthentication" required="false">
+        <p>Controls if the session ID is changed if a session exists at the
+        point where users are authenticated. This is to prevent session fixation
+        attacks. If not set, the default value of <code>false</code> will be
+        used.</p>
       </attribute>
 
       <attribute name="disableProxyCaching" required="false">
