@@ -475,12 +475,14 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
                     newCookie.setSecure(true);
                 }
                 if (log.isDebugEnabled()) {
-                    log.debug(sm.getString("jvmRoute.newSessionCookie",
-                            sessionId, Globals.SESSION_COOKIE_NAME, newCookie
-                                    .getPath(), new Boolean(newCookie
-                                    .getSecure())));
+                    Object[] args = new Object[] {sessionId,
+                            Globals.SESSION_COOKIE_NAME,
+                            newCookie.getPath(),
+                            new Boolean(newCookie.getSecure()),
+                            new Boolean(context.getUseHttpOnly())};
+                    log.debug(sm.getString("jvmRoute.newSessionCookie", args));
                 }
-                response.addCookie(newCookie);
+                response.addCookieInternal(newCookie, context.getUseHttpOnly());
             }
         }
     }
