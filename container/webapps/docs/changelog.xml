@@ -49,11 +49,6 @@
       <update>
         Deprecate the jni Buffer and Thread classes. (rjung)
       </update>
-      <fix>
-        Update the version of Tomcat Native DLL installed by the Windows
-        installer to be 1.1.20. It was using some very old (1.1.4) version
-        of it. (kkolinko)
-      </fix>
       <update>
         Include 32-bit and 64-bit versions of Tomcat Native DLLs into the
         Windows installer, instead of downloading them from a web site during
@@ -171,6 +166,15 @@
       <fix>
         CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
         (markt/costin) 
+      </fix>
+      <fix>
+        Fix Windows installer to bundle an up-to-date version of native/APR with
+        it. When asked to install TC-Native it was downloading some very old (1.1.4)
+        version of it from the HEAnet site. (kkolinko)
+      </fix>
+      <fix>
+        Update the native/APR library version bundled with Tomcat to 1.1.20.
+        (kkolinko) 
       </fix>
       <fix>
         Remove unneeded line from the method that normalizes decodedURI.
