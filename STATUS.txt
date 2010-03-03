@@ -134,13 +134,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, rjung
   -1: 
 
-* Update Tomcat-Native included in TC distributives to 1.1.19
-  http://people.apache.org/~kkolinko/patches/2010-01-27_tc55_native-x19.patch
-  +1: kkolinko, markt
-  +1: rjung (1.1.20)
-  -1:
-  rjung: guess that means 1.1.20 now.
-
 * Update recommended tcnative version to the forthcoming 1.1.19.
   No update on the required version (17)
   http://svn.apache.org/viewvc?rev=895703&view=rev
