@@ -113,12 +113,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48686
-  Fix NPE in host delete
-  https://issues.apache.org/bugzilla/attachment.cgi?id=24966
-  +1: markt, kkolinko, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48582
   Avoid NPE on background compile
   http://svn.apache.org/viewvc?rev=910471&view=rev

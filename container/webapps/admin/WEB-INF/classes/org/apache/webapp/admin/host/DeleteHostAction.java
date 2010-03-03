@@ -113,7 +113,7 @@ public class DeleteHostAction extends Action {
         // this host cannot be deleted from the admin tool
         try {
             adminHost = Lists.getAdminAppHost(
-                                  mBServer, "domain" ,request);
+                                  mBServer, domain ,request);
         } catch (Exception e) {
             String message =
                 resources.getMessage(locale, "error.hostName.bad",

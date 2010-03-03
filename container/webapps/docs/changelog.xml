@@ -278,6 +278,10 @@
         in the documentation web application to specify how the defaults for the
         various trust store attributes are determined. (markt)
       </add>
+      <fix>
+        <bug>48686</bug>: Fix deleting a host via the Administration web
+        application rather than failign with a HTTP 500 response. (markt)
+      </fix>
       <add>
         Make changelog.xml be directly rendered as HTML by certain browsers.
         (kkolinko)
