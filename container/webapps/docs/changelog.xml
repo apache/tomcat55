@@ -172,10 +172,13 @@
         it. When asked to install TC-Native it was downloading some very old (1.1.4)
         version of it from the HEAnet site. (kkolinko)
       </fix>
-      <fix>
+      <update>
         Update the native/APR library version bundled with Tomcat to 1.1.20.
         (kkolinko) 
-      </fix>
+      </update>
+      <update>
+        Update recommended version for native to 1.1.19. (rjung)
+      </update>
       <fix>
         Remove unneeded line from the method that normalizes decodedURI.
         (kkolinko)

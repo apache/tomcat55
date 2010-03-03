@@ -134,14 +134,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, rjung
   -1: 
 
-* Update recommended tcnative version to the forthcoming 1.1.19.
-  No update on the required version (17)
-  http://svn.apache.org/viewvc?rev=895703&view=rev
-  We should not vote before 1.1.19 is officially released.
-  Patch by rjung
-  +1: kkolinko, markt, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48004
   Allow applications to set the Server header
   http://svn.apache.org/viewvc?rev=898527&view=rev
