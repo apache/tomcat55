@@ -78,6 +78,7 @@ import org.apache.catalina.valves.ValveBase;
  * 
  * <br />
  * Before 5.5.10 as Host element:<br/>
+ * 
  * <pre>
  *  &lt;Host&gt;
  *  &lt;Valve className=&quot;org.apache.catalina.ha.session.JvmRouteBinderValve&quot; /&gt;  
