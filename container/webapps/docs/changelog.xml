@@ -111,6 +111,10 @@
         <bug>47826</bug>: Correct error in debug message in
         org.apache.catalina.Bootstrap (markt)
       </fix>
+       <fix>
+        <bug>47963</bug>: Ensure that any HTTP status messages are compliant
+        with RFC2616. (markt/kkolinko)
+      </fix>
       <fix>
         <bug>48049</bug>: Fix copy and paste error so
         <code>NamingContext.destroySubContext()</code> works correctly.

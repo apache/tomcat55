@@ -280,13 +280,12 @@ public class JkInputStream implements InputBuffer, OutputBuffer {
         outputMsg.appendInt( res.getStatus() );
         
         String message = null;
-        if (org.apache.coyote.Constants.USE_CUSTOM_STATUS_MSG_IN_HEADER) {
+        if (org.apache.coyote.Constants.USE_CUSTOM_STATUS_MSG_IN_HEADER &&
+                HttpMessages.isSafeInHttpHeader(res.getMessage())) {
             message = res.getMessage();
         } 
-        if( message==null ){
+        if (message == null) {
             message= HttpMessages.getMessage(res.getStatus());
-        } else {
-            message = message.replace('\n', ' ').replace('\r', ' ');
         }
         if (message == null) {
             // mod_jk + httpd 2.x fails with a null status message - bug 45026

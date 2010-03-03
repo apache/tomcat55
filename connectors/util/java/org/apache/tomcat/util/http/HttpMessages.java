@@ -104,4 +104,35 @@ public class HttpMessages {
 	return (result.toString());
     }
 
+    /**
+     * Is the provided message safe to use in an HTTP header. Safe messages must
+     * meet the requirements of RFC2616 - i.e. must consist only of TEXT.
+     * 
+     * @param msg   The message to test
+     * @return      <code>true</code> if the message is safe to use in an HTTP
+     *              header else <code>false</code>
+     */
+    public static boolean isSafeInHttpHeader(String msg) {
+        // Nulls are fine. It is up to the calling code to address any NPE
+        // concerns
+        if (msg == null) {
+            return true;
+        }
+
+        // Reason-Phrase is defined as *<TEXT, excluding CR, LF>
+        // TEXT is defined as any OCTET except CTLs, but including LWS
+        // OCTET is defined as an 8-bit sequence of data
+        // CTL is defined as octets 0-31 and 127
+        // LWS, if we exclude CR LF pairs, is defined as SP or HT (32, 9)
+        final int len = msg.length();
+        for (int i = 0; i < len; i++) {
+            char c = msg.charAt(i);
+            if (32 <= c && c <= 126 || 128 <= c && c <= 255 || c == 9) {
+                continue;
+            }
+            return false;
+        }
+
+        return true;
+    }
 }
