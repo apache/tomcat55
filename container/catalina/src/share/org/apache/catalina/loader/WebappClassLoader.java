@@ -44,6 +44,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
@@ -265,7 +266,13 @@ public class WebappClassLoader
     /**
      * The list of not found resources.
      */
-    protected HashMap notFoundResources = new HashMap();
+    protected HashMap notFoundResources = new LinkedHashMap() {
+        private static final long serialVersionUID = 1L;
+        protected boolean removeEldestEntry(
+                Map.Entry eldest) {
+            return size() > 1000;
+        }
+    };
 
 
     /**

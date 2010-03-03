@@ -164,6 +164,9 @@
         Greg Vanore. (markt)
       </fix>
       <fix>
+        <bug>47987</bug>: Limit size of not found resources cache. (markt)
+      </fix>
+      <fix>
         <bug>48311</bug>: APR should not be initialised if the APR life-cycle
         listener is not enabled. (markt)
       </fix>
