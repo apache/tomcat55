@@ -35,6 +35,7 @@ import org.apache.catalina.ha.CatalinaCluster;
 import org.apache.catalina.ha.ClusterManager;
 import org.apache.catalina.ha.ClusterMessage;
 import org.apache.catalina.ha.ClusterValve;
+import org.apache.catalina.ha.session.DeltaSession;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.session.ManagerBase;
@@ -235,16 +236,19 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
      * @param response current response
      */
     protected void handlePossibleTurnover(Request request, Response response) {
-        Session session = request.getSessionInternal(false);
-        if (session != null) {
-            long t1 = System.currentTimeMillis();
+        String sessionID = request.getRequestedSessionId() ;
+        if (sessionID != null) {
+            long t1 = 0 ;
+            if (log.isDebugEnabled()) {
+                t1 = System.currentTimeMillis();
+            }
             String jvmRoute = getLocalJvmRoute(request);
             if (jvmRoute == null) {
                 if (log.isWarnEnabled())
                     log.warn(sm.getString("jvmRoute.missingJvmRouteAttribute"));
                 return;
             }
-            handleJvmRoute( request, response,session.getIdInternal(), jvmRoute);
+            handleJvmRoute( request, response, sessionID, jvmRoute);
             if (log.isDebugEnabled()) {
                 long t2 = System.currentTimeMillis();
                 long time = t2 - t1;
@@ -324,23 +328,32 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
                 log.debug(sm.getString("jvmRoute.failover", requestJvmRoute,
                         localJvmRoute, sessionId));
             }
-            // OK - turnover the session ?
-            String newSessionID = sessionId.substring(0, index) + "."
-                    + localJvmRoute;
             Session catalinaSession = null;
             try {
                 catalinaSession = getManager(request).findSession(sessionId);
             } catch (IOException e) {
                 // Hups!
             }
+            String id = sessionId.substring(0, index);
+            String newSessionID = id + "." + localJvmRoute;
+            // OK - turnover the session and inform other cluster nodes
             if (catalinaSession != null) {
                 changeSessionID(request, response, sessionId, newSessionID,
                         catalinaSession);
                 numberOfSessions++;
             } else {
-                if (log.isDebugEnabled()) {
-                    log.debug(sm.getString("jvmRoute.cannotFindSession",
-                            sessionId));
+                try {
+                    catalinaSession = getManager(request).findSession(newSessionID);
+                } catch (IOException e) {
+                    // Hups!
+                }
+                if (catalinaSession != null) {
+                    // session is rewrite at other request, rewrite this also
+                    changeRequestSessionID(request, response, sessionId, newSessionID);
+                } else {
+                    if (log.isDebugEnabled()) {
+                        log.debug(sm.getString("jvmRoute.cannotFindSession",sessionId));
+                    }
                 }
             }
         }
@@ -362,20 +375,14 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
             Response response, String sessionId, String newSessionID, Session catalinaSession) {
         lifecycle.fireLifecycleEvent("Before session migration",
                 catalinaSession);
-        request.setRequestedSessionId(newSessionID);
+        // FIXME: setId trigger session Listener, but only chance to registiert manager with correct id!
         catalinaSession.setId(newSessionID);
+        // FIXME: Why we remove change data from other running request?
+        // setId also trigger resetDeltaRequest!!
         if (catalinaSession instanceof DeltaSession)
             ((DeltaSession) catalinaSession).resetDeltaRequest();
-        if(request.isRequestedSessionIdFromCookie()) setNewSessionCookie(request, response,newSessionID);
-        // set orginal sessionid at request, to allow application detect the
-        // change
-        if (sessionIdAttribute != null && !"".equals(sessionIdAttribute)) {
-            if (log.isDebugEnabled()) {
-                log.debug(sm.getString("jvmRoute.set.orignalsessionid",sessionIdAttribute,sessionId));
-            }
-            request.setAttribute(sessionIdAttribute, sessionId);
-        }
-        
+        changeRequestSessionID(request, response, sessionId, newSessionID);
+
         if (getCluster() != null) {
             // now sending the change to all other clusternode!
             ClusterManager manager = (ClusterManager)catalinaSession.getManager();
@@ -386,6 +393,29 @@ public class JvmRouteBinderValve extends ValveBase implements ClusterValve, Life
         if (log.isDebugEnabled()) {
             log.debug(sm.getString("jvmRoute.changeSession", sessionId,
                     newSessionID));
+        }   
+    }
+
+    /**
+     * Change Request Session id
+     * @param request current request
+     * @param response current response
+     * @param sessionId
+     *            original session id
+     * @param newSessionID
+     *            new session id for node migration
+     */
+    protected void changeRequestSessionID(Request request, Response response, String sessionId, String newSessionID) {
+        request.setRequestedSessionId(newSessionID);
+        if(request.isRequestedSessionIdFromCookie())
+            setNewSessionCookie(request, response,newSessionID);
+        // set orginal sessionid at request, to allow application detect the
+        // change
+        if (sessionIdAttribute != null && !"".equals(sessionIdAttribute)) {
+            if (log.isDebugEnabled()) {
+                log.debug(sm.getString("jvmRoute.set.orignalsessionid",sessionIdAttribute,sessionId));
+            }
+            request.setAttribute(sessionIdAttribute, sessionId);
         }
     }
 
