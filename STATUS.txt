@@ -146,13 +146,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, rjung
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48577
-  Filter URL when displaying missing included page
-  Patch by markt
-  http://svn.apache.org/viewvc?rev=905735&view=rev
-  +1: kkolinko, markt, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
   Improve processing of TLD cache file
   https://issues.apache.org/bugzilla/attachment.cgi?id=24918

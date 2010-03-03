@@ -125,6 +125,10 @@
         exist. Patch provided by Kevin Conaway. (markt)
       </fix>
       <fix>
+        <bug>48577</bug>: Filter URL when displaying missing included page.
+        (markt)
+      </fix>
+      <fix>
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>
