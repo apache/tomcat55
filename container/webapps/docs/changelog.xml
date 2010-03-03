@@ -241,6 +241,10 @@
         in the documentation web application to specify how the defaults for the
         various trust store attributes are determined. (markt)
       </add>
+      <add>
+        Make changelog.xml be directly rendered as HTML by certain browsers.
+        (kkolinko)
+      </add>
     </changelog>
   </subsection>
 </section>
