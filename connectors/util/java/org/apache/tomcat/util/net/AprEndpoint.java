@@ -1005,7 +1005,7 @@ public class AprEndpoint {
                     // Hand this socket off to an appropriate processor
                     getWorkerThread().assign(socket, true);
                 } catch (Throwable t) {
-                    log.error(sm.getString("endpoint.accept.fail"), t);
+                    if (running) log.error(sm.getString("endpoint.accept.fail"), t);
                 }
 
                 // The processor will recycle itself when it finishes

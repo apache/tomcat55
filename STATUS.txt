@@ -122,11 +122,3 @@ PATCHES PROPOSED TO BACKPORT:
   Patch by markt
   +1: kkolinko, rjung
   -1: 
-
-* Fix 'Error' part of https://issues.apache.org/bugzilla/show_bug.cgi?id=48584
-  Prevent the APR connector logging an error if the acceptor fails during
-  shutdown since this is expected.
-  Patch by mturk
-  http://svn.apache.org/viewvc?rev=918495&view=rev
-  +1: kkolinko, rjung, mturk
-  -1:

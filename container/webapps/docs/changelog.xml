@@ -190,6 +190,10 @@
         <bug>48581</bug>: Avoid security exception on first access. (markt)
       </fix>
       <fix>
+        <bug>48584</bug>: Prevent the APR connector logging an error if the
+        acceptor fails during shutdown since this is expected. (mturk) 
+      </fix>
+      <fix>
         CVE-2009-3555. Provide option to disable legacy SSL renegotiation.
         (markt/costin) 
       </fix>
