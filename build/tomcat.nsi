@@ -96,13 +96,13 @@ ${StrRep}
     ;Descriptions
     LangString DESC_SecTomcat ${LANG_ENGLISH} "Install the Tomcat Servlet container as a Windows service."
     LangString DESC_SecTomcatCore ${LANG_ENGLISH} "Install the Tomcat Servlet container core."
-    LangString DESC_SecTomcatService ${LANG_ENGLISH} "Automatically start the Tomcat service when the computer is started. This requires Windows NT 4.0, Windows 2000 or Windows XP."
+    LangString DESC_SecTomcatService ${LANG_ENGLISH} "Automatically start the Tomcat service when the computer is started."
     LangString DESC_SecTomcatNative ${LANG_ENGLISH} "Install APR based Tomcat native .dll for better performance and scalability in production environments."
-;    LangString DESC_SecTomcatSource ${LANG_ENGLISH} "Install the Tomcat source code."
     LangString DESC_SecMenu ${LANG_ENGLISH} "Create a Start Menu program group for Tomcat."
-    LangString DESC_SecDocs ${LANG_ENGLISH} "Install the Tomcat documentation bundle. This include documentation on the servlet container and its configuration options, on the Jasper JSP page compiler, as well as on the native webserver connectors."
-    LangString DESC_SecExamples ${LANG_ENGLISH} "Installs some examples web applications."
-    LangString DESC_SecAdmin ${LANG_ENGLISH} "Installs the administration web application."
+    LangString DESC_SecDocs ${LANG_ENGLISH} "Install the Tomcat documentation bundle. This includes documentation on the servlet container and its configuration options, on the Jasper JSP page compiler, as well as on the native webserver connectors."
+    LangString DESC_SecManager ${LANG_ENGLISH} "Install the Tomcat Manager administrative web application."
+    LangString DESC_SecHostManager ${LANG_ENGLISH} "Install the Tomcat Host Manager administrative web application."
+    LangString DESC_SecExamples ${LANG_ENGLISH} "Install the Servlet and JSP example web applications."
     LangString DESC_SecWebapps ${LANG_ENGLISH} "Installs other utility web applications (WebDAV, balancer, etc)."
 ;    LangString DESC_SecCompat ${LANG_ENGLISH} "Installs Java2™ compatibility package. This release of Apache Tomcat was packaged to run on J2SE 5.0 or later. It can be run on earlier JVMs by installng this package."
 
@@ -160,15 +160,8 @@ Section "Core" SecTomcatCore
   File /r server\lib\*.*
   SetOutPath $INSTDIR\server\classes
   File /nonfatal /r server\classes\*.*
-  SetOutPath $INSTDIR\server\webapps\manager
-  File /r server\webapps\manager\*.*
-  SetOutPath $INSTDIR\server\webapps\host-manager
-  File /r server\webapps\host-manager\*.*
   SetOutPath $INSTDIR\webapps\ROOT
   File /r webapps\ROOT\*.*
-  SetOutPath $INSTDIR\conf\Catalina\localhost
-  File conf\Catalina\localhost\manager.xml
-  File conf\Catalina\localhost\host-manager.xml
 
   Call configure
   Call findJavaPath
@@ -202,7 +195,7 @@ Section "Core" SecTomcatCore
   Pop $0
   StrCmp $0 "0" InstallOk
     MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP \
-      "Failed to install Tomcat5 service.$\r$\nCheck your settings and permissions$\r$\nIgnore and continue anyway (not recommended)?" \
+      "Failed to install Tomcat5 service.$\r$\nCheck your settings and permissions.$\r$\nIgnore and continue anyway (not recommended)?" \
        /SD IDIGNORE IDIGNORE InstallOk IDRETRY InstallRetry
   Quit
   InstallOk:
@@ -252,14 +245,6 @@ Section "Native" SecTomcatNative
 
 SectionEnd
 
-;Section "Source Code" SecTomcatSource
-;
-;  SectionIn 3
-;  SetOutPath $INSTDIR
-;  File /r src
-;
-;SectionEnd
-
 SubSectionEnd
 
 Section "Start Menu Items" SecMenu
@@ -275,12 +260,6 @@ Section "Start Menu Items" SecMenu
 
   CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Welcome.lnk" \
                  "http://127.0.0.1:$R0/"
-
-;  IfFileExists "$INSTDIR\server\webapps\admin" 0 NoAdminApp
-;
-;  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Tomcat Administration.lnk" \
-;                 "http://127.0.0.1:$R0/admin/"
-;NoAdminApp:
 
   IfFileExists "$INSTDIR\server\webapps\manager" 0 NoManagerApp
 
@@ -322,6 +301,30 @@ Section "Documentation" SecDocs
 
 SectionEnd
 
+Section "Manager" SecManager
+
+  SectionIn 1 3
+
+  SetOverwrite on
+  SetOutPath $INSTDIR\server\webapps\manager
+  File /r server\webapps\manager\*.*
+  SetOutPath $INSTDIR\conf\Catalina\localhost
+  File conf\Catalina\localhost\manager.xml
+
+SectionEnd
+
+Section "Host Manager" SecHostManager
+
+  SectionIn 3
+
+  SetOverwrite on
+  SetOutPath $INSTDIR\server\webapps\host-manager
+  File /r server\webapps\host-manager\*.*
+  SetOutPath $INSTDIR\conf\Catalina\localhost
+  File conf\Catalina\localhost\host-manager.xml
+
+SectionEnd
+
 Section "Examples" SecExamples
 
   SectionIn 3
@@ -333,17 +336,6 @@ Section "Examples" SecExamples
   File /r webapps\servlets-examples\*.*
 
 SectionEnd
-
-;Section "Administration" SecAdmin
-;
-;  SectionIn 3
-;
-;  SetOutPath $INSTDIR\server\webapps
-;  File /r server\webapps\admin
-;  SetOutPath $INSTDIR\conf\Catalina\localhost
-;  File conf\Catalina\localhost\admin.xml
-;
-;SectionEnd
 
 Section "Webapps" SecWebapps
 
@@ -402,7 +394,41 @@ FunctionEnd
 
 Function SetConfiguration
   !insertmacro MUI_HEADER_TEXT "$(TEXT_CONF_TITLE)" "$(TEXT_CONF_SUBTITLE)"
+
+  SectionGetFlags ${SecManager} $0
+  IntOp $0 $0 & ${SF_SELECTED}
+  IntCmp $0 0 0 Enable Enable
+  SectionGetFlags ${SecHostManager} $0
+  IntOp $0 $0 & ${SF_SELECTED}
+  IntCmp $0 0 Disable 0 0
+
+Enable:
+  ; Enable the user and password controls if the manager or host-manager app is
+  ; being installed
+  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 5" "HWND"
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "Flags" ""
+  EnableWindow $0 1
+  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 7" "HWND"
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "Flags" ""
+  EnableWindow $0 1
+  Goto Display
+
+Disable:
+  ; Disable the user and password controls if neither the manager nor
+  ; host-manager app is being installed
+  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 5" "HWND"
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "Flags" "DISABLED"
+  EnableWindow $0 0
+  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 7" "HWND"
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "Flags" "DISABLED"
+  EnableWindow $0 0
+  ; Clear the values
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "State" ""
+  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "State" ""
+
+Display:
   !insertmacro MUI_INSTALLOPTIONS_DISPLAY "config.ini"
+
 FunctionEnd
 
 Function Void
@@ -416,12 +442,12 @@ FunctionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatCore} $(DESC_SecTomcatCore)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatService} $(DESC_SecTomcatService)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatNative} $(DESC_SecTomcatNative)
-;  !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatSource} $(DESC_SecTomcatSource)
 ;  !insertmacro MUI_DESCRIPTION_TEXT ${SecCompat} $(DESC_SecCompat)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecMenu} $(DESC_SecMenu)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecDocs} $(DESC_SecDocs)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecManager} $(DESC_SecManager)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecHostManager} $(DESC_SecHostManager)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecExamples} $(DESC_SecExamples)
-;  !insertmacro MUI_DESCRIPTION_TEXT ${SecAdmin} $(DESC_SecAdmin)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecWebapps} $(DESC_SecWebapps)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -614,12 +640,9 @@ Function configure
   !insertmacro MUI_INSTALLOPTIONS_READ $R2 "config.ini" "Field 7" "State"
 
   IfSilent 0 +2
-  StrCpy $R4 'port="8080"'
+  StrCpy $R0 '8080'
 
-  IfSilent +2 0
   StrCpy $R4 'port="$R0"'
-
-  IfSilent 0 +2
   StrCpy $R5 ''
 
   IfSilent Silent 0
@@ -631,12 +654,14 @@ Function configure
   Push $R2
   Call xmlEscape
   Pop $R2
-  
+
+  StrCmp $R1 "" +4 0  ; Blank user - do not add anything to tomcat-users.xml
+  StrCmp $R2 "" +3 0  ; Blank password - do not add anything to tomcat-users.xml
   StrCpy $R5 '<user name="$R1" password="$R2" roles="admin,manager" />'
+  DetailPrint 'Admin user added: "$R1"'
 
 Silent:
   DetailPrint 'HTTP/1.1 Connector configured on port "$R0"'
-  DetailPrint 'Admin user added: "$R1"'
 
   SetOutPath $TEMP
   File /r confinstall

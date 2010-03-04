@@ -67,13 +67,6 @@ PATCHES PROPOSED TO BACKPORT:
      kkolinko - Just a note: This issue won't affect configurations where Jasper
      runs with development=false.
 
-* Fix CVE-2009-3548 - Windows installer uses insecure default password
-  Also removes some old commented-out code and changes some message strings.
-  This patch file is a backport of revs. 834047, 836036, 836045, 836209
-  http://people.apache.org/~kkolinko/patches/2009-11-14_Installer_password_tc55.patch
-  +1: kkolinko, markt, rjung
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48322
   Single quote should be not be treated as a separator
   http://svn.apache.org/viewvc?rev=830999&view=rev

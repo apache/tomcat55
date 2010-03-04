@@ -46,6 +46,13 @@
       <fix>
         <bug>47712</bug>: Loading tcnative was broken in 5.5.28. (rjung)
       </fix>
+      <fix>
+        Correct CVE-2009-3548. When installed via the Windows installer and
+        using defaults, don't create an administrative user with a blank
+        password. Additionally, the administrative user is only created if the
+        manager or host-manager web applications are selected for installation.
+        (markt/kkolinko)
+      </fix>
       <update>
         Deprecate the jni Buffer and Thread classes. (rjung)
       </update>
