@@ -41,6 +41,10 @@
         in catalina.sh. (fhanik/kkolinko)
       </add>
       <fix>
+        <bug>47609</bug>: Provide fail-safe EOL conversion for build process.
+        (sebb/markt/kkolinko)
+      </fix>
+      <fix>
         <bug>47689</bug>: Enable the test Ant target to work. (markt)
       </fix>
       <fix>

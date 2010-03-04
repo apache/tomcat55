@@ -80,16 +80,6 @@ PATCHES PROPOSED TO BACKPORT:
   rjung: it might be more reader friendly to explicitely add parentheses when
   having || and && mixed in the same logical expression (see the "while" loop).
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47609
-  Implement fail-safe EOL conversion for source distributions
-  Based on a patch provided by sebb
-  This patch is required, because otherwise the *.keystore
-  files used in storeconfig[-ha] module tests become broken in the -src.tar.gz
-  bundle.
-  http://people.apache.org/~kkolinko/patches/2010-01-05_tc55_bug47609.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
   Process changes for all naming contexts, not just the global one
   http://svn.apache.org/viewvc?rev=883134&view=rev

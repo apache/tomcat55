@@ -102,6 +102,53 @@
   <!-- constant to declare a file binary for md5sum -->
   <property name="md5sum.binary-prefix" value=" *" />
 
+  <!-- Files that need to have their line endings changed for src distros -->
+  <patternset id="src.files" >
+    <include name="**/.classpath"/>
+    <include name="**/.project"/>
+    <include name="**/INSTALLLICENSE"/>
+    <include name="**/KEYS"/>
+    <include name="**/LICENSE"/>
+    <include name="**/NOTICE"/>
+    <include name="**/README"/>
+    <include name="**/RELEASE-NOTES"/>
+    <include name="**/VERSION"/>
+    <include name="**/manifest"/>
+    <include name="**/*.MF"/>
+    <include name="**/*.bat"/>
+    <include name="**/*.css"/>
+    <include name="**/*.dtd"/>
+    <include name="**/*.htm"/>
+    <include name="**/*.html"/>
+    <include name="**/*.ini"/>
+    <include name="**/*.java"/>
+    <include name="**/*.jsp"/>
+    <include name="**/*.jspf"/>
+    <include name="**/*.jspx"/>
+    <include name="**/subparseform.lib"/>
+    <include name="**/subroutines.lib"/>
+    <include name="**/*.manifest"/>
+    <include name="**/*.mdl"/>
+    <include name="**/*.nsi"/>
+    <include name="**/*.pl"/>
+    <include name="**/*.policy"/>
+    <include name="**/*.properties"/>
+    <include name="**/*.properties.default"/>
+    <include name="**/*.properties.minimal"/>
+    <include name="**/*.properties.sample"/>
+    <include name="**/*.sh"/>
+    <include name="**/*.shtml"/>
+    <include name="**/*.spec"/>
+    <include name="**/*.tag"/>
+    <include name="**/*.tagx"/>
+    <include name="**/*.tasks"/>
+    <include name="**/*.tld"/>
+    <include name="**/*.txt"/>
+    <include name="**/*.xml"/>
+    <include name="**/*.xsd"/>
+    <include name="**/*.xsl"/>
+  </patternset>
+
   <!-- =================== DETECT: Display configuration ================== -->
   <target name="detect"
    description="Display configuration and conditional compilation flags">
@@ -1889,6 +1936,10 @@
 
   <!-- Packages the source code distribution in zip format -->
   <target name="package-src-zip">
+    <fixcrlf srcdir="${tomcat.dist}/src" eol="crlf"
+        encoding="ISO-8859-1" fixlast="false" >
+      <patternset refid="src.files"/>
+    </fixcrlf>
     <zip zipfile="${tomcat.release}/v${version}/src/${final-src.name}.zip">
       <zipfileset dir="${tomcat.dist}/src" prefix="${final-src.name}" />
     </zip>
@@ -1901,11 +1952,10 @@
 
   <!-- Packages the source code distribution in tar.gz format -->
   <target name="package-src-tgz">
-    <fixcrlf srcdir="${tomcat.dist}/src"
-        excludes="**/*.bin,**/*.bmp,**/*.dia,**/*.exe,**/*.gif,**/*.ico,**/*.jar,**/*.jpg,**/*.pdf,**/*.rtf,**/*.war"
-        eol="lf"
-        encoding="ISO-8859-1" fixlast="false" />
-
+    <fixcrlf srcdir="${tomcat.dist}/src" eol="lf"
+        encoding="ISO-8859-1" fixlast="false" >
+      <patternset refid="src.files"/>
+    </fixcrlf>
     <tar longfile="gnu" compression="gzip"
          tarfile="${tomcat.release}/v${version}/src/${final-src.name}.tar.gz">
       <tarfileset dir="${tomcat.dist}/src" mode="755" prefix="${final-src.name}">
