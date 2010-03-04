@@ -144,6 +144,10 @@
         (kkolinko/markt)
       </fix>
       <fix>
+        <bug>48322</bug>: Single quote characters are not HTTP separators and
+        should not be treated as such in the cookie handling. (markt)
+      </fix>
+      <fix>
         <bug>48516</bug>: Prevent NPE in JNDIRealm if requested user does not
         exist. Patch provided by Kevin Conaway. (markt)
       </fix>
