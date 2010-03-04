@@ -125,5 +125,5 @@ PATCHES PROPOSED TO BACKPORT:
   shutdown since this is expected.
   Patch by mturk
   http://svn.apache.org/viewvc?rev=918495&view=rev
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
