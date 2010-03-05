@@ -67,13 +67,6 @@ PATCHES PROPOSED TO BACKPORT:
      kkolinko - Just a note: This issue won't affect configurations where Jasper
      runs with development=false.
 
-* Provide new option to allow = in cookie values
-  http://people.apache.org/~markt/patches/2009-11-17-cookie-allow-equals.patch
-  +1: markt, kkolinko, rjung
-  -1: 
-  rjung: it might be more reader friendly to explicitely add parentheses when
-  having || and && mixed in the same logical expression (see the "while" loop).
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
   Process changes for all naming contexts, not just the global one
   http://svn.apache.org/viewvc?rev=883134&view=rev

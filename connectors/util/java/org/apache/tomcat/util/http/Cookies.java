@@ -46,6 +46,12 @@ public final class Cookies { // extends MultiMap {
 
     MimeHeaders headers;
 
+    /**
+     * If true, cookie values are allowed to contain an equals character without
+     * being quoted.
+     */
+    public static final boolean ALLOW_EQUALS_IN_VALUE;
+    
     /*
     List of Separator Characters (see isSeparator())
     Excluding the '/' char violates the RFC, but 
@@ -65,6 +71,10 @@ public final class Cookies { // extends MultiMap {
         for (int i = 0; i < SEPARATORS.length; i++) {
             separators[SEPARATORS[i]] = true;
         }
+        
+        ALLOW_EQUALS_IN_VALUE = Boolean.valueOf(System.getProperty(
+                "org.apache.tomcat.util.http.ServerCookie.ALLOW_EQUALS_IN_VALUE",
+                "false")).booleanValue();
     }
     
     /**
@@ -364,7 +374,7 @@ public final class Cookies { // extends MultiMap {
 
             // Get the cookie name. This must be a token            
             valueEnd = valueStart = nameStart = pos; 
-            pos = nameEnd = getTokenEndPosition(bytes,pos,end);
+            pos = nameEnd = getTokenEndPosition(bytes,pos,end,true);
 
             // Skip whitespace
             while (pos < end && isWhiteSpace(bytes[pos])) {pos++; }; 
@@ -411,12 +421,14 @@ public final class Cookies { // extends MultiMap {
                     // The position is OK (On a delimiter)
                     break;
                 default:;
-                    if (!isSeparator(bytes[pos])) {
+                    if (!isSeparator(bytes[pos]) ||
+                            bytes[pos] == '=' && ALLOW_EQUALS_IN_VALUE) {
                         // Token
                         valueStart=pos;
                         // getToken returns the position at the delimeter
                         // or other non-token character
-                        valueEnd=getTokenEndPosition(bytes, valueStart, end);
+                        valueEnd = getTokenEndPosition(bytes, valueStart, end,
+                                false);
                         // We need pos to advance
                         pos = valueEnd;
                     } else  {
@@ -548,13 +560,26 @@ public final class Cookies { // extends MultiMap {
     }
 
     /**
+     * @deprecated - Use private method
+     * {@link #getTokenEndPosition(byte[], int, int, boolean)} instead
+     */
+    public static final int getTokenEndPosition(byte bytes[], int off, int end){
+        return getTokenEndPosition(bytes, off, end, true);
+    }
+    
+    /**
      * Given the starting position of a token, this gets the end of the
      * token, with no separator characters in between.
      * JVK
      */
-    public static final int getTokenEndPosition(byte bytes[], int off, int end){
+    private static final int getTokenEndPosition(byte bytes[], int off, int end,
+            boolean isName) {
         int pos = off;
-        while (pos < end && !isSeparator(bytes[pos])) {pos++; };
+        while (pos < end && 
+                (!isSeparator(bytes[pos]) ||
+                 bytes[pos]=='=' && ALLOW_EQUALS_IN_VALUE && !isName)) {
+            pos++;
+        }
         
         if (pos > end)
             return end;
