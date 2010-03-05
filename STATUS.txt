@@ -48,14 +48,13 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
-  Threading issue in class loading (using Filip's suggestion)
-  http://people.apache.org/~markt/patches/2009-11-18-bug44041.patch
-  +1: markt, kkolinko
+  Threading issue in class loading (using Filip's suggestion) plus fix for
+  https://issues.apache.org/bugzilla/show_bug.cgi?id=48694 a potential deadlock
+  http://people.apache.org/~markt/patches/2010-03-05-bug44041.patch
+  Note: The bulk of the patch just adds synchronized (name.intern()) {"
+        around the loadClass(String, boolean) method
+  +1: markt
   -1:
-   kkolinko: To reviewers: the patch looks scary, but the only thing it
-   actually does is to add "synchronized (name.intern()) {" around the
-   whole contents of the method.
-   rjung: Isn't there a possibility for deadlocks?
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
