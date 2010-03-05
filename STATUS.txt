@@ -77,10 +77,3 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=24918
   +1: kkolinko, markt
   -1:
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48109
-  Extend try/finally to ensure InputStream is closed
-  Patch by markt
-  http://svn.apache.org/viewvc?rev=907819&view=rev
-  +1: kkolinko, rjung, markt
-  -1: 
