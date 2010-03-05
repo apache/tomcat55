@@ -250,6 +250,9 @@
         <bug>46907</bug>: Don't swallow input stream when debug logging is
         enabled. (markt)
       </fix>
+      <fix>
+        <bug>48582</bug>: Avoid NPE on background compile. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Cluster">

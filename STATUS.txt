@@ -84,10 +84,3 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=907819&view=rev
   +1: kkolinko, rjung, markt
   -1: 
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48582
-  Avoid NPE on background compile
-  http://svn.apache.org/viewvc?rev=910471&view=rev
-  Patch by markt
-  +1: kkolinko, rjung, markt
-  -1: 
