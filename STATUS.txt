@@ -90,3 +90,18 @@ PATCHES PROPOSED TO BACKPORT:
   (it is markt's r915070)
   +1: kkolinko
   -1:
+
+* Remove JSSE13Factory, JSSE13SocketFactory classes,
+  because
+    - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
+      so these classes are no more needed.
+    - JSSE13SocketFactory directly references com.sun.net.* classes in its
+      source code without using reflection, and that causes compilation failure
+      with my IDE/JRE settings.
+  1)
+    svn delete connectors/util/java/org/apache/tomcat/util/net/jsse/JSSE13Factory.java
+    svn delete connectors/util/java/org/apache/tomcat/util/net/jsse/JSSE13SocketFactory.java
+  2)
+    http://people.apache.org/~kkolinko/patches/2010-03-06_tc55_remove_JSSE13Factory.patch
+  +1: kkolinko
+  -1:
