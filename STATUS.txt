@@ -78,12 +78,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Remove ISO-8859 encoding from all properties files using native2ascii.
-  Also fixes 3 lines were native chars had previously been lost and
-  replaced by '?'.
-  http://people.apache.org/~rjung/patches/tc5_5_x-utf-8-properties-v2.patch
-  +1: rjung, kkolinko, markt
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48580
   Prevent AccessControlException if first access is to a JSP that uses a FunctionMapper
   https://issues.apache.org/bugzilla/attachment.cgi?id=25094

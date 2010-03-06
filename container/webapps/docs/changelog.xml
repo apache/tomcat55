@@ -36,6 +36,9 @@
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">
     <changelog>
+      <fix>
+        Encode all property files using ascii escaped UTF-8. (rjung)
+      </fix>
       <add>
         <bug>37847</bug>: Make location and filename of catalina.out configurable
         in catalina.sh. (fhanik/kkolinko)
