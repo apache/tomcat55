@@ -83,3 +83,10 @@ PATCHES PROPOSED TO BACKPORT:
   replaced by '?'.
   http://people.apache.org/~rjung/patches/tc5_5_x-utf-8-properties-v2.patch
   +1: rjung, kkolinko
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48580
+  Prevent AccessControlException if first access is to a JSP that uses a FunctionMapper
+  https://issues.apache.org/bugzilla/attachment.cgi?id=25094
+  (it is markt's r915070)
+  +1: kkolinko
+  -1:
