@@ -103,5 +103,5 @@ PATCHES PROPOSED TO BACKPORT:
     svn delete connectors/util/java/org/apache/tomcat/util/net/jsse/JSSE13SocketFactory.java
   2)
     http://people.apache.org/~kkolinko/patches/2010-03-06_tc55_remove_JSSE13Factory_v2.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
