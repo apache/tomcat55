@@ -302,10 +302,6 @@ then it will use the APR SSL implementation, otherwise it will use the Java JSSE
 &lt;-- Define a blocking Java SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
 &lt;Connector protocol="org.apache.coyote.http11.Http11Protocol"
            port="8443" .../&gt;
-
-&lt;-- Define a non-blocking Java SSL Coyote HTTP/1.1 Connector on port 8443 --&gt;
-&lt;Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
-           port="8443" .../&gt;
 </source>
 Alternatively, to specify an APR connector (the APR library must be available) use:
 <source>
