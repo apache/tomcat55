@@ -82,4 +82,4 @@ PATCHES PROPOSED TO BACKPORT:
   Also fixes 3 lines were native chars had previously been lost and
   replaced by '?'.
   http://people.apache.org/~rjung/patches/tc5_5_x-utf-8-properties-v2.patch
-  +1: rjung
+  +1: rjung, kkolinko
