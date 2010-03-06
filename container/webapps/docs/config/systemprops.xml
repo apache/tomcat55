@@ -182,7 +182,7 @@
 
     <property name="jvmRoute">
       <p>Provides a default value for the <code>jvmRoute</code> attribute of the
-      <a href="engine.html">Engine</a> element. It does not override the a value
+      <a href="engine.html">Engine</a> element. It does not override the value
       configured on the <a href="engine.html">Engine</a> element.</p>
     </property>
 
