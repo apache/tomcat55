@@ -29,7 +29,7 @@ PATCHES PROPOSED TO BACKPORT:
   Warn if the user tries to set an invalid property.
   Port of http://svn.apache.org/viewvc?view=rev&revision=565464
   http://people.apache.org/~markt/patches/2009-07-02-bug38743.patch
-  +1: markt
+  +1: markt, kkolinko
    0: fhanik - big step for an old branch, could be risky, I'd wait until after next release if we consider it
   -1:
 
@@ -98,4 +98,11 @@ PATCHES PROPOSED TO BACKPORT:
   2)
     http://people.apache.org/~kkolinko/patches/2010-03-06_tc55_remove_JSSE13Factory_v2.patch
   +1: kkolinko, markt
+  -1:
+
+* Fix generation of MD5 files for the release
+  (Remove linewrap between checksum and filename that occurs there with
+  ANT 1.7+)
+  http://people.apache.org/~kkolinko/patches/2010-03-07_tc55_md5.patch
+  +1: kkolinko
   -1:
