@@ -106,3 +106,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-03-07_tc55_md5.patch
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48760
+  Ensure multiple threads do not end up with the same InputStream
+  http://svn.apache.org/viewvc?rev=920858&view=rev
+  +1: markt
+  -1: 
