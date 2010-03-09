@@ -104,7 +104,7 @@ PATCHES PROPOSED TO BACKPORT:
   (Remove linewrap between checksum and filename that occurs there with
   ANT 1.7+)
   http://people.apache.org/~kkolinko/patches/2010-03-07_tc55_md5.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48760
@@ -117,12 +117,18 @@ PATCHES PROPOSED TO BACKPORT:
   Add system property to allow disabling enforcement of JSP.5.3
   The spec recommends, but does not require this enforcement.
   http://svn.apache.org/viewvc?rev=920880&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Address https://issues.apache.org/bugzilla/show_bug.cgi?id=48007#c5
   Improve exception processing in CustomObjectInputStream#resolveClass(),
   to help find the cause behind BZ 48007.
   http://svn.apache.org/viewvc?rev=920912&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
+  Tag account of TagVariableInfo when implementing the rules of JSP.5.3
+  http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
+  +1: markt
+  -1: 
