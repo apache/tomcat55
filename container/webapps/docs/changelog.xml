@@ -130,6 +130,11 @@
         with RFC2616. (markt/kkolinko)
       </fix>
       <fix>
+        <bug>47997</bug>: Enable the NamingResourcesMBean to work with
+        non-Server (i.e. Context) containers. Patch provided by Michael Allman.
+        (markt)
+      </fix>
+      <fix>
         <bug>48004</bug>: Allow applications to set the Server header. (markt)
       </fix>
       <fix>

@@ -66,12 +66,6 @@ PATCHES PROPOSED TO BACKPORT:
      kkolinko - Just a note: This issue won't affect configurations where Jasper
      runs with development=false.
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47997
-  Process changes for all naming contexts, not just the global one
-  http://svn.apache.org/viewvc?rev=883134&view=rev
-  +1: markt, rjung, kkolinko
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
   Improve processing of TLD cache file
   https://issues.apache.org/bugzilla/attachment.cgi?id=24918
