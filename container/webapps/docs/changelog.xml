@@ -175,6 +175,10 @@
         (markt)
       </fix>
       <fix>
+        <bug>48760</bug>: Remove race condition that can result in multiple
+        threads trying to use the same InputStream. (markt)
+      </fix>
+      <fix>
         Add an additional permission required by JULI when running under newer
         JDKs and a security manager. (markt)
       </fix>
