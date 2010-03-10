@@ -141,6 +141,10 @@
         <bug>48004</bug>: Allow applications to set the Server header. (markt)
       </fix>
       <fix>
+        <bug>48007</bug>: Improve exception processing in
+        CustomObjectInputStream. (kkolinko)
+      </fix>
+      <fix>
         <bug>48049</bug>: Fix copy and paste error so
         <code>NamingContext.destroySubContext()</code> works correctly.
         Patch provided by gingyang.xu (markt)

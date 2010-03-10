@@ -107,13 +107,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Address https://issues.apache.org/bugzilla/show_bug.cgi?id=48007#c5
-  Improve exception processing in CustomObjectInputStream#resolveClass(),
-  to help find the cause behind BZ 48007.
-  http://svn.apache.org/viewvc?rev=920912&view=rev
-  +1: kkolinko, markt, jfclere
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
   Tag account of TagVariableInfo when implementing the rules of JSP.5.3
   http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
