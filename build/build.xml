@@ -1576,10 +1576,9 @@
 
     <move file="${tomcat.dist}/tomcat-installer.exe" tofile="${tomcat.release}/v${version}/bin/${final.name}.exe" />
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}.exe"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}.exe.md5" 
-                      message="${md5sum.binary-prefix}${final.name}.exe${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}.exe" />
+    </antcall>
   </target>
 
 
@@ -1629,10 +1628,9 @@
       </zipfileset>
     </zip>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}.zip.md5"
-                      message="${md5sum.binary-prefix}${final.name}.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}.zip" />
+    </antcall>
   </target>
 
   <!-- Packages the embedded Tomcat distro in zip format -->
@@ -1650,10 +1648,9 @@
        includes="RELEASE-NOTES" />
     </zip>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-embed.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-embed.zip.md5"
-                      message="${md5sum.binary-prefix}${final.name}-embed.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-embed.zip" />
+    </antcall>
   </target>
 
   <!-- Packages the deployer distribution in zip format -->
@@ -1666,10 +1663,9 @@
       <zipfileset dir="${tomcat.dist}" prefix="${final.name}-deployer" includes="RELEASE-NOTES" />
     </zip>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-deployer.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-deployer.zip.md5"
-                      message="${md5sum.binary-prefix}${final.name}-deployer.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-deployer.zip" />
+    </antcall>
   </target>
 
   <!-- Packages the JDK 1.4 compatibility distro in zip format -->
@@ -1682,10 +1678,9 @@
       <zipfileset dir="${tomcat.dist}" prefix="${final.name}" includes="RELEASE-NOTES" />
     </zip>
  
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-compat.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-compat.zip.md5"
-                      message="${md5sum.binary-prefix}${final.name}-compat.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-compat.zip" />
+    </antcall>
   </target>
 
   <!-- Packages the admin webapp distro in zip format -->
@@ -1702,10 +1697,9 @@
       <zipfileset dir="${tomcat.dist}" prefix="${final.name}" includes="RELEASE-NOTES" />
     </zip>
    
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-admin.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-admin.zip.md5"
-                      message="${md5sum.binary-prefix}${final.name}-admin.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-admin.zip" />
+    </antcall>
   </target>
 
   <!-- Prepares for cutting the release -->
@@ -1786,10 +1780,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the embedded Tomcat distro in tar.gz format -->
@@ -1812,10 +1805,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-embed.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-embed.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}-embed.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-embed.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the deployer Tomcat distro in tar.gz format -->
@@ -1839,10 +1831,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-deployer.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-deployer.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}-deployer.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-deployer.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the 1.4 compatibility distro in tar.gz format -->
@@ -1863,10 +1854,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-compat.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-compat.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}-compat.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-compat.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the admin webapp distro in tar.gz format -->
@@ -1891,10 +1881,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-admin.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-admin.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}-admin.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-admin.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the documentation distro in tar.gz format -->
@@ -1928,10 +1917,9 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/bin/${final.name}-fulldocs.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/bin/${final.name}-fulldocs.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final.name}-fulldocs.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/bin/${final.name}-fulldocs.tar.gz" />
+    </antcall>
   </target>
 
   <!-- Packages the source code distribution in zip format -->
@@ -1944,10 +1932,9 @@
       <zipfileset dir="${tomcat.dist}/src" prefix="${final-src.name}" />
     </zip>
 
-    <checksum file="${tomcat.release}/v${version}/src/${final-src.name}.zip"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/src/${final-src.name}.zip.md5"
-                      message="${md5sum.binary-prefix}${final-src.name}.zip${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/src/${final-src.name}.zip" />
+    </antcall>
   </target>
 
   <!-- Packages the source code distribution in tar.gz format -->
@@ -1978,10 +1965,20 @@
       </tarfileset>
     </tar>
 
-    <checksum file="${tomcat.release}/v${version}/src/${final-src.name}.tar.gz"
-              forceOverwrite="yes" fileext=".md5" />
-    <echo     file="${tomcat.release}/v${version}/src/${final-src.name}.tar.gz.md5"
-                      message="${md5sum.binary-prefix}${final-src.name}.tar.gz${line.separator}" append="true" />
+    <antcall target="md5sum">
+      <param name="file" value="${tomcat.release}/v${version}/src/${final-src.name}.tar.gz" />
+    </antcall>
+  </target>
+
+  <!-- Helper target, used to create a md5 checksum file  -->
+  <!-- Requires 'file' as a parameter. -->
+  <target name="md5sum">
+    <fail unless="file" />
+    <fail if="filename" />
+    <fail if="value" />
+    <basename file="${file}" property="filename" />
+    <checksum file="${file}" property="value" />
+    <echo file="${file}.md5" message="${value}${md5sum.binary-prefix}${filename}" />
   </target>
 
   <!-- ==================== Download or build the required binary packages ==================== -->

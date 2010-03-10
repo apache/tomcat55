@@ -79,6 +79,9 @@
       <fix>
         Encode all property files using ascii escaped UTF-8. (rjung)
       </fix>
+      <fix>
+        Correct MD5 generation in the build process. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">
