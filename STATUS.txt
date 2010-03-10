@@ -106,3 +106,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
   +1: markt, kkolinko
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48613
+  Only attempt APR initialization if the <Listener> has been specified
+  It is backport of r911300. (fix by fhanik)
+  http://people.apache.org/~kkolinko/patches/2010-03-11_tc55_bug48613.patch
+  +1: kkolinko
+  -1:
