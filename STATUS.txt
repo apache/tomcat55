@@ -124,5 +124,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
   Tag account of TagVariableInfo when implementing the rules of JSP.5.3
   http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
-  +1: markt
+  +1: markt, kkolinko
   -1: 
