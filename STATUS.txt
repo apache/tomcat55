@@ -113,3 +113,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-03-11_tc55_bug48613.patch
   +1: kkolinko
   -1:
+
+* Update to NSIS 2.46
+  NSIS changelog: http://nsis.sourceforge.net/Docs/AppendixF.html#F.1.1
+  http://svn.apache.org/viewvc?rev=921630&view=rev
+  +1: kkolinko
+  -1:
