@@ -56,6 +56,13 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
+  The same as above, but
+  - moves resolveClass() call outside the sync block
+  - does not access entry.loadedClass unless we are in a sync block
+  http://people.apache.org/~kkolinko/patches/2010-03-12_tc55_bug44041.patch
+  +1: kkolinko
+  -1:
+
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
   Make sure first response port deletion is correct
