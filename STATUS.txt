@@ -125,19 +125,11 @@ PATCHES PROPOSED TO BACKPORT:
     svn delete connectors/procrun
   2)
     http://people.apache.org/~kkolinko/patches/2010-03-17_tc55_commons-daemon.patch
-  +1: kkolinko
+  +1: kkolinko, mturk
   -1: 
-      mturk - Your patch contains a lot more then it claims. Proposed an
-              alternative that does update only new commons-daemon dist binaries
-              layout.
       kkolinko - I updated the patch to do not delete "deploy.old" target.
               Regarding "deploy.old": Note, that the commons-daemon files that were
               copied in that target are already copied by "deploy-static", and that
               I see no reason why one of the files was copied to ${tomcat.dist},
               as that target updates ${tomcat.build} only.
 
-* Backport using Commons Daemon 1.0.2 from trunk
-  Vote presumes removing daemon executables from our SVN.
-  http://people.apache.org/~mturk/tomcat/patches/tomcat-5.5.x-daemon-1.0.2.patch
-  +1: mturk
-  -1: kkolinko: ${tomcat.dsit}
