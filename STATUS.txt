@@ -133,7 +133,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Backport using Commons Daemon 1.0.2 from trunk
   Vote presumes removing daemon executables from our SVN.
-  http://people.apache.org/~mturk/tomcat/patches/tomcat-5.0.x-daemon-1.0.2.patch
+  http://people.apache.org/~mturk/tomcat/patches/tomcat-5.5.x-daemon-1.0.2.patch
   +1: mturk
   -1: 
 
