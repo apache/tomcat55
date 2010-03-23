@@ -12,10 +12,10 @@
 # ----- Vesion Control Flags -----
 version.major=5
 version.minor=5
-version.build=28
+version.build=29
 version.patch=0
 #Set the pretty version name
-version=5.5.28
+version=5.5.29
 
 # ----- Compile Control Flags -----
 compile.debug=on
