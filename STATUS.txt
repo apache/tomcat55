@@ -48,11 +48,17 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
-  Threading issue in class loading (using Filip's suggestion) plus fix for
+  Threading issue in class loading plus fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=48694 a potential deadlock
   http://people.apache.org/~markt/patches/2010-03-25-bug44041.patch
-  +1: markt
+  +1: markt, kkolinko
   -1: 
+
+  Mark ResourceEntry.loadedClass as volatile.
+  http://svn.apache.org/viewvc?rev=927877&view=rev
+  +1: kkolinko
+  -1:
+
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47878
   Return 404's rather than a permanent 500 if a JSP is deleted
