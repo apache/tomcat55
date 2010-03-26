@@ -747,12 +747,12 @@ public class HostConfig
         // More complicated than the ideal as the canonical path may or may
         // not end with File.separator for a directory
         
-        StringBuilder docBase;
+        StringBuffer docBase;
         String canonicalDocBase = null;
         
         try {
             String canonicalAppBase = appBase.getCanonicalPath();
-            docBase = new StringBuilder(canonicalAppBase);
+            docBase = new StringBuffer(canonicalAppBase);
             if (canonicalAppBase.endsWith(File.separator)) {
                 docBase.append(contextPath.substring(1).replace(
                         '/', File.separatorChar));
