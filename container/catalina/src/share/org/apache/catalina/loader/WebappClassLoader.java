@@ -2147,9 +2147,12 @@ public class WebappClassLoader
                                                                 jarEntry2.getName()));
                                             }
                                         } catch (IOException ioe) {
-                                            throw new IllegalArgumentException(
+                                            IllegalArgumentException iae =
+                                                new IllegalArgumentException(
                                                     sm.getString("webappClassLoader.validationErrorJarPath",
-                                                            jarEntry2.getName()), ioe);
+                                                            jarEntry2.getName()));
+                                            iae.initCause(ioe);
+                                            throw iae;
                                         }                                 
                                         resourceFile.getParentFile().mkdirs();
                                         FileOutputStream os = null;
