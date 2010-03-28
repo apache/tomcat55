@@ -137,3 +137,11 @@ PATCHES PROPOSED TO BACKPORT:
               I see no reason why one of the files was copied to ${tomcat.dist},
               as that target updates ${tomcat.build} only.
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48717
+  When a node joins a cluster and it receives all the current sessions, ensure
+  the sessionCreated event is fired if the Manager is configured to replicate
+  session events
+  http://svn.apache.org/viewvc?rev=928482&view=rev
+  (apply to both cluster implementations)
+  +1: markt
+  -1: 
