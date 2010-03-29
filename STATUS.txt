@@ -145,3 +145,11 @@ PATCHES PROPOSED TO BACKPORT:
   (apply to both cluster implementations)
   +1: markt
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48840
+  If CDPATH is set, cd may result in output to stdout.
+  Swallow the output. This is safe since the script outputs the value used for
+  CATALINA_HOME so any issues will be visible then.
+  Patch provided by mdietze
+  +1: markt
+  -1: 
