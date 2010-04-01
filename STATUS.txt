@@ -152,4 +152,9 @@ PATCHES PROPOSED TO BACKPORT:
   CATALINA_HOME so any issues will be visible then.
   Patch provided by mdietze
   +1: markt
+   0: kkolinko: When CDPATH is set, it creates an ambiguity in behaviour of
+      "cd". That is why there is output there.
+      By the way, the patch that you are proposing is probably the following
+      (there is no link above):
+       http://svn.apache.org/viewvc?rev=928732&view=rev
   -1: 
