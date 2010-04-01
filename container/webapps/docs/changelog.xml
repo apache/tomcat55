@@ -33,6 +33,15 @@
   </properties>
 
 <body>
+<section name="Tomcat 5.5.30 (fhanik)">
+  <subsection name="General">
+    <changelog>
+      <update>Update to Commons Daemon 1.0.2. Use service launcher (procrun)
+      from the Commons Daemon release. Do not keep a copy of it in our source
+      tree. (mturk/kkolinko)</update>
+    </changelog>
+  </subsection>
+</section>
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">
     <changelog>

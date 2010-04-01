@@ -222,12 +222,12 @@
 
     <copy todir="${tomcat.build}/server/lib" file="${commons-modeler.jar}" />
 
-    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jar}" />
-    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jsvc.tar.gz}"
-            failonerror="false" />
-
     <copy tofile="${tomcat.build}/bin/tomcat-native.tar.gz"
             file="${tomcat-native.tar.gz}" />
+    <copy tofile="${tomcat.build}/bin/commons-daemon-native.tar.gz"
+            file="${commons-daemon.native.src.tgz}" />
+
+    <copy tofile="${tomcat.build}/bin/commons-daemon.jar" file="${commons-daemon.jar}" />
 
     <!-- <copy todir="${tomcat.build}/common/lib" file="${ant.jar}"/>
     <copy todir="${tomcat.build}/common/lib" file="${ant-launcher.jar}"/> -->
@@ -703,12 +703,9 @@
 
 
   <target name="build-depends" depends="init"
-          description="Builds various dependent components - APIs, commons-el, commons-modeler, daemon">
+          description="Builds various dependent components - APIs, dbcp, jdt">
     <antcall target="build-servletapi"/>
     <antcall target="build-jspapi"/>
-
-    <!-- <antcall target="build-commons-modeler" /> -->
-    <!-- <antcall target="build-commons-daemon"  /> -->
 
     <!--<antcall target="downloadgz">
       <param name="sourcefile" value="${commons-collections-src.loc}"/>
@@ -1153,11 +1150,6 @@
       <fileset dir="${api.home}/jsr154/build/examples"/>
     </copy>
 
-    <!-- Copy Unix JSVC from commons-daemon -->
-    <copy file="${commons-daemon.jsvc.tar.gz}"
-        tofile="${tomcat.dist}/bin/jsvc.tar.gz" />
-    <copy todir="${tomcat.build}/bin" file="${commons-daemon.jar}" />
-
     <echo>Target: Webapps precompilation ...</echo>
 
     <antcall target="build-admin"/>
@@ -1542,16 +1534,16 @@
     <copy file="${nsis.nsexec.dll}" todir="${tomcat.dist}" />
     <copy file="${nsis.nsisdl.dll}" todir="${tomcat.dist}" />
     <!-- 32 bit -->
-    <copy file="${jtc.home}/procrun/bin/tomcat${version.major}.exe"
-       tofile="${tomcat.dist}/bin/tomcat${version.major}.exe" />
-    <copy file="${jtc.home}/procrun/bin/tomcat${version.major}w.exe"
-          tofile="${tomcat.dist}/bin/tomcat${version.major}w.exe" />
+    <copy file="${commons-daemon.home}/windows/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/tomcat${version.major}.exe" />
+    <copy file="${commons-daemon.home}/windows/prunmgr.exe"
+        tofile="${tomcat.dist}/bin/tomcat${version.major}w.exe" />
     <!-- 64 bit amd -->
-    <copy file="${jtc.home}/procrun/bin/amd64/tomcat${version.major}.exe"
-          tofile="${tomcat.dist}/bin/x64/tomcat${version.major}.exe" />
+    <copy file="${commons-daemon.home}/windows/amd64/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/x64/tomcat${version.major}.exe" />
     <!-- 64 bit ia -->
-    <copy file="${jtc.home}/procrun/bin/ia64/tomcat${version.major}.exe"
-          tofile="${tomcat.dist}/bin/i64/tomcat${version.major}.exe" />
+    <copy file="${commons-daemon.home}/windows/ia64/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/i64/tomcat${version.major}.exe" />
     <!-- tc native -->
     <copy file="${tomcat-native.home}/tcnative-1.dll.x86"
           tofile="${tomcat.dist}/bin/tcnative-1.dll" />
@@ -2062,8 +2054,20 @@
     </antcall>
 
     <antcall target="downloadgz">
-      <param name="sourcefile" value="${commons-daemon.loc}"/>
+      <param name="sourcefile" value="${commons-daemon.bin.loc}"/>
       <param name="destfile" value="${commons-daemon.jar}"/>
+    </antcall>
+
+    <antcall target="downloadfile">
+      <param name="sourcefile" value="${commons-daemon.native.src.loc}"/>
+      <param name="destfile" value="${commons-daemon.native.src.tgz}"/>
+      <param name="destdir" value="${commons-daemon.home}"/>
+    </antcall>
+
+    <antcall target="downloadzip">
+      <param name="sourcefile" value="${commons-daemon.native.win.loc}"/>
+      <param name="destfile" value="${commons-daemon.native.win.mgr.exe}"/>
+      <param name="destdir" value="${commons-daemon.native.win.home}"/>
     </antcall>
 
     <antcall target="downloadfile">
