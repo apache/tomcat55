@@ -130,7 +130,7 @@ PATCHES PROPOSED TO BACKPORT:
   session events
   http://svn.apache.org/viewvc?rev=928482&view=rev
   (apply to both cluster implementations)
-  +1: markt
+  +1: markt, kkolinko
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48840
@@ -150,5 +150,5 @@ PATCHES PROPOSED TO BACKPORT:
   Ensure web application class loader is used when calling session listeners
   http://svn.apache.org/viewvc?view=revision&revision=899138
   http://svn.apache.org/viewvc?view=revision&revision=900131
-  +1: kfujino
+  +1: kfujino, kkolinko
   -1: 
