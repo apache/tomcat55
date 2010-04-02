@@ -146,9 +146,15 @@ PATCHES PROPOSED TO BACKPORT:
        http://svn.apache.org/viewvc?rev=928732&view=rev
   -1: 
 
-  * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47774
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47774
   Ensure web application class loader is used when calling session listeners
   http://svn.apache.org/viewvc?view=revision&revision=899138
   http://svn.apache.org/viewvc?view=revision&revision=900131
   +1: kfujino, kkolinko
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843
+  Prevent possible deadlock for worker allocation in APR
+  https://issues.apache.org/bugzilla/attachment.cgi?id=25226
+  +1: kkolinko
+  -1:
