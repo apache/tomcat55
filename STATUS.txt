@@ -145,3 +145,10 @@ PATCHES PROPOSED TO BACKPORT:
       (there is no link above):
        http://svn.apache.org/viewvc?rev=928732&view=rev
   -1: 
+
+  * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47774
+  Ensure web application class loader is used when calling session listeners
+  http://svn.apache.org/viewvc?view=revision&revision=899138
+  http://svn.apache.org/viewvc?view=revision&revision=900131
+  +1: kfujino
+  -1: 
