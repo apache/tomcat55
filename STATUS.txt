@@ -80,7 +80,7 @@ PATCHES PROPOSED TO BACKPORT:
   Prevent AccessControlException if first access is to a JSP that uses a FunctionMapper
   https://issues.apache.org/bugzilla/attachment.cgi?id=25094
   (it is markt's r915070)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
@@ -115,7 +115,7 @@ PATCHES PROPOSED TO BACKPORT:
   Only attempt APR initialization if the <Listener> has been specified
   It is backport of r911300. (fix by fhanik)
   http://people.apache.org/~kkolinko/patches/2010-03-11_tc55_bug48613.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Update to NSIS 2.46
