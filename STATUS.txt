@@ -158,3 +158,10 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=25226
   +1: kkolinko
   -1:
+
+* Backport AprLifecycleListener messages from TC 6.0
+  It fixes "Cannot find message" messages that are printed to the log when
+  Tomcat is being started and Tomcat-Native library is present
+  http://people.apache.org/~kkolinko/patches/2010-04-07_tc55_AprLifecycleListener_messages.patch
+  +1: kkolinko
+  -1:
