@@ -165,3 +165,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-04-07_tc55_AprLifecycleListener_messages.patch
   +1: kkolinko, markt
   -1:
+
+* Use chunked encoding for http 1.1 requests with no content-length (regardless
+  of keep-alive) so client can differentiate between complete and partial
+  responses.
+  http://svn.apache.org/viewvc?rev=931709&view=rev (less NIO)
+  +1: markt
+  -1: 
