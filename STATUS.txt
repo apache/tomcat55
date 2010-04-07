@@ -56,7 +56,7 @@ PATCHES PROPOSED TO BACKPORT:
 
   Mark ResourceEntry.loadedClass as volatile.
   http://svn.apache.org/viewvc?rev=927877&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 
@@ -150,18 +150,18 @@ PATCHES PROPOSED TO BACKPORT:
   Ensure web application class loader is used when calling session listeners
   http://svn.apache.org/viewvc?view=revision&revision=899138
   http://svn.apache.org/viewvc?view=revision&revision=900131
-  +1: kfujino, kkolinko
+  +1: kfujino, kkolinko, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843
   Prevent possible deadlock for worker allocation in APR
   https://issues.apache.org/bugzilla/attachment.cgi?id=25226
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Backport AprLifecycleListener messages from TC 6.0
   It fixes "Cannot find message" messages that are printed to the log when
   Tomcat is being started and Tomcat-Native library is present
   http://people.apache.org/~kkolinko/patches/2010-04-07_tc55_AprLifecycleListener_messages.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
