@@ -170,5 +170,5 @@ PATCHES PROPOSED TO BACKPORT:
   of keep-alive) so client can differentiate between complete and partial
   responses.
   http://svn.apache.org/viewvc?rev=931709&view=rev (less NIO)
-  +1: markt
+  +1: markt, kkolinko
   -1: 
