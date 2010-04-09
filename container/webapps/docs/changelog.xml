@@ -41,6 +41,14 @@
       tree. (mturk/kkolinko)</update>
     </changelog>
   </subsection>
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        <bug>47774</bug>: Ensure web application class loader is used when 
+        calling session listeners. (kfujino)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">

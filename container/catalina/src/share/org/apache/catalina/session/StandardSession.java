@@ -686,34 +686,59 @@ public class StandardSession
             // Notify interested application event listeners
             // FIXME - Assumes we call listeners in reverse order
             Context context = (Context) manager.getContainer();
-            Object listeners[] = context.getApplicationLifecycleListeners();
-            if (notify && (listeners != null)) {
-                HttpSessionEvent event =
-                    new HttpSessionEvent(getSession());
-                for (int i = 0; i < listeners.length; i++) {
-                    int j = (listeners.length - 1) - i;
-                    if (!(listeners[j] instanceof HttpSessionListener))
-                        continue;
-                    HttpSessionListener listener =
-                        (HttpSessionListener) listeners[j];
-                    try {
-                        fireContainerEvent(context,
-                                           "beforeSessionDestroyed",
-                                           listener);
-                        listener.sessionDestroyed(event);
-                        fireContainerEvent(context,
-                                           "afterSessionDestroyed",
-                                           listener);
-                    } catch (Throwable t) {
+
+            // The call to expire() may not have been triggered by the webapp.
+            // Make sure the webapp's class loader is set when calling the
+            // listeners
+            ClassLoader oldTccl = null;
+            if (context.getLoader() != null &&
+                    context.getLoader().getClassLoader() != null) {
+                oldTccl = Thread.currentThread().getContextClassLoader();
+                if (System.getSecurityManager() != null) {
+                    PrivilegedAction<Void> pa = new PrivilegedSetTccl(
+                            context.getLoader().getClassLoader());
+                    AccessController.doPrivileged(pa);
+                } else {
+                    Thread.currentThread().setContextClassLoader(
+                            context.getLoader().getClassLoader());
+                }
+            }
+            try {
+                Object listeners[] = context.getApplicationLifecycleListeners();
+                if (notify && (listeners != null)) {
+                    HttpSessionEvent event = new HttpSessionEvent(getSession());
+                    for (int i = 0; i < listeners.length; i++) {
+                        int j = (listeners.length - 1) - i;
+                        if (!(listeners[j] instanceof HttpSessionListener))
+                            continue;
+                        HttpSessionListener listener = 
+                            (HttpSessionListener) listeners[j];
                         try {
                             fireContainerEvent(context,
-                                               "afterSessionDestroyed",
-                                               listener);
-                        } catch (Exception e) {
-                            ;
+                                    "beforeSessionDestroyed", listener);
+                            listener.sessionDestroyed(event);
+                            fireContainerEvent(context,
+                                    "afterSessionDestroyed", listener);
+                        } catch (Throwable t) {
+                            try {
+                                fireContainerEvent(context,
+                                        "afterSessionDestroyed", listener);
+                            } catch (Exception e) {
+                                ;
+                            }
+                            manager.getContainer().getLogger().error
+                                (sm.getString("standardSession.sessionEvent"), t);
                         }
-                        manager.getContainer().getLogger().error
-                            (sm.getString("standardSession.sessionEvent"), t);
+                    }
+                }
+            } finally {
+                if (oldTccl != null) {
+                    if (System.getSecurityManager() != null) {
+                        PrivilegedAction<Void> pa = new PrivilegedSetTccl(
+                                oldTccl);
+                        AccessController.doPrivileged(pa);
+                    } else {
+                        Thread.currentThread().setContextClassLoader(oldTccl);
                     }
                 }
             }
@@ -1689,7 +1714,19 @@ public class StandardSession
 
     }
 
+    private static class PrivilegedSetTccl implements PrivilegedAction<Void> {
 
+        private ClassLoader cl;
+
+        PrivilegedSetTccl(ClassLoader cl) {
+            this.cl = cl;
+        }
+
+        public Void run() {
+            Thread.currentThread().setContextClassLoader(cl);
+            return null;
+        }
+    }
 }
 
 
