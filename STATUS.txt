@@ -102,7 +102,7 @@ PATCHES PROPOSED TO BACKPORT:
   Add system property to allow disabling enforcement of JSP.5.3
   The spec recommends, but does not require this enforcement.
   http://svn.apache.org/viewvc?rev=920880&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
@@ -121,7 +121,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Update to NSIS 2.46
   NSIS changelog: http://nsis.sourceforge.net/Docs/AppendixF.html#F.1.1
   http://svn.apache.org/viewvc?rev=921630&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48717
@@ -156,12 +156,12 @@ PATCHES PROPOSED TO BACKPORT:
   It fixes "Cannot find message" messages that are printed to the log when
   Tomcat is being started and Tomcat-Native library is present
   http://people.apache.org/~kkolinko/patches/2010-04-07_tc55_AprLifecycleListener_messages.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Use chunked encoding for http 1.1 requests with no content-length (regardless
   of keep-alive) so client can differentiate between complete and partial
   responses.
   http://svn.apache.org/viewvc?rev=931709&view=rev (less NIO)
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
