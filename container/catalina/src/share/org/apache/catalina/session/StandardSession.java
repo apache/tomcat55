@@ -695,7 +695,7 @@ public class StandardSession
                     context.getLoader().getClassLoader() != null) {
                 oldTccl = Thread.currentThread().getContextClassLoader();
                 if (System.getSecurityManager() != null) {
-                    PrivilegedAction<Void> pa = new PrivilegedSetTccl(
+                    PrivilegedAction pa = new PrivilegedSetTccl(
                             context.getLoader().getClassLoader());
                     AccessController.doPrivileged(pa);
                 } else {
@@ -734,7 +734,7 @@ public class StandardSession
             } finally {
                 if (oldTccl != null) {
                     if (System.getSecurityManager() != null) {
-                        PrivilegedAction<Void> pa = new PrivilegedSetTccl(
+                        PrivilegedAction pa = new PrivilegedSetTccl(
                                 oldTccl);
                         AccessController.doPrivileged(pa);
                     } else {
@@ -1714,7 +1714,7 @@ public class StandardSession
 
     }
 
-    private static class PrivilegedSetTccl implements PrivilegedAction<Void> {
+    private static class PrivilegedSetTccl implements PrivilegedAction {
 
         private ClassLoader cl;
 
@@ -1722,7 +1722,7 @@ public class StandardSession
             this.cl = cl;
         }
 
-        public Void run() {
+        public Object run() {
             Thread.currentThread().setContextClassLoader(cl);
             return null;
         }
