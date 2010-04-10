@@ -101,13 +101,6 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
-  Add system property to allow disabling enforcement of JSP.5.3
-  The spec recommends, but does not require this enforcement.
-  http://svn.apache.org/viewvc?rev=920880&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
   Tag account of TagVariableInfo when implementing the rules of JSP.5.3
   http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
   +1: markt, kkolinko

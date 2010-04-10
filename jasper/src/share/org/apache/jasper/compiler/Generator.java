@@ -66,6 +66,16 @@ import org.xml.sax.Attributes;
 class Generator {
 
     private static final Class[] OBJECT_CLASS = { Object.class };
+    
+    /* System property that controls if the requirement to have the object
+     * used in jsp:getProperty action to be previously "introduced"
+     * to the JSP processor (see JSP.5.3) is enforced.
+     */ 
+    private static final boolean STRICT_GET_PROPERTY = Boolean.valueOf(
+            System.getProperty(
+                    "org.apache.jasper.compiler.Generator.STRICT_GET_PROPERTY",
+                    "true")).booleanValue();
+
     private ServletWriter out;
     private ArrayList methodsBuffered;
     private FragmentHelperClass fragmentHelperClass;
@@ -1030,7 +1040,7 @@ class Generator {
                         + "\"))."
                         + methodName
                         + "())));");
-            } else if (varInfoNames.contains(name)){
+            } else if (!STRICT_GET_PROPERTY || varInfoNames.contains(name)){
                 // The object is a custom action with an associated
                 // VariableInfo entry for this name.
                 // Get the class name and then introspect at runtime.

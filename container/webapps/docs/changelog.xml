@@ -49,6 +49,15 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        <bug>48701</bug>: Add a system property to allow disabling enforcement
+        of JSP.5.3. The specification recommends, but does not require, this
+        enforcement. (kkolinko)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.29 (fhanik)">
   <subsection name="General">
