@@ -209,12 +209,12 @@ rhino.jar=${rhino.home}/js.jar
 rhino.loc=http://ftp.mozilla.org/pub/mozilla.org/js/rhino1_6R2.zip
 
 # ----- NSIS, version 2.0 or later -----
-nsis.home=${base.path}/nsis-2.45
+nsis.home=${base.path}/nsis-2.46
 nsis.exe=${nsis.home}/makensis.exe
 nsis.installoptions.dll=${nsis.home}/Plugins/InstallOptions.dll
 nsis.nsexec.dll=${nsis.home}/Plugins/nsExec.dll
 nsis.nsisdl.dll=${nsis.home}/Plugins/NSISdl.dll
-nsis.loc=${base-sf.loc}/nsis/nsis-2.45.zip
+nsis.loc=${base-sf.loc}/nsis/nsis-2.46.zip
 
 
 # ----- Struts, version 1.2.4 or later -----
