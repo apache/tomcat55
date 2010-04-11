@@ -50,6 +50,10 @@
         <bug>47774</bug>: Ensure web application class loader is used when 
         calling session listeners. (kfujino)
       </fix>
+      <fix>
+        Ensure all required i18n messages are present for the APR/native
+        Listener. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">

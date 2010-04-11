@@ -134,13 +134,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Backport AprLifecycleListener messages from TC 6.0
-  It fixes "Cannot find message" messages that are printed to the log when
-  Tomcat is being started and Tomcat-Native library is present
-  http://people.apache.org/~kkolinko/patches/2010-04-07_tc55_AprLifecycleListener_messages.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Use chunked encoding for http 1.1 requests with no content-length (regardless
   of keep-alive) so client can differentiate between complete and partial
   responses.
