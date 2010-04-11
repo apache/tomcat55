@@ -76,6 +76,11 @@
         of JSP.5.3. The specification recommends, but does not require, this
         enforcement. (kkolinko)
       </fix>
+      <fix>
+        <bug>48580</bug>: Prevent AccessControlException when running under a
+        security manager if the first access is to a JSP that uses a
+        FunctionMapper. (markt/kkolinko)
+      </fix>
     </changelog>
   </subsection>
 </section>

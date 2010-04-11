@@ -78,13 +78,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48580
-  Prevent AccessControlException if first access is to a JSP that uses a FunctionMapper
-  https://issues.apache.org/bugzilla/attachment.cgi?id=25094
-  (it is markt's r915070)
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
     - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
