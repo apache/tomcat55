@@ -1562,7 +1562,7 @@ public class Http11Processor implements Processor, ActionHook {
                 (outputFilters[Constants.IDENTITY_FILTER]);
             contentDelimitation = true;
         } else {
-            if (entityBody && http11 && keepAlive) {
+            if (entityBody && http11) {
                 outputBuffer.addActiveFilter
                     (outputFilters[Constants.CHUNKED_FILTER]);
                 contentDelimitation = true;

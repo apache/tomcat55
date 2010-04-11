@@ -62,6 +62,11 @@
         <bug>48613</bug>: Only attempt APR/native connector initialization if
         the Listener element has been specified in server.xml. (fhanik/kkolinko)
       </fix>
+      <fix>
+        Use chunked encoding for http 1.1 responses with no content-length
+        (regardless of keep-alive) so client can differentiate between complete
+        and partial responses. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">
