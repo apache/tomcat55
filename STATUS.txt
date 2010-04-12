@@ -58,7 +58,7 @@ PATCHES PROPOSED TO BACKPORT:
 
   Mark ResourceEntry.loadedClass as volatile.
   http://svn.apache.org/viewvc?rev=927877&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 
@@ -124,5 +124,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843
   Prevent possible deadlock for worker allocation in APR
   https://issues.apache.org/bugzilla/attachment.cgi?id=25226
-  +1: kkolinko, markt, jfclere
+  +1: kkolinko, markt, jfclere, rjung
   -1:
