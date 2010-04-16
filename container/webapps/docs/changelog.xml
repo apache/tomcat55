@@ -29,10 +29,14 @@
     <author email="fhanik@apache.org">Filip Hanik</author>
     <author email="pero@apache.org">Peter Rossbach</author>
     <author email="kkolinko@apache.org">Konstantin Kolinko</author>
+    <author email="kfujino@apache.org">Keiichi Fujino</author>
     <title>Changelog</title>
   </properties>
 
 <body>
+<!-- Section names:
+ General, Catalina, Coyote, Jasper, Cluster, Webapps
+-->
 <section name="Tomcat 5.5.30 (fhanik)">
   <subsection name="General">
     <changelog>
@@ -61,6 +65,10 @@
       <fix>
         <bug>48613</bug>: Only attempt APR/native connector initialization if
         the Listener element has been specified in server.xml. (fhanik/kkolinko)
+      </fix>
+      <fix>
+        <bug>48843</bug>: Prevent possible deadlock for worker allocation in
+        APR connectors. (kkolinko)
       </fix>
       <fix>
         Use chunked encoding for http 1.1 responses with no content-length
