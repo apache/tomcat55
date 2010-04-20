@@ -51,6 +51,11 @@
   <subsection name="Catalina">
     <changelog>
       <fix>
+        <bug>44041</bug>, <bug>48694</bug>: Fix duplicate class definition
+        under load. Avoid possible deadlock in class loading.
+        (markt/kkolinko)
+      </fix>
+      <fix>
         <bug>47774</bug>: Ensure web application class loader is used when 
         calling session listeners. (kfujino)
       </fix>
