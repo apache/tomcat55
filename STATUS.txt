@@ -42,13 +42,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, rjung
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=42390
-  Fix compilation error with some nested tag files and simple tags
-  https://issues.apache.org/bugzilla/show_bug.cgi?id=48616#c22
-  (https://issues.apache.org/bugzilla/attachment.cgi?id=24993)
-  +1: kkolinko, markt, jfclere
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=44041
   Threading issue in class loading plus fix for
   https://issues.apache.org/bugzilla/show_bug.cgi?id=48694 a potential deadlock

@@ -80,6 +80,12 @@
   <subsection name="Jasper">
     <changelog>
       <fix>
+        <bug>42390</bug>, <bug>48616</bug>: Fix compilation error with some
+        nested tag files and simple tags. Do not declare or synchronize
+        scripting variables for JSP fragments since they are scriptless.
+        (kkolinko)
+      </fix>
+      <fix>
         <bug>48701</bug>: Add a system property to allow disabling enforcement
         of JSP.5.3. The specification recommends, but does not require, this
         enforcement. (kkolinko)

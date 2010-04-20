@@ -311,6 +311,9 @@ class Generator {
             }
 
             public void visit(Node.CustomTag n) throws JasperException {
+                // XXX - Actually there is no need to declare those
+                // "_jspx_" + varName + "_" + nestingLevel variables when we are
+                // inside a JspFragment.
 
                 if (n.getCustomNestingLevel() > 0) {
                     TagVariableInfo[] tagVarInfos = n.getTagVariableInfos();
@@ -2476,6 +2479,11 @@ class Generator {
         }
 
         private void declareScriptingVars(Node.CustomTag n, int scope) {
+            if (isFragment) {
+                // No need to declare Java variables, if we inside a
+                // JspFragment, because a fragment is always scriptless.
+                return;
+            }
 
             Vector vec = n.getScriptingVars(scope);
             if (vec != null) {
@@ -2523,6 +2531,14 @@ class Generator {
          */
         private void saveScriptingVars(Node.CustomTag n, int scope) {
             if (n.getCustomNestingLevel() == 0) {
+                return;
+            }
+            if (isFragment) {
+                // No need to declare Java variables, if we inside a
+                // JspFragment, because a fragment is always scriptless.
+                // Thus, there is no need to save/ restore/ sync them.
+                // Note, that JspContextWrapper.syncFoo() methods will take
+                // care of saving/ restoring/ sync'ing of JspContext attributes.
                 return;
             }
 
@@ -2586,6 +2602,14 @@ class Generator {
             if (n.getCustomNestingLevel() == 0) {
                 return;
             }
+            if (isFragment) {
+                // No need to declare Java variables, if we inside a
+                // JspFragment, because a fragment is always scriptless.
+                // Thus, there is no need to save/ restore/ sync them.
+                // Note, that JspContextWrapper.syncFoo() methods will take
+                // care of saving/ restoring/ sync'ing of JspContext attributes.
+                return;
+            }
 
             TagVariableInfo[] tagVarInfos = n.getTagVariableInfos();
             VariableInfo[] varInfos = n.getVariableInfos();
@@ -2641,6 +2665,15 @@ class Generator {
          * the given scope.
          */
         private void syncScriptingVars(Node.CustomTag n, int scope) {
+            if (isFragment) {
+                // No need to declare Java variables, if we inside a
+                // JspFragment, because a fragment is always scriptless.
+                // Thus, there is no need to save/ restore/ sync them.
+                // Note, that JspContextWrapper.syncFoo() methods will take
+                // care of saving/ restoring/ sync'ing of JspContext attributes.
+                return;
+            }
+
             TagVariableInfo[] tagVarInfos = n.getTagVariableInfos();
             VariableInfo[] varInfos = n.getVariableInfos();
 
