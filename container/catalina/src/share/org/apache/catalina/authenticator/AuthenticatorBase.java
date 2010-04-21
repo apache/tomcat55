@@ -99,6 +99,11 @@ public abstract class AuthenticatorBase
 
 
     /**
+     * Default authentication realm name.
+     */
+    protected static final String REALM_NAME = "Authentication required";
+
+    /**
      * The message digest algorithm to be used when generating session
      * identifiers.  This must be an algorithm supported by the
      * <code>java.security.MessageDigest</code> class on your platform.

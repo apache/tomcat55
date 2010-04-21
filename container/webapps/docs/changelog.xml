@@ -51,6 +51,11 @@
   <subsection name="Catalina">
     <changelog>
       <fix>
+        Fix CVE-2010-1157. Prevent possible disclosure of host name or IP
+        address via the HTTP WWW-Authenticate header when using BASIC or DIGEST
+        authentication. (markt)
+      </fix>
+      <fix>
         <bug>44041</bug>, <bug>48694</bug>: Fix duplicate class definition
         under load. Avoid possible deadlock in class loading.
         (markt/kkolinko)

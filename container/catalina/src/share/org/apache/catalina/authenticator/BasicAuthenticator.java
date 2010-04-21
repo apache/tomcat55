@@ -194,9 +194,7 @@ public class BasicAuthenticator
         CharChunk authenticateCC = authenticate.getCharChunk();
         authenticateCC.append("Basic realm=\"");
         if (config.getRealmName() == null) {
-            authenticateCC.append(request.getServerName());
-            authenticateCC.append(':');
-            authenticateCC.append(Integer.toString(request.getServerPort()));
+            authenticateCC.append(REALM_NAME);
         } else {
             authenticateCC.append(config.getRealmName());
         }
