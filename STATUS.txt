@@ -105,7 +105,7 @@ PATCHES PROPOSED TO BACKPORT:
   Fixes a) miscalculating the "average" because of multiplication overflow,
   b) ArithmeticException division by zero when numExpired overflows.
   The fix for trunk is already provided by r934337.
-  http://people.apache.org/~kkolinko/patches/2010-04-17_tc6_StandardSession_statistics.patch
+  http://people.apache.org/~kkolinko/patches/2010-04-21_tc6_StandardSession_statistics.patch
   +1: kkolinko
   -1:
 
