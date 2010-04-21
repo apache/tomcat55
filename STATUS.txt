@@ -108,3 +108,8 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-04-17_tc6_StandardSession_statistics.patch
   +1: kkolinko
   -1:
+
+* Configure Tomcat to use HttpOnly for session cookies by default
+  http://people.apache.org/~kkolinko/patches/2010-04-21_tc55_context_httpOnly.patch
+  +1: kkolinko
+  -1:
