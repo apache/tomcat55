@@ -48,9 +48,24 @@ PATCHES PROPOSED TO BACKPORT:
   Port of r439565, r832102 & r904834
   http://people.apache.org/~markt/patches/2010-01-30-bug47878-tc5.patch
   +1: markt
+  -1: kkolinko: (I think the patch to JspServletWrapper#service() method is wrong.
+
+     One thing that surely is wrong there: when FileNotFoundException is caught after
+     compile() we may respond with response.sendError(SC_NOT_FOUND).
+     This sendError() call should be followed by return, but instead we
+     fall down to execute theServlet.service() method.
+     Actually that sendError() is not needed, as we can just rethrow the FNFE:
+     our caller - JspServlet#serviceJspFile() - will catch it and report.
+
+     I propose a corrected patch below. I replaced the proposed changes to
+     JspServletWrapper#service() with the current code from 6.0.x.
+     )
+
+  Corrected patch based on Mark's one:
+  http://people.apache.org/~kkolinko/patches/2010-04-22_tc55_bug47878.patch
+  +1: kkolinko
   -1:
-     kkolinko - Just a note: This issue won't affect configurations where Jasper
-     runs with development=false.
+
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
   Improve processing of TLD cache file
