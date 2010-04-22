@@ -128,3 +128,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-04-21_tc55_context_httpOnly.patch
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49170
+  Do not send duplicated session.
+  http://svn.apache.org/viewvc?view=revision&revision=936777
+  +1: kfujino
+  -1: 
+
