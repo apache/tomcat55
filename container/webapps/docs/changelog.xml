@@ -108,7 +108,7 @@
     </changelog>
   </subsection>
 </section>
-<section name="Tomcat 5.5.29 (fhanik)">
+<section name="Tomcat 5.5.29 (fhanik)" rtext="released 2010-04-20">
   <subsection name="General">
     <changelog>
       <add>
