@@ -133,5 +133,7 @@ PATCHES PROPOSED TO BACKPORT:
   Do not send duplicated session.
   http://svn.apache.org/viewvc?view=revision&revision=936777
   +1: kfujino
+  +1: kkolinko: to apply to the both DeltaManager classes in TC 5.5 (in
+     o.a.c.ha.session and o.a.c.cluster.session packages)
   -1: 
 
