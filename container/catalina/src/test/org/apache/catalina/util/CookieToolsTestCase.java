@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
  * Unit tests for the <code>CookieTools</code> class.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class CookieToolsTestCase extends TestCase {

@@ -41,7 +41,7 @@ import junit.framework.TestSuite;
  * Unit tests for <code>org.apache.naming.resources.WARDirContext</code>.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class WARDirContextTestCase extends BaseDirContextTestCase {

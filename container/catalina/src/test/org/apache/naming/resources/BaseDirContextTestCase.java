@@ -59,7 +59,7 @@ import junit.framework.TestSuite;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public abstract class BaseDirContextTestCase extends TestCase {
