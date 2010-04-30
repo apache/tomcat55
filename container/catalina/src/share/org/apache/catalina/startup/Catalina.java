@@ -52,7 +52,7 @@ import org.xml.sax.InputSource;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Catalina extends Embedded {

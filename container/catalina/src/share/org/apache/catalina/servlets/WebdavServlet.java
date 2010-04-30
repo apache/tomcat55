@@ -79,7 +79,7 @@ import org.xml.sax.SAXException;
  * the /* URL pattern.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class WebdavServlet  extends DefaultServlet {

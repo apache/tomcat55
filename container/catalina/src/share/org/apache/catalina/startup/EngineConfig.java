@@ -31,7 +31,7 @@ import org.apache.catalina.util.StringManager;
  * of that Engine, and the associated defined contexts.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class EngineConfig

@@ -34,7 +34,7 @@ import org.apache.catalina.util.StringManager;
  * support most of the functionality required by a Store.
  *
  * @author Bip Thelin
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 public abstract class StoreBase

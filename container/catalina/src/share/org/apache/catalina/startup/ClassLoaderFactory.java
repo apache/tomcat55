@@ -44,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class ClassLoaderFactory {

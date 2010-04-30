@@ -72,7 +72,7 @@ import org.apache.naming.resources.ResourceAttributes;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DefaultServlet

@@ -45,7 +45,7 @@ import org.xml.sax.Attributes;
  * and uses a specified XML file for its persistent storage.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

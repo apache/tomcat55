@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Craig R. McClanahan
  * @author Andrew R. Jaquith
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class JAASCallbackHandler implements CallbackHandler {

@@ -33,7 +33,7 @@ import org.apache.catalina.Realm;
  * is available for use by <code>Realm</code> implementations.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GenericPrincipal implements Principal {

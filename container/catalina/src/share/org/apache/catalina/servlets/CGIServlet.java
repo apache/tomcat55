@@ -235,7 +235,7 @@ import org.apache.catalina.util.IOTools;
  *
  * @author Martin T Dengler [root@martindengler.com]
  * @author Amy Roh
- * @version $Revision$, $Date$
+ * @version $Id$
  * @since Tomcat 4.0
  *
  */
@@ -705,7 +705,7 @@ public final class CGIServlet extends HttpServlet {
      * <p>
      * </p>
      *
-     * @version  $Revision$, $Date$
+     * @version  $Id$
      * @since    Tomcat 4.0
      *
      */
@@ -1449,7 +1449,7 @@ public final class CGIServlet extends HttpServlet {
      * and <code>setResponse</code> methods, respectively.
      * </p>
      *
-     * @version   $Revision$, $Date$
+     * @version $Id$
      */
 
     protected class CGIRunner {

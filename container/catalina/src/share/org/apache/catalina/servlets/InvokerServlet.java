@@ -41,7 +41,7 @@ import org.apache.catalina.util.StringManager;
  * in the web application deployment descriptor.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class InvokerServlet
