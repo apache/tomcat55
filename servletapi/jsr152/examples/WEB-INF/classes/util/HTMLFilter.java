@@ -22,7 +22,7 @@ package util;
  *
  * @author Craig R. McClanahan
  * @author Tim Tye
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class HTMLFilter {

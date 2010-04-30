@@ -54,7 +54,7 @@ import javax.servlet.UnavailableException;
  * user's session.</p>
  *
  * @author Craig McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SetCharacterEncodingFilter implements Filter {
