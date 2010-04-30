@@ -40,7 +40,7 @@ import java.util.logging.SimpleFormatter;
  * named {prefix}.{date}.{suffix} in a configured directory, with an
  * optional preceding timestamp.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class FileHandler
