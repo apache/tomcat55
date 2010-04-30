@@ -94,7 +94,7 @@ import org.apache.catalina.core.ContainerBase;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class HostManagerServlet

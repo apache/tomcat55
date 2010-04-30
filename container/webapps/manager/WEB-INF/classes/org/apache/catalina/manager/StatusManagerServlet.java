@@ -47,7 +47,7 @@ import org.apache.catalina.util.StringManager;
  * This servlet will display a complete status of the HTTP/1.1 connector.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StatusManagerServlet

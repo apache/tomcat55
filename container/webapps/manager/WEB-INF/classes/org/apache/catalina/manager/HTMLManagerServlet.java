@@ -57,7 +57,7 @@ import org.apache.commons.fileupload.DiskFileUpload;
 * @author Bip Thelin
 * @author Malcolm Edgar
 * @author Glenn L. Nielsen
-* @version $Revision$, $Date$
+* @version $Id$
 * @see ManagerServlet
 */
 
