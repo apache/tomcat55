@@ -45,7 +45,7 @@ import org.apache.naming.NamingEntry;
  * Filesystem Directory Context implementation helper class.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class FileDirContext extends BaseDirContext {
