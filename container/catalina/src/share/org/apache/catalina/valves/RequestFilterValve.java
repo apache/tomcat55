@@ -63,7 +63,7 @@ import org.apache.tomcat.util.compat.JdkCompat;
  * of the filtering you wish to perform.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public abstract class RequestFilterValve

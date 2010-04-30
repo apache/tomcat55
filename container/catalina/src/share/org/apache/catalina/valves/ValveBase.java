@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  * management and lifecycle support.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public abstract class ValveBase

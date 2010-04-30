@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
      * </p>
      *
      * @author    Martin Dengler [root@martindengler.com]
-     * @version   $Revision$, $Date$
+     * @version   $Id$
      * @deprecated
      */
 public class ProcessHelper {

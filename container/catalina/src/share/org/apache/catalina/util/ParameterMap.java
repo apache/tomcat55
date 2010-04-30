@@ -31,7 +31,7 @@ import java.util.Map;
  * <code>ParmaeterMap</code> instance is not locked.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class ParameterMap extends HashMap {

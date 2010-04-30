@@ -40,7 +40,7 @@ import org.apache.catalina.util.StringManager;
  * of the concurrency control you wish to perform.</p>
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SemaphoreValve

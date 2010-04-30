@@ -42,7 +42,7 @@ import java.net.MalformedURLException;
  * package someplace.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class URL implements Serializable {

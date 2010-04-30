@@ -52,7 +52,7 @@ import org.apache.commons.logging.Log;
  * $CATALINA_HOME/webapps/examples/WEB-INF/classes/filters.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class RequestDumperValve extends ValveBase {

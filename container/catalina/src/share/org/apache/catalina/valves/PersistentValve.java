@@ -44,7 +44,7 @@ import org.apache.catalina.util.StringManager;
  *                              per session at any one time.
  *
  * @author Jean-Frederic Clere
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class PersistentValve

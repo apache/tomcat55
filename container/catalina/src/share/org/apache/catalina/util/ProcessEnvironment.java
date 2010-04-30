@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  * Encapsulates the Process environment and rules to derive
  * that environment from the servlet container and request information.
  * @author   Martin Dengler [root@martindengler.com]
- * @version  $Revision$, $Date$
+ * @version  $Id$
  * @since    Tomcat 4.0
  * @deprecated
  */

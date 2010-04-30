@@ -108,7 +108,7 @@ import org.apache.coyote.RequestInfo;
  * @author Craig R. McClanahan
  * @author Jason Brittain
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AccessLogValve
