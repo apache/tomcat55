@@ -29,7 +29,7 @@ import org.apache.catalina.core.StandardServer;
  * that are built around the internal component implementation classes.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ServerFactory {

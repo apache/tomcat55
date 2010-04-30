@@ -78,7 +78,7 @@ import org.apache.catalina.connector.Response;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public interface Container {

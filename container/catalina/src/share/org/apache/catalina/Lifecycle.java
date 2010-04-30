@@ -26,7 +26,7 @@ package org.apache.catalina;
  * provide a consistent mechanism to start and stop the component.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public interface Lifecycle {
