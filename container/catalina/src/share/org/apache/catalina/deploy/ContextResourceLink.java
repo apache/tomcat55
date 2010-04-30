@@ -28,7 +28,7 @@ import java.io.Serializable;
  *
  * @author Remy Maucherat
  * @author Peter Rossbach (Peter Rossbach (pero@apache.org))
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextResourceLink extends ResourceBase implements Serializable {

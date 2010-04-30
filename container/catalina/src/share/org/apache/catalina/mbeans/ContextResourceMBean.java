@@ -36,7 +36,7 @@ import org.apache.commons.modeler.BaseModelMBean;
  * <code>org.apache.catalina.deploy.ContextResource</code> component.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextResourceMBean extends BaseModelMBean {

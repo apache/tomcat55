@@ -33,7 +33,7 @@ import org.apache.catalina.ServerFactory;
  * Naming Context and their associated JNDI context.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class NamingResources implements Serializable {

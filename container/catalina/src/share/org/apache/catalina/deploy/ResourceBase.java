@@ -27,7 +27,7 @@ import java.util.HashMap;
  * Representation of an Context element
  *
  * @author Peter Rossbach (pero@apache.org)
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ResourceBase implements Serializable {

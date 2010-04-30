@@ -29,7 +29,7 @@ import org.apache.commons.modeler.BaseModelMBean;
  * <code>org.apache.catalina.core.StandardEngine</code> component.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StandardEngineMBean extends BaseModelMBean {

@@ -39,7 +39,7 @@ import org.apache.tomcat.util.compat.JdkCompat;
  * <code>org.apache.catalina.users.MemoryUserDatabase</code> component.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class MemoryUserDatabaseMBean extends BaseModelMBean {

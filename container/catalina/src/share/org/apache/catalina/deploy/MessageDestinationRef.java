@@ -27,7 +27,7 @@ import java.io.Serializable;
  * in the deployment descriptor.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since Tomcat 5.0
  */
 

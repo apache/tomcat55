@@ -25,7 +25,7 @@ package org.apache.catalina.loader;
  * the classloader associated with the context.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public interface Reloader {

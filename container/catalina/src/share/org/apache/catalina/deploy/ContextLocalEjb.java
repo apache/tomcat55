@@ -28,7 +28,7 @@ import java.io.Serializable;
  *
  * @author Craig R. McClanahan
  * @author Peter Rossbach (pero@apache.org)
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextLocalEjb extends ResourceBase implements Serializable {

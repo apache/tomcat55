@@ -32,7 +32,7 @@ import org.apache.commons.modeler.BaseModelMBean;
  * <code>org.apache.catalina.core.StandardServer</code> component.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StandardServerMBean extends BaseModelMBean {

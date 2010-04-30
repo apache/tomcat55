@@ -34,7 +34,7 @@ import org.apache.commons.modeler.Registry;
  * <code>org.apache.catalina.core.StandardHost</code> component.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StandardHostMBean extends BaseModelMBean {

@@ -39,7 +39,7 @@ import org.apache.tomcat.util.compat.JdkCompat;
  * <code>org.apache.catalina.core.StandardContext</code> component.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StandardContextMBean extends BaseModelMBean {

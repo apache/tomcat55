@@ -32,7 +32,7 @@ import org.apache.commons.modeler.Registry;
  * <code>org.apache.catalina.Role</code> component.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class RoleMBean extends BaseModelMBean {

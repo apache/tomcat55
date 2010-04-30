@@ -26,7 +26,7 @@ import java.io.Serializable;
  * an <code>&lt;env-entry&gt;</code> element in the deployment descriptor.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextEnvironment implements Serializable {
