@@ -42,7 +42,7 @@ import org.apache.tomcat.util.log.SystemLogHandler;
  * is first started.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 final class ApplicationFilterConfig implements FilterConfig, Serializable {

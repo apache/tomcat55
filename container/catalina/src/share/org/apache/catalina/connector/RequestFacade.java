@@ -44,7 +44,7 @@ import org.apache.catalina.security.SecurityUtil;
  * @author Craig R. McClanahan
  * @author Remy Maucherat
  * @author Jean-Francois Arcand
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class RequestFacade implements HttpServletRequest {

@@ -50,7 +50,7 @@ import org.apache.tomcat.util.http.mapper.Mapper;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 

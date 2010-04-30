@@ -60,7 +60,7 @@ import org.apache.commons.logging.Log;
  * <code>javax.servlet.ServletResponseWrapper</code>.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 final class ApplicationDispatcher

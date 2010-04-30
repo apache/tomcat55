@@ -58,7 +58,7 @@ import org.apache.tomcat.util.compat.JdkCompat;
  *
  * @author Remy Maucherat
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Response

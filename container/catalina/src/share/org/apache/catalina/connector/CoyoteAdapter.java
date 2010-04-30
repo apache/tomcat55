@@ -43,7 +43,7 @@ import org.apache.tomcat.util.http.ServerCookie;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class CoyoteAdapter

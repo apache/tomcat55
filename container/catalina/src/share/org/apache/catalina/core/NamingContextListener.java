@@ -69,7 +69,7 @@ import org.apache.naming.TransactionRef;
  * with each context and server.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class NamingContextListener
