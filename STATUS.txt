@@ -137,3 +137,8 @@ PATCHES PROPOSED TO BACKPORT:
      o.a.c.ha.session and o.a.c.cluster.session packages)
   -1: 
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49236
+  Do not use indexing when packing Tomcat JARs.
+  https://issues.apache.org/bugzilla/attachment.cgi?id=25382
+  +1: kkolinko
+  -1:
