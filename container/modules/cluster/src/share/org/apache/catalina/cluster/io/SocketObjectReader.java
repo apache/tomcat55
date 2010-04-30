@@ -33,7 +33,7 @@ import org.apache.catalina.cluster.tcp.ClusterData;
  *
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  * @since 5.5.10
  */
 public class SocketObjectReader

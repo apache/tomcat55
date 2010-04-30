@@ -42,7 +42,7 @@ import org.apache.commons.modeler.Registry;
  * 
  * @author Peter Rossbach
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 

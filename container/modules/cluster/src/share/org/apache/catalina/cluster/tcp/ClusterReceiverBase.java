@@ -39,7 +39,7 @@ import org.apache.catalina.util.StringManager;
 /**
 * FIXME i18n log messages
 * @author Peter Rossbach
-* @version $Revision$ $Date$
+* @version $Id$
 */
 
 public abstract class ClusterReceiverBase implements Runnable, ClusterReceiver,ListenCallback {

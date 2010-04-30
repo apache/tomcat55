@@ -32,7 +32,7 @@ import java.util.Iterator;
  *
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class McastMembership
 {

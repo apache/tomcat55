@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSessionContext;
  *
  * @author Remy Maucherat
  * @author Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeltaSessionFacade

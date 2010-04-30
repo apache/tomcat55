@@ -33,7 +33,7 @@ import junit.framework.TestCase;
 /**
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class DataSenderTest extends TestCase {
     

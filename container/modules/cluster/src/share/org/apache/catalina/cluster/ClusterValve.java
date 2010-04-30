@@ -20,7 +20,7 @@ package org.apache.catalina.cluster;
  * Cluster Valve Interface to mark all Cluster Valves 
  * Only those Valve can'be configured as Cluster Valves
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public interface ClusterValve {
     /**

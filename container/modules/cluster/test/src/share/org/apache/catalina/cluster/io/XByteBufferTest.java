@@ -27,7 +27,7 @@ import org.apache.catalina.cluster.ClusterMessage;
 /**
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class XByteBufferTest extends TestCase {
 

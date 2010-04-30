@@ -24,7 +24,7 @@ import org.apache.catalina.cluster.tcp.SimpleTcpCluster;
  * 
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  *
  */
 public interface ClusterSender

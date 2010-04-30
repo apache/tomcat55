@@ -24,7 +24,7 @@ import org.apache.catalina.cluster.tcp.SimpleTcpCluster;
  * logic in the cluster.
  * @author Peter Rossbach
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 

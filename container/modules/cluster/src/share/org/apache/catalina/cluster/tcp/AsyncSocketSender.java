@@ -37,7 +37,7 @@ import org.apache.catalina.cluster.util.SmartQueue;
  * 
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class AsyncSocketSender extends DataSender {
     

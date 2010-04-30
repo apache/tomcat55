@@ -27,7 +27,7 @@ import org.apache.catalina.cluster.io.XByteBuffer;
  *
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class McastMember implements Member, java.io.Serializable {
 

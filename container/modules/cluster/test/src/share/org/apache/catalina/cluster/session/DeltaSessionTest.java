@@ -24,7 +24,7 @@ import org.apache.catalina.Manager;
 /**
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class DeltaSessionTest extends TestCase {
 

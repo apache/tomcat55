@@ -68,7 +68,7 @@ import org.apache.catalina.core.StandardContext;
  * @author Craig R. McClanahan
  * @author Jean-Francois Arcand
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeltaManager extends ManagerBase implements Lifecycle,

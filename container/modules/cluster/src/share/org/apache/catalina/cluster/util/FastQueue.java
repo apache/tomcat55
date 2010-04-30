@@ -24,7 +24,7 @@ package org.apache.catalina.cluster.util;
  * FIXME add i18n support to log messages
  * @author Rainer Jung
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class FastQueue implements IQueue {
 

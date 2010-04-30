@@ -26,7 +26,7 @@ import org.apache.catalina.cluster.session.ClusterSessionListener;
 
 /*
 * @author Peter Rossbach
-* @version $Revision$ $Date$
+* @version $Id$
 */
 public class SimpleTcpClusterTest extends TestCase {
 

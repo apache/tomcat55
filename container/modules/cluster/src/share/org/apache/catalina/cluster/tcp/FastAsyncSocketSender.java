@@ -42,7 +42,7 @@ import org.apache.catalina.cluster.util.IQueue;
  * </ul>
  * FIXME: refactor code duplications with AsyncSocketSender => configurable or extract super class 
  * @author Peter Rossbach ( idea comes form Rainer Jung)
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.9
  */
 public class FastAsyncSocketSender extends DataSender {

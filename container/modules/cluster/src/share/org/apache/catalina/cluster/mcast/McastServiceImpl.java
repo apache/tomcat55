@@ -38,7 +38,7 @@ import org.apache.catalina.cluster.MembershipListener;
  * just use a timeout on the receive
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class McastServiceImpl
 {

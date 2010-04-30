@@ -29,7 +29,7 @@ import org.apache.catalina.cluster.session.SessionMessageImpl;
 /**
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class ReplicationTransmitterTest extends TestCase {
 

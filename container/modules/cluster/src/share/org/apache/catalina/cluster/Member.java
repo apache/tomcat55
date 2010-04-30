@@ -27,7 +27,7 @@ package org.apache.catalina.cluster;
  * switch out the service used to establish membership in between the cluster nodes.
  *
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 

@@ -21,7 +21,7 @@ import org.apache.catalina.cluster.ClusterMessage;
 
 /**
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.10
  */
 public class ClusterData {

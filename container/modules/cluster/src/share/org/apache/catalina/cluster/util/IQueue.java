@@ -22,7 +22,7 @@ package org.apache.catalina.cluster.util;
  *
  * @author Rainer Jung
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public interface IQueue {

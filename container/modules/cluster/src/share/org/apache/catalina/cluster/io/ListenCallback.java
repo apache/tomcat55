@@ -25,7 +25,7 @@ import org.apache.catalina.cluster.tcp.ClusterData ;
  * objects and marshalling and just passes the bytes straight through.
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public interface ListenCallback
 {

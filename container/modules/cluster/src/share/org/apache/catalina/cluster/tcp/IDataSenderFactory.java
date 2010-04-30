@@ -32,7 +32,7 @@ import org.apache.catalina.util.StringManager;
  * <code>org/apache/catalina/cluster/tcp/DataSenders.properties</code> resource.
  * 
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.7
  */
 public class IDataSenderFactory {

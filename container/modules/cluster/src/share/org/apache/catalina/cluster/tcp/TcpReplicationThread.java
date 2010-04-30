@@ -35,7 +35,7 @@ import org.apache.catalina.cluster.io.ObjectReader;
  * 
  * @author Filip Hanik
  * 
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class TcpReplicationThread extends WorkerThread {
     public static final byte[] ACK_COMMAND = new byte[] {6, 2, 3};

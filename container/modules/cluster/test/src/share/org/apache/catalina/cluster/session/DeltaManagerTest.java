@@ -32,7 +32,7 @@ import org.apache.catalina.cluster.tcp.SimpleTcpCluster;
 /**
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class DeltaManagerTest extends TestCase {
 

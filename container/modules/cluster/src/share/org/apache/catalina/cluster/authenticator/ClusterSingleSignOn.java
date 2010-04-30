@@ -53,7 +53,7 @@ import org.apache.catalina.cluster.ClusterValve;
  *
  * @author Fabien Carrion
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ClusterSingleSignOn

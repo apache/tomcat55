@@ -19,7 +19,7 @@ package org.apache.catalina.cluster.tcp;
 
 /**
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.7
  */
 

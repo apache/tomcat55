@@ -30,7 +30,7 @@ import org.apache.commons.logging.Log;
  * different cluster implementations
  *
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 public interface CatalinaCluster extends Cluster {

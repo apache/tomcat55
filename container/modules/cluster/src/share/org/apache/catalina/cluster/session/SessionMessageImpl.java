@@ -26,7 +26,7 @@ import org.apache.catalina.cluster.Member;
  * @author Filip Hanik
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class SessionMessageImpl implements SessionMessage, java.io.Serializable {
     

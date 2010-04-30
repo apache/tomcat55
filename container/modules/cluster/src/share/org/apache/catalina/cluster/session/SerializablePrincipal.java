@@ -30,7 +30,7 @@ import org.apache.catalina.Realm;
  * The GenericPrincipal does NOT implement serializable and I didn't want to change that implementation
  * hence I implemented this one instead.
  * @author Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 import org.apache.catalina.realm.GenericPrincipal;
 public class SerializablePrincipal  implements java.io.Serializable {

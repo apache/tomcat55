@@ -47,7 +47,7 @@ import org.apache.tomcat.util.IntrospectionUtils;
  * 
  * @author Peter Rossbach
  * @author Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class ReplicationTransmitter implements ClusterSender,IDynamicProperty {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory

@@ -67,7 +67,7 @@ import org.apache.tomcat.util.IntrospectionUtils;
  * @author Filip Hanik
  * @author Remy Maucherat
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class SimpleTcpCluster 
     implements CatalinaCluster, Lifecycle, LifecycleListener, IDynamicProperty,

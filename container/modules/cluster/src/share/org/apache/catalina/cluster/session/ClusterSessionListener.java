@@ -26,7 +26,7 @@ import org.apache.catalina.cluster.ClusterMessage;
  * Receive replicated SessionMessage form other cluster node.
  * 
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class ClusterSessionListener extends ClusterListener {
  

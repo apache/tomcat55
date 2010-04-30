@@ -27,7 +27,7 @@ import org.apache.catalina.util.StringManager;
  * node is failed.
  * 
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public abstract class ClusterListener implements MessageListener {
 

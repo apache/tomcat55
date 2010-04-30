@@ -34,7 +34,7 @@ import org.apache.catalina.cluster.io.ObjectReader;
 * FIXME jmx support
 * @author Peter Rossbach
 * @author Filip Hanik
-* @version $Revision$ $Date$
+* @version $Id$
 */
 public class ReplicationListener extends ClusterReceiverBase
 {

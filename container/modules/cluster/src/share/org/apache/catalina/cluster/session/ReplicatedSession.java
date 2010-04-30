@@ -31,7 +31,7 @@ package org.apache.catalina.cluster.session;
  *
  * Copyright:    See apache license
  * @author  Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  * Description:<BR>
  * The ReplicatedSession class is a simple extension of the StandardSession class
  * It overrides a few methods (setAttribute, removeAttribute, expire, access) and has

@@ -32,7 +32,7 @@ import org.apache.catalina.core.StandardEngine;
  * node is failed.
  * 
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class JvmRouteSessionIDBinderListener extends ClusterListener {
  

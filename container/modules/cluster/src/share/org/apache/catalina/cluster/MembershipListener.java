@@ -23,7 +23,7 @@ package org.apache.catalina.cluster;
  * when a member has joined the cluster and when a member has disappeared (crashed)
  *
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 
 

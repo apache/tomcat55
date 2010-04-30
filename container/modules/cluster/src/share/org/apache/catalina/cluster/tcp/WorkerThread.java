@@ -20,7 +20,7 @@ package org.apache.catalina.cluster.tcp;
 
 /**
  * @author Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class WorkerThread extends Thread
 {

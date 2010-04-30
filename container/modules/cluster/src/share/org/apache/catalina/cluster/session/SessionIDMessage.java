@@ -23,7 +23,7 @@ import org.apache.catalina.cluster.ClusterMessage;
  * 
  * @author Peter Rossbach
  * 
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 public class SessionIDMessage implements ClusterMessage {
 

@@ -42,7 +42,7 @@ import java.nio.ByteBuffer;
  * <li><b>END_DATA</b>  - 7 bytes - <i>TLF2003</i></lI>
  * </ul>
  * @author Filip Hanik
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class XByteBuffer
 {

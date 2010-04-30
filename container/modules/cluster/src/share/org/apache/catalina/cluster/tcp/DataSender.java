@@ -36,7 +36,7 @@ import org.apache.catalina.util.StringManager;
  * 
  * @author Peter Rossbach
  * @author Filip Hanik
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.7
  */
 public class DataSender implements IDataSender {

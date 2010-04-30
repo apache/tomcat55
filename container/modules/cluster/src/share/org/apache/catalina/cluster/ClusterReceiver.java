@@ -22,7 +22,7 @@ package org.apache.catalina.cluster;
  * Cluster Receiver Interface
  * @author Filip Hanik
  * @author Peter Rossbach
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public interface ClusterReceiver {
     /**

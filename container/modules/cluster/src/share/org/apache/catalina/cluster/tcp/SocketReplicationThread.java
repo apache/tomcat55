@@ -29,7 +29,7 @@ import org.apache.catalina.cluster.io.SocketObjectReader;
  * @author Peter Rossbach
  * FIXME ThreadPooling
  * FIXME Socket timeout
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class SocketReplicationThread extends Thread implements ListenCallback {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
