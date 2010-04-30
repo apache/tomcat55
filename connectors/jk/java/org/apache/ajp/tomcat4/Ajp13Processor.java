@@ -34,7 +34,7 @@ import org.apache.tomcat.util.http.BaseRequest;
 
 /**
  * @author Kevin Seguin
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 final class Ajp13Processor

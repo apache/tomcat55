@@ -53,7 +53,7 @@ import javax.management.MBeanServer;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class CoyoteConnector

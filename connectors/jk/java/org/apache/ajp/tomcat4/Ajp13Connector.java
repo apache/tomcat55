@@ -42,7 +42,7 @@ import org.apache.catalina.util.StringManager;
  * Implementation of an Ajp13 connector.
  *
  * @author Kevin Seguin
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 

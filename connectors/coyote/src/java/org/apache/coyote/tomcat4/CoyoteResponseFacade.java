@@ -33,7 +33,7 @@ import org.apache.catalina.connector.ResponseFacade;
  * All methods are delegated to the wrapped response.
  *
  * @author Remy Maucherat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class CoyoteResponseFacade 
