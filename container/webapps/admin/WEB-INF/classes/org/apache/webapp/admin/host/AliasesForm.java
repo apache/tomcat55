@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for deleting aliases.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AliasesForm extends ActionForm {

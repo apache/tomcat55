@@ -43,7 +43,7 @@ import org.apache.webapp.admin.Lists;
  * The <code>Action</code> that sets up <em>Delete Services</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteServiceAction extends Action {

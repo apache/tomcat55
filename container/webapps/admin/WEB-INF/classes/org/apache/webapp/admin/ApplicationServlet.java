@@ -30,7 +30,7 @@ import org.apache.struts.action.ActionServlet;
  * ApplicationLocales class.
  *
  * @author Patrick Luby
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ApplicationServlet extends ActionServlet {

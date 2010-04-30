@@ -39,7 +39,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * specified set of roles.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

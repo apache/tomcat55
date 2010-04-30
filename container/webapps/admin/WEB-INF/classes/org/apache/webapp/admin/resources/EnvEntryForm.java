@@ -32,7 +32,7 @@ import java.lang.reflect.Constructor;
  * Form bean for the individual environment entry page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

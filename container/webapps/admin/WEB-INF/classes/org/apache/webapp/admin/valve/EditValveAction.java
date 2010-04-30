@@ -40,7 +40,7 @@ import org.apache.webapp.admin.Lists;
  * Valve </em> transactions, based on the type of Valve.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class EditValveAction extends Action {

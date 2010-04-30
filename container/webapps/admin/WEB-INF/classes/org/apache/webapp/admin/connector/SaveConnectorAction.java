@@ -45,7 +45,7 @@ import org.apache.webapp.admin.TreeControlNode;
  * <em>Edit Connector</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveConnectorAction extends Action {

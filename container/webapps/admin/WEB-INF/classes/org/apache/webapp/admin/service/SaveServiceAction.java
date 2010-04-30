@@ -51,7 +51,7 @@ import org.apache.webapp.admin.valve.ValveUtil;
  *
  * @author Manveen Kaur
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveServiceAction extends Action {

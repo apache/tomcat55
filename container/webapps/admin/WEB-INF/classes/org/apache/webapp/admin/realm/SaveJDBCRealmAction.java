@@ -47,7 +47,7 @@ import org.apache.webapp.admin.valve.ValveUtil;
  * <em>Edit Realm</em> transactions for JDBC realm.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveJDBCRealmAction extends Action {

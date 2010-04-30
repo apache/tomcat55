@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMessage;
  * Form bean for the individual resource link page.
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

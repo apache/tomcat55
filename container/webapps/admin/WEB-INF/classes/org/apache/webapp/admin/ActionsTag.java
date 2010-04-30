@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <strong>FIXME</strong> - Internationalize the exception messages!
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ActionsTag extends BodyTagSupport {

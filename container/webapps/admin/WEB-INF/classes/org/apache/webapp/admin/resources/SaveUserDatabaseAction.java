@@ -42,7 +42,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * updated User database entry.</p>
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

@@ -42,7 +42,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * updated mail session entry.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

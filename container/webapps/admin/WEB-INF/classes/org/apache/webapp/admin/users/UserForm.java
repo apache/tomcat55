@@ -31,7 +31,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * Form bean for the individual user page.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

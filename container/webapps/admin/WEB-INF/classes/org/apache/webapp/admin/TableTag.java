@@ -43,7 +43,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <strong>FIXME</strong> - Internationalize the exception messages!
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TableTag extends BodyTagSupport {

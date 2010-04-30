@@ -41,7 +41,7 @@ import org.apache.struts.util.MessageResources;
  *
  * @author Jazmin Jonson
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveServerAction extends Action {

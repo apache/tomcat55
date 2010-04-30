@@ -38,7 +38,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * specified set of resource links entries.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

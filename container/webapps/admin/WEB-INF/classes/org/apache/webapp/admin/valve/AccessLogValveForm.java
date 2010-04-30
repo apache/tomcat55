@@ -28,7 +28,7 @@ import java.util.List;
  * Form bean for the accesslog valve page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class AccessLogValveForm extends ValveForm {

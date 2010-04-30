@@ -29,7 +29,7 @@ import org.apache.struts.action.ActionMapping;
  * options.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

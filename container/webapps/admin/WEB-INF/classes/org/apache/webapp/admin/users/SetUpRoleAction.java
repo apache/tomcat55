@@ -42,7 +42,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * being added, or a non-null value for an existing role.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

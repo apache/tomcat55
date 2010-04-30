@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  * visible in our MBeanServer.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class DumpServerAction extends Action {

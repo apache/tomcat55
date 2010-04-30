@@ -35,7 +35,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  * out to the current output stream.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AttributeTag extends TagSupport {

@@ -41,7 +41,7 @@ import org.apache.webapp.admin.Lists;
  * The <code>Action</code> that sets up <em>Delete Valves</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteValveAction extends Action {

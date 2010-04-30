@@ -30,7 +30,7 @@ import java.util.ArrayList;
  *
  * @author Jazmin Jonson
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TreeControlNode implements Serializable {

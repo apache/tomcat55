@@ -28,7 +28,7 @@ import java.util.List;
  * Form bean for the JNDI realm page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class JNDIRealmForm extends RealmForm {

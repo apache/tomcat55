@@ -35,7 +35,7 @@ import org.apache.struts.action.ActionMapping;
  * page.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TreeControlTestAction extends Action {

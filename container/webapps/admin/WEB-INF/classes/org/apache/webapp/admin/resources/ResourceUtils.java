@@ -34,7 +34,7 @@ import javax.management.ObjectInstance;
  *
  * @author Manveen Kaur
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

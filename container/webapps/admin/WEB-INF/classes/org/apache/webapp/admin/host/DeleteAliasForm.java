@@ -23,7 +23,7 @@ import org.apache.struts.action.ActionForm;
  * Form bean for the "Delete Alias" page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteAliasForm extends ActionForm {

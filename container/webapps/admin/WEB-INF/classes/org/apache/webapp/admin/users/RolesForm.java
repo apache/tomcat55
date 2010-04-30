@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for the delete roles page.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

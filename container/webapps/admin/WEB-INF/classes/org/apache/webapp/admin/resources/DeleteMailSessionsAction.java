@@ -38,7 +38,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * specified set of mailSession entries.</p>
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

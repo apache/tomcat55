@@ -30,7 +30,7 @@ import java.util.List;
  * Form bean for the service page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class ServiceForm extends ActionForm {

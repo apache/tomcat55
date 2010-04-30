@@ -42,7 +42,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * updated User back to the underlying database.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

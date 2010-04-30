@@ -43,7 +43,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * updated data source entry.</p>
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

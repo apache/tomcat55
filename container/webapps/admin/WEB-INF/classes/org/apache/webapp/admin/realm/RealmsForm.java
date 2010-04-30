@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for deleting realms.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class RealmsForm extends ActionForm {

@@ -38,7 +38,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * <em>Edit Valve</em> transactions for AccessLog valve.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveAccessLogValveAction extends Action {

@@ -46,7 +46,7 @@ import org.apache.webapp.admin.valve.ValveUtil;
  * <em>Edit Realm</em> transactions for UserDatabase realm.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveUserDatabaseRealmAction extends Action {

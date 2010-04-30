@@ -28,7 +28,7 @@ import org.apache.struts.action.ActionMessage;
  * Form bean for the individual role page.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

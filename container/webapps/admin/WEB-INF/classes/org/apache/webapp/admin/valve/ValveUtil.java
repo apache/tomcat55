@@ -41,7 +41,7 @@ import org.apache.webapp.admin.TreeControlNode;
  * A utility class that contains methods common across valves.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class ValveUtil {

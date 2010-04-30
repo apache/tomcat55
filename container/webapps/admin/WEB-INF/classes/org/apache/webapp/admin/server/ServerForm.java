@@ -28,7 +28,7 @@ import org.apache.struts.action.ActionMessage;
  * Form bean for the server form page.  
  * @author Patrick Luby
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class ServerForm extends ActionForm {

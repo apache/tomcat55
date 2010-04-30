@@ -38,7 +38,7 @@ import javax.management.ObjectName;
  * and writes them out to server.xml
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class CommitChangesAction extends Action {

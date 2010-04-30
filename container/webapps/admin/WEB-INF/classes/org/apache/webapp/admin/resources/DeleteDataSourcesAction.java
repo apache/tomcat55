@@ -38,7 +38,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * specified set of dataSource entries.</p>
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

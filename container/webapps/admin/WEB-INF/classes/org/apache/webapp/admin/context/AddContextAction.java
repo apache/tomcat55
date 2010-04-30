@@ -33,7 +33,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * The <code>Action</code> that sets up <em>Add Context</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AddContextAction extends Action {

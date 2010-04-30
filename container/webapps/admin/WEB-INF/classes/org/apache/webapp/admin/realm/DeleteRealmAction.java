@@ -43,7 +43,7 @@ import org.apache.webapp.admin.valve.ValveUtil;
  * The <code>Action</code> that sets up <em>Delete Realms</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteRealmAction extends Action {

@@ -40,7 +40,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  *
  * @author Jazmin Jonson
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class EditServerAction extends Action {

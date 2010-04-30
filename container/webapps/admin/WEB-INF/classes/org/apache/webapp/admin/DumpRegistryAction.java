@@ -37,7 +37,7 @@ import org.apache.struts.action.ActionMapping;
  * visible in our Registry.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class DumpRegistryAction extends Action {

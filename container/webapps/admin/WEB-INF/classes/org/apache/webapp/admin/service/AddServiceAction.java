@@ -35,7 +35,7 @@ import org.apache.webapp.admin.LabelValueBean;
  * The <code>Action</code> that sets up <em>Add Service</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AddServiceAction extends Action {

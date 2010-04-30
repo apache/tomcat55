@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Jazmin Jonson
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SetUpTreeAction extends Action {

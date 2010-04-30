@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.Tag;
  * </ul>
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class RowTag extends BodyTagSupport {

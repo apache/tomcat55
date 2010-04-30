@@ -25,7 +25,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for the Request Dumper valve page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class RequestDumperValveForm extends ValveForm {

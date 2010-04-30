@@ -43,7 +43,7 @@ import org.apache.webapp.admin.TreeControlNode;
  * transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteValvesAction extends Action {

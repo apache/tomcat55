@@ -25,7 +25,7 @@ import java.io.Serializable;
  * that are utilized by the <code>&lt;form:options&gt;</code> tag.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class LabelValueBean implements Serializable {

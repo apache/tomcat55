@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for deleting services.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ServicesForm extends ActionForm {

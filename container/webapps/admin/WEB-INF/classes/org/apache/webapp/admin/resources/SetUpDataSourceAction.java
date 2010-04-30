@@ -40,7 +40,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * being added, or a non-null value for an existing DataSource.</p>
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

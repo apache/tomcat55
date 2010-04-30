@@ -40,7 +40,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * <em>Edit Alias</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SaveAliasAction extends Action {

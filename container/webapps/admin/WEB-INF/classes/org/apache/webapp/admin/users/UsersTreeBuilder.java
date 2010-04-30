@@ -36,7 +36,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * for administering the user database.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

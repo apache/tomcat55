@@ -31,7 +31,7 @@ import java.util.HashMap;
  *
  * @author Jazmin Jonson
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TreeControl implements Serializable {

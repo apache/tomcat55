@@ -26,7 +26,7 @@ import java.util.List;
  * Form bean for the generic valve page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ValveForm extends ActionForm {

@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for deleting connectors.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ConnectorsForm extends ActionForm {

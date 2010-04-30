@@ -38,7 +38,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteAliasesAction extends Action {

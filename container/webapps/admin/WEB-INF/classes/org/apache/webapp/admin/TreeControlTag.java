@@ -60,7 +60,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * <strong>FIXME</strong> - Internationalize the exception messages!
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TreeControlTag extends TagSupport {

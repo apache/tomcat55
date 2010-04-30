@@ -28,7 +28,7 @@ import java.util.List;
  * Form bean for the datasource realm page.
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class DataSourceRealmForm extends RealmForm {

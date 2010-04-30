@@ -38,7 +38,7 @@ import javax.management.ObjectName;
  * The <code>Action</code> that sets up <em>Add Alias</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class AddAliasAction extends Action {

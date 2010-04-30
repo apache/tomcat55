@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for deleting contexts.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextsForm extends ActionForm {

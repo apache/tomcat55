@@ -40,7 +40,7 @@ import org.apache.webapp.admin.Lists;
  * Realm </em> transactions, based on the type of Realm.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class EditRealmAction extends Action {

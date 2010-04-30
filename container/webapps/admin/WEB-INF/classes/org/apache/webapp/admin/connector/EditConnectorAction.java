@@ -40,7 +40,7 @@ import java.net.InetAddress;
  * The <code>Action</code> that sets up <em>Edit Connector</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class EditConnectorAction extends Action {

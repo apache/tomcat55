@@ -25,7 +25,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for the single sign on valve page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SingleSignOnValveForm extends ValveForm {

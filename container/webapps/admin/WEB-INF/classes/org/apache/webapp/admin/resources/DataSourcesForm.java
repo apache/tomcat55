@@ -25,7 +25,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for the delete data sources page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionMessage;
  * Form bean for the jdbc realm page.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class JDBCRealmForm extends RealmForm {

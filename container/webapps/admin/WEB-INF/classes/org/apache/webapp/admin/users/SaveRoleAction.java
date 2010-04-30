@@ -41,7 +41,7 @@ import org.apache.webapp.admin.TomcatTreeBuilder;
  * updated Role back to the underlying database.</p>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 

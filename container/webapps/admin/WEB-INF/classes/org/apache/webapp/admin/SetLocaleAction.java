@@ -38,7 +38,7 @@ import org.apache.struts.action.ActionMapping;
  * to the one specified by the <code>locale</code> request parameter.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public final class SetLocaleAction extends Action {

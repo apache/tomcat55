@@ -35,7 +35,7 @@ import javax.management.ObjectName;
  *
  * @author Craig R. McClanahan
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Lists {

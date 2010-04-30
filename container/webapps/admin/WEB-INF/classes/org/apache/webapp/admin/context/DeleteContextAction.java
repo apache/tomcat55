@@ -41,7 +41,7 @@ import org.apache.webapp.admin.ApplicationServlet;
  * The <code>Action</code> that sets up <em>Delete Contexts</em> transactions.
  *
  * @author Manveen Kaur
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class DeleteContextAction extends Action {

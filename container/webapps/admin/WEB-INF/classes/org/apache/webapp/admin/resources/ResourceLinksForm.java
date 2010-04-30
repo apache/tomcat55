@@ -25,7 +25,7 @@ import org.apache.struts.action.ActionMapping;
  * Form bean for the delete resource links page.
  *
  * @author Amy Roh
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 4.1
  */
 
