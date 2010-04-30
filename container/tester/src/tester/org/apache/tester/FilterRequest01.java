@@ -32,7 +32,7 @@ import javax.servlet.http.*;
  * whether to call getReader() ("reader") or getInputStream() ("stream").
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class FilterRequest01 extends HttpServlet {

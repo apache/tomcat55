@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Included servlet for the test performed by Include02.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include02a extends HttpServlet {

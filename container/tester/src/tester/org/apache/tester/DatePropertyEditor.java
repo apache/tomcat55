@@ -26,7 +26,7 @@ import java.sql.Date;
  * PropertyEditor implementation for a java.sql.Date property.
  *
  * @author Craig R. McClanahan
- * @revision $Date$ $Revision$
+ * @revision $Id$
  */
 public class DatePropertyEditor extends PropertyEditorSupport {
 

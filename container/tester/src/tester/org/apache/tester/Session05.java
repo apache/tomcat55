@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * of SessionListener01 and SessionListener02 in the web.xml file
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session05 extends HttpServlet {

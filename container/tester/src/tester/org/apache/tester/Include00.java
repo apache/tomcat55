@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Exercise basic including functionality.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include00 extends HttpServlet {

@@ -34,7 +34,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * be cleaned up during a restart.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Context02 extends HttpServlet {

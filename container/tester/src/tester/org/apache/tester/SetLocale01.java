@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Positive test for ServletResponse.setLocale().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SetLocale01 extends GenericServlet {

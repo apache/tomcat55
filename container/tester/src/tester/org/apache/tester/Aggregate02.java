@@ -36,7 +36,7 @@ import javax.servlet.http.*;
  * <code>getParameterMap()</code> method to retrieve parameter values.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Aggregate02 extends HttpServlet {

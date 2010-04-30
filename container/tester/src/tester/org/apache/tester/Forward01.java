@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * Positive test for forwarding to a static resource.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Forward01 extends HttpServlet {

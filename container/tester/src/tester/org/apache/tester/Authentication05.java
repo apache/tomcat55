@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * roles will permit access to an authenticated user.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Authentication05 extends HttpServlet {

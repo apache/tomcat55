@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * the ErrorPage05 servlet returns the appropriate exception.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ErrorPage06 extends HttpServlet {

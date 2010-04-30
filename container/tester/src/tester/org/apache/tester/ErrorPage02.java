@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * the ErrorPage01 servlet returns the appropriate status code.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ErrorPage02 extends HttpServlet {

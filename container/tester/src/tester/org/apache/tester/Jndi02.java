@@ -39,7 +39,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * deployment descriptor.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Jndi02 extends HttpServlet {

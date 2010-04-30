@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * before passing them on to the underlying response.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TesterServletResponseWrapper extends ServletResponseWrapper {

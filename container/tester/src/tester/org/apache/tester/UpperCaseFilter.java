@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Filter that simply transforms its output to upper case.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UpperCaseFilter implements Filter {

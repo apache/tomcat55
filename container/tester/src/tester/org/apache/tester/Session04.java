@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * identifier) while processing this request.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session04 extends HttpServlet {

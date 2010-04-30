@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * URI like "/tester/GetParameter01?foo=1".
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetParameter01 extends GenericServlet {

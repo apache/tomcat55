@@ -31,7 +31,7 @@ import javax.servlet.http.*;
  * parameter.  The default is the servlet.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Forward03 extends HttpServlet {

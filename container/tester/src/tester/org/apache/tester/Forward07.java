@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Testing for double forwarding.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Forward07 extends HttpServlet {

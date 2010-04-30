@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * BufferedReader that converts all characters to upper case.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UpperCaseReader extends BufferedReader {

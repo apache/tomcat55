@@ -35,7 +35,7 @@ import javax.servlet.http.*;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ErrorPage05 extends HttpServlet {

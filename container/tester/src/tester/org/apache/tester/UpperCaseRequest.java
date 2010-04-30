@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * upper case.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UpperCaseRequest extends HttpServletRequestWrapper {

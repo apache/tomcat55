@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * that the session bean stashed in Part 1 can be retrieved successfully.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session02 extends HttpServlet {

@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSessionEvent;
  * so that instances can be saved and restored across server restarts.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SessionBean implements

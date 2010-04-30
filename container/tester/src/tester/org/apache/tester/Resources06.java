@@ -33,7 +33,7 @@ import javax.servlet.http.*;
  * found in order to pass.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Resources06 extends HttpServlet {

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * Positive test for including a static resource.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include01 extends HttpServlet {

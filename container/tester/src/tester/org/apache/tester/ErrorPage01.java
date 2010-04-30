@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * ErrorPage02 servlet in the deployment descriptor.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ErrorPage01 extends HttpServlet {

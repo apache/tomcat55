@@ -30,7 +30,7 @@ import javax.servlet.http.*;
  * visible to the called servlet.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class FilterRequest02a extends HttpServlet {

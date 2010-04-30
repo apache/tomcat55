@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * present, which should be erased after a web application restart.
  *
  * @author Justyna Horwat
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Request01 extends HttpServlet {

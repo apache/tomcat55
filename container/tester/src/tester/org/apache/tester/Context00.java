@@ -31,7 +31,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * time, and remove it at <code>destroy()</code> time.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Context00 extends HttpServlet {

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * then forward to another servlet that replaces the original contents.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include04 extends HttpServlet {

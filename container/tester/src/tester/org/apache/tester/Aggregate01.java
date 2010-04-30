@@ -31,7 +31,7 @@ import javax.servlet.http.*;
  * values returned by request.getParameterValues().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Aggregate01 extends HttpServlet {

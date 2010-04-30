@@ -30,7 +30,7 @@ import javax.servlet.http.*;
  * not assigned to the specified user.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Authentication03 extends HttpServlet {

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * This should throw an IllegalStateException.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetInputStream01 extends GenericServlet {

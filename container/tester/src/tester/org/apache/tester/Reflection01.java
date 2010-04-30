@@ -30,7 +30,7 @@ import javax.servlet.http.*;
  * are exposed to this servlet by the container.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Reflection01 extends HttpServlet {

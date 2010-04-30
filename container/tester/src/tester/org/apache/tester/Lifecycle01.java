@@ -31,7 +31,7 @@ import javax.servlet.http.*;
  * made to it should be a "GET".
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Lifecycle01 extends HttpServlet {

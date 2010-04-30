@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * before passing them on to the underlying request.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TesterHttpServletRequestWrapper

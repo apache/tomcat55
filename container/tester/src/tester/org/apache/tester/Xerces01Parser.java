@@ -34,7 +34,7 @@ import org.xml.sax.helpers.ParserFactory;
  *
  * @author Amy Roh
  * @author Craig McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Xerces01Parser extends HandlerBase {

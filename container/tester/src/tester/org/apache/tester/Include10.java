@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Make sure container sets up include reques attributes.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include10 extends HttpServlet {

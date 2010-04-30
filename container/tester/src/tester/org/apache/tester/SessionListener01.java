@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * creation and destruction events are logged to the servlet context log.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SessionListener01

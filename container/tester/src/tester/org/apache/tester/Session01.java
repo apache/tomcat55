@@ -32,7 +32,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * calling setAttribute("name", null) acts like removeAttribute().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session01 extends HttpServlet {

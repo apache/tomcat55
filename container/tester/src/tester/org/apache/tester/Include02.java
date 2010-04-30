@@ -31,7 +31,7 @@ import javax.servlet.http.*;
  * these types should be propogated back to the caller unchanged.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include02 extends HttpServlet {

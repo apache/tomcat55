@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * corresponds to "en_CA" Accept-Language header that is sent first.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetLocales01 extends HttpServlet {

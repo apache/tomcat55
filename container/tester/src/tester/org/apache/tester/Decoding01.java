@@ -30,7 +30,7 @@ import javax.servlet.http.*;
  * respectively.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Decoding01 extends HttpServlet {

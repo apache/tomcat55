@@ -35,7 +35,7 @@ import javax.servlet.http.HttpSessionEvent;
  * <code>$CATALINA_HOME/classes</code>.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UnpSharedSessionBean implements

@@ -33,7 +33,7 @@ import javax.servlet.http.*;
  *
  * @author Amy Roh
  * @author Craig McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Xerces01 extends HttpServlet {

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * <code>request.getRequestDispatcher()</code>.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Forward09 extends HttpServlet {

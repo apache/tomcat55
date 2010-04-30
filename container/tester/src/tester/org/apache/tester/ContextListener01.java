@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * are logged appropriately to the static logger..
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextListener01

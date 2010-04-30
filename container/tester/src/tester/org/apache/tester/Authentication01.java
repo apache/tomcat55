@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * constraint in the deployment descriptor.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Authentication01 extends HttpServlet {

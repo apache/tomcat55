@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Implementation of CharArrayWriter that upper cases its output.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class CharArrayWriterUpperCase extends CharArrayWriter {

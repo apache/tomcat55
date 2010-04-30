@@ -31,7 +31,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * present, which should be erased after a web application restart.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Context01 extends HttpServlet {

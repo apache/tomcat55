@@ -25,7 +25,7 @@ import java.io.Serializable;
  * Simple JavaBean to use for context attribute tests.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextBean implements Serializable {

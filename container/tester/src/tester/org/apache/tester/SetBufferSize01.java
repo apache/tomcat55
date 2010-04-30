@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Negative test for ServletResponse.setBufferSize().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SetBufferSize01 extends GenericServlet {

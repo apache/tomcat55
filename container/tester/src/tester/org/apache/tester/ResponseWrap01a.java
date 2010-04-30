@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * or including both servlets and JSP pages.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ResponseWrap01a extends HttpServlet {

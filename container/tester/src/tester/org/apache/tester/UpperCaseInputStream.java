@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * WARNING:  This will only work on 8-bit character sets!
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UpperCaseInputStream extends ServletInputStream {

@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * intent to behave in this manner.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include03a extends HttpServlet {

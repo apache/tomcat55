@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * status 503 (service unavailable) when it is called later.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ErrorPage07 extends HttpServlet {

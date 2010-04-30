@@ -36,7 +36,7 @@ import org.apache.tester.SessionBean;
  * <code>/WEB-INF/lib/tester.jar</code>.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UnsharedSessionBean extends SessionBean implements

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * includes another servlet, and we see all of the output in the right order.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include07 extends HttpServlet {

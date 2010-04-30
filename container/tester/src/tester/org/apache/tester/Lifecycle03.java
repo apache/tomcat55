@@ -38,7 +38,7 @@ import javax.servlet.http.*;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Lifecycle03 extends HttpServlet {

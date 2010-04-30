@@ -80,7 +80,7 @@ import org.apache.tools.ant.Task;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TestClient extends Task {

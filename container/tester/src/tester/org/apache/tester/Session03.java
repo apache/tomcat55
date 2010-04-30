@@ -32,7 +32,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * Then, it removes that attribute and verifies successful removal.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session03 extends HttpServlet {

@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * after the response has been committed throws IllegalStateException.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Session06 extends HttpServlet {

@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * First subservlet for "include then include" test.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include06a extends HttpServlet {

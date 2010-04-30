@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * "Accept-Language" headers.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetLocales02 extends HttpServlet {

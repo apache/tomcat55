@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Generic exception class to use for testing error page assertions.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class TesterException extends Exception {

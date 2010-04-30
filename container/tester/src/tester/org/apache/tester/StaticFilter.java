@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * so that no leftovers from the previous request are inadvertently included.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class StaticFilter implements Filter {

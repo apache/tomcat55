@@ -38,7 +38,7 @@ import org.apache.tester.unshared.UnsharedSessionBean;
  * should succeed.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Jndi01 extends HttpServlet {

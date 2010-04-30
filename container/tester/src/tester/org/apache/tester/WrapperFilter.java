@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * it passes on with either generic or HTTP-specific wrappers.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class WrapperFilter implements Filter {

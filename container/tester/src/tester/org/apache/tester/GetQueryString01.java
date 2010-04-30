@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * URI like "/tester/GetQueryString01?foo=1".
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetQueryString01 extends HttpServlet {

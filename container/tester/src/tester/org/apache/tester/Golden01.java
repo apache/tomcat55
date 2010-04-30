@@ -27,7 +27,7 @@ import javax.servlet.http.*;
  * with known contents for comparison to the golden file.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Golden01 extends HttpServlet {

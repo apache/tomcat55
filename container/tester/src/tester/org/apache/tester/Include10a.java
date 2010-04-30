@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Ensure the correct container managed request attributes are set.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include10a extends HttpServlet {

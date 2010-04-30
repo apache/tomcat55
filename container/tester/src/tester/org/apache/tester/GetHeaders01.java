@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * "Accept-Language" headers.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class GetHeaders01 extends HttpServlet {

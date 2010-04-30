@@ -29,7 +29,7 @@ import javax.servlet.http.*;
  * have authenticated a user previously by calling "/Authentication01".
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Authentication02 extends HttpServlet {

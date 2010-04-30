@@ -30,7 +30,7 @@ import javax.servlet.ServletContextListener;
  * editor classes for this web application are appropriately registered.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class ContextListener02

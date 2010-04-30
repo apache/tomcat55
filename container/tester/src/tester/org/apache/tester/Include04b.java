@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Second subservlet for "include then forward" test.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Include04b extends HttpServlet {

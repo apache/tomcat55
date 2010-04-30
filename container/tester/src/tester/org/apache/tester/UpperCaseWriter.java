@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * PrintWriter that converts all characters to upper case.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class UpperCaseWriter extends PrintWriter {

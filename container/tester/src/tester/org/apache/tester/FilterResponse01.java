@@ -30,7 +30,7 @@ import javax.servlet.http.*;
  * filtered and converted to upper case before return to the client.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class FilterResponse01 extends HttpServlet {

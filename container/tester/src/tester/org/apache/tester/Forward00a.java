@@ -26,7 +26,7 @@ import javax.servlet.http.*;
  * Exercise basic forwarding functionality.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Forward00a extends HttpServlet {

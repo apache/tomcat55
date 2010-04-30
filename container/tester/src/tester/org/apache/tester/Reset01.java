@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Positive test for ServletResponse.reset().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Reset01 extends GenericServlet {

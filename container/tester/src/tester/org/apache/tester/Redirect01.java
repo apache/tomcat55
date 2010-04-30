@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Positive test for HttpServletResponse.sendRedirect().
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class Redirect01 extends HttpServlet {
