@@ -42,7 +42,7 @@ import org.apache.tomcat.util.buf.MessageBytes;
  * and Digest Access Authentication."
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class BasicAuthenticator

@@ -42,7 +42,7 @@ import org.apache.catalina.deploy.LoginConfig;
  * http://tomcat.apache.org/tomcat-5.5-doc/ssl-howto.html
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SSLAuthenticator

@@ -59,7 +59,7 @@ import org.apache.catalina.valves.ValveBase;
  * </ul>
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  */
 
 public class SingleSignOn

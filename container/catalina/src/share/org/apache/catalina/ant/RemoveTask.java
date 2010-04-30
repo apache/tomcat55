@@ -29,7 +29,7 @@ import org.apache.tools.ant.BuildException;
  * Tomcat manager application.
  *
  * @author Craig R. McClanahan
- * @version $Revision$ $Date$
+ * @version $Id$
  * @deprecated Replaced by UndeployTask
  */
 public class RemoveTask extends AbstractCatalinaTask {

@@ -65,7 +65,7 @@ import org.apache.tools.ant.taskdefs.condition.Condition;
  * </pre>
  * 
  * @author Peter Rossbach
- * @version $Revision$ $Date$
+ * @version $Id$
  * @since 5.5.10
  *
  */
