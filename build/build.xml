@@ -1327,6 +1327,8 @@
         <include name="README.txt"/>
         <include name="RELEASE*"/>
         <include name="RUNNING.txt"/>
+        <include name="eclipse.classpath"/>
+        <include name="eclipse.project"/>
       </fileset>
       <fileset dir="..">
         <include name="LICENSE"/>
