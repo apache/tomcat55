@@ -40,6 +40,7 @@
   <xsl:param    name="project-menu"     select="'menu'"/>
   <xsl:param    name="standalone"       select="''"/>
   <xsl:param    name="buglink"          select="'http://issues.apache.org/bugzilla/show_bug.cgi?id='"/>
+  <xsl:param    name="revlink"          select="'http://svn.apache.org/viewvc?view=rev&amp;rev='"/>
 
   <!-- Defined variables (non-overrideable) -->
   <xsl:variable name="body-bg"          select="'#ffffff'"/>
@@ -73,6 +74,10 @@
       <meta name="email" content="{$email}"/>
        -->
     </xsl:for-each>
+		<style type="text/css" media="print">
+			.noPrint {display: none;}
+			td#mainBody {width: 100%;}
+		</style>
     </head>
 
     <body bgcolor="{$body-bg}" text="{$body-fg}" link="{$body-link}"
@@ -101,9 +106,7 @@
         </xsl:if>
         </td>
         <td>
-          <font face="arial,helvetica,sanserif">
-            <h1><xsl:value-of select="$project/title"/></h1>
-          </font>
+          <h1><font face="arial,helvetica,sanserif"><xsl:value-of select="$project/title"/></font></h1>
         </td>
         <td>
           <xsl:comment>APACHE LOGO</xsl:comment>
@@ -131,44 +134,15 @@
         <!-- Don't generate a menu if styling printer friendly docs -->
         <xsl:if test="$project-menu = 'menu'">
           <xsl:comment>LEFT SIDE NAVIGATION</xsl:comment>
-          <td width="20%" valign="top" nowrap="true">
+          <td width="20%" valign="top" nowrap="true" class="noPrint">
             <xsl:apply-templates select="project/body/menu"/>
           </td>
         </xsl:if>
 
         <xsl:comment>RIGHT SIDE MAIN BODY</xsl:comment>
-        <td width="80%" valign="top" align="left">
-          <table border="0" width="100%" cellspacing="4">
-            <tr>
-              <td align="left" valign="top">
-                <h1><xsl:value-of select="project/title"/></h1>
-                <h2><xsl:value-of select="properties/title"/></h2>
-              </td>
-              <td align="right" valign="top" nowrap="true">
-                <!-- Add the printer friendly link for docs with a menu -->
-                <xsl:if test="$project-menu = 'menu'">
-                  <xsl:variable name="src">
-                    <xsl:value-of select="$relative-path"/><xsl:value-of select="$printer-logo"/>
-                  </xsl:variable>
-                  <xsl:variable name="url">
-                    <xsl:value-of select="/document/@url"/>
-                  </xsl:variable>
-                  <small>
-                    <a href="printer/{$url}">
-                      <img src="{$src}" border="0" alt="Printer Friendly Version"/>
-                      <br />print-friendly<br />version
-                    </a>
-                  </small>
-                </xsl:if>
-                <xsl:if test="$project-menu != 'menu'">
-                  <xsl:variable name="void">
-                    <xsl:value-of select="$relative-path"/><xsl:value-of select="$void-image"/>
-                    </xsl:variable>
-                  <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
-                </xsl:if>
-              </td>
-            </tr>
-          </table>
+        <td width="80%" valign="top" align="left" id="mainBody">
+          <h1><xsl:value-of select="project/title"/></h1>
+          <h2><xsl:value-of select="properties/title"/></h2>
           <xsl:apply-templates select="body/section"/>
         </td>
 
@@ -218,11 +192,15 @@
     <xsl:variable name="name">
       <xsl:value-of select="@name"/>
     </xsl:variable>
+    <xsl:variable name="name2">
+      <xsl:value-of select="translate($name, ' ', '_')"/>
+    </xsl:variable>
     <table border="0" cellspacing="0" cellpadding="2">
       <!-- Section heading -->
       <tr><td bgcolor="{$banner-bg}">
           <font color="{$banner-fg}" face="arial,helvetica.sanserif">
-          <a name="{$name}">
+          <xsl:if test="$name != $name2"><a name="{$name}"><xsl:comment>()</xsl:comment></a></xsl:if>
+          <a name="{$name2}">
           <strong><xsl:value-of select="@name"/></strong></a></font>
         </td>
       <xsl:if test="@rtext">
@@ -248,13 +226,22 @@
   <!-- Process a documentation subsection -->
   <xsl:template match="subsection">
     <xsl:variable name="name">
+      <xsl:if test="
+          count(//*[(local-name()='section' or local-name()='subsection') and @name=current()/@name]) &gt; 1
+          ">
+        <xsl:value-of select="concat(ancestor::section/@name, '/')"/>
+      </xsl:if>
       <xsl:value-of select="@name"/>
+    </xsl:variable>
+    <xsl:variable name="name2">
+      <xsl:value-of select="translate($name, ' ', '_')"/>
     </xsl:variable>
     <table border="0" cellspacing="0" cellpadding="2">
       <!-- Subsection heading -->
       <tr><td bgcolor="{$sub-banner-bg}">
           <font color="{$sub-banner-fg}" face="arial,helvetica.sanserif">
-          <a name="{$name}">
+          <xsl:if test="$name != $name2"><a name="{$name}"><xsl:comment>()</xsl:comment></a></xsl:if>
+          <a name="{$name2}">
           <strong><xsl:value-of select="@name"/></strong></a></font>
       </td></tr>
       <!-- Subsection body -->
@@ -262,6 +249,31 @@
         <xsl:apply-templates/>
       </blockquote></td></tr>
     </table>
+  </xsl:template>
+
+
+  <!-- Generate table of contents -->
+  <xsl:template match="toc">
+    <ul><xsl:apply-templates mode="toc" select="following::section"/></ul>
+  </xsl:template>
+
+  <xsl:template mode="toc" match="section|subsection">
+    <xsl:variable name="name">
+      <xsl:if test="local-name()='subsection' and 
+          count(//*[(local-name()='section' or local-name()='subsection') and @name=current()/@name]) &gt; 1
+          ">
+        <xsl:value-of select="concat(ancestor::section/@name, '/')"/>
+      </xsl:if>
+      <xsl:value-of select="@name"/>
+    </xsl:variable>
+    <xsl:variable name="name2">
+      <xsl:value-of select="translate($name, ' ', '_')"/>
+    </xsl:variable>
+    <li><a href="#{$name2}"><xsl:value-of select="@name"/></a>
+    <xsl:if test="subsection">
+      <ol><xsl:apply-templates mode="toc" select="subsection"/></ol>
+    </xsl:if>
+    </li>
   </xsl:template>
 
 
@@ -274,35 +286,35 @@
       <table cellspacing="4" cellpadding="0" border="0">
         <tr>
           <td bgcolor="{$source-color}" width="1" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
           <td bgcolor="{$source-color}" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
           <td bgcolor="{$source-color}" width="1" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
         </tr>
         <tr>
           <td bgcolor="{$source-color}" width="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
           <td bgcolor="#ffffff" height="1"><pre>
             <xsl:value-of select="."/>
           </pre></td>
           <td bgcolor="{$source-color}" width="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
         </tr>
         <tr>
           <td bgcolor="{$source-color}" width="1" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
           <td bgcolor="{$source-color}" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
           <td bgcolor="{$source-color}" width="1" height="1">
-            <img src="{$void}" width="1" height="1" vspace="0" hspace="0" border="0"/>
+            <img src="{$void}" alt="" width="1" height="1" vspace="0" hspace="0" border="0"/>
           </td>
         </tr>
       </table>
@@ -478,6 +490,12 @@
   <xsl:template match="bug">
       <xsl:variable name="link"><xsl:value-of select="$buglink"/><xsl:value-of select="text()"/></xsl:variable>
       <a href="{$link}"><xsl:apply-templates/></a>
+  </xsl:template>
+  
+  <!-- Link to a SVN revision report -->
+  <xsl:template match="rev">
+      <xsl:variable name="link"><xsl:value-of select="$revlink"/><xsl:value-of select="text()"/></xsl:variable>
+      <a href="{$link}">r<xsl:apply-templates/></a>
   </xsl:template>
 
   <!-- Process everything else by just passing it through -->

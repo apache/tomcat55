@@ -107,6 +107,17 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Webapps">
+    <changelog>
+      <add>
+        Backport documentation stylesheet improvements from Tomcat 6:
+        use CSS styles to provide printer-friendly layout,
+        support generation of TOC tables,
+        support links to revision numbers,
+        use underscores instead of spaces in anchor names. (kkolinko)
+      </add>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.29 (fhanik)" rtext="released 2010-04-20">
   <subsection name="General">
