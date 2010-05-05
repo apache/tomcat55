@@ -29,20 +29,10 @@
 
 <body>
 
-    <section name="Table of Contents">
-    <ul>
-        <li><a href="#Introduction">Introduction</a></li>
-        <li><a href="#Installation">Installation</a></li>
-        <li><a href="#A word on Contexts">A word on Contexts</a></li>
-        <li><a href="#Deployment on Tomcat startup">Deployment on Tomcat startup</a></li>
-        <li><a href="#Deploying on a running Tomcat server">Deploying on a running Tomcat server</a></li>
-        <li><a href="#Deploying using the Tomcat Manager">Deploying using the Tomcat Manager</a></li>
-        <li><a href="#Deploying using the Client Deployer Package">Deploying using
-            the Tomcat Client Deployer</a></li>
-    </ul>
-    
-    </section>
-    
+<section name="Table of Contents">
+<toc/>
+</section>
+
     <section name="Introduction">
         <p>
             Deployment is the term used for the process of installing a web

@@ -29,6 +29,10 @@
 
 <body>
 
+<section name="Table of Contents">
+<toc/>
+</section>
+
 <section name="README">
 <p>
 This document duplicates some of the information from the BUILDING.txt file

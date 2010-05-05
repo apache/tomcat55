@@ -30,6 +30,10 @@
 
 <body>
 
+<section name="Table of Contents">
+<toc/>
+</section>
+
   <section name="Introduction">
 
   <p>Monitoring is a very important question today. Looking inside the running

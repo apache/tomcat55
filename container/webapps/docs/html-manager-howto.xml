@@ -29,6 +29,10 @@
 
 <body>
 
+<section name="Table of Contents">
+<toc/>
+</section>
+
 <section name="Introduction">
 
 <p>In many production environments it is very useful to have the capability

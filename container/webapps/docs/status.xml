@@ -29,6 +29,11 @@
   </properties>
 
 <body>
+
+<section name="Table of Contents">
+<toc/>
+</section>
+
   <section name="Preface">
     <p>
       This document attempts to convey the current status of Tomcat development

@@ -30,39 +30,7 @@
 <body>
 
 <section name="Table of Contents">
-
-<p>
-<a href="#Introduction">Introduction</a><br />
-<a href="#Configuring Manager Application Access">
-Configuring Manager Application Access</a><br />
-<a href="#Supported Manager Commands">Supported Manager Commands</a><br />
-<blockquote>
-<a href="#Deploy A New Application Remotely">Deploy A New Application Remotely</a><br />
-<a href="#Deploy A New Application from a Local Path">Deploy A New Application from a Local Path</a><br />
-<a href="#List Currently Deployed Applications">
-List Currently Deployed Applications</a><br />
-<a href="#Reload An Existing Application">Reload An Existing Application</a><br />
-<a href="#List OS and JVM Properties">List OS and JVM Properties</a><br />
-<a href="#List Available Global JNDI Resources">
-List Available Global JNDI Resources</a><br />
-<a href="#List Available Security Roles">List Available Security Roles</a><br />
-<a href="#Session Statistics">Session Statistics</a><br />
-<a href="#Start an Existing Application">Start an Existing Application</a><br />
-<a href="#Stop an Existing Application">Stop an Existing Application</a><br />
-<a href="#Undeploy an Existing Application">
-Undeploy an Existing Application</a><br />
-</blockquote>
-<a href="#Executing Manager Commands With Ant">
-Executing Manager Commands With Ant</a><br />
-<a href="#Using the JMX Proxy Servlet">
-Using the JMX Proxy Servlet</a><br />
-<blockquote>
-<a href="#What is JMX Proxy Servlet">What is JMX Proxy Servlet?</a><br />
-<a href="#JMX Query command">Query command</a><br />
-<a href="#JMX Set command">Set command</a><br />
-</blockquote>
-</p>
-
+<toc/>
 </section>
 
 <section name="Introduction">

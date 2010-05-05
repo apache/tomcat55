@@ -32,13 +32,7 @@
 <body>
 
 <section name="Table of Contents">
-<p>
-<a href="#Using the JK 1.2.x native connector">
-Using the JK native connector</a><br />
-<a href="#Using Apache HTTP Server 2.x with mod_proxy">
-Using Apache HTTP Server 2.x and mod_proxy</a><br />
-<a href="#Using the balancer webapp">Using the balancer webapp</a><br />
-</p>
+<toc/>
 </section>
 
 <section name="Using the JK 1.2.x native connector">
