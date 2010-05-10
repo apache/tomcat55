@@ -116,14 +116,6 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49170
-  Do not send duplicated session.
-  http://svn.apache.org/viewvc?view=revision&revision=936777
-  +1: kfujino
-  +1: kkolinko, markt: to apply to the both DeltaManager classes in TC 5.5 (in
-     o.a.c.ha.session and o.a.c.cluster.session packages)
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49236
   Do not use indexing when packing Tomcat JARs.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25382
