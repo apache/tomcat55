@@ -535,8 +535,7 @@
   	<!--
     <copy todir="${catalina.build}/server/lib" file="${tomcat-util.jar}"/>
     -->
-	<jar jarfile="${tomcat-util.jar}"
-             index="true">
+	<jar jarfile="${tomcat-util.jar}">
       <fileset dir="${catalina.build}/classes">
         <include name="org/apache/tomcat/util/**"/>
         <!-- Javadoc and i18n exclusions -->
@@ -1119,7 +1118,7 @@
     </jar>
 
   	<!-- Naming - Factory JAR File -->
-    <jar jarfile="${catalina.deploy}/common/lib/naming-factory.jar" index="true">
+    <jar jarfile="${catalina.deploy}/common/lib/naming-factory.jar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/naming/**" />
         <exclude name="org/apache/naming/resources/**" />
@@ -1136,7 +1135,7 @@
     </jar>
 
     <!-- Naming - Resources JAR File -->
-    <jar jarfile="${catalina.deploy}/common/lib/naming-resources.jar" index="true">
+    <jar jarfile="${catalina.deploy}/common/lib/naming-resources.jar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/naming/JndiPermission.class" />
       	<include name="org/apache/naming/NameParserImpl.class" />
@@ -1152,14 +1151,14 @@
     </jar>
 
     <!-- Servlets - CGI Servlet -->
-    <jar jarfile="${catalina.deploy}/server/lib/servlets-cgi.renametojar" index="true">
+    <jar jarfile="${catalina.deploy}/server/lib/servlets-cgi.renametojar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/catalina/servlets/CGI*" />
       </fileset>
     </jar>
 
     <!-- Servlets - Default File-Serving Servlet -->
-    <jar jarfile="${catalina.deploy}/server/lib/servlets-default.jar" index="true">
+    <jar jarfile="${catalina.deploy}/server/lib/servlets-default.jar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/catalina/servlets/Default*" />
         <include name="org/apache/catalina/servlets/Constants.class" />
@@ -1168,14 +1167,14 @@
     </jar>
 
     <!-- Servlets - Invoker Servlet -->
-    <jar jarfile="${catalina.deploy}/server/lib/servlets-invoker.jar" index="true">
+    <jar jarfile="${catalina.deploy}/server/lib/servlets-invoker.jar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/catalina/servlets/Invoker*" />
       </fileset>
     </jar>
 
     <!-- Servlets - SSI Servlet -->
-    <jar jarfile="${catalina.deploy}/server/lib/servlets-ssi.renametojar" index="true">
+    <jar jarfile="${catalina.deploy}/server/lib/servlets-ssi.renametojar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/catalina/ssi/**" />
         <!-- Javadoc and i18n exclusions -->
@@ -1185,7 +1184,7 @@
     </jar>
 
     <!-- Servlets - Webdav Servlet -->
-    <jar jarfile="${catalina.deploy}/server/lib/servlets-webdav.jar" index="true">
+    <jar jarfile="${catalina.deploy}/server/lib/servlets-webdav.jar">
       <fileset dir="${classes.dir}">
         <include name="org/apache/catalina/servlets/Webdav*" />
       </fileset>

@@ -168,7 +168,6 @@
     </copy>
     <property name="tomcat-juli.jar" value="${build.home}/lib/tomcat-${component.name}.jar"/>
     <jar    jarfile="${tomcat-juli.jar}"
-             index="true"
             basedir="${build.home}/classes"
              manifest="${build.home}/conf/MANIFEST.MF">
       <include name="org/apache/juli/**"/>

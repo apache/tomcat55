@@ -116,12 +116,6 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49236
-  Do not use indexing when packing Tomcat JARs.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=25382
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Update to DBCP 1.3
   http://people.apache.org/~markt/patches/2010-05-06-dbcp13-tc5.patch
   +1: markt, kkolinko, kfujino

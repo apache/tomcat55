@@ -247,7 +247,6 @@
 
   <target name="jar.tomcat5" depends="compile.tomcat5" >
     <jar  jarfile="${tomcat-coyote.jar}"
-         index="true"
          basedir="${build.home}/classes"
          manifest="${build.home}/conf/MANIFEST.MF"
          excludes="**/tomcat3/*" >
@@ -294,7 +293,6 @@
        description="Build shared Coyote jar"> 
     <property name="tomcat-coyote.jar" value="${build.home}/lib/tomcat-${component.name}.jar" />
     <jar    jarfile="${tomcat-coyote.jar}"
-            index="true"
             manifest="${build.home}/conf/MANIFEST.MF">
       <fileset dir="${build.home}/classes" >
         <exclude name="**/tomcat3/*"/>
@@ -309,7 +307,6 @@
        description="Build Tomcat 4 Adapter jar" if="tomcat4.detect">
     <property name="tomcat4-coyote.jar" value="${build.home}/lib/tomcat4-${component.name}.jar" />
     <jar jarfile="${tomcat4-coyote.jar}"
-         index="true"
          basedir="${build.home}/classes"
          manifest="${build.home}/conf/MANIFEST.MF"
          includes="org/apache/coyote/tomcat4/**" />
@@ -319,7 +316,6 @@
        description="Build Tomcat 3.3 Adapter jar" if="tomcat33.detect">
     <property name="tomcat33-coyote.jar" value="${build.home}/lib/tomcat33-${component.name}.jar" />
     <jar jarfile="${tomcat33-coyote.jar}"
-         index="true"
          basedir="${build.home}/classes"
          manifest="${build.home}/conf/MANIFEST.MF"
          includes="org/apache/coyote/tomcat3/**" /> 

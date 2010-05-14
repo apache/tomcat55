@@ -111,7 +111,7 @@
       </fileset>
     </jar>
 
-    <jar file="${dist.dir}/tomcat-connectors.jar" index="true" >
+    <jar file="${dist.dir}/tomcat-connectors.jar">
       <fileset dir="${build.dir}/classes" >
         <include name="**" />
         <exclude name="org/apache/ajp/**" />

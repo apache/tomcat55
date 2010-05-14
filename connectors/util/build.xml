@@ -120,7 +120,6 @@
         </copy>
 
 	<jar jarfile="${tomcat-util.jar}"
-             index="true"
              basedir="${tomcat-util.build}/classes"
              manifest="java/tomcat-util.manifest" >
             <include name="org/apache/tomcat/util/**"/>
@@ -141,7 +140,6 @@
             <classpath refid="compile.classpath"/>
         </javac>
      	<jar jarfile="${tomcat-loader.jar}"
-             index="true"
              basedir="${tomcat-util.build}/loader"
              manifest="loader/tomcat-loader.manifest" >
             <include name="org/apache/tomcat/util/loader/**"/>

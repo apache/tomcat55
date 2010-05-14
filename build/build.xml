@@ -294,7 +294,7 @@
     -->
 
     <!-- Protocol handlers - AJP -->
-    <jar jarfile="${tomcat.build}/server/lib/tomcat-ajp.jar" index="true">
+    <jar jarfile="${tomcat.build}/server/lib/tomcat-ajp.jar">
       <fileset dir="${tomcat.build}/classes">
         <include name="org/apache/coyote/ajp/**" />
         <include name="org/apache/jk/**" />
@@ -323,7 +323,7 @@
 
     <!-- Coyote API -->
     <delete file="${tomcat.build}/server/lib/tomcat-coyote.jar" />
-    <jar jarfile="${tomcat.build}/server/lib/tomcat-coyote.jar" index="true">
+    <jar jarfile="${tomcat.build}/server/lib/tomcat-coyote.jar">
       <fileset dir="${tomcat.build}/classes">
         <include name="org/apache/coyote/*" />
         <include name="org/apache/coyote/memory/*" />
@@ -350,7 +350,7 @@
     </ant>
 
     <!-- Protocol handlers - HTTP -->
-    <jar jarfile="${tomcat.build}/server/lib/tomcat-http.jar" index="true">
+    <jar jarfile="${tomcat.build}/server/lib/tomcat-http.jar">
       <fileset dir="${tomcat.build}/classes">
         <include name="org/apache/coyote/http11/**" />
         <!-- Javadoc and i18n exclusions -->
@@ -376,7 +376,7 @@
     </ant>
 
     <!-- APR -->
-    <jar jarfile="${tomcat.build}/server/lib/tomcat-apr.jar" index="true">
+    <jar jarfile="${tomcat.build}/server/lib/tomcat-apr.jar">
       <fileset dir="${tomcat.build}/classes">
         <include name="org/apache/tomcat/jni/**" />
         <!-- Javadoc and i18n exclusions -->
@@ -397,7 +397,7 @@
     </ant>
 
     <!-- Java.util.logging Implementation -->
-    <jar jarfile="${tomcat.build}/bin/tomcat-juli.jar" index="true">
+    <jar jarfile="${tomcat.build}/bin/tomcat-juli.jar">
       <fileset dir="${tomcat.build}/classes">
         <include name="org/apache/juli/**" />
         <!-- Javadoc and i18n exclusions -->
@@ -783,8 +783,7 @@
            encoding="ISO-8859-1">
       <include name="**" />
     </javac>
-    <jar jarfile="${tomcat-dbcp.jar}"
-         index="true">
+    <jar jarfile="${tomcat-dbcp.jar}">
        <fileset dir="${tomcat-dbcp.home}/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
@@ -801,7 +800,7 @@
 
       <target name="-build-jasper-compiler-jdt">
         <unjar src="${jdt.jar}" dest="${jasper-compiler-jdt.home}" />
-        <jar destfile="${jasper-compiler-jdt.jar}" index="true">
+        <jar destfile="${jasper-compiler-jdt.jar}">
             <fileset dir="${jasper-compiler-jdt.home}">
                 <include name="org/eclipse/jdt/core/compiler/**"/>
                 <include name="org/eclipse/jdt/internal/compiler/**"/>
@@ -907,40 +906,35 @@
 
     <!-- Build JARs for webapps classes -->
     <mkdir dir="${tomcat.build}/server/webapps/admin/WEB-INF/lib" />
-    <jar jarfile="${tomcat.build}/server/webapps/admin/WEB-INF/lib/catalina-admin.jar"
-         index="true">
+    <jar jarfile="${tomcat.build}/server/webapps/admin/WEB-INF/lib/catalina-admin.jar">
        <fileset dir="${tomcat.build}/server/webapps/admin/WEB-INF/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
        </fileset>
     </jar>
     <mkdir dir="${tomcat.build}/server/webapps/manager/WEB-INF/lib" />
-    <jar jarfile="${tomcat.build}/server/webapps/manager/WEB-INF/lib/catalina-manager.jar"
-         index="true">
+    <jar jarfile="${tomcat.build}/server/webapps/manager/WEB-INF/lib/catalina-manager.jar">
        <fileset dir="${tomcat.build}/server/webapps/manager/WEB-INF/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
        </fileset>
     </jar>
     <mkdir dir="${tomcat.build}/server/webapps/host-manager/WEB-INF/lib" />
-    <jar jarfile="${tomcat.build}/server/webapps/host-manager/WEB-INF/lib/catalina-host-manager.jar"
-         index="true">
+    <jar jarfile="${tomcat.build}/server/webapps/host-manager/WEB-INF/lib/catalina-host-manager.jar">
        <fileset dir="${tomcat.build}/server/webapps/host-manager/WEB-INF/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
        </fileset>
     </jar>
     <mkdir dir="${tomcat.build}/webapps/balancer/WEB-INF/lib" />
-    <jar jarfile="${tomcat.build}/webapps/balancer/WEB-INF/lib/catalina-balancer.jar"
-         index="true">
+    <jar jarfile="${tomcat.build}/webapps/balancer/WEB-INF/lib/catalina-balancer.jar">
        <fileset dir="${tomcat.build}/webapps/balancer/WEB-INF/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
        </fileset>
     </jar>
     <mkdir dir="${tomcat.build}/webapps/ROOT/WEB-INF/lib" />
-    <jar jarfile="${tomcat.build}/webapps/ROOT/WEB-INF/lib/catalina-root.jar"
-         index="true">
+    <jar jarfile="${tomcat.build}/webapps/ROOT/WEB-INF/lib/catalina-root.jar">
        <fileset dir="${tomcat.build}/webapps/ROOT/WEB-INF/classes">
           <include name="**/*.class" />
           <include name="**/*.properties" />
