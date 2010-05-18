@@ -25,16 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=38743
-  Warn if the user tries to set an invalid property.
-  Port of http://svn.apache.org/viewvc?view=rev&revision=565464
-  http://people.apache.org/~markt/patches/2009-07-02-bug38743.patch
-  +1: markt
-   0: fhanik - big step for an old branch, could be risky, I'd wait until after next release if we consider it
-  -1: kkolinko: It is reported that the change to the return type of the setProperty
-    method in o.a.t.util.IntrospectionUtils breaks binary compatibility:
-    http://marc.info/?l=tomcat-user&m=127083540720353&w=2
-
 * Minor cleanups for AccessLogValve classes
   Reuses StringBuffer, uses char instead of single-char String, etc.
   http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_ALV.patch
