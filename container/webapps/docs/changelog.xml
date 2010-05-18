@@ -117,6 +117,11 @@
   <subsection name="Cluster">
     <changelog>
       <fix>
+        <bug>48717</bug>: When a node joins a cluster and it receives all the
+        current sessions, ensure the sessionCreated event is fired if the
+        Manager is configured to replicate session events. (markt)
+      </fix>
+      <fix>
         <bug>49170</bug>: Do not send duplicated session. (kfujino)
       </fix>
     </changelog>

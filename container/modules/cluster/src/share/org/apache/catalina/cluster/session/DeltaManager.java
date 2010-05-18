@@ -789,6 +789,9 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
                                 session.getIdInternal()));
                 }
                 add(session);
+                if (notifySessionListenersOnReplication) {
+                    session.tellNew();
+                }
             }
         } catch (ClassNotFoundException e) {
             log.error(sm.getString("deltaManager.loading.cnfe", e), e);
