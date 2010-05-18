@@ -46,6 +46,9 @@
       <update>
         Update to NSIS 2.46. (kkolinko)
       </update>
+      <update>
+        Update to Apache Commons DBCP 1.3. (markt)
+      </update>
       <fix>
         <bug>49236</bug>: Do not use indexing when packing Tomcat JARs.
         (kkolinko)

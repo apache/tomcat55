@@ -754,6 +754,7 @@
         <fileset dir="${commons-dbcp.home}">
             <include name="**/*.java" />
             <exclude name="**/test/**" />
+            <exclude name="**/managed/**" />
         </fileset>
     </copy>
  <!--   <replace dir="${tomcat-dbcp.home}/src/java/org/apache/commons"
