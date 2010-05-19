@@ -71,16 +71,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko
   -1: 
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48840
-  If CDPATH is set, cd may result in output to stdout.
-  Swallow the output. This is safe since the script outputs the value used for
-  CATALINA_HOME so any issues will be visible then.
-  Patch provided by mdietze
-  http://svn.apache.org/viewvc?rev=928732&view=rev
-  http://svn.apache.org/viewvc?rev=945835&view=rev (rjung's review comment)
-  +1: markt, kkolinko, rjung
-  -1: 
-
 * Fix possible overflows when calculating session statistics
   Fixes a) miscalculating the "average" because of multiplication overflow,
   b) ArithmeticException division by zero when numExpired overflows.

@@ -50,6 +50,10 @@
         Update to Apache Commons DBCP 1.3. (markt)
       </update>
       <fix>
+        <bug>48840</bug>: Swallow output (if any) from use of cd when determining
+        $CATALINA_HOME in catalina.sh script. Patch provided by mdietze. (markt)
+      </fix>
+      <fix>
         <bug>49236</bug>: Do not use indexing when packing Tomcat JARs.
         (kkolinko)
       </fix>
