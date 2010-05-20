@@ -92,3 +92,8 @@ PATCHES PROPOSED TO BACKPORT:
   (apply to /container/catalina/src/bin/tool-wrapper.sh)
   +1: kkolinko
   -1:
+
+* Fix ByteChunk.indexOf(String, ...) when the string is of length 1
+  http://svn.apache.org/viewvc?rev=945231&view=rev
+  +1: kkolinko
+  -1:
