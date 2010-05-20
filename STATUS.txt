@@ -85,3 +85,10 @@ PATCHES PROPOSED TO BACKPORT:
   -0: markt - Consensus was for disabled in 5.5.x
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
+
+* Additional fix for https://issues.apache.org/bugzilla/show_bug.cgi?id=48840
+  Port the fix from catalina.sh to tool-wrapper.sh as well.
+  http://svn.apache.org/viewvc?rev=946686&view=rev
+  (apply to /container/catalina/src/bin/tool-wrapper.sh)
+  +1: kkolinko
+  -1:
