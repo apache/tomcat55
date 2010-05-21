@@ -82,10 +82,11 @@ PATCHES PROPOSED TO BACKPORT:
   Port the fix from catalina.sh to tool-wrapper.sh as well.
   http://svn.apache.org/viewvc?rev=946686&view=rev
   (apply to /container/catalina/src/bin/tool-wrapper.sh)
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix ByteChunk.indexOf(String, ...) when the string is of length 1
   http://svn.apache.org/viewvc?rev=945231&view=rev
   +1: kkolinko
+  -0: markt - I'd prefer a patch without the continue mainLoop:
   -1:
