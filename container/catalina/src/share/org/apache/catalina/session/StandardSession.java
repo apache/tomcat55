@@ -758,10 +758,15 @@ public class StandardSession
                     manager.setSessionMaxAliveTime(timeAlive);
                 }
                 int numExpired = manager.getExpiredSessions();
-                numExpired++;
-                manager.setExpiredSessions(numExpired);
+                if (numExpired < Integer.MAX_VALUE) {
+                    numExpired++;
+                    manager.setExpiredSessions(numExpired);
+                }
+
                 int average = manager.getSessionAverageAliveTime();
-                average = ((average * (numExpired-1)) + timeAlive)/numExpired;
+                // Using long, as otherwise (average * numExpired) might overflow 
+                average = (int) (((((long) average) * (numExpired - 1)) + timeAlive)
+                        / numExpired);
                 manager.setSessionAverageAliveTime(average);
             }
 

@@ -71,14 +71,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko
   -1: 
 
-* Fix possible overflows when calculating session statistics
-  Fixes a) miscalculating the "average" because of multiplication overflow,
-  b) ArithmeticException division by zero when numExpired overflows.
-  The fix for trunk is already provided by r934337.
-  http://people.apache.org/~kkolinko/patches/2010-04-21_tc6_StandardSession_statistics.patch
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Configure Tomcat to use HttpOnly for session cookies by default
   http://people.apache.org/~kkolinko/patches/2010-04-21_tc55_context_httpOnly.patch
   +1: kkolinko
