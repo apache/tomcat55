@@ -40,14 +40,14 @@ PATCHES PROPOSED TO BACKPORT:
   (Above patch is wrong - it is missing at least r562752, maybe others)
   Corrected patch based on Mark's one:
   http://people.apache.org/~kkolinko/patches/2010-04-22_tc55_bug47878.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48179
   Improve processing of TLD cache file
   https://issues.apache.org/bugzilla/attachment.cgi?id=24918
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
@@ -68,7 +68,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48701
   Tag account of TagVariableInfo when implementing the rules of JSP.5.3
   http://people.apache.org/~markt/patches/2010-03-09-bug48701.patch
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1: 
 
 * Configure Tomcat to use HttpOnly for session cookies by default
@@ -82,7 +82,7 @@ PATCHES PROPOSED TO BACKPORT:
   Port the fix from catalina.sh to tool-wrapper.sh as well.
   http://svn.apache.org/viewvc?rev=946686&view=rev
   (apply to /container/catalina/src/bin/tool-wrapper.sh)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
 * Fix ByteChunk.indexOf(String, ...) when the string is of length 1
