@@ -51,7 +51,8 @@
       </update>
       <fix>
         <bug>48840</bug>: Swallow output (if any) from use of cd when determining
-        $CATALINA_HOME in catalina.sh script. Patch provided by mdietze. (markt)
+        $CATALINA_HOME in catalina.sh and tool-wrapper.sh scripts. Based on patch
+        provided by mdietze. (markt/kkolinko)
       </fix>
       <fix>
         <bug>49236</bug>: Do not use indexing when packing Tomcat JARs.

@@ -42,7 +42,7 @@ CLASSPATH=
 
 # Get standard environment variables
 PRGDIR=`dirname "$PRG"`
-CATALINA_HOME=`cd "$PRGDIR/.." ; pwd`
+CATALINA_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
 if [ -r "$CATALINA_HOME"/bin/setenv.sh ]; then
   . "$CATALINA_HOME"/bin/setenv.sh
 fi
