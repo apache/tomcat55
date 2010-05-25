@@ -74,6 +74,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix ByteChunk.indexOf(String, ...) when the string is of length 1
   http://svn.apache.org/viewvc?rev=945231&view=rev
-  +1: kkolinko
-  -0: markt - I'd prefer a patch without the continue mainLoop:
+  +1: kkolinko, markt
   -1:
