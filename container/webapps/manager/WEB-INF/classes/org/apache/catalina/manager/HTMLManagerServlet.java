@@ -50,7 +50,7 @@ import org.apache.commons.fileupload.DiskFileUpload;
 * makes it easier to administrate.
 * <p>
 * However if you use a software that parses the output of
-* <code>ManagerServlet</code you won't be able to upgrade
+* <code>ManagerServlet</code> you won't be able to upgrade
 * to this Servlet since the output are not in the
 * same format ar from <code>ManagerServlet</code>
 *
