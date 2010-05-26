@@ -146,7 +146,7 @@
   <!-- Define a Security Constraint on this Application -->
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>HTMLManger and Manager command</web-resource-name>
+      <web-resource-name>HTMLManager and Manager command</web-resource-name>
       <url-pattern>/jmxproxy/*</url-pattern>
       <url-pattern>/html/*</url-pattern>
       <url-pattern>/list</url-pattern>
