@@ -31,6 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.tagext.TagInfo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.apache.jasper.JasperException;
 import org.apache.jasper.JspCompilationContext;
 import org.apache.jasper.Options;
@@ -59,6 +62,9 @@ import org.apache.jasper.runtime.JspSourceDependent;
  */
 
 public class JspServletWrapper {
+
+    // Logger
+    private final Log log = LogFactory.getLog(JspServletWrapper.class);
 
     private Servlet theServlet;
     private String jspUri;
@@ -272,6 +278,7 @@ public class JspServletWrapper {
                         HttpServletResponse response,
                         boolean precompile)
 	    throws ServletException, IOException, FileNotFoundException {
+        
         try {
 
             if (ctxt.isRemoved()) {
@@ -318,6 +325,37 @@ public class JspServletWrapper {
                 return;
             }
 
+        } catch (ServletException ex) {
+            if (options.getDevelopment()) {
+                throw handleJspException(ex);
+            } else {
+                throw ex;
+            }
+        } catch (FileNotFoundException fnfe) {
+            // File has been removed. Let caller handle this.
+            throw fnfe;
+        } catch (IOException ex) {
+            if (options.getDevelopment()) {
+                throw handleJspException(ex);
+            } else {
+                throw ex;
+            }
+        } catch (IllegalStateException ex) {
+            if (options.getDevelopment()) {
+                throw handleJspException(ex);
+            } else {
+                throw ex;
+            }
+        } catch (Exception ex) {
+            if (options.getDevelopment()) {
+                throw handleJspException(ex);
+            } else {
+                throw new JasperException(ex);
+            }
+        }
+
+        try {
+            
             /*
              * (3) Service request
              */

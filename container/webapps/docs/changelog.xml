@@ -111,6 +111,11 @@
         (kkolinko)
       </fix>
       <fix>
+        <bug>47878</bug>: Return &#x201C;404&#x201D;s rather than a permanent
+        &#x201C;500&#x201D; if a JSP is deleted. Make sure first response after
+        deletion is correct. (markt/kkolinko)
+      </fix>
+      <fix>
         <bug>48701</bug>: Add a system property to allow disabling enforcement
         of JSP.5.3. The specification recommends, but does not require, this
         enforcement. (kkolinko)

@@ -17,6 +17,7 @@
 
 package org.apache.jasper.servlet;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 
@@ -35,6 +36,7 @@ import org.apache.jasper.EmbeddedServletOptions;
 import org.apache.jasper.Options;
 import org.apache.jasper.compiler.JspRuntimeContext;
 import org.apache.jasper.compiler.Localizer;
+import org.apache.jasper.security.SecurityUtil;
 
 /**
  * The JSP engine (a.k.a Jasper).
@@ -283,31 +285,15 @@ public class JspServlet extends HttpServlet {
                                 Throwable exception, boolean precompile)
         throws ServletException, IOException {
 
-        JspServletWrapper wrapper =
-            (JspServletWrapper) rctxt.getWrapper(jspUri);
+        JspServletWrapper wrapper = rctxt.getWrapper(jspUri);
         if (wrapper == null) {
             synchronized(this) {
-                wrapper = (JspServletWrapper) rctxt.getWrapper(jspUri);
+                wrapper = rctxt.getWrapper(jspUri);
                 if (wrapper == null) {
                     // Check if the requested JSP page exists, to avoid
                     // creating unnecessary directories and files.
                     if (null == context.getResource(jspUri)) {
-                        String includeRequestUri = (String)
-                        request.getAttribute("javax.servlet.include.request_uri");
-                        if (includeRequestUri != null) {
-                            // This file was included. Throw an exception as
-                            // a response.sendError() will be ignored
-                            throw new ServletException(Localizer.getMessage(
-                                    "jsp.error.file.not.found",jspUri));
-                        } else {
-                            try {
-                                response.sendError(HttpServletResponse.SC_NOT_FOUND,
-                                        request.getRequestURI());
-                        } catch (IllegalStateException ise) {
-                            log.error(Localizer.getMessage("jsp.error.file.not.found",
-                                   jspUri));
-                        }
-                    }
+                        handleMissingResource(request, response, jspUri);
                         return;
                     }
                     boolean isErrorPage = exception != null;
@@ -318,8 +304,39 @@ public class JspServlet extends HttpServlet {
             }
         }
 
-        wrapper.service(request, response, precompile);
+        try {
+            wrapper.service(request, response, precompile);
+        } catch (FileNotFoundException fnfe) {
+            handleMissingResource(request, response, jspUri);
+        }
 
     }
+
+    private void handleMissingResource(HttpServletRequest request,
+            HttpServletResponse response, String jspUri)
+            throws ServletException, IOException {
+
+        String includeRequestUri =
+            (String)request.getAttribute("javax.servlet.include.request_uri");
+
+        if (includeRequestUri != null) {
+            // This file was included. Throw an exception as
+            // a response.sendError() will be ignored
+            String msg =
+                Localizer.getMessage("jsp.error.file.not.found",jspUri);
+            // Strictly, filtering this is an application
+            // responsibility but just in case...
+            throw new ServletException(SecurityUtil.filter(msg));
+        } else {
+            try {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND,
+                        request.getRequestURI());
+            } catch (IllegalStateException ise) {
+                log.error(Localizer.getMessage("jsp.error.file.not.found",
+                        jspUri));
+            }
+        }
+        return;
+     }
 
 }

@@ -74,14 +74,13 @@ public class JspCompilationContext {
     private String classPath;
 
     private String baseURI;
-    private String baseOutputDir;
     private String outputDir;
     private ServletContext context;
     private URLClassLoader loader;
 
     private JspRuntimeContext rctxt;
 
-    private int removed = 0;
+    private volatile int removed = 0;
 
     private URLClassLoader jspLoader;
     private URL baseUrl;
@@ -539,16 +538,14 @@ public class JspCompilationContext {
     // ==================== Removal ==================== 
 
     public void incrementRemoved() {
-        if (removed > 1) {
-            jspCompiler.removeGeneratedFiles();
-            if( rctxt != null )
-                rctxt.removeWrapper(jspUri);
+        if (removed == 0 && rctxt != null) {
+            rctxt.removeWrapper(jspUri);
         }
         removed++;
     }
 
     public boolean isRemoved() {
-        if (removed > 1 ) {
+        if (removed > 0 ) {
             return true;
         }
         return false;
@@ -559,7 +556,11 @@ public class JspCompilationContext {
     public void compile() throws JasperException, FileNotFoundException {
         createCompiler();
         if (isPackagedTagFile || jspCompiler.isOutDated()) {
+            if (isRemoved()) {
+                throw new FileNotFoundException(jspUri);
+            }
             try {
+                jspCompiler.removeGeneratedFiles();
                 jspLoader = null;
                 jspCompiler.compile();
                 jsw.setReload(true);
@@ -569,7 +570,6 @@ public class JspCompilationContext {
                 jsw.setCompilationException(ex);
                 throw ex;
             } catch (Exception ex) {
-                ex.printStackTrace();
                 JasperException je = new JasperException(
                             Localizer.getMessage("jsp.error.unable.compile"),
                             ex);

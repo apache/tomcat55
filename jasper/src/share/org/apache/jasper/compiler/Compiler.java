@@ -393,13 +393,13 @@ public abstract class Compiler {
             URL jspUrl = ctxt.getResource(jsp);
             if (jspUrl == null) {
                 ctxt.incrementRemoved();
-                return false;
+                return true;
             }
             URLConnection uc = jspUrl.openConnection();
             jspRealLastModified = uc.getLastModified();
             uc.getInputStream().close();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.debug("Problem accessing resource. Treat as outdated.", e);
             return true;
         }
 
@@ -456,7 +456,7 @@ public abstract class Compiler {
                     return true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.debug("Problem accessing resource. Treat as outdated.", e);
                 return true;
             }
         }
