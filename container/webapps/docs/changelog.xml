@@ -76,6 +76,10 @@
         <bug>47774</bug>: Ensure web application class loader is used when 
         calling session listeners. (kfujino)
       </fix>
+      <update>
+        <bug>48179</bug>: Improve error handling when reading or writing
+        TLD cache file ("tldCache.ser"). (kkolinko)
+      </update>
       <fix>
         Ensure all required i18n messages are present for the APR/native
         Listener. (kkolinko)

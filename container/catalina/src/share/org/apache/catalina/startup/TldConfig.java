@@ -274,8 +274,8 @@ public final class TldConfig implements LifecycleListener {
             // find the cache
             if( tldCache!= null && tldCache.exists()) {
                 // just read it...
-                processCache(tldCache);
-                return;
+                if (processCache(tldCache))
+                    return;
             }
         }
 
@@ -290,8 +290,8 @@ public final class TldConfig implements LifecycleListener {
         if (tldCache != null && tldCache.exists()) {
             long lastModified = getLastModified(resourcePaths, jarPaths);
             if (lastModified < tldCache.lastModified()) {
-                processCache(tldCache);
-                return;
+                if (processCache(tldCache))
+                    return;
             }
         }
 
@@ -316,13 +316,29 @@ public final class TldConfig implements LifecycleListener {
 
         if( tldCache!= null ) {
             log.debug( "Saving tld cache: " + tldCache + " " + list.length);
+            FileOutputStream out = null;
             try {
-                FileOutputStream out=new FileOutputStream(tldCache);
+                out=new FileOutputStream(tldCache);
                 ObjectOutputStream oos=new ObjectOutputStream( out );
                 oos.writeObject( list );
                 oos.close();
+                out = null;
             } catch( IOException ex ) {
-                ex.printStackTrace();
+                log.warn(sm.getString("tldConfig.cache.write", context
+                        .getPath()), ex);
+            } finally {
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (Exception ignored) {
+                        // Do nothing
+                    }
+                    try {
+                        tldCache.delete();
+                    } catch (Exception ignored) {
+                        // Do nothing
+                    }
+                }
             }
         }
 
@@ -385,10 +401,11 @@ public final class TldConfig implements LifecycleListener {
         return lastModified;
     }
 
-    private void processCache(File tldCache ) throws IOException {
+    private boolean processCache(File tldCache ) throws IOException {
         // read the cache and return;
+        FileInputStream in = null;
         try {
-            FileInputStream in=new FileInputStream(tldCache);
+            in =new FileInputStream(tldCache);
             ObjectInputStream ois=new ObjectInputStream( in );
             String list[]=(String [])ois.readObject();
             if( log.isDebugEnabled() )
@@ -397,8 +414,25 @@ public final class TldConfig implements LifecycleListener {
                 context.addApplicationListener(list[i]);
             }
             ois.close();
-        } catch( ClassNotFoundException ex ) {
-            ex.printStackTrace();
+            in = null;
+            return true;
+        } catch( Exception ex ) {
+            log.warn(sm.getString("tldConfig.cache.read", context
+                    .getPath()), ex);
+            return false;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception ignored) {
+                    // Do nothing
+                }
+                try {
+                    tldCache.delete();
+                } catch (Exception ignored) {
+                    // Do nothing
+                }
+            }
         }
     }
 
