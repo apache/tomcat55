@@ -66,3 +66,11 @@ PATCHES PROPOSED TO BACKPORT:
   (Easier to review if you ignore whitespaces during the diff)
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49196
+  Avoid NullPointerException in PageContext.getErrorData() if an
+  error-handling JSP page is called directly.
+  It is backport of r948057.
+  https://issues.apache.org/bugzilla/attachment.cgi?id=25534
+  +1: kkolinko
+  -1: 
