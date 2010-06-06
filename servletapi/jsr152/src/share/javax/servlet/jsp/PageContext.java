@@ -512,12 +512,12 @@ abstract public class PageContext
      * @since 2.0
      */
     public ErrorData getErrorData() {
-	return new ErrorData( 
-	    (Throwable)getRequest().getAttribute( "javax.servlet.error.exception" ),
-	    ((Integer)getRequest().getAttribute( 
-		"javax.servlet.error.status_code" )).intValue(),
-	    (String)getRequest().getAttribute( "javax.servlet.error.request_uri" ),
-	    (String)getRequest().getAttribute( "javax.servlet.error.servlet_name" ) );
+        return new ErrorData( 
+            (Throwable)getRequest().getAttribute( "javax.servlet.error.exception" ),
+            ((Integer)getRequest().getAttribute( 
+                "javax.servlet.error.status_code" )).intValue(),
+            (String)getRequest().getAttribute( "javax.servlet.error.request_uri" ),
+            (String)getRequest().getAttribute( "javax.servlet.error.servlet_name" ) );
     }
     
 }
