@@ -55,8 +55,8 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843#c8
-  Prevent possible deadlocks in AprEndpoint.Poller and AprEndpoint.Sendfile,
-  caused by missing Object.notify() wakeup,
+  Fix handling the add queue in AprEndpoint.Poller and AprEndpoint.Sendfile.
+  Do not miss Object.notify() wakeup.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25529
   (Easier to review if you ignore whitespaces during the diff)
   +1: kkolinko, rjung
