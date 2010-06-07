@@ -81,6 +81,10 @@
         TLD cache file ("tldCache.ser"). (kkolinko)
       </update>
       <fix>
+        <bug>49398</bug>: ByteChunk.indexOf(String, int, int, int) could not
+        find a string of length 1. (kkolinko)
+      </fix>
+      <fix>
         Ensure all required i18n messages are present for the APR/native
         Listener. (kkolinko)
       </fix>

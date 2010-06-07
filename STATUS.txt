@@ -54,11 +54,6 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
-* Fix ByteChunk.indexOf(String, ...) when the string is of length 1
-  http://svn.apache.org/viewvc?rev=945231&view=rev
-  +1: kkolinko, markt, rjung
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843#c8
   Prevent possible deadlocks in AprEndpoint.Poller and AprEndpoint.Sendfile,
   caused by missing Object.notify() wakeup,
