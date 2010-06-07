@@ -74,3 +74,11 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=25534
   +1: kkolinko
   -1: 
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48990#c11
+  Do not omit exe and dll files in release builds built on Unixes,
+  to align them with the official ones built on Windows.
+  Add support for "skip.installer" property.
+  https://issues.apache.org/bugzilla/attachment.cgi?id=25537
+  +1: kkolinko
+  -1:
