@@ -67,7 +67,7 @@ PATCHES PROPOSED TO BACKPORT:
   error-handling JSP page is called directly.
   It is backport of r948057.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25534
-  +1: kkolinko
+  +1: kkolinko, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48990#c11
@@ -75,5 +75,5 @@ PATCHES PROPOSED TO BACKPORT:
   to align them with the official ones built on Windows.
   Add support for "skip.installer" property.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25537
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
