@@ -77,3 +77,9 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=25537
   +1: kkolinko, markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49445
+  The change in session ID is notified to other node. 
+  http://svn.apache.org/viewvc?view=revision&revision=955190
+  +1: kfujino
+  -1:
