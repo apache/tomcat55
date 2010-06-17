@@ -59,7 +59,7 @@ PATCHES PROPOSED TO BACKPORT:
   Do not miss Object.notify() wakeup.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25529
   (Easier to review if you ignore whitespaces during the diff)
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49196
@@ -67,7 +67,7 @@ PATCHES PROPOSED TO BACKPORT:
   error-handling JSP page is called directly.
   It is backport of r948057.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25534
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48990#c11
@@ -75,7 +75,7 @@ PATCHES PROPOSED TO BACKPORT:
   to align them with the official ones built on Windows.
   Add support for "skip.installer" property.
   https://issues.apache.org/bugzilla/attachment.cgi?id=25537
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49445
