@@ -95,10 +95,7 @@ public class DeltaSession extends StandardSession implements Externalizable,Clus
     // ----------------------------------------------------------- Constructors
 
     /**
-     * Construct a new Session associated with the specified Manager.
-     *
-     * @param manager
-     *            The manager with which this Session is associated
+     * Construct a new Session.
      */
     public DeltaSession() {
         this(null);
