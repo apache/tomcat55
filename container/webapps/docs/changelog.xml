@@ -95,6 +95,10 @@
       <fix>
         Fix possible overflows when calculating session statistics. (kkolinko)
       </fix>
+      <fix>
+        <bug>49424</bug>: Avoid NPE if client provides no data with a chunked
+        POST request. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">

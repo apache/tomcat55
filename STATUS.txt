@@ -59,10 +59,3 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=955190
   +1: kfujino
   -1:
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49424
-  Avoid NPE if client provides no data with a chunked POST request
-  http://svn.apache.org/viewvc?rev=953434&view=rev
-  (by markt)
-  +1: kkolinko, markt, kfujino
-  -1: 
