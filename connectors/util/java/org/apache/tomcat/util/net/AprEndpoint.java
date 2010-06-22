@@ -1029,9 +1029,9 @@ public class AprEndpoint {
         protected long[] desc;
 
         protected long[] addS;
-        protected int addCount = 0;
+        protected volatile int addCount = 0;
         
-        protected int keepAliveCount = 0;
+        protected volatile int keepAliveCount = 0;
         public int getKeepAliveCount() { return keepAliveCount; }
 
         /**
@@ -1118,15 +1118,17 @@ public class AprEndpoint {
                     }
                 }
 
-                while (keepAliveCount < 1 && addCount < 1) {
-                    // Reset maintain time.
-                    maintainTime = 0;
-                    try {
-                        synchronized (this) {
-                            this.wait();
+                if (keepAliveCount < 1 && addCount < 1) {
+                    synchronized (this) {
+                        while (keepAliveCount < 1 && addCount < 1) {
+                            // Reset maintain time.
+                            maintainTime = 0;
+                            try {
+                                this.wait();
+                            } catch (InterruptedException e) {
+                                // Ignore
+                            }
                         }
-                    } catch (InterruptedException e) {
-                        // Ignore
                     }
                 }
 
@@ -1134,17 +1136,22 @@ public class AprEndpoint {
                     // Add sockets which are waiting to the poller
                     if (addCount > 0) {
                         synchronized (this) {
-                            for (int i = (addCount - 1); i >= 0; i--) {
-                                int rv = Poll.add
-                                    (serverPollset, addS[i], Poll.APR_POLLIN);
-                                if (rv == Status.APR_SUCCESS) {
-                                    keepAliveCount++;
-                                } else {
-                                    // Can't do anything: close the socket right away
-                                    Socket.destroy(addS[i]);
+                            int successCount = 0;
+                            try {
+                                for (int i = (addCount - 1); i >= 0; i--) {
+                                    int rv = Poll.add
+                                        (serverPollset, addS[i], Poll.APR_POLLIN);
+                                    if (rv == Status.APR_SUCCESS) {
+                                        successCount++;
+                                    } else {
+                                        // Can't do anything: close the socket right away
+                                        Socket.destroy(addS[i]);
+                                    }
                                 }
+                            } finally {
+                                keepAliveCount += successCount;
+                                addCount = 0;
                             }
-                            addCount = 0;
                         }
                     }
                     maintainTime += pollTime;
@@ -1347,10 +1354,11 @@ public class AprEndpoint {
         protected long[] desc;
         protected HashMap sendfileData;
         
-        protected int sendfileCount;
+        protected volatile int sendfileCount;
         public int getSendfileCount() { return sendfileCount; }
 
         protected ArrayList addS;
+        protected volatile int addCount;
 
         /**
          * Create the sendfile poller. With some versions of APR, the maximum poller size will
@@ -1371,6 +1379,7 @@ public class AprEndpoint {
             desc = new long[size * 2];
             sendfileData = new HashMap(size);
             addS = new ArrayList();
+            addCount = 0;
         }
 
         /**
@@ -1378,6 +1387,7 @@ public class AprEndpoint {
          */
         protected void destroy() {
             // Close any socket remaining in the add queue
+            addCount = 0;
             for (int i = (addS.size() - 1); i >= 0; i--) {
                 SendfileData data = (SendfileData) addS.get(i);
                 Socket.destroy(data.socket);
@@ -1445,6 +1455,7 @@ public class AprEndpoint {
             // at most for pollTime before being polled
             synchronized (this) {
                 addS.add(data);
+                addCount++;
                 this.notify();
             }
             return false;
@@ -1482,35 +1493,43 @@ public class AprEndpoint {
                     }
                 }
 
-                while (sendfileCount < 1 && addS.size() < 1) {
-                    // Reset maintain time.
-                    maintainTime = 0;
-                    try {
-                        synchronized (this) {
-                            this.wait();
+                if (sendfileCount < 1 && addCount < 1) {
+                    synchronized (this) {
+                        while (sendfileCount < 1 && addS.size() < 1) {
+                            // Reset maintain time.
+                            maintainTime = 0;
+                            try {
+                                this.wait();
+                            } catch (InterruptedException e) {
+                                // Ignore
+                            }
                         }
-                    } catch (InterruptedException e) {
-                        // Ignore
                     }
                 }
 
                 try {
                     // Add socket to the poller
-                    if (addS.size() > 0) {
+                    if (addCount > 0) {
                         synchronized (this) {
-                            for (int i = (addS.size() - 1); i >= 0; i--) {
-                                SendfileData data = (SendfileData) addS.get(i);
-                                int rv = Poll.add(sendfilePollset, data.socket, Poll.APR_POLLOUT);
-                                if (rv == Status.APR_SUCCESS) {
-                                    sendfileData.put(new Long(data.socket), data);
-                                    sendfileCount++;
-                                } else {
-                                    log.warn(sm.getString("endpoint.sendfile.addfail", "" + rv, Error.strerror(rv)));
-                                    // Can't do anything: close the socket right away
-                                    Socket.destroy(data.socket);
+                            int successCount = 0;
+                            try {
+                                for (int i = (addS.size() - 1); i >= 0; i--) {
+                                    SendfileData data = (SendfileData) addS.get(i);
+                                    int rv = Poll.add(sendfilePollset, data.socket, Poll.APR_POLLOUT);
+                                    if (rv == Status.APR_SUCCESS) {
+                                        sendfileData.put(new Long(data.socket), data);
+                                        successCount++;
+                                    } else {
+                                        log.warn(sm.getString("endpoint.sendfile.addfail", "" + rv, Error.strerror(rv)));
+                                        // Can't do anything: close the socket right away
+                                        Socket.destroy(data.socket);
+                                    }
                                 }
+                            } finally {
+                                sendfileCount += successCount;
+                                addS.clear();
+                                addCount = 0;
                             }
-                            addS.clear();
                         }
                     }
 

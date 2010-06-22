@@ -100,8 +100,8 @@
         the Listener element has been specified in server.xml. (fhanik/kkolinko)
       </fix>
       <fix>
-        <bug>48843</bug>: Prevent possible deadlock for worker allocation in
-        APR connectors. (kkolinko)
+        <bug>48843</bug>: Prevent possible deadlock and correct queue handling
+        for worker allocation in APR connectors. (kkolinko)
       </fix>
       <fix>
         Use chunked encoding for http 1.1 responses with no content-length

@@ -54,14 +54,6 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48843#c8
-  Fix handling the add queue in AprEndpoint.Poller and AprEndpoint.Sendfile.
-  Do not miss Object.notify() wakeup.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=25529
-  (Easier to review if you ignore whitespaces during the diff)
-  +1: kkolinko, rjung, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49196
   Avoid NullPointerException in PageContext.getErrorData() if an
   error-handling JSP page is called directly.
