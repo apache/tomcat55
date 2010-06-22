@@ -58,6 +58,10 @@
         <bug>49236</bug>: Do not use indexing when packing Tomcat JARs.
         (kkolinko)
       </fix>
+      <fix>
+        <bug>48990</bug>: Build windows distributions correctly on Linux and
+        add support for the skip.installer property. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">

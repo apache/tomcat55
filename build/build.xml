@@ -1398,6 +1398,28 @@
     <!-- Bugzilla 37035: http://issues.apache.org/bugzilla/show_bug.cgi?id=37035 -->
     <touch file="${tomcat.dist}/temp/bugzilla37035-safeToDelete.tmp" />
 
+    <!-- Windows binaries for each platform -->
+    <!-- 32 bit -->
+    <copy file="${commons-daemon.home}/windows/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/tomcat${version.major}.exe" />
+    <copy file="${commons-daemon.home}/windows/prunmgr.exe"
+        tofile="${tomcat.dist}/bin/tomcat${version.major}w.exe" />
+    <!-- 64 bit amd -->
+    <copy file="${commons-daemon.home}/windows/amd64/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/x64/tomcat${version.major}.exe" />
+    <!-- 64 bit ia -->
+    <copy file="${commons-daemon.home}/windows/ia64/prunsrv.exe"
+        tofile="${tomcat.dist}/bin/i64/tomcat${version.major}.exe" />
+    <!-- tc native -->
+    <copy file="${tomcat-native.home}/tcnative-1.dll.x86"
+          tofile="${tomcat.dist}/bin/tcnative-1.dll" />
+    <!-- tc native 64 bit for amd/emt -->
+    <copy file="${tomcat-native.home}/tcnative-1.dll.x64"
+          tofile="${tomcat.dist}/bin/x64/tcnative-1.dll" />
+    <!-- tc native 64 bit for ia -->
+    <copy file="${tomcat-native.home}/tcnative-1.dll.i64"
+          tofile="${tomcat.dist}/bin/i64/tcnative-1.dll" />
+
     <!-- Correct permissions and line endings on "bin" scripts -->
     <fixcrlf srcdir="${tomcat.dist}/bin"   includes="*.sh"  eol="lf"
         encoding="ISO-8859-1" fixlast="false" />
@@ -1530,26 +1552,6 @@
     <copy file="${nsis.installoptions.dll}" todir="${tomcat.dist}" />
     <copy file="${nsis.nsexec.dll}" todir="${tomcat.dist}" />
     <copy file="${nsis.nsisdl.dll}" todir="${tomcat.dist}" />
-    <!-- 32 bit -->
-    <copy file="${commons-daemon.home}/windows/prunsrv.exe"
-        tofile="${tomcat.dist}/bin/tomcat${version.major}.exe" />
-    <copy file="${commons-daemon.home}/windows/prunmgr.exe"
-        tofile="${tomcat.dist}/bin/tomcat${version.major}w.exe" />
-    <!-- 64 bit amd -->
-    <copy file="${commons-daemon.home}/windows/amd64/prunsrv.exe"
-        tofile="${tomcat.dist}/bin/x64/tomcat${version.major}.exe" />
-    <!-- 64 bit ia -->
-    <copy file="${commons-daemon.home}/windows/ia64/prunsrv.exe"
-        tofile="${tomcat.dist}/bin/i64/tomcat${version.major}.exe" />
-    <!-- tc native -->
-    <copy file="${tomcat-native.home}/tcnative-1.dll.x86"
-          tofile="${tomcat.dist}/bin/tcnative-1.dll" />
-    <!-- tc native 64 bit for amd/emt -->
-    <copy file="${tomcat-native.home}/tcnative-1.dll.x64"
-          tofile="${tomcat.dist}/bin/x64/tcnative-1.dll" />
-    <!-- tc native 64 bit for ia -->
-    <copy file="${tomcat-native.home}/tcnative-1.dll.i64"
-          tofile="${tomcat.dist}/bin/i64/tcnative-1.dll" />
 
     <filter token="VERSION" value="${version}"/>
     <filter token="VERSION_NUMBER" value="${version.number}"/>
@@ -1702,6 +1704,7 @@
          otherwise this check fails and the .exe distro is not generated -->
     <condition property="execute.installer">
       <and>
+        <not><isset property="skip.installer" /></not>
         <os family="windows" />
         <available file="${nsis.exe}" />
         <available file="${nsis.installoptions.dll}" />
