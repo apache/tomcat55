@@ -64,5 +64,5 @@ PATCHES PROPOSED TO BACKPORT:
   Avoid NPE if client provides no data with a chunked POST request
   http://svn.apache.org/viewvc?rev=953434&view=rev
   (by markt)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1: 
