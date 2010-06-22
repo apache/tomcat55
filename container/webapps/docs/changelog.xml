@@ -133,6 +133,11 @@
         security manager if the first access is to a JSP that uses a
         FunctionMapper. (markt/kkolinko)
       </fix>
+      <fix>
+        <bug>49196</bug>: Avoid NullPointerException in
+        PageContext.getErrorData() if an error-handling JSP page is called
+        directly. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Cluster">
