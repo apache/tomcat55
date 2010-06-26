@@ -29,7 +29,7 @@ PATCHES PROPOSED TO BACKPORT:
   Reuses StringBuffer, uses char instead of single-char String, etc.
   http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_ALV.patch
   http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_FCALV.patch
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, markt
   -1:
 
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
@@ -57,5 +57,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49445
   The change in session ID is notified to other node. 
   http://svn.apache.org/viewvc?view=revision&revision=955190
-  +1: kfujino
+  +1: kfujino, markt
   -1:
