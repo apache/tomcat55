@@ -54,11 +54,3 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49445
-  The change in session ID is notified to other node. 
-  http://svn.apache.org/viewvc?view=revision&revision=955190
-  +1: kfujino, markt
-  +1: kkolinko:
-       1. to apply to both o.a.c.cluster.session.* and o.a.c.ha.session.*
-       2. do not forget to omit the @Override annotation
-  -1:

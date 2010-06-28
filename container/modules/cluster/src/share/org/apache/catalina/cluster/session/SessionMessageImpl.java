@@ -72,8 +72,8 @@ public class SessionMessageImpl implements SessionMessage, java.io.Serializable 
      *    The parameters: sessionID must be set.<BR>
      * <B>EVT_SESSION_ACCESSED</B><BR>
      *    The parameters: sessionID must be set.<BR>
-     * <B>EVT_SESSION_EXPIRED_XXXX</B><BR>
-     *    The parameters: sessionID must be set.<BR>
+     * <B>EVT_GET_ALL_SESSIONS</B><BR>
+     *    get all sessions from from one of the nodes.<BR>
      * <B>EVT_SESSION_DELTA</B><BR>
      *    Send attribute delta (add,update,remove attribute or principal, ...).<BR>
      * <B>EVT_ALL_SESSION_DATA</B><BR>
@@ -81,6 +81,8 @@ public class SessionMessageImpl implements SessionMessage, java.io.Serializable 
      * <B>EVT_ALL_SESSION_TRANSFERCOMPLETE</B><BR>
      *    send that all session state information are transfered
      *    after GET_ALL_SESSION received from this sender.<BR>
+     * <B>EVT_CHANGE_SESSION_ID</B><BR>
+     *    send original sessionID and new sessionID.<BR>
      * @param contextName - the name of the context (application
      * @param eventtype - one of the 8 event type defined in this class
      * @param session - the serialized byte array of the session itself
@@ -142,6 +144,7 @@ public class SessionMessageImpl implements SessionMessage, java.io.Serializable 
             case EVT_SESSION_DELTA : return "SESSION-DELTA";
             case EVT_ALL_SESSION_DATA : return "ALL-SESSION-DATA";
             case EVT_ALL_SESSION_TRANSFERCOMPLETE : return "SESSION-STATE-TRANSFERED";
+            case EVT_CHANGE_SESSION_ID : return "SESSION-ID-CHANGED";
             default : return "UNKNOWN-EVENT-TYPE";
         }
     }

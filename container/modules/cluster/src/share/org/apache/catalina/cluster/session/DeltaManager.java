@@ -173,8 +173,6 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
 
     private long counterReceive_EVT_GET_ALL_SESSIONS = 0 ;
 
-    private long counterSend_EVT_ALL_SESSION_DATA = 0 ;
-
     private long counterReceive_EVT_ALL_SESSION_DATA = 0 ;
 
     private long counterReceive_EVT_SESSION_CREATED = 0 ;
@@ -185,7 +183,13 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
 
     private long counterReceive_EVT_SESSION_DELTA = 0;
 
+    private int counterReceive_EVT_ALL_SESSION_TRANSFERCOMPLETE = 0 ;
+
+    private long counterReceive_EVT_CHANGE_SESSION_ID = 0 ;
+
     private long counterSend_EVT_GET_ALL_SESSIONS = 0 ;
+
+    private long counterSend_EVT_ALL_SESSION_DATA = 0 ;
 
     private long counterSend_EVT_SESSION_CREATED = 0;
 
@@ -197,7 +201,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
 
     private int counterSend_EVT_ALL_SESSION_TRANSFERCOMPLETE = 0 ;
 
-    private int counterReceive_EVT_ALL_SESSION_TRANSFERCOMPLETE = 0 ;
+    private long counterSend_EVT_CHANGE_SESSION_ID = 0;
 
     private int counterNoStateTransfered = 0 ;
 
@@ -312,7 +316,14 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
     public int getCounterSend_EVT_ALL_SESSION_TRANSFERCOMPLETE() {
         return counterSend_EVT_ALL_SESSION_TRANSFERCOMPLETE;
     }
- 
+
+    /**
+     * @return Returns the counterSend_EVT_CHANGE_SESSION_ID.
+     */
+    public long getCounterSend_EVT_CHANGE_SESSION_ID() {
+        return counterSend_EVT_CHANGE_SESSION_ID;
+    }
+
     /**
      * @return Returns the counterReceive_EVT_ALL_SESSION_DATA.
      */
@@ -362,7 +373,14 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
     public int getCounterReceive_EVT_ALL_SESSION_TRANSFERCOMPLETE() {
         return counterReceive_EVT_ALL_SESSION_TRANSFERCOMPLETE;
     }
-    
+
+    /**
+     * @return Returns the counterReceive_EVT_CHANGE_SESSION_ID.
+     */
+    public long getCounterReceive_EVT_CHANGE_SESSION_ID() {
+        return counterReceive_EVT_CHANGE_SESSION_ID;
+    }
+
     /**
      * @return Returns the processingTime.
      */
@@ -704,6 +722,67 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
      */
     protected DeltaSession getNewDeltaSession() {
         return new DeltaSession(this);
+    }
+
+    /**
+     * Change the session ID of the current session to a new randomly generated
+     * session ID.
+     * 
+     * @param session   The session to change the session ID for
+     */
+    public void changeSessionId(Session session) {
+        changeSessionId(session, true);
+    }
+
+    public void changeSessionId(Session session, boolean notify) {
+        // original sessionID
+        String orgSessionID = session.getId();
+        super.changeSessionId(session);
+        if (notify) {
+            // changed sessionID
+            String newSessionID = session.getId();
+            try {
+                // serialize sessionID
+                byte[] data = serializeSessionId(newSessionID);
+                // notify change sessionID
+                SessionMessage msg = new SessionMessageImpl(getName(),
+                        SessionMessage.EVT_CHANGE_SESSION_ID, data,
+                        orgSessionID, orgSessionID + "-"
+                                + System.currentTimeMillis());
+                counterSend_EVT_CHANGE_SESSION_ID++;
+                send(msg);
+            } catch (IOException e) {
+                log.error(sm.getString("deltaManager.unableSerializeSessionID",
+                        newSessionID), e);
+            }
+        }
+    }
+
+    /**
+     * serialize sessionID
+     * @throws IOException if an input/output error occurs
+     */
+    protected byte[] serializeSessionId(String sessionId) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeUTF(sessionId);
+        oos.flush();
+        oos.close();
+        return bos.toByteArray();
+    }
+
+    /**
+     * Load sessionID
+     * @throws IOException if an input/output error occurs
+     */
+    protected String deserializeSessionId(byte[] data) throws IOException {
+        ByteArrayInputStream fis = null;
+        ReplicationStream ois = null;
+        fis = new ByteArrayInputStream(data);
+        ois = new ReplicationStream(fis, getClassLoaders(this.container)[0]);
+        String sessionId = ois.readUTF();
+        ois.close();
+        return sessionId;
     }
 
     /**
@@ -1279,7 +1358,8 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
             case SessionMessage.EVT_SESSION_CREATED: 
             case SessionMessage.EVT_SESSION_EXPIRED: 
             case SessionMessage.EVT_SESSION_ACCESSED:
-            case SessionMessage.EVT_SESSION_DELTA: {
+            case SessionMessage.EVT_SESSION_DELTA:
+            case SessionMessage.EVT_CHANGE_SESSION_ID: {
                 synchronized(receivedMessageQueue) {
                     if(receiverQueue) {
                         receivedMessageQueue.add(msg);
@@ -1417,6 +1497,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
         counterReceive_EVT_SESSION_DELTA = 0 ;
         counterReceive_EVT_SESSION_EXPIRED = 0 ;
         counterReceive_EVT_ALL_SESSION_TRANSFERCOMPLETE = 0;
+        counterReceive_EVT_CHANGE_SESSION_ID = 0;
         counterSend_EVT_ALL_SESSION_DATA = 0;
         counterSend_EVT_GET_ALL_SESSIONS = 0;
         counterSend_EVT_SESSION_ACCESSED = 0 ;
@@ -1424,6 +1505,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
         counterSend_EVT_SESSION_DELTA = 0 ;
         counterSend_EVT_SESSION_EXPIRED = 0 ;
         counterSend_EVT_ALL_SESSION_TRANSFERCOMPLETE = 0;
+        counterSend_EVT_CHANGE_SESSION_ID = 0;
         
     }
    
@@ -1573,6 +1655,10 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
                handleSESSION_DELTA(msg,sender);
                break;
             }
+            case SessionMessage.EVT_CHANGE_SESSION_ID: {
+                handleCHANGE_SESSION_ID(msg,sender);
+                break;
+             }
             default: {
                 //we didn't recognize the message type, do nothing
                 break;
@@ -1771,6 +1857,24 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
         cluster.send(newmsg, sender);
     }
 
+    /**
+     * handle receive change sessionID at other node
+     * @param msg
+     * @param sender
+     * @throws IOException
+     */
+    protected void handleCHANGE_SESSION_ID(SessionMessage msg,Member sender) throws IOException {
+        counterReceive_EVT_CHANGE_SESSION_ID++;
+        DeltaSession session = (DeltaSession) findSession(msg.getSessionID());
+        String newSessionID = deserializeSessionId(msg.getSession());
+        session.setPrimarySession(false);
+        if(notifySessionListenersOnReplication) {
+            session.setId(newSessionID);
+        } else {
+            session.setIdInternal(newSessionID);
+            add(session);
+        }
+    }
 
     /**
      * send a block of session to sender
