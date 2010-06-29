@@ -54,3 +54,7 @@ PATCHES PROPOSED TO BACKPORT:
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
 
+* Arrange filter logic.
+  http://svn.apache.org/viewvc?rev=958911&view=rev
+  +1: jfclere
+  -1:
