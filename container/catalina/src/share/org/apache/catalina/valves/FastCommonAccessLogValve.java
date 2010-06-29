@@ -251,7 +251,7 @@ public final class FastCommonAccessLogValve
     /**
      * When formatting log lines, we often use strings like this one (" ").
      */
-    private String space = " ";
+    private static final char space = ' ';
 
 
     /**
@@ -504,7 +504,7 @@ public final class FastCommonAccessLogValve
             return;
         }
 
-        StringBuffer result = new StringBuffer();
+        StringBuffer result = new StringBuffer(128);
 
         // Check to see if we should log using the "common" access log pattern
         String value = null;
@@ -543,29 +543,28 @@ public final class FastCommonAccessLogValve
         
         long length = response.getContentCountLong() ;
         if (length <= 0)
-            value = "-";
+            result.append('-');
         else
-            value = "" + length;
-        result.append(value);
+            result.append(length);
         
         if (combined) {
             result.append(space);
-            result.append("\"");
+            result.append('\"');
             String referer = request.getHeader("referer");
             if(referer != null)
                 result.append(referer);
             else
-                result.append("-");
-            result.append("\"");
+                result.append('-');
+            result.append('\"');
             
             result.append(space);
-            result.append("\"");
+            result.append('\"');
             String ua = request.getHeader("user-agent");
             if(ua != null)
                 result.append(ua);
             else
-                result.append("-");
-            result.append("\"");
+                result.append('-');
+            result.append('\"');
         }
         
         log(result.toString());
@@ -695,21 +694,21 @@ public final class FastCommonAccessLogValve
     private static String calculateTimeZoneOffset(long offset) {
         StringBuffer tz = new StringBuffer();
         if ((offset<0))  {
-            tz.append("-");
+            tz.append('-');
             offset = -offset;
         } else {
-            tz.append("+");
+            tz.append('+');
         }
 
         long hourOffset = offset/(1000*60*60);
         long minuteOffset = (offset/(1000*60)) % 60;
 
         if (hourOffset<10)
-            tz.append("0");
+            tz.append('0');
         tz.append(hourOffset);
 
         if (minuteOffset<10)
-            tz.append("0");
+            tz.append('0');
         tz.append(minuteOffset);
 
         return tz.toString();

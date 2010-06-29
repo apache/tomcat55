@@ -119,7 +119,7 @@ public class AccessLogValve
     // ----------------------------------------------------------- Constructors
 
 
-    private static final String MARK_EMPTY = "-";
+    private static final char MARK_EMPTY = '-';
 
     /**
      * Construct a new instance of this class with default property values.
@@ -333,7 +333,7 @@ public class AccessLogValve
     /**
      * When formatting log lines, we often use strings like this one (" ").
      */
-    private String space = " ";
+    private static final char space = ' ';
 
 
     /**
@@ -591,11 +591,11 @@ public class AccessLogValve
 
         AccessDateStruct struct = (AccessDateStruct) currentDateStruct.get();
         Date date = struct.getDate();
-        StringBuffer result = new StringBuffer();
+        StringBuffer result = new StringBuffer(128);
 
         // Check to see if we should log using the "common" access log pattern
         if (common || combined) {
-            String value = null;
+            String value;
 
             if (isResolveHosts())
                 result.append(request.getRemoteHost());
@@ -632,29 +632,28 @@ public class AccessLogValve
 
             long length = response.getContentCountLong() ;
             if (length <= 0)
-                value = MARK_EMPTY;
+                result.append(MARK_EMPTY);
             else
-                value = "" + length;
-            result.append(value);
+                result.append(length);
 
             if (combined) {
                 result.append(space);
-                result.append("\"");
+                result.append('\"');
                 String referer = request.getHeader("referer");
                 if(referer != null)
                     result.append(referer);
                 else
                     result.append(MARK_EMPTY);
-                result.append("\"");
+                result.append('\"');
 
                 result.append(space);
-                result.append("\"");
+                result.append('\"');
                 String ua = request.getHeader("user-agent");
                 if(ua != null)
                     result.append(ua);
                 else
                     result.append(MARK_EMPTY);
-                result.append("\"");
+                result.append('\"');
             }
 
         } else {
@@ -667,26 +666,23 @@ public class AccessLogValve
                      * do not enounter a closing } - then I ignore the {
                      */
                     if ('{' == ch){
-                        StringBuffer name = new StringBuffer();
                         int j = i + 1;
                         for(;j < pattern.length() && '}' != pattern.charAt(j); j++) {
-                            name.append(pattern.charAt(j));
+                            // loop through characters that are part of the name
                         }
                         if (j+1 < pattern.length()) {
                             /* the +1 was to account for } which we increment now */
                             j++;
-                            result.append(replace(name.toString(),
-                                                pattern.charAt(j),
-                                                request,
-                                                response));
+                            replace(result, pattern.substring(i + 1, j - 1),
+                                    pattern.charAt(j), request, response);
                             i=j; /*Since we walked more than one character*/
                         } else {
                             //D'oh - end of string - pretend we never did this
                             //and do processing the "old way"
-                            result.append(replace(ch, struct, request, response, time));
+                            replace(result, ch, struct, request, response, time);
                         }
                     } else {
-                        result.append(replace(ch, struct, request, response,time ));
+                        replace(result, ch, struct, request, response,time );
                     }
                     replace = false;
                 } else if (ch == '%') {
@@ -812,18 +808,20 @@ public class AccessLogValve
 
 
     /**
-     * Return the replacement text for the specified pattern character.
+     * Print the replacement text for the specified pattern character.
      *
+     * @param result StringBuffer that accumulates the log message text
      * @param pattern Pattern character identifying the desired text
      * @param struct the object containing current Date so that this method
      *        doesn't need to create one
      * @param request Request being processed
      * @param response Response being processed
      */
-    private String replace(char pattern, AccessDateStruct struct, Request request,
-                           Response response, long time) {
+    private void replace(StringBuffer result, char pattern,
+            AccessDateStruct struct, Request request, Response response,
+            long time) {
 
-        String value = null;
+        String value;
 
         if (pattern == 'a') {
             value = request.getRemoteAddr();
@@ -836,134 +834,151 @@ public class AccessLogValve
         } else if (pattern == 'b') {
             long length = response.getContentCountLong() ;
             if (length <= 0)
-                value = MARK_EMPTY;
+                result.append(MARK_EMPTY);
             else
-                value = "" + length;
+                result.append(length);
+            return;
         } else if (pattern == 'B') {
-            value = "" + response.getContentCountLong();
+            result.append(response.getContentCountLong());
+            return;
         } else if (pattern == 'h') {
             value = request.getRemoteHost();
         } else if (pattern == 'H') {
             value = request.getProtocol();
         } else if (pattern == 'l') {
-            value = MARK_EMPTY;
+            result.append(MARK_EMPTY);
+            return;
         } else if (pattern == 'm') {
             if (request != null)
                 value = request.getMethod();
             else
                 value = "";
         } else if (pattern == 'p') {
-            value = "" + request.getServerPort();
+            result.append(request.getServerPort());
+            return;
         } else if (pattern == 'D') {
-                    value = "" + time;
+            result.append(time);
+            return;
         } else if (pattern == 'q') {
             String query = null;
             if (request != null)
                 query = request.getQueryString();
             if (query != null)
-                value = "?" + query;
-            else
-                value = "";
+                result.append('?').append(query);
+            return;
         } else if (pattern == 'r') {
-            StringBuffer sb = new StringBuffer();
             if (request != null) {
-                sb.append(request.getMethod());
-                sb.append(space);
-                sb.append(request.getRequestURI());
+                result.append(request.getMethod());
+                result.append(space);
+                result.append(request.getRequestURI());
                 if (request.getQueryString() != null) {
-                    sb.append('?');
-                    sb.append(request.getQueryString());
+                    result.append('?');
+                    result.append(request.getQueryString());
                 }
-                sb.append(space);
-                sb.append(request.getProtocol());
+                result.append(space);
+                result.append(request.getProtocol());
             } else {
-                sb.append("- - -");
+                result.append("- - -");
             }
-            value = sb.toString();
+            return;
         } else if (pattern == 'S') {
-            if (request != null)
-                if (request.getSession(false) != null)
-                    value = request.getSessionInternal(false).getIdInternal();
-                else value = MARK_EMPTY;
-            else
-                value = MARK_EMPTY;
+            if (request != null) {
+                if (request.getSession(false) != null) {
+                    result.append(request.getSessionInternal(false)
+                            .getIdInternal());
+                    return;
+                }
+            }
+            result.append(MARK_EMPTY);
+            return;
         } else if (pattern == 's') {
             if (response != null)
-                value = "" + response.getStatus();
+                result.append(response.getStatus());
             else
-                value = MARK_EMPTY;
+                result.append(MARK_EMPTY);
+            return;
         } else if (pattern == 't') {
-            value = struct.getCurrentDateString();
+            result.append(struct.getCurrentDateString());
+            return;
         } else if (pattern == 'T') {
-            value = struct.formatTimeTaken(time);
+            result.append(struct.formatTimeTaken(time));
+            return;
         } else if (pattern == 'u') {
-            if (request != null)
+            if (request != null) {
                 value = request.getRemoteUser();
-            if (value == null)
-                value = MARK_EMPTY;
+                if (value != null) {
+                    result.append(value);
+                    return;
+                }
+            }
+            result.append(MARK_EMPTY);
+            return;
         } else if (pattern == 'U') {
             if (request != null)
                 value = request.getRequestURI();
-            else
-                value = MARK_EMPTY;
+            else {
+                result.append(MARK_EMPTY);
+                return;
+            }
         } else if (pattern == 'v') {
             value = request.getServerName();
         } else if (pattern == 'I' ) {
             RequestInfo info = request.getCoyoteRequest().getRequestProcessor();
             if(info != null) {
-                value= info.getWorkerThreadName();
+                value = info.getWorkerThreadName();
             } else {
-                value = MARK_EMPTY;
+                result.append(MARK_EMPTY);
+                return;
             }
         } else {
-            value = "???" + pattern + "???";
+            result.append("???").append(pattern).append("???");
+            return;
         }
 
-        if (value == null)
-            return ("");
-        else
-            return (value);
-
+        if (value != null)
+            result.append(value);
     }
 
 
     /**
-     * Return the replacement text for the specified "header/parameter".
+     * Print the replacement text for the specified "header/parameter".
      *
+     * @param result StringBuffer that accumulates the log message text
      * @param header The header/parameter to get
      * @param type Where to get it from i=input,c=cookie,r=ServletRequest,s=Session
      * @param request Request being processed
      * @param response Response being processed
      */
-    private String replace(String header, char type, Request request,
-                           Response response) {
+    private void replace(StringBuffer result, String header, char type,
+            Request request, Response response) {
 
-        Object value = null;
+        Object value;
 
         switch (type) {
             case 'i':
                 if (null != request)
                     value = request.getHeader(header);
                 else
-                    value= "??";
+                    value = "??";
                 break;
             case 'o':
                 if (null != response) {
                     String[] values = response.getHeaderValues(header);
                     if(values.length > 0) {
-                        StringBuffer buf = new StringBuffer() ;
                         for (int i = 0; i < values.length; i++) {
                             String string = values[i];
-                            buf.append(string) ;
+                            result.append(string);
                             if(i+1<values.length)
-                                buf.append(",");
+                                result.append(',');
                         }
-                        value = buf.toString();
+                        return;
                     }
+                    value = null;
                 } else
-                    value= "??";
+                    value = "??";
                 break;
             case 'c':
+                value = null;
                  Cookie[] c = request.getCookies();
                  for (int i=0; c != null && i < c.length; i++){
                      if (header.equals(c[i].getName())){
@@ -979,6 +994,7 @@ public class AccessLogValve
                     value= "??";
                 break;
             case 's':
+                value = null;
                 if (null != request) {
                     HttpSession sess = request.getSession(false);
                     if (null != sess)
@@ -992,14 +1008,11 @@ public class AccessLogValve
         /* try catch in case toString() barfs */
         try {
             if (value!=null)
-                if (value instanceof String)
-                    return (String)value;
-                else
-                    return value.toString();
+                result.append(value.toString());
             else
-               return MARK_EMPTY;
+                result.append(MARK_EMPTY);
         } catch(Throwable e) {
-            return MARK_EMPTY;
+            result.append(MARK_EMPTY);
         }
     }
 
@@ -1016,21 +1029,21 @@ public class AccessLogValve
     private static String calculateTimeZoneOffset(long offset) {
         StringBuffer tz = new StringBuffer();
         if ((offset<0))  {
-            tz.append(MARK_EMPTY);
+            tz.append('-');
             offset = -offset;
         } else {
-            tz.append("+");
+            tz.append('+');
         }
 
         long hourOffset = offset/(1000*60*60);
         long minuteOffset = (offset/(1000*60)) % 60;
 
         if (hourOffset<10)
-            tz.append("0");
+            tz.append('0');
         tz.append(hourOffset);
 
         if (minuteOffset<10)
-            tz.append("0");
+            tz.append('0');
         tz.append(minuteOffset);
 
         return tz.toString();

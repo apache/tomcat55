@@ -99,6 +99,10 @@
         <bug>49424</bug>: Avoid NPE if client provides no data with a chunked
         POST request. (markt)
       </fix>
+      <fix>
+        Minor code cleanup in AccessLogValve and FastCommonAccessLogValve
+        classes. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">

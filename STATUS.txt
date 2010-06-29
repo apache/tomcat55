@@ -25,13 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Minor cleanups for AccessLogValve classes
-  Reuses StringBuffer, uses char instead of single-char String, etc.
-  http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_ALV.patch
-  http://people.apache.org/~kkolinko/patches/2009-07-15_tc55_FCALV.patch
-  +1: kkolinko, rjung, markt
-  -1:
-
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
     - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
