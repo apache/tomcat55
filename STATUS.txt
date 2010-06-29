@@ -56,5 +56,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Arrange filter logic.
   http://svn.apache.org/viewvc?rev=958911&view=rev
-  +1: jfclere
+  +1: jfclere, markt
   -1:
