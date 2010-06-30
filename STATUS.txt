@@ -38,6 +38,7 @@ PATCHES PROPOSED TO BACKPORT:
   2)
     http://people.apache.org/~kkolinko/patches/2010-03-06_tc55_remove_JSSE13Factory_v2.patch
   +1: kkolinko, markt
+  -O: jim
   -1:
 
 * Configure Tomcat to use HttpOnly for session cookies by default
@@ -49,5 +50,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Arrange filter logic.
   http://svn.apache.org/viewvc?rev=958911&view=rev
-  +1: jfclere, markt, rjung
+  +1: jfclere, markt, rjung, jim
   -1:
