@@ -19,10 +19,8 @@ rem Example script to sign the entire release
 rem pass in your password as the first argument, then this script will
 rem sign all the files in the release directory
 
-rem todo - make one for unix as well, and avoid signing the .md5 files
-
 @echo off
-set VERSION=v5.5.29
+set VERSION=v5.5.30
 FOR /R %cd%\release\%VERSION% %%i in (*.tar.gz) do (
   echo Signing %%i
   echo %1|gpg --passphrase-fd 0 -a -b %%i 
