@@ -23,7 +23,8 @@ This subproject contains the source code for Tomcat 5.5, a container that
 implements the Servlet 2.4 and JSP 2.0 specifications from the Java
 Community Process <http://www.jcp.org/>.  In order to build a binary
 distribution version of the container from a source distribution, 
-do the following:
+you will need to perform the build on a Windows machine (Windows XP/SP2
+is known to work). Do the following:
 
 
 (0) Download and Install a Java Development Kit
