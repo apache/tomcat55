@@ -30,6 +30,7 @@
     <author email="pero@apache.org">Peter Rossbach</author>
     <author email="kkolinko@apache.org">Konstantin Kolinko</author>
     <author email="kfujino@apache.org">Keiichi Fujino</author>
+    <author email="jim@apache.org">Jim Jagielski</author>
     <title>Changelog</title>
   </properties>
 
@@ -37,7 +38,7 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
-<section name="Tomcat 5.5.30 (fhanik)">
+<section name="Tomcat 5.5.30 (jim)">
   <subsection name="General">
     <changelog>
       <update>Update to Commons Daemon 1.0.2. Use service launcher (procrun)
