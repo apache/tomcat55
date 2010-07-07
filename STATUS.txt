@@ -47,3 +47,26 @@ PATCHES PROPOSED TO BACKPORT:
   -0: markt - Consensus was for disabled in 5.5.x
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
+
+* Clean up svn:executable property (svn property cleanup didn't pass the C-T-R discussion)
+
+  a) Remove from Java source files and from docs files
+  svn propdel svn:executable container/catalina/src/share/org/apache/catalina/valves/ExtendedAccessLogValve.java
+  svn propdel svn:executable jasper/src/share/org/apache/jasper/xmlparser/ParserUtils.java
+  svn propdel svn:executable container/webapps/docs/default-servlet.xml
+  svn propdel svn:executable container/webapps/docs/balancer-howto.xml
+  svn propdel svn:executable container/webapps/jmxremote/WEB-INF/web.xml
+  +1: rjung
+  -1:
+
+  b) Add to .bat and .sh files where missing (most already have the property set)
+  svn propset svn:executable '*' build/tag.bat
+  svn propset svn:executable '*' build/tag.sh
+  svn propset svn:executable '*' build/sign.bat
+  svn propset svn:executable '*' build/sign.sh
+  svn propset svn:executable '*' jasper/src/bin/jspc.sh
+  svn propset svn:executable '*' jasper/src/bin/jspc-using-launcher.sh
+  svn propset svn:executable '*' jasper/src/bin/jasper.sh
+  svn propset svn:executable '*' connectors/http11/src/test/test.bat
+ +1: rjung
+ -1:
