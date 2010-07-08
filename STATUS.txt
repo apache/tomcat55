@@ -56,7 +56,7 @@ PATCHES PROPOSED TO BACKPORT:
   svn propdel svn:executable container/webapps/docs/default-servlet.xml
   svn propdel svn:executable container/webapps/docs/balancer-howto.xml
   svn propdel svn:executable container/webapps/jmxremote/WEB-INF/web.xml
-  +1: rjung
+  +1: rjung, kkolinko
   -1:
 
   b) Add to .bat and .sh files where missing (most already have the property set)
@@ -68,5 +68,5 @@ PATCHES PROPOSED TO BACKPORT:
   svn propset svn:executable '*' jasper/src/bin/jspc-using-launcher.sh
   svn propset svn:executable '*' jasper/src/bin/jasper.sh
   svn propset svn:executable '*' connectors/http11/src/test/test.bat
- +1: rjung
+ +1: rjung, kkolinko
  -1:
