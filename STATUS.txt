@@ -70,3 +70,14 @@ PATCHES PROPOSED TO BACKPORT:
   svn propset svn:executable '*' connectors/http11/src/test/test.bat
  +1: rjung, kkolinko
  -1:
+
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49521
+  http://people.apache.org/~kkolinko/patches/2010-07-17_tc55_bug49521.patch
+  - Disable scanning for a free port in Jk AJP/1.3 connector by default.
+  - Do not change maxPort field value of ChannelSocket in its #setPort()
+    and #init() methods.
+  - Add support for "maxPort" attribute on a <Connector> element as a synonym
+    for channelSocket.maxPort
+  +1: kkolinko
+  -1:
