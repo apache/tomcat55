@@ -81,3 +81,10 @@ PATCHES PROPOSED TO BACKPORT:
     for channelSocket.maxPort
   +1: kkolinko
   -1:
+
+* Return a copy of the URL being used from the webapp class loader, not the
+  original.
+  It is backport of Mark's r966292.
+  http://people.apache.org/~kkolinko/patches/2010-07-22_tc55_getURLs.patch
+  +1: kkolinko
+  -1: 
