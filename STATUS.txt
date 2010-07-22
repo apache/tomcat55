@@ -56,7 +56,7 @@ PATCHES PROPOSED TO BACKPORT:
   svn propdel svn:executable container/webapps/docs/default-servlet.xml
   svn propdel svn:executable container/webapps/docs/balancer-howto.xml
   svn propdel svn:executable container/webapps/jmxremote/WEB-INF/web.xml
-  +1: rjung, kkolinko
+  +1: rjung, kkolinko, markt
   -1:
 
   b) Add to .bat and .sh files where missing (most already have the property set)
@@ -68,7 +68,7 @@ PATCHES PROPOSED TO BACKPORT:
   svn propset svn:executable '*' jasper/src/bin/jspc-using-launcher.sh
   svn propset svn:executable '*' jasper/src/bin/jasper.sh
   svn propset svn:executable '*' connectors/http11/src/test/test.bat
- +1: rjung, kkolinko
+ +1: rjung, kkolinko, markt
  -1:
 
 
@@ -79,12 +79,12 @@ PATCHES PROPOSED TO BACKPORT:
     and #init() methods.
   - Add support for "maxPort" attribute on a <Connector> element as a synonym
     for channelSocket.maxPort
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Return a copy of the URL being used from the webapp class loader, not the
   original.
   It is backport of Mark's r966292.
   http://people.apache.org/~kkolinko/patches/2010-07-22_tc55_getURLs.patch
-  +1: kkolinko
+  +1: kkolinko, markt
   -1: 
