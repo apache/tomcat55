@@ -57,10 +57,12 @@ PATCHES PROPOSED TO BACKPORT:
     for channelSocket.maxPort
   +1: kkolinko, markt
   -1:
+  -0: rjung
+  rjung: Should we really change default behaviour for a mature version?
 
 * Return a copy of the URL being used from the webapp class loader, not the
   original.
   It is backport of Mark's r966292.
   http://people.apache.org/~kkolinko/patches/2010-07-22_tc55_getURLs.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1: 
