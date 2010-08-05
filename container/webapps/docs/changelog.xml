@@ -47,6 +47,14 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Webapps">
+    <changelog>
+      <fix>
+        <bug>49585</bug>: Update JSVC documentation to reflect new packaging
+        of Commons Daemon. (markt)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.30 (jim)" rtext="released 2010-07-09">
   <subsection name="General">
