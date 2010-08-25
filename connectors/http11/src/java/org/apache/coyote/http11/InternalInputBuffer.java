@@ -424,6 +424,12 @@ public class InternalInputBuffer implements InputBuffer {
                     throw new EOFException(sm.getString("iib.eof.error"));
             }
 
+            // Spec says no CR or LF in method name
+            if (buf[pos] == Constants.CR || buf[pos] == Constants.LF) {
+                throw new IllegalArgumentException(
+                        sm.getString("iib.invalidmethod"));
+            }
+            
             ascbuf[pos] = (char) buf[pos];
 
             // Spec says single SP but it also says be tolerant of HT
@@ -469,11 +475,6 @@ public class InternalInputBuffer implements InputBuffer {
                     throw new EOFException(sm.getString("iib.eof.error"));
             }
 
-            // Spec says no CR or LF in method name
-            if (buf[pos] == Constants.CR || buf[pos] == Constants.LF) {
-                throw new IllegalArgumentException(
-                        sm.getString("iib.invalidmethod"));
-            }
             // Spec says single SP but it also says be tolerant of HT
             if (buf[pos] == Constants.SP || buf[pos] == Constants.HT) {
                 space = true;

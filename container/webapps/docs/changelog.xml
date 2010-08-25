@@ -47,6 +47,15 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        <bug>49718</bug>: Fix regression in previous fix for <bug>46984</bug>
+        caused by the patch being applied to the wrong section of code. The
+        regression caused HTTP 0.9 requests to fail. (markt)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>
