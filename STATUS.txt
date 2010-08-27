@@ -69,7 +69,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Add Null check when CHANGE_SESSION_ID message received.
   http://svn.apache.org/viewvc?rev=982877&view=rev
-  +1: kfujino
+  +1: kfujino, markt
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49749
