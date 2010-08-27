@@ -60,13 +60,6 @@ PATCHES PROPOSED TO BACKPORT:
   -0: rjung
   rjung: Should we really change default behaviour for a mature version?
 
-* Return a copy of the URL being used from the webapp class loader, not the
-  original.
-  It is backport of Mark's r966292.
-  http://people.apache.org/~kkolinko/patches/2010-07-22_tc55_getURLs.patch
-  +1: kkolinko, markt, rjung
-  -1: 
-
 * Add Null check when CHANGE_SESSION_ID message received.
   http://svn.apache.org/viewvc?rev=982877&view=rev
   +1: kfujino, markt
