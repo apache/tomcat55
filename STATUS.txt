@@ -25,11 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Add Null check when CHANGE_SESSION_ID message received.
-  http://svn.apache.org/viewvc?rev=982877&view=rev
-  +1: kfujino, markt, rjung, kkolinko, jim
-  -1: 
-
 * Fix files missing from src bundles,
   (as was mentioned in 5.5.30 Vote thread, http://markmail.org/message/q2qk4nhzh67ggzk7)
   http://people.apache.org/~kkolinko/patches/2010-08-30_tc55_fixSkippedFiles.patch

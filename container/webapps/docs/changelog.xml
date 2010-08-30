@@ -72,7 +72,13 @@
       </fix>
     </changelog>
   </subsection>
-</section>
+  <subsection name="Cluster">
+    <changelog>
+      <fix>
+        Add Null check when CHANGE_SESSION_ID message received. (kfujino)
+      </fix>
+    </changelog>
+  </subsection></section>
 <section name="Tomcat 5.5.30 (jim)" rtext="released 2010-07-09">
   <subsection name="General">
     <changelog>
