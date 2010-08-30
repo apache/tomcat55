@@ -30,6 +30,12 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kfujino, markt, rjung, kkolinko, jim
   -1: 
 
+* Fix files missing from src bundles,
+  (as was mentioned in 5.5.30 Vote thread, http://markmail.org/message/q2qk4nhzh67ggzk7)
+  http://people.apache.org/~kkolinko/patches/2010-08-30_tc55_fixSkippedFiles.patch
+  +1: kkolinko, rjung, jim
+  -1:
+
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
     - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
@@ -100,8 +106,3 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, jim
   -1:
 
-* Fix files missing from src bundles,
-  (as was mentioned in 5.5.30 Vote thread, http://markmail.org/message/q2qk4nhzh67ggzk7)
-  http://people.apache.org/~kkolinko/patches/2010-08-30_tc55_fixSkippedFiles.patch
-  +1: kkolinko, rjung, jim
-  -1:
