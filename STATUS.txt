@@ -84,10 +84,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2010-08-25-bug38113.patch
   +1: markt, rjung
   -1:
-  +1: kkolinko: (only with the following trivial change:
+  +1: kkolinko jim: (only with the following trivial change:
      s/Boolean.parseBoolean(..)/Boolean.valueOf(..).booleanValue()/
      because parseBoolean is @since 1.5.
      See Globals.java line 334 for an example.
+     jim: markt, rjung: Ok with that change??
   )
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49774
