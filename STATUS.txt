@@ -97,3 +97,9 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=25954
   +1: markt
   -1:
+
+* Fix files missing from src bundles,
+  (as was mentioned in 5.5.30 Vote thread, http://markmail.org/message/q2qk4nhzh67ggzk7)
+  http://people.apache.org/~kkolinko/patches/2010-08-30_tc55_fixSkippedFiles.patch
+  +1: kkolinko
+  -1:
