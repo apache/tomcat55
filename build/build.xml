@@ -106,6 +106,8 @@
   <patternset id="src.files" >
     <include name="**/.classpath"/>
     <include name="**/.project"/>
+    <include name="**/eclipse.classpath"/>
+    <include name="**/eclipse.project"/>
     <include name="**/INSTALLLICENSE"/>
     <include name="**/KEYS"/>
     <include name="**/LICENSE"/>
@@ -1474,6 +1476,8 @@
         <include name="LICENSE" />
         <include name="NOTICE" />
         <include name="KEYS" />
+        <include name="eclipse.classpath" />
+        <include name="eclipse.project" />
       </fileset>
     </copy>
 
@@ -1509,6 +1513,9 @@
         <exclude name="**/build/**"/>
         <exclude name="**/dist/**"/>
       </fileset>
+    </copy>
+    <copy todir="${tomcat.dist}/src/${catalina.project}/modules/groupcom/build">
+      <fileset dir="${catalina.home}/modules/groupcom/build" />
     </copy>
 
     <!-- tomcat jasper source -->
