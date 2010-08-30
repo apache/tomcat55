@@ -25,6 +25,11 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
+* Add Null check when CHANGE_SESSION_ID message received.
+  http://svn.apache.org/viewvc?rev=982877&view=rev
+  +1: kfujino, markt, rjung, kkolinko, jim
+  -1: 
+
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
     - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
@@ -66,11 +71,6 @@ PATCHES PROPOSED TO BACKPORT:
   jim: Also not comfortable with such a change this late in the game
        regarding default behavior of a stable branch.
 
-* Add Null check when CHANGE_SESSION_ID message received.
-  http://svn.apache.org/viewvc?rev=982877&view=rev
-  +1: kfujino, markt, rjung, kkolinko, jim
-  -1: 
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49749
   Add httpOnly support to SSO cookie
   http://people.apache.org/~markt/patches/2010-08-25-bug49749.patch
@@ -103,5 +103,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix files missing from src bundles,
   (as was mentioned in 5.5.30 Vote thread, http://markmail.org/message/q2qk4nhzh67ggzk7)
   http://people.apache.org/~kkolinko/patches/2010-08-30_tc55_fixSkippedFiles.patch
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, jim
   -1:
