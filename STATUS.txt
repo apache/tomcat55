@@ -57,16 +57,18 @@ PATCHES PROPOSED TO BACKPORT:
     for channelSocket.maxPort
   +1: kkolinko, markt
   -1:
-  -0: rjung
+  -0: rjung, jim
   rjung: Should we really change default behaviour for a mature version?
   kkolinko: (I think that hardly anyone uses that feature, and if it is needed,
   one can reenable it now by setting the maxPort attribute.
   It is possible to make this configurable without changing the default
   -- see attachment 25657 in BZ 49521, but I do not think that it is worth it.)
+  jim: Also not comfortable with such a change this late in the game
+       regarding default behavior of a stable branch.
 
 * Add Null check when CHANGE_SESSION_ID message received.
   http://svn.apache.org/viewvc?rev=982877&view=rev
-  +1: kfujino, markt, rjung, kkolinko
+  +1: kfujino, markt, rjung, kkolinko, jim
   -1: 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49749
@@ -95,7 +97,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49774
   Add SSL support using the APR connector to the admin app
   https://issues.apache.org/bugzilla/attachment.cgi?id=25954
-  +1: markt
+  +1: markt, jim
   -1:
 
 * Fix files missing from src bundles,
