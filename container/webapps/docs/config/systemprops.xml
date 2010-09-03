@@ -130,6 +130,14 @@
       </p>
     </property>
 
+    <property name="org.apache.catalina. connector.Request.ALLOW_EMPTY_QUERY_STRING">
+      <p>If this is <code>true</code> Tomcat will return an empty string rather
+      than <code>null</code> for empty query strings - i.e. query strings where
+      only <code>?</code> is present. If not specified, the value of
+      <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code> will be used as
+      the default.</p> 
+    </property>
+
     <property
     name="org.apache.tomcat.util.http. ServerCookie.ALLOW_EQUALS_IN_VALUE">
       <p>If this is <code>true</code> Tomcat will allow <code>=</code>
@@ -157,14 +165,6 @@
 <section name="Sessions">
 
   <properties>
-
-    <property name="org.apache.catalina. connector.Request.ALLOW_EMPTY_QUERY_STRING">
-      <p>If this is <code>true</code> Tomcat will return an empty string rather
-      than <code>null</code> for empty query strings - i.e. query strings where
-      only <code>?</code> is present. If not specified, the value of
-      <code>org.apache.catalina.STRICT_SERVLET_COMPLIANCE</code> will be used as
-      the default.</p> 
-    </property>
 
     <property name="org.apache.catalina.SESSION_COOKIE_NAME">
       <p>An alternative name for the session cookie. Defaults to
