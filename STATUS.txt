@@ -66,15 +66,3 @@ PATCHES PROPOSED TO BACKPORT:
   -- see attachment 25657 in BZ 49521, but I do not think that it is worth it.)
   jim: Also not comfortable with such a change this late in the game
        regarding default behavior of a stable branch.
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49749
-  Add httpOnly support to SSO cookie
-  http://people.apache.org/~markt/patches/2010-08-25-bug49749.patch
-  +1: markt, rjung
-  -1:
-  +1: kkolinko: Looking for usages of Constants.SINGLE_SIGN_ON_COOKIE,
-     in SingleSignOn.invoke() there is one more call to response.addCookie().
-     It is used to remove the cookie, so I think HttpOnly is not important there
-     and thus I am letting this pass. The SingleSignOn valve is usually added to
-     a <Host> (looking at the default server.xml), so we have to call
-     request.getContext() to get a Context there?

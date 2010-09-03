@@ -57,6 +57,10 @@
         Return a copy of the URL being used from the webapp class loader, not
         the original array. (kkolinko/markt)
       </fix>
+      <fix>
+        <bug>49749</bug>: Use HttpOnly flag of current context when genrating
+        a Single-Sign-On cookie. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
