@@ -490,7 +490,7 @@ public final class SaveConnectorAction extends Action {
                     } catch (NumberFormatException e) {
                         mBServer.setAttribute(coname,
                                 new Attribute("SSLVerifyDepthText",
-                                        Integer.valueOf(10)));
+                                        Integer.valueOf(10).intValue()));
                     }
                 
                 String sSLCACertificateFile = cform.getSSLCACertificateFile();
