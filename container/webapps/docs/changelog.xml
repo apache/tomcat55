@@ -38,7 +38,7 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
-<section name="Tomcat 5.5.31 (XXX)">
+<section name="Tomcat 5.5.31 (jim)">
   <subsection name="General">
     <changelog>
       <fix>
@@ -49,6 +49,10 @@
   </subsection>
   <subsection name="Catalina">
     <changelog>
+      <fix>
+        <bug>38113</bug> Add system property (ALLOW_EMPTY_QUERY_STRING) to allow
+        spec compliant handling of query string. (markt/kkolinko/jim)
+      </fix>
       <fix>
         Return a copy of the URL being used from the webapp class loader, not
         the original array. (kkolinko/markt)

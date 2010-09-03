@@ -84,16 +84,20 @@ import org.apache.catalina.util.StringParser;
 public class Request
     implements HttpServletRequest {
 
-
-    // ----------------------------------------------------------- Constructors
-
+    private final static boolean ALLOW_EMPTY_QUERY_STRING;
 
     static {
         // Ensure that classes are loaded for SM
         new StringCache.ByteEntry();
         new StringCache.CharEntry();
+        
+        ALLOW_EMPTY_QUERY_STRING = Boolean.valueOf(System.getProperty(
+                "org.apache.catalina.connector.Request.ALLOW_EMPTY_QUERY_STRING",
+                Boolean.toString(Globals.STRICT_SERVLET_COMPLIANCE))).booleanValue();
     }
 
+    
+    // ----------------------------------------------------------- Constructors
     public Request() {
 
         formats[0].setTimeZone(GMT_ZONE);
@@ -1900,11 +1904,11 @@ public class Request
      */
     public String getQueryString() {
         String queryString = coyoteRequest.queryString().toString();
-        if (queryString == null || queryString.equals("")) {
-            return (null);
-        } else {
-            return queryString;
+        if (!ALLOW_EMPTY_QUERY_STRING && "".equals(queryString)) {
+            return null;
         }
+        
+        return queryString;
     }
 
 
