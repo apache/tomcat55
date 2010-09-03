@@ -83,7 +83,8 @@ public class AddConnectorAction extends Action {
             type = "HTTP";    // default type is HTTP
         connectorFm.setConnectorType(type);
         connectorFm.setServiceName(serviceName);
-        if ("HTTPS".equalsIgnoreCase(type)) {
+        if ("HTTPS-JSSE".equalsIgnoreCase(type) ||
+                "HTTPS-APR".equalsIgnoreCase(type)) {
             connectorFm.setScheme("https");
         } else {
             connectorFm.setScheme("http");       
@@ -110,7 +111,7 @@ public class AddConnectorAction extends Action {
         connectorFm.setTcpNoDelay("true");
         connectorFm.setXpoweredBy("false");
 
-        //supported only by HTTPS
+        //supported only by HTTPS-JSSE
         connectorFm.setAlgorithm("SunX509");
         connectorFm.setClientAuthentication("false");
         connectorFm.setCiphers("");
@@ -121,7 +122,22 @@ public class AddConnectorAction extends Action {
         connectorFm.setTrustStorePassword("");
         connectorFm.setTrustStoreType("JKS");
         connectorFm.setSslProtocol("TLS");
-                       
+
+        //supported only by HTTPS-APR
+        connectorFm.setSSLEngine("");
+        connectorFm.setSSLProtocol("");
+        connectorFm.setSSLCipherSuite("");
+        connectorFm.setSSLCertificateFile("");
+        connectorFm.setSSLCertificateKeyFile("");
+        connectorFm.setSSLPassword("");
+        connectorFm.setSSLVerifyClient("none");
+        connectorFm.setSSLVerifyDepthText("10");
+        connectorFm.setSSLCACertificateFile("");
+        connectorFm.setSSLCACertificatePath("");
+        connectorFm.setSSLCertificateChainFile("");
+        connectorFm.setSSLCARevocationFile("");
+        connectorFm.setSSLCACertificatePath("");
+
         // supported only by Coyote connectors
         connectorFm.setProxyName("");
         connectorFm.setProxyPortText("0");        
@@ -129,10 +145,11 @@ public class AddConnectorAction extends Action {
         connectorFm.setBooleanVals(Lists.getBooleanValues());                
         connectorFm.setClientAuthVals(Lists.getClientAuthValues());
         
-        String schemeTypes[]= new String[3];
+        String schemeTypes[]= new String[4];
         schemeTypes[0] = "HTTP";
-        schemeTypes[1] = "HTTPS";                
-        schemeTypes[2] = "AJP";
+        schemeTypes[1] = "HTTPS-JSSE";                
+        schemeTypes[2] = "HTTPS-APR";                
+        schemeTypes[3] = "AJP";
         
         ArrayList types = new ArrayList();    
         // the first element in the select list should be the type selected

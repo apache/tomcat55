@@ -359,12 +359,12 @@
             </controls:data>
         </controls:row>
 
-<%-- The following properties are supported only on HTTPS Connector --%>
-     <logic:equal name="connectorForm" property="scheme" scope="session"
-                  value="https">
+<%-- The following properties are supported only on HTTPS-JSSE Connector --%>
+     <logic:equal name="connectorForm" property="connectorType" scope="session"
+                  value="HTTPS-JSSE">
         <br>
         <controls:row header="true" labelStyle="table-header-text" dataStyle="table-header-text">
-            <controls:label>Factory Properties:</controls:label>
+            <controls:label><bean:message key="connector.sslProperties"/>:</controls:label>
             <controls:data>&nbsp;</controls:data>
         </controls:row>
 
@@ -473,6 +473,108 @@
         </controls:row>
 
     </logic:equal>
+
+<%-- The following properties are supported only on HTTPS-APR Connector --%>
+     <logic:equal name="connectorForm" property="connectorType" scope="session"
+                  value="HTTPS-APR">
+        <br>
+        <controls:row header="true" labelStyle="table-header-text" dataStyle="table-header-text">
+            <controls:label><bean:message key="connector.sslProperties"/>:</controls:label>
+            <controls:data>&nbsp;</controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLEngine">
+            <controls:label><bean:message key="connector.SSLEngine"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLEngine" size="10" styleId="SSLEngine"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLProtocol">
+            <controls:label><bean:message key="connector.SSLProtocol"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLProtocol" size="30" styleId="SSLProtocol"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCipherSuite">
+            <controls:label><bean:message key="connector.SSLCipherSuite"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCipherSuite" size="30" styleId="SSLCipherSuite"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCertificateFile">
+            <controls:label><bean:message key="connector.SSLCertificateFile"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCertificateFile" size="30" styleId="SSLCertificateFile"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCertificateKeyFile">
+            <controls:label><bean:message key="connector.SSLCertificateKeyFile"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCertificateKeyFile" size="30" styleId="SSLCertificateKeyFile"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLPassword">
+            <controls:label><bean:message key="connector.SSLPassword"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLPassword" size="30" styleId="SSLPassword"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLVerifyClient">
+            <controls:label><bean:message key="connector.SSLVerifyClient"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLVerifyClient" size="10" styleId="SSLVerifyClient"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLVerifyDepthText">
+            <controls:label><bean:message key="connector.SSLVerifyDepthText"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLVerifyDepthText" size="10" styleId="SSLVerifyDepthText"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCACertificateFile">
+            <controls:label><bean:message key="connector.SSLCACertificateFile"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCACertificateFile" size="30" styleId="SSLCACertificateFile"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCACertificatePath">
+            <controls:label><bean:message key="connector.SSLCACertificatePath"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCACertificatePath" size="30" styleId="SSLCACertificatePath"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCertificateChainFile">
+            <controls:label><bean:message key="connector.SSLCertificateChainFile"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCertificateChainFile" size="30" styleId="SSLCertificateChainFile"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCARevocationFile">
+            <controls:label><bean:message key="connector.SSLCARevocationFile"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCARevocationFile" size="30" styleId="SSLCARevocationFile"/>
+            </controls:data>
+        </controls:row>
+
+        <controls:row labelStyle="table-label-text" dataStyle="table-normal-text" styleId="SSLCARevocationPath">
+            <controls:label><bean:message key="connector.SSLCARevocationPath"/>:</controls:label>
+            <controls:data>
+               <html:text property="SSLCARevocationPath" size="30" styleId="SSLCARevocationPath"/>
+            </controls:data>
+        </controls:row>
+    </logic:equal>
+
    </controls:table>
 
       </td>

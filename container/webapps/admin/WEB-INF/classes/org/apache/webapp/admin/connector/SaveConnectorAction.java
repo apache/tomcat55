@@ -160,11 +160,12 @@ public final class SaveConnectorAction extends Action {
                 values[2] = new Integer(cform.getPortText());
 
                 if ("HTTP".equalsIgnoreCase(connectorType)) {
-                        operation = "createHttpConnector"; // HTTP
-                } else if ("HTTPS".equalsIgnoreCase(connectorType)) { 
-                        operation = "createHttpsConnector";   // HTTPS
+                    operation = "createHttpConnector"; // HTTP
+                } else if ("HTTPS-JSSE".equalsIgnoreCase(connectorType) ||
+                        "HTTPS-APR".equalsIgnoreCase(connectorType)) { 
+                    operation = "createHttpsConnector";   // HTTPS
                 } else {
-                        operation = "createAjpConnector";   // AJP(HTTP)                  
+                    operation = "createAjpConnector";   // AJP(HTTP)                  
                 }
                 
                 cObjectName = (String)
@@ -388,8 +389,8 @@ public final class SaveConnectorAction extends Action {
                               new Attribute("proxyPort", new Integer(proxyPort))); 
             }
             
-            // HTTPS specific properties
-            if("HTTPS".equalsIgnoreCase(connectorType)) {
+            // HTTPS-JSSE specific properties
+            if("HTTPS-JSSE".equalsIgnoreCase(connectorType)) {
                 String algorithm = cform.getAlgorithm();
                 if ((algorithm != null) && (algorithm.length()>0)) 
                     mBServer.setAttribute(coname,
@@ -440,7 +441,94 @@ public final class SaveConnectorAction extends Action {
                     mBServer.setAttribute(coname,
                               new Attribute("sslProtocol", sslProtocol));                    
              }
- 
+
+            // HTTPS-APR specific properties
+            if("HTTPS-APR".equalsIgnoreCase(connectorType)) {
+                String sSLEngine = cform.getSSLEngine();
+                if ((sSLEngine != null) && (sSLEngine.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLEngine", sSLEngine));  
+                
+                String sSLProtocol = cform.getSSLProtocol();
+                if ((sSLProtocol != null) && (sSLProtocol.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLProtocol", sSLProtocol));           
+                
+                String sSLCipherSuite = cform.getSSLCipherSuite();
+                if ((sSLCipherSuite != null) && (sSLCipherSuite.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCipherSuite", sSLCipherSuite));            
+                
+                mBServer.setAttribute(coname,
+                              new Attribute("SSLCertificateFile", 
+                                             cform.getSSLCertificateFile()));   
+                
+                String sSLCertificateKeyFile = cform.getSSLCertificateKeyFile();
+                if ((sSLCertificateKeyFile != null) &&
+                        (sSLCertificateKeyFile.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCertificateKeyFile",
+                                      sSLCertificateKeyFile));                 
+                
+                String sSLPassword = cform.getSSLPassword();
+                if ((sSLPassword != null) && (sSLPassword.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLPassword", sSLPassword));   
+                
+                String sSLVerifyClient = cform.getSSLVerifyClient();
+                if ((sSLVerifyClient != null) && (sSLVerifyClient.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLVerifyClient", sSLVerifyClient));            
+                
+                String sSLVerifyDepthText = cform.getSSLVerifyDepthText();
+                if ((sSLVerifyDepthText != null) &&
+                        (sSLVerifyDepthText.length()>0))
+                    try {
+                        mBServer.setAttribute(coname,
+                                new Attribute("SSLVerifyDepthText",
+                                        Integer.getInteger(sSLVerifyDepthText)));
+                    } catch (NumberFormatException e) {
+                        mBServer.setAttribute(coname,
+                                new Attribute("SSLVerifyDepthText",
+                                        Integer.valueOf(10)));
+                    }
+                
+                String sSLCACertificateFile = cform.getSSLCACertificateFile();
+                if ((sSLCACertificateFile != null) &&
+                        (sSLCACertificateFile.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCACertificateFile",
+                                      sSLCACertificateFile));   
+                
+                String sSLCACertificatePath = cform.getSSLCACertificatePath();
+                if ((sSLCACertificatePath != null) &&
+                        (sSLCACertificatePath.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCACertificatePath",
+                                      sSLCACertificatePath));                    
+                
+                String sSLCertificateChainFile =
+                    cform.getSSLCertificateChainFile();
+                if ((sSLCertificateChainFile != null) &&
+                        (sSLCertificateChainFile.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCertificateChainFile",
+                                      sSLCertificateChainFile));                    
+                
+                String sSLCARevocationFile = cform.getSSLCARevocationFile();
+                if ((sSLCARevocationFile != null) &&
+                        (sSLCARevocationFile.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCARevocationFile",
+                                      sSLCARevocationFile));                    
+                
+                String sSLCARevocationPath = cform.getSSLCARevocationPath();
+                if ((sSLCARevocationPath != null) && (sSLCARevocationPath.length()>0)) 
+                    mBServer.setAttribute(coname,
+                              new Attribute("SSLCARevocationPath",
+                                      sSLCARevocationPath));                    
+             }
+
         } catch (Exception e) {
 
             getServlet().log

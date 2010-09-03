@@ -498,14 +498,20 @@ public class Http11AprProtocol implements ProtocolHandler, MBeanRegistration
      * SSL engine.
      */
     public String getSSLEngine() { return ep.getSSLEngine(); }
-    public void setSSLEngine(String SSLEngine) { ep.setSSLEngine(SSLEngine); }
+    public void setSSLEngine(String SSLEngine) {
+        ep.setSSLEngine(SSLEngine);
+        setAttribute("SSLEngine", SSLEngine);
+    }
 
 
     /**
      * SSL protocol.
      */
     public String getSSLProtocol() { return ep.getSSLProtocol(); }
-    public void setSSLProtocol(String SSLProtocol) { ep.setSSLProtocol(SSLProtocol); }
+    public void setSSLProtocol(String SSLProtocol) {
+        ep.setSSLProtocol(SSLProtocol);
+        setAttribute("SSLProtocol", SSLProtocol);
+    }
 
 
     /**
@@ -513,77 +519,110 @@ public class Http11AprProtocol implements ProtocolHandler, MBeanRegistration
      * will ask for a password).
      */
     public String getSSLPassword() { return ep.getSSLPassword(); }
-    public void setSSLPassword(String SSLPassword) { ep.setSSLPassword(SSLPassword); }
+    public void setSSLPassword(String SSLPassword) {
+        ep.setSSLPassword(SSLPassword);
+        setAttribute("SSLPassword", SSLPassword);
+    }
 
 
     /**
      * SSL cipher suite.
      */
     public String getSSLCipherSuite() { return ep.getSSLCipherSuite(); }
-    public void setSSLCipherSuite(String SSLCipherSuite) { ep.setSSLCipherSuite(SSLCipherSuite); }
+    public void setSSLCipherSuite(String SSLCipherSuite) {
+        ep.setSSLCipherSuite(SSLCipherSuite);
+        setAttribute("SSLCipherSuite", SSLCipherSuite);
+    }
 
 
     /**
      * SSL certificate file.
      */
     public String getSSLCertificateFile() { return ep.getSSLCertificateFile(); }
-    public void setSSLCertificateFile(String SSLCertificateFile) { ep.setSSLCertificateFile(SSLCertificateFile); }
+    public void setSSLCertificateFile(String SSLCertificateFile) {
+        ep.setSSLCertificateFile(SSLCertificateFile);
+        setAttribute("SSLCertificateFile", SSLCertificateFile);
+    }
 
 
     /**
      * SSL certificate key file.
      */
     public String getSSLCertificateKeyFile() { return ep.getSSLCertificateKeyFile(); }
-    public void setSSLCertificateKeyFile(String SSLCertificateKeyFile) { ep.setSSLCertificateKeyFile(SSLCertificateKeyFile); }
+    public void setSSLCertificateKeyFile(String SSLCertificateKeyFile) {
+        ep.setSSLCertificateKeyFile(SSLCertificateKeyFile);
+        setAttribute("SSLCertificateKeyFile", SSLCertificateKeyFile);
+    }
 
 
     /**
      * SSL certificate chain file.
      */
     public String getSSLCertificateChainFile() { return ep.getSSLCertificateChainFile(); }
-    public void setSSLCertificateChainFile(String SSLCertificateChainFile) { ep.setSSLCertificateChainFile(SSLCertificateChainFile); }
+    public void setSSLCertificateChainFile(String SSLCertificateChainFile) {
+        ep.setSSLCertificateChainFile(SSLCertificateChainFile);
+        setAttribute("SSLCertificateChainFile", SSLCertificateChainFile);
+    }
 
 
     /**
      * SSL CA certificate path.
      */
     public String getSSLCACertificatePath() { return ep.getSSLCACertificatePath(); }
-    public void setSSLCACertificatePath(String SSLCACertificatePath) { ep.setSSLCACertificatePath(SSLCACertificatePath); }
+    public void setSSLCACertificatePath(String SSLCACertificatePath) {
+        ep.setSSLCACertificatePath(SSLCACertificatePath);
+        setAttribute("SSLCACertificatePath", SSLCACertificatePath);
+    }
 
 
     /**
      * SSL CA certificate file.
      */
     public String getSSLCACertificateFile() { return ep.getSSLCACertificateFile(); }
-    public void setSSLCACertificateFile(String SSLCACertificateFile) { ep.setSSLCACertificateFile(SSLCACertificateFile); }
+    public void setSSLCACertificateFile(String SSLCACertificateFile) {
+        ep.setSSLCACertificateFile(SSLCACertificateFile);
+        setAttribute("SSLCACertificateFile", SSLCACertificateFile);
+    }
 
 
     /**
      * SSL CA revocation path.
      */
     public String getSSLCARevocationPath() { return ep.getSSLCARevocationPath(); }
-    public void setSSLCARevocationPath(String SSLCARevocationPath) { ep.setSSLCARevocationPath(SSLCARevocationPath); }
+    public void setSSLCARevocationPath(String SSLCARevocationPath) {
+        ep.setSSLCARevocationPath(SSLCARevocationPath);
+        setAttribute("SSLCARevocationPath", SSLCARevocationPath);
+    }
 
 
     /**
      * SSL CA revocation file.
      */
     public String getSSLCARevocationFile() { return ep.getSSLCARevocationFile(); }
-    public void setSSLCARevocationFile(String SSLCARevocationFile) { ep.setSSLCARevocationFile(SSLCARevocationFile); }
+    public void setSSLCARevocationFile(String SSLCARevocationFile) {
+        ep.setSSLCARevocationFile(SSLCARevocationFile);
+        setAttribute("SSLCARevocationFile", SSLCARevocationFile);
+    }
 
 
     /**
      * SSL verify client.
      */
     public String getSSLVerifyClient() { return ep.getSSLVerifyClient(); }
-    public void setSSLVerifyClient(String SSLVerifyClient) { ep.setSSLVerifyClient(SSLVerifyClient); }
+    public void setSSLVerifyClient(String SSLVerifyClient) {
+        ep.setSSLVerifyClient(SSLVerifyClient);
+        setAttribute("SSLVerifyClient", SSLVerifyClient);
+    }
 
 
     /**
      * SSL verify depth.
      */
     public int getSSLVerifyDepth() { return ep.getSSLVerifyDepth(); }
-    public void setSSLVerifyDepth(int SSLVerifyDepth) { ep.setSSLVerifyDepth(SSLVerifyDepth); }
+    public void setSSLVerifyDepth(int SSLVerifyDepth) {
+        ep.setSSLVerifyDepth(SSLVerifyDepth);
+        setAttribute("SSLVerifyDepth", "" + SSLVerifyDepth);
+    }
 
     // --------------------  Connection handler --------------------
 

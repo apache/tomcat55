@@ -269,6 +269,21 @@ public final class ConnectorForm extends ActionForm {
      */
     private String xpoweredBy = "false";
     
+    private String SSLEngine;
+    private String SSLProtocol;
+    private String SSLCipherSuite;
+    private String SSLCertificateFile;
+    private String SSLCertificateKeyFile;
+    private String SSLPassword;
+    private String SSLVerifyClient;
+    private String SSLVerifyDepthText;
+    private String SSLCACertificateFile;
+    private String SSLCACertificatePath;
+    private String SSLCertificateChainFile;
+    private String SSLCARevocationFile;
+    private String SSLCARevocationPath;
+
+    
     // ------------------------------------------------------------- Properties
     
    /**
@@ -1127,6 +1142,136 @@ public final class ConnectorForm extends ActionForm {
         
     }
     
+        public String getSSLEngine() {
+        return SSLEngine;
+    }
+
+
+    public void setSSLEngine(String sSLEngine) {
+        SSLEngine = sSLEngine;
+    }
+
+
+    public String getSSLProtocol() {
+        return SSLProtocol;
+    }
+
+
+    public void setSSLProtocol(String sSLProtocol) {
+        SSLProtocol = sSLProtocol;
+    }
+
+
+    public String getSSLCipherSuite() {
+        return SSLCipherSuite;
+    }
+
+
+    public void setSSLCipherSuite(String sSLCipherSuite) {
+        SSLCipherSuite = sSLCipherSuite;
+    }
+
+
+    public String getSSLCertificateFile() {
+        return SSLCertificateFile;
+    }
+
+
+    public void setSSLCertificateFile(String sSLCertificateFile) {
+        SSLCertificateFile = sSLCertificateFile;
+    }
+
+
+    public String getSSLCertificateKeyFile() {
+        return SSLCertificateKeyFile;
+    }
+
+
+    public void setSSLCertificateKeyFile(String sSLCertificateKeyFile) {
+        SSLCertificateKeyFile = sSLCertificateKeyFile;
+    }
+
+
+    public String getSSLPassword() {
+        return SSLPassword;
+    }
+
+
+    public void setSSLPassword(String sSLPassword) {
+        SSLPassword = sSLPassword;
+    }
+
+
+    public String getSSLVerifyClient() {
+        return SSLVerifyClient;
+    }
+
+
+    public void setSSLVerifyClient(String sSLVerifyClient) {
+        SSLVerifyClient = sSLVerifyClient;
+    }
+
+
+    public String getSSLVerifyDepthText() {
+        return SSLVerifyDepthText;
+    }
+
+
+    public void setSSLVerifyDepthText(String sSLVerifyDepthText) {
+        SSLVerifyDepthText = sSLVerifyDepthText;
+    }
+
+
+    public String getSSLCACertificateFile() {
+        return SSLCACertificateFile;
+    }
+
+
+    public void setSSLCACertificateFile(String sSLCACertificateFile) {
+        SSLCACertificateFile = sSLCACertificateFile;
+    }
+
+
+    public String getSSLCACertificatePath() {
+        return SSLCACertificatePath;
+    }
+
+
+    public void setSSLCACertificatePath(String sSLCACertificatePath) {
+        SSLCACertificatePath = sSLCACertificatePath;
+    }
+
+
+    public String getSSLCertificateChainFile() {
+        return SSLCertificateChainFile;
+    }
+
+
+    public void setSSLCertificateChainFile(String sSLCertificateChainFile) {
+        SSLCertificateChainFile = sSLCertificateChainFile;
+    }
+
+
+    public String getSSLCARevocationFile() {
+        return SSLCARevocationFile;
+    }
+
+
+    public void setSSLCARevocationFile(String sSLCARevocationFile) {
+        SSLCARevocationFile = sSLCARevocationFile;
+    }
+
+
+    public String getSSLCARevocationPath() {
+        return SSLCARevocationPath;
+    }
+
+
+    public void setSSLCARevocationPath(String sSLCARevocationPath) {
+        SSLCARevocationPath = sSLCARevocationPath;
+    }
+
+
     // --------------------------------------------------------- Public Methods
     
     /**
@@ -1171,7 +1316,19 @@ public final class ConnectorForm extends ActionForm {
         this.trustStoreFileName = null;
         this.trustStorePassword = null;
         this.trustStoreType = null;
-        
+        this.SSLEngine = null;
+        this.SSLProtocol = null;
+        this.SSLCipherSuite = null;
+        this.SSLCertificateFile = null;
+        this.SSLCertificateKeyFile = null;
+        this.SSLPassword = null;
+        this.SSLVerifyClient = null;
+        this.SSLVerifyDepthText = null;
+        this.SSLCACertificateFile = null;
+        this.SSLCACertificatePath = null;
+        this.SSLCertificateChainFile = null;
+        this.SSLCARevocationFile = null;
+        this.SSLCARevocationPath = null;
         
     }
     
@@ -1227,6 +1384,9 @@ public final class ConnectorForm extends ActionForm {
             numberCheck("proxyPortText",  proxyPortText, true, 0, 65535);  
         }
         
+        if ("HTTP-APR".equalsIgnoreCase(connectorType)) {
+            numberCheck("SSLVerifyDepthText", SSLVerifyDepthText, true, 1, 100);
+        }
         return errors;
     }
     

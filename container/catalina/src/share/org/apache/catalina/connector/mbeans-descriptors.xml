@@ -171,6 +171,58 @@
           description="Comma-separated list of SSL protocol variants to be enabled"
                  type="java.lang.String"/>
 
+    <attribute   name="SSLEngine"
+          description="Name of SSL engine to use"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLProtocol"
+          description="Protocol to use to communicate with clients"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCipherSuite"
+          description="Ciphers to use to communicate with clients"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCertificateFile"
+          description="File containing server certificate"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCertificateKeyFile"
+          description="File containing server private key"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLPassword"
+          description="Pass phrase for the server private key"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLVerifyClient"
+          description="Extend to which clients must be validated"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLVerifyDepth"
+          description="Maximum verification depth for client certificates"
+                 type="int"/>
+
+    <attribute   name="SSLCACertificateFile"
+          description="File containing CA certificates"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCACertificatePath"
+          description="Directory containing CA certificates"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCertificateChainFile"
+          description="File containing certificates in server certificate chain"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCARevocationFile"
+          description="File containing CA revocation lists"
+                 type="java.lang.String"/>
+
+    <attribute   name="SSLCARevocationPath"
+          description="Directory containing CA revocation lists"
+                 type="java.lang.String"/>
+
     <attribute   name="strategy"
           description="Thread pool strategy"
                  type="java.lang.String"/>

@@ -130,14 +130,16 @@ public class EditConnectorAction extends Action {
                 (String) mBServer.getAttribute(cname, attribute);
             int period = handlerClassName.lastIndexOf('.');
             String connType = handlerClassName.substring(period + 1);
-            String connectorType = "HTTPS";
+            String connectorType = "HTTP";
             if ("JkCoyoteHandler".equalsIgnoreCase(connType) ||
                     "AjpAprProtocol".equalsIgnoreCase(connType)) {
                 connectorType = "AJP";
-            } else if (("Http11Protocol".equalsIgnoreCase(connType)  ||
-                    "Http11AprProtocol".equalsIgnoreCase(connType)) && 
-                    ("http".equalsIgnoreCase(scheme))) {
-                connectorType = "HTTP";
+            } else if ("Http11Protocol".equalsIgnoreCase(connType) && 
+                    "https".equalsIgnoreCase(scheme)) {
+                connectorType = "HTTPS-JSSE";
+            } else if ("Http11AprProtocol".equalsIgnoreCase(connType) && 
+                    "https".equalsIgnoreCase(scheme)) {
+                connectorType = "HTTPS-APR";
             }             
             connectorFm.setConnectorType(connectorType);            
             
@@ -226,9 +228,8 @@ public class EditConnectorAction extends Action {
                     (((Integer) mBServer.getAttribute(cname, attribute)).toString());            
             }
             
-            if ("HTTPS".equalsIgnoreCase(connectorType)) {
-                // Initialize rest of variables. 
-                // These are set only for SSL connectors.
+            if ("HTTPS-JSSE".equalsIgnoreCase(connectorType)) {
+                // These are set only for JSSE SSL connectors.
                 attribute = "algorithm";
                 connectorFm.setAlgorithm
                     ((String) mBServer.getAttribute(cname, attribute));
@@ -261,6 +262,48 @@ public class EditConnectorAction extends Action {
                     ((String) mBServer.getAttribute(cname, attribute));          
             }     
                 
+            if ("HTTPS-APR".equalsIgnoreCase(connectorType)) {
+                // These are set only for APR SSL connectors.
+                attribute = "SSLEngine";
+                connectorFm.setSSLEngine
+                    ((String) mBServer.getAttribute(cname, attribute));
+                attribute = "SSLProtocol";
+                connectorFm.setSSLProtocol
+                    (((String) mBServer.getAttribute(cname, attribute)));
+                attribute = "SSLCipherSuite";
+                connectorFm.setSSLCipherSuite
+                    ((String) mBServer.getAttribute(cname, attribute));   
+                attribute = "SSLCertificateFile";
+                connectorFm.setSSLCertificateFile
+                    ((String) mBServer.getAttribute(cname, attribute));
+                attribute = "SSLCertificateKeyFile";
+                connectorFm.setSSLCertificateKeyFile
+                    ((String) mBServer.getAttribute(cname, attribute));     
+                attribute = "SSLPassword";
+                connectorFm.setSSLPassword
+                    ((String) mBServer.getAttribute(cname, attribute));   
+                attribute = "SSLVerifyClient";
+                connectorFm.setSSLVerifyClient
+                    ((String) mBServer.getAttribute(cname, attribute));
+                attribute = "SSLVerifyDepth";
+                connectorFm.setSSLVerifyDepthText
+                    (((Integer) mBServer.getAttribute(cname, attribute)).toString());     
+                attribute = "SSLCACertificateFile";
+                connectorFm.setSSLCACertificateFile
+                    ((String) mBServer.getAttribute(cname, attribute));   
+                attribute = "SSLCACertificatePath";
+                connectorFm.setSSLCACertificatePath
+                    ((String) mBServer.getAttribute(cname, attribute));          
+                attribute = "SSLCertificateChainFile";
+                connectorFm.setSSLCertificateChainFile
+                    ((String) mBServer.getAttribute(cname, attribute));          
+                attribute = "SSLCARevocationFile";
+                connectorFm.setSSLCARevocationFile
+                    ((String) mBServer.getAttribute(cname, attribute));          
+                attribute = "SSLCARevocationPath";
+                connectorFm.setSSLCARevocationPath
+                    ((String) mBServer.getAttribute(cname, attribute));          
+            }     
                         
         } catch (Throwable t) {
             getServlet().log

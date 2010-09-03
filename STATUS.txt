@@ -88,10 +88,3 @@ PATCHES PROPOSED TO BACKPORT:
      and thus I am letting this pass. The SingleSignOn valve is usually added to
      a <Host> (looking at the default server.xml), so we have to call
      request.getContext() to get a Context there?
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49774
-  Add SSL support using the APR connector to the admin app
-  https://issues.apache.org/bugzilla/attachment.cgi?id=25954
-  +1: markt, jim, mturk
-  -1:
-
