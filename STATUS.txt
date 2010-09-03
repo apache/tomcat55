@@ -92,6 +92,6 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49774
   Add SSL support using the APR connector to the admin app
   https://issues.apache.org/bugzilla/attachment.cgi?id=25954
-  +1: markt, jim
+  +1: markt, jim, mturk
   -1:
 
