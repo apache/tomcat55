@@ -68,6 +68,10 @@ base-sf.loc=http://switch.dl.sourceforge.net/sourceforge
 # ----- Additional Tomcat files base location -----
 base-tomcat.loc=http://archive.apache.org/dist/tomcat
 
+# ----- Additional Optional-but-Required-for-Release files base location -----
+activation.loc=http://people.apache.org/~jim/tomcat-5.5-opt-jars/jaf-1.1.1/activation.jar
+mail.loc=http://people.apache.org/~jim/tomcat-5.5-opt-jars/javamail-1.4.1/mail.jar
+
 # --------------------------------------------------
 #                REQUIRED LIBRARIES
 # --------------------------------------------------

@@ -2101,11 +2101,28 @@
       <param name="destdir" value="${tomcat-native.home}"/>
     </antcall>
 
+    <!-- Grab the JAF/Javamail dependencies if doing full release -->
+    <antcall target="fulldist"/>
+
     <!-- Build the dependencies that are not yet released -->
     <antcall target="build-depends"/>
 
   </target>
 
+  <target name="fulldist" if="full.dist">
+    <antcall target="downloadfile">
+      <param name="sourcefile" value="${mail.loc}"/>
+      <param name="destfile" value="${mail.jar}"/>
+      <param name="destdir" value="${mail.home}"/>
+    </antcall>
+
+    <antcall target="downloadfile">
+      <param name="sourcefile" value="${activation.loc}"/>
+      <param name="destfile" value="${activation.jar}"/>
+      <param name="destdir" value="${activation.home}"/>
+    </antcall>
+  </target>
+  
   <target name="proxyflags">
     <!-- check proxy parameters. -->
     <condition property="useproxy">
