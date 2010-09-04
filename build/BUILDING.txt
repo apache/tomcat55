@@ -33,7 +33,9 @@ is known to work). Do the following:
   Tomcat can be built using a 1.4.x JDK but you will need to copy the contents
   of the compat directory (created by the build process) to your build directory
   before Tomcat will start.
- 
+
+  The standard ASF distributions are built with a 1.4.x JDK.
+
 * If the JDK is already installed, skip to (1).
 
 * Download a Java Development Kit (JDK) release (version 1.4.x or later) from:
@@ -161,7 +163,8 @@ The documentation can be easily rebuild, do
 
 (8) Building a release running tests:
 
-do
+Ensure that 'full.dist=on' is set in build.properties
+and do
     cd ${tomcat.source}/build
     ant release
 
