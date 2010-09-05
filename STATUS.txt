@@ -66,3 +66,9 @@ PATCHES PROPOSED TO BACKPORT:
   -- see attachment 25657 in BZ 49521, but I do not think that it is worth it.)
   jim: Also not comfortable with such a change this late in the game
        regarding default behavior of a stable branch.
+
+* Add "**/*.pom" to "src.files" patternset in build.xml to fixcrlf
+  container/modules/groupcom/build/mvn/tribes.pom.
+  +1: rjung
+  -1:
+
