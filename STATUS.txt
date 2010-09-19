@@ -69,6 +69,18 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Add "**/*.pom" to "src.files" patternset in build.xml to fixcrlf
   container/modules/groupcom/build/mvn/tribes.pom.
-  +1: rjung
+  +1: rjung, kkolinko
   -1:
+Index: build/build.xml
+===================================================================
+--- build/build.xml	(revision 998630)
++++ build/build.xml	(working copy)
+@@ -134,6 +134,7 @@
+     <include name="**/*.nsi"/>
+     <include name="**/*.pl"/>
+     <include name="**/*.policy"/>
++    <include name="**/*.pom"/>
+     <include name="**/*.properties"/>
+     <include name="**/*.properties.default"/>
+     <include name="**/*.properties.minimal"/>
 
