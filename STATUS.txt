@@ -66,21 +66,3 @@ PATCHES PROPOSED TO BACKPORT:
   -- see attachment 25657 in BZ 49521, but I do not think that it is worth it.)
   jim: Also not comfortable with such a change this late in the game
        regarding default behavior of a stable branch.
-
-* Add "**/*.pom" to "src.files" patternset in build.xml to fixcrlf
-  container/modules/groupcom/build/mvn/tribes.pom.
-  +1: rjung, kkolinko, markt
-  -1:
-Index: build/build.xml
-===================================================================
---- build/build.xml	(revision 998630)
-+++ build/build.xml	(working copy)
-@@ -134,6 +134,7 @@
-     <include name="**/*.nsi"/>
-     <include name="**/*.pl"/>
-     <include name="**/*.policy"/>
-+    <include name="**/*.pom"/>
-     <include name="**/*.properties"/>
-     <include name="**/*.properties.default"/>
-     <include name="**/*.properties.minimal"/>
-
