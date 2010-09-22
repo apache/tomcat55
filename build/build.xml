@@ -134,6 +134,7 @@
     <include name="**/*.nsi"/>
     <include name="**/*.pl"/>
     <include name="**/*.policy"/>
+  	<include name="**/*.pom"/>
     <include name="**/*.properties"/>
     <include name="**/*.properties.default"/>
     <include name="**/*.properties.minimal"/>

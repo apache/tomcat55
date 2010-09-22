@@ -38,6 +38,16 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
+<section name="Tomcat 5.5.32 (jim)">
+  <subsection name="General">
+    <changelog>
+      <fix>
+        Ensure POM files have correct line endings in source distributions.
+        (rjung/markt)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
 <section name="Tomcat 5.5.31 (jim)">
   <subsection name="General">
     <changelog>
