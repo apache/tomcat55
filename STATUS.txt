@@ -69,7 +69,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Add "**/*.pom" to "src.files" patternset in build.xml to fixcrlf
   container/modules/groupcom/build/mvn/tribes.pom.
-  +1: rjung, kkolinko
+  +1: rjung, kkolinko, markt
   -1:
 Index: build/build.xml
 ===================================================================
