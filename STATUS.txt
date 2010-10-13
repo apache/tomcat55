@@ -75,6 +75,6 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Avoid unnecessary cast
   http://svn.apache.org/viewvc?rev=1022134&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1:
   
