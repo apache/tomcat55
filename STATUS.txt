@@ -72,3 +72,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2010-09-27-bug49935-tc5.patch
   +1: markt, kkolinko
   -1:
+
+* Avoid unnecessary cast
+  http://svn.apache.org/viewvc?rev=1022134&view=rev
+  +1: markt
+  -1:
+  
