@@ -58,7 +58,7 @@ PATCHES PROPOSED TO BACKPORT:
     for channelSocket.maxPort
   +1: kkolinko, markt
   -1:
-  -0: rjung, jim
+  -0: rjung, jim, timw
   rjung: Should we really change default behaviour for a mature version?
   kkolinko: (I think that hardly anyone uses that feature, and if it is needed,
   one can reenable it now by setting the maxPort attribute.
@@ -66,15 +66,18 @@ PATCHES PROPOSED TO BACKPORT:
   -- see attachment 25657 in BZ 49521, but I do not think that it is worth it.)
   jim: Also not comfortable with such a change this late in the game
        regarding default behavior of a stable branch.
+  timw: This caused major pain embedding 5.5 (so I'm sorely tempted to +1)
+        , but moving to 6.0 is a decent soln.
+        Probably not worth changing this late in the evolution of 5.5.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49935
   Handle compilation of recursive tag files. Port fix from tc6. 
   http://people.apache.org/~markt/patches/2010-09-27-bug49935-tc5.patch
-  +1: markt, kkolinko
+  +1: markt, kkolinko, timw
   -1:
 
 * Avoid unnecessary cast
   http://svn.apache.org/viewvc?rev=1022134&view=rev
-  +1: markt, kkolinko, rjung
+  +1: markt, kkolinko, rjung, timw
   -1:
   
