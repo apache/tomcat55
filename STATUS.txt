@@ -80,4 +80,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1022134&view=rev
   +1: markt, kkolinko, rjung, timw
   -1:
-  
+
+* Improve sending an access message in DeltaManager.
+  maxInactiveInterval of not Manager but the session is used. 
+  If maxInactiveInterval is negative, an access message is not sending. 
+  http://svn.apache.org/viewvc?rev=1025924&view=rev
+  +1: kfujino
+  -1:
