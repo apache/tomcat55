@@ -87,3 +87,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1025924&view=rev
   +1: kfujino
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50131
+  Avoid possible NPE in debug output in PersistentValve.
+  Patch by sebb
+  https://issues.apache.org/bugzilla/attachment.cgi?id=26194
+  +1: kkolinko
+  -1:
