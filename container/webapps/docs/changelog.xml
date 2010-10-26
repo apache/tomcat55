@@ -47,6 +47,13 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        Avoid unnecessary cast in StandardContext. (markt)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.31 (jim)" rtext="released 2010-09-16">
   <subsection name="General">

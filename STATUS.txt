@@ -76,11 +76,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kkolinko, timw
   -1:
 
-* Avoid unnecessary cast
-  http://svn.apache.org/viewvc?rev=1022134&view=rev
-  +1: markt, kkolinko, rjung, timw
-  -1:
-
 * Improve sending an access message in DeltaManager.
   maxInactiveInterval of not Manager but the session is used. 
   If maxInactiveInterval is negative, an access message is not sending. 
