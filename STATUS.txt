@@ -70,12 +70,6 @@ PATCHES PROPOSED TO BACKPORT:
         , but moving to 6.0 is a decent soln.
         Probably not worth changing this late in the evolution of 5.5.
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=49935
-  Handle compilation of recursive tag files. Port fix from tc6. 
-  http://people.apache.org/~markt/patches/2010-09-27-bug49935-tc5.patch
-  +1: markt, kkolinko, timw
-  -1:
-
 * Improve sending an access message in DeltaManager.
   maxInactiveInterval of not Manager but the session is used. 
   If maxInactiveInterval is negative, an access message is not sending. 

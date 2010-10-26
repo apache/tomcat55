@@ -133,21 +133,6 @@ public abstract class Compiler {
         ServletWriter writer = null;
 
         try {
-            // Setup the ServletWriter
-            String javaEncoding = ctxt.getOptions().getJavaEncoding();
-            OutputStreamWriter osw = null; 
-
-            try {
-                osw = new OutputStreamWriter(
-                            new FileOutputStream(javaFileName), javaEncoding);
-            } catch (UnsupportedEncodingException ex) {
-                errDispatcher.jspError("jsp.error.needAlternateJavaEncoding",
-                                       javaEncoding);
-            }
-
-            writer = new ServletWriter(new PrintWriter(osw));
-            ctxt.setWriter(writer);
-
             // Reset the temporary variable counter for the generator.
             JspUtil.resetTemporaryVariableName();
 
@@ -177,6 +162,7 @@ public abstract class Compiler {
 
             if (ctxt.isPrototypeMode()) {
                 // generate prototype .java file for the tag file
+                writer = setupContextWriter(javaFileName);
                 Generator.generate(writer, this, pageNodes);
                 writer.close();
                 writer = null;
@@ -217,6 +203,7 @@ public abstract class Compiler {
             ELFunctionMapper.map(this, pageNodes);
 
             // generate servlet .java file
+            writer = setupContextWriter(javaFileName);
             Generator.generate(writer, this, pageNodes);
             writer.close();
             writer = null;
@@ -270,6 +257,28 @@ public abstract class Compiler {
         return smapStr;
     }
 
+    
+    private ServletWriter setupContextWriter(String javaFileName)
+            throws FileNotFoundException, JasperException {
+        ServletWriter writer;
+        // Setup the ServletWriter
+        String javaEncoding = ctxt.getOptions().getJavaEncoding();
+        OutputStreamWriter osw = null;
+
+        try {
+            osw = new OutputStreamWriter(
+                    new FileOutputStream(javaFileName), javaEncoding);
+        } catch (UnsupportedEncodingException ex) {
+            errDispatcher.jspError("jsp.error.needAlternateJavaEncoding",
+                    javaEncoding);
+        }
+
+        writer = new ServletWriter(new PrintWriter(osw));
+        ctxt.setWriter(writer);
+        return writer;
+    }
+    
+    
     /** 
      * Compile the servlet from .java file to .class file
      */
@@ -328,7 +337,7 @@ public abstract class Compiler {
                 }
             }
         } finally {
-            if (tfp != null) {
+            if (tfp != null && ctxt.isPrototypeMode()) {
                 tfp.removeProtoTypeFiles(null);
             }
             // Make sure these object which are only used during the
