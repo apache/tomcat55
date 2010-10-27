@@ -83,3 +83,10 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=26194
   +1: kkolinko, kfujino, markt
   -1:
+
+* Update Commons daemon to 1.0.4
+  Version 1.0.4 is bug fixing release. (Patch is trivial changing the version
+  number to 1.0.4 in build.properties.default, so not provided)
+  +1: mturk
+  -1:
+
