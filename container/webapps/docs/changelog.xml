@@ -65,6 +65,16 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Cluster">
+    <changelog>
+      <fix>
+        Improve sending an access message in DeltaManager.
+        maxInactiveInterval of not Manager but the session is used. 
+        If maxInactiveInterval is negative, an access message is not sending. 
+        (kfujino)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.31 (jim)" rtext="released 2010-09-16">
   <subsection name="General">

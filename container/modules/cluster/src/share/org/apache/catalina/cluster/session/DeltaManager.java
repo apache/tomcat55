@@ -1452,8 +1452,8 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
                 long replDelta = System.currentTimeMillis()
                         - session.getLastTimeReplicated();
                 if (replDelta >= updateActiveInterval*1000 ||
-                    (getMaxInactiveInterval()>=0 &&
-                    replDelta >= getMaxInactiveInterval()*1000)) {
+                    (session.getMaxInactiveInterval()>=0 &&
+                    replDelta >= session.getMaxInactiveInterval()*1000)) {
                     counterSend_EVT_SESSION_ACCESSED++;
                     msg = new SessionMessageImpl(getName(),
                             SessionMessage.EVT_SESSION_ACCESSED, null,
