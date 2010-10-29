@@ -50,6 +50,10 @@
   <subsection name="Catalina">
     <changelog>
       <fix>
+        <bug>50131</bug>: Avoid possible NPE in debug output in PersistentValve.
+        Patch provided by sebb. (kkolinko)
+      </fix>
+      <fix>
         Avoid unnecessary cast in StandardContext. (markt)
       </fix>
     </changelog>

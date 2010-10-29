@@ -178,9 +178,11 @@ public class PersistentValve
                 } else {
                     if (container.getLogger().isDebugEnabled())
                         container.getLogger().debug("newsessionId store: " + store + " session: " +
-                                session + " valid: " + session.isValid() +
-                                " Staled: " +
-                                isSessionStale(session, System.currentTimeMillis()));
+                                session + 
+                                (session == null ? "" :
+                                    " valid: " + session.isValid() +
+                                    " stale: " +
+                                isSessionStale(session, System.currentTimeMillis())));
 
                 }
             } else {
