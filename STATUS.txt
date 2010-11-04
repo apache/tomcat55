@@ -76,3 +76,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: mturk, rjung, kkolinko
   -1:
 
+* Update Commons pool to 1.5.5
+  Version 1.5.5 is bug fixing release. (Patch is trivial changing the version
+  number to 1.5.5 in build.properties.default, so not provided)
+  +1: markt
+  -1:
