@@ -56,7 +56,7 @@ PATCHES PROPOSED TO BACKPORT:
     and #init() methods.
   - Add support for "maxPort" attribute on a <Connector> element as a synonym
     for channelSocket.maxPort
-  +1: kkolinko, markt
+  +1: kkolinko, markt, funkman
   -1:
   -0: rjung, jim, timw
   rjung: Should we really change default behaviour for a mature version?
@@ -73,11 +73,11 @@ PATCHES PROPOSED TO BACKPORT:
 * Update Commons daemon to 1.0.4
   Version 1.0.4 is bug fixing release. (Patch is trivial changing the version
   number to 1.0.4 in build.properties.default, so not provided)
-  +1: mturk, rjung, kkolinko, markt
+  +1: mturk, rjung, kkolinko, markt, funkman
   -1:
 
 * Update Commons pool to 1.5.5
   Version 1.5.5 is bug fixing release. (Patch is trivial changing the version
   number to 1.5.5 in build.properties.default, so not provided)
-  +1: markt
+  +1: markt,funkman
   -1:
