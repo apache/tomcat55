@@ -91,7 +91,7 @@ public class ChannelNioSocket extends JkHandler
         org.apache.commons.logging.LogFactory.getLog( ChannelNioSocket.class );
 
     private int startPort=8009;
-    private int maxPort=8019; // 0 for backward compat.
+    private int maxPort=0; // 0 disables free port scanning
     private int port=startPort;
     private InetAddress inet;
     private int serverTimeout = 0;
@@ -142,7 +142,6 @@ public class ChannelNioSocket extends JkHandler
     public void setPort( int port ) {
         this.startPort=port;
         this.port=port;
-        this.maxPort=port+10;
     }
 
     public int getPort() {
@@ -386,11 +385,12 @@ public class ChannelNioSocket extends JkHandler
             running = true;
             return;
         }
-        if (maxPort < startPort)
-            maxPort = startPort;
+        int endPort = maxPort;
+        if (endPort < startPort)
+            endPort = startPort;
         ServerSocketChannel ssc = ServerSocketChannel.open();
         ssc.configureBlocking(false);
-        for( int i=startPort; i<=maxPort; i++ ) {
+        for( int i=startPort; i<=endPort; i++ ) {
             try {
                 InetSocketAddress iddr = null;
                 if( inet == null ) {
@@ -410,7 +410,7 @@ public class ChannelNioSocket extends JkHandler
         }
 
         if( sSocket==null ) {
-            log.error("Can't find free port " + startPort + " " + maxPort );
+            log.error("Can't find free port " + startPort + " " + endPort );
             return;
         }
         if(log.isInfoEnabled())
