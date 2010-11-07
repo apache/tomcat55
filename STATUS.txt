@@ -69,15 +69,3 @@ PATCHES PROPOSED TO BACKPORT:
   timw: This caused major pain embedding 5.5 (so I'm sorely tempted to +1)
         , but moving to 6.0 is a decent soln.
         Probably not worth changing this late in the evolution of 5.5.
-
-* Update Commons daemon to 1.0.4
-  Version 1.0.4 is bug fixing release. (Patch is trivial changing the version
-  number to 1.0.4 in build.properties.default, so not provided)
-  +1: mturk, rjung, kkolinko, markt, funkman
-  -1:
-
-* Update Commons pool to 1.5.5
-  Version 1.5.5 is bug fixing release. (Patch is trivial changing the version
-  number to 1.5.5 in build.properties.default, so not provided)
-  +1: markt,funkman, kkolinko
-  -1:

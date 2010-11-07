@@ -31,6 +31,7 @@
     <author email="kkolinko@apache.org">Konstantin Kolinko</author>
     <author email="kfujino@apache.org">Keiichi Fujino</author>
     <author email="jim@apache.org">Jim Jagielski</author>
+    <author email="mturk@apache.org">Mladen Turk</author>
     <title>Changelog</title>
   </properties>
 
@@ -41,6 +42,12 @@
 <section name="Tomcat 5.5.32 (jim)">
   <subsection name="General">
     <changelog>
+      <update>
+        Update to Commons Daemon 1.0.4. (mturk)
+      </update>
+      <update>
+        Update to commons-pool 1.5.5. (markt)
+      </update>
       <fix>
         Ensure POM files have correct line endings in source distributions.
         (rjung/markt)

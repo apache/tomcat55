@@ -94,7 +94,7 @@ commons-launcher.loc=${base-commons.loc}/launcher/binaries/commons-launcher-1.1.
 
 
 # ----- Commons Daemon, version 1.0-Alpha or later -----
-commons-daemon.version=1.0.2
+commons-daemon.version=1.0.4
 commons-daemon.home=${base.path}/commons-daemon-${commons-daemon.version}
 commons-daemon.jar=${commons-daemon.home}/commons-daemon-${commons-daemon.version}.jar
 commons-daemon.native.win.home=${commons-daemon.home}/windows
@@ -168,7 +168,7 @@ commons-dbcp-src.loc=${base-commons.loc}/dbcp/source/commons-dbcp-${commons-dbcp
 
 
 # ----- Commons Pool, version 1.1 or later -----
-commons-pool.version=1.5.4
+commons-pool.version=1.5.5
 commons-pool.home=${base.path}/commons-pool-${commons-pool.version}-src
 commons-pool-src.loc=${base-commons.loc}/pool/source/commons-pool-${commons-pool.version}-src.tar.gz
 
