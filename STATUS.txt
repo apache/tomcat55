@@ -48,3 +48,33 @@ PATCHES PROPOSED TO BACKPORT:
   -0: markt - Consensus was for disabled in 5.5.x
               http://svn.apache.org/viewvc?view=revision&revision=749019
   -1:
+
+* Backport Windows installer improvements from Tomcat 7.0.5.
+
+  See TC 6 proposal for details (r1035106).
+  TC5.5 proposal is different in the following:
+   - Patch includes changes to build.xml, to implement filtering for @YEAR@
+   - Patch includes changes to tomcat-users_1.xml, to implement TC6/TC7
+   installer feature that the character encoding that was used to write
+   tomcat-users.xml is included in the XML signature that is printed
+   at the top of the file. That was to support non-latin usernames.
+   - TC5.5 uses the old roles "manager" and "admin", instead of the newer
+   "-gui" ones.
+
+  1. Run the following SVN commands:
+   svn del build/resources/jvm.ini
+   svn del build/resources/config.ini
+   svn del build/resources/main.ico
+   svn del build/resources/uninst.ico
+   # copy icons from TC7, see r999976
+   svn copy ../../trunk/res/main.ico build/resources/
+   svn copy ../../trunk/res/uninst.ico build/resources/
+  2. Apply patch:
+   http://people.apache.org/~kkolinko/patches/2010-11-15_tc55_tomcat-nsi.patch
+  (
+   For reference: here is the diff of tomcat.nsi of trunk @1035132 if I copy
+   this patched tc5.5 version on top of it:
+   http://people.apache.org/~kkolinko/patches/2010-11-15_tc55_tomcat-nsi-of-tc7_vs_tc55.diff
+  )
+   +1: kkolinko
+   -1:
