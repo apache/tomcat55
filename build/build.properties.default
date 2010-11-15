@@ -121,6 +121,9 @@ commons-el.loc=${base-commons.loc}/el/binaries/commons-el-1.0.tar.gz
 
 
 # ----- Commons Logging, version 1.0.1 or later -----
+# Warning: If the version number here changes, several other files have to be updated.
+# Search the sources for "commons-logging-api-1.1.1.jar"
+# -> tomcat.nsi, bootstrap.MF, catalina.policy
 commons-logging.home=${base.path}/commons-logging-1.1.1
 commons-logging.lib=${commons-logging.home}
 commons-logging-api.jar=${commons-logging.lib}/commons-logging-api-1.1.1.jar
