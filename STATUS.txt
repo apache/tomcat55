@@ -78,3 +78,8 @@ PATCHES PROPOSED TO BACKPORT:
   )
    +1: kkolinko
    -1:
+
+* Configure manager, host-manager and admin webapps to use HttpOnly for session cookies
+  http://people.apache.org/~kkolinko/patches/2010-11-22_tc55_httpOnly.patch
+  +1: kkolinko
+  -1:
