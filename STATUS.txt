@@ -76,7 +76,7 @@ PATCHES PROPOSED TO BACKPORT:
    this patched tc5.5 version on top of it:
    http://people.apache.org/~kkolinko/patches/2010-11-15_tc55_tomcat-nsi-of-tc7_vs_tc55.diff
   )
-   +1: kkolinko
+   +1: kkolinko - with r1038975 to remove use of PID file
    -1:
 
 * Configure manager, host-manager and admin webapps to use HttpOnly for session cookies
