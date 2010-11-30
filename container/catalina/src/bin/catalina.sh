@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 # Start/Stop Script for the CATALINA Server
 #
-# Environment Variable Prequisites
+# Environment Variable Prerequisites
 #
 #   CATALINA_HOME   May point at your Catalina "build" directory.
 #
