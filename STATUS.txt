@@ -83,3 +83,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2010-11-22_tc55_httpOnly.patch
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413
+  Ensure 304s are not returned when using static files as error pages
+  http://svn.apache.org/viewvc?view=revision&revision=1044266
+  +1: markt
+  -1:
