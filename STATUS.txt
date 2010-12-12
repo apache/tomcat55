@@ -87,5 +87,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413
   Ensure 304s are not returned when using static files as error pages
   http://svn.apache.org/viewvc?view=revision&revision=1044266
-  +1: markt
+  +1: markt, kkolinko
   -1:
