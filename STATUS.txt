@@ -89,3 +89,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=1044266
   +1: markt, kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43960
+  Expose available property of StandardWrapper via JMX
+  http://people.apache.org/~markt/patches/2010-12-13-bug43960-tc5.patch
+  +1: markt
+  -1:
