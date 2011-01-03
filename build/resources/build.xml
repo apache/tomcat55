@@ -36,7 +36,7 @@
 
   <!-- Project Properties -->
   <property name="name"                  value="Apache Tomcat" />
-  <property name="year"                  value="2010" />
+  <property name="year"                  value="2011" />
   <property name="version"               value="5.5" />
   <property name="project"               value="apache-tomcat" />
   <property name="final.name"            value="${project}-${version}" />

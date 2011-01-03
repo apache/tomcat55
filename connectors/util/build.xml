@@ -157,7 +157,7 @@
                   version="true"
               windowtitle="Tomcat Utilities Documentation"
                  doctitle="Tomcat Utilities"
-                   bottom="Copyright &amp;#169; 2001-2010 Apache Software Foundation.  All Rights Reserved.">
+                   bottom="Copyright &amp;#169; 2001-2011 Apache Software Foundation.  All Rights Reserved.">
             <classpath refid="compile.classpath"/>
         </javadoc>
     </target>

@@ -118,7 +118,7 @@
 	<target name="javadoc">
 		<delete dir="${config.build}/javadoc" />
 		<mkdir dir="${config.build}/javadoc" />
-		<javadoc packagenames="org.apache.catalina.storeconfig.*" classpathref="config.classpath" sourcepathref="javadoc.sourcepath" destdir="${config.build}/javadoc" author="true" version="true" windowtitle="Catalina Internal StoreConfig API Documentation" doctitle="Catalina StoreConfig API" bottom="Copyright &#169; 2000-2010 Apache Software Foundation.  All Rights Reserved." />
+		<javadoc packagenames="org.apache.catalina.storeconfig.*" classpathref="config.classpath" sourcepathref="javadoc.sourcepath" destdir="${config.build}/javadoc" author="true" version="true" windowtitle="Catalina Internal StoreConfig API Documentation" doctitle="Catalina StoreConfig API" bottom="Copyright &#169; 2000-2011 Apache Software Foundation.  All Rights Reserved." />
 	</target>
 
 
