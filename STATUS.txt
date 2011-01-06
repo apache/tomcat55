@@ -107,3 +107,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=1055798
   +1: kfujino
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
+  Requests for a newly created directory using MKCOL should not result in a 404
+  http://svn.apache.org/viewvc?rev=1055975&view=rev
+  +1: markt
+  -1:
+  
