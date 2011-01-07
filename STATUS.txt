@@ -42,13 +42,6 @@ PATCHES PROPOSED TO BACKPORT:
   -O: jim
   -1:
 
-* Configure Tomcat to use HttpOnly for session cookies by default
-  http://people.apache.org/~kkolinko/patches/2010-04-21_tc55_context_httpOnly.patch
-  +1: kkolinko
-  -0: markt - Consensus was for disabled in 5.5.x
-              http://svn.apache.org/viewvc?view=revision&revision=749019
-  -1:
-
 * Backport Windows installer improvements from Tomcat 7.0.5.
 
   See TC 6 proposal for details (r1035106).
