@@ -113,3 +113,9 @@ PATCHES PROPOSED TO BACKPORT:
   +1: mturk
   -1:
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47319
+  Return IP address rather than null for getRemoteHost() and the APR connector
+  http://svn.apache.org/viewvc?view=revision&revision=1056414
+  (markt's patch)
+  +1: kkolinko
+  -1:
