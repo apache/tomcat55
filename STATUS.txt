@@ -74,26 +74,26 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Configure manager, host-manager and admin webapps to use HttpOnly for session cookies
   http://people.apache.org/~kkolinko/patches/2010-11-22_tc55_httpOnly.patch
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413
   Ensure 304s are not returned when using static files as error pages
   http://people.apache.org/~markt/patches/2011-01-04-bug50413-tc5.patch
-  +1: markt
+  +1: markt, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43960
   Expose available property of StandardWrapper via JMX
   http://people.apache.org/~markt/patches/2010-12-13-bug43960-tc5.patch
-  +1: markt, kkolinko
+  +1: markt, kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50460
   Avoid leak caused by using a cached exception instance
   http://svn.apache.org/viewvc?rev=1044987&view=rev
   (without the @Override annotations)
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50547
@@ -101,22 +101,24 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=1055798
   +1: kfujino
   -1:
+  rjung: Please provide a patch that applies cleanly to both DeltaManager
+  classes in TC 5.5.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
   Requests for a newly created directory using MKCOL should not result in a 404
   http://svn.apache.org/viewvc?rev=1055975&view=rev
-  +1: markt
+  +1: markt, rjung
   -1:
 
 * Upgrade Commons Daemon to version 1.0.5
   Fixes various Windows platform issues.
   Patch is trivial so not provided.
-  +1: mturk, kkolinko
+  +1: mturk, kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47319
   Return IP address rather than null for getRemoteHost() and the APR connector
   http://svn.apache.org/viewvc?view=revision&revision=1056414
   (markt's patch)
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
