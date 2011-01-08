@@ -94,7 +94,7 @@ commons-launcher.loc=${base-commons.loc}/launcher/binaries/commons-launcher-1.1.
 
 
 # ----- Commons Daemon, version 1.0-Alpha or later -----
-commons-daemon.version=1.0.4
+commons-daemon.version=1.0.5
 commons-daemon.home=${base.path}/commons-daemon-${commons-daemon.version}
 commons-daemon.jar=${commons-daemon.home}/commons-daemon-${commons-daemon.version}.jar
 commons-daemon.native.win.home=${commons-daemon.home}/windows
