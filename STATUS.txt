@@ -107,8 +107,9 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
   Requests for a newly created directory using MKCOL should not result in a 404
   http://svn.apache.org/viewvc?rev=1055975&view=rev
-  +1: markt, rjung
+  +1: markt
   -1:
+  rjung: +1 once Filip's question in the TC 6 STATUS file is cleared.
 
 * Upgrade Commons Daemon to version 1.0.5
   Fixes various Windows platform issues.
