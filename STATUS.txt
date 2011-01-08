@@ -92,6 +92,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50460
   Avoid leak caused by using a cached exception instance
   http://svn.apache.org/viewvc?rev=1044987&view=rev
+  (without the @Override annotations)
   +1: kkolinko
   -1:
 
@@ -110,7 +111,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Upgrade Commons Daemon to version 1.0.5
   Fixes various Windows platform issues.
   Patch is trivial so not provided.
-  +1: mturk
+  +1: mturk, kkolinko
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47319
