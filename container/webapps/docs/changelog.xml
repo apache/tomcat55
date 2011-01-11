@@ -56,6 +56,10 @@
   </subsection>
   <subsection name="Catalina">
     <changelog>
+      <add>
+        <bug>43960</bug>: Expose <code>available</code> property of
+        StandardWrapper via JMX. (markt)
+      </add>
       <fix>
         <bug>50131</bug>: Avoid possible NPE in debug output in PersistentValve.
         Patch provided by sebb. (kkolinko)

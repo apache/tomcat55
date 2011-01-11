@@ -621,6 +621,10 @@
          group="Wrapper"
          type="org.apache.catalina.core.StandardWrapper">
                
+    <attribute name="available"
+               description="The date and time at which this servlet will become available (in milliseconds since the epoch), or zero if the servlet is available. If this value equals Long.MAX_VALUE, the unavailability of this servlet is considered permanent."
+               type="long"/>  
+
     <attribute name="engineName"
                description="Fully qualified class name of the managed object"
                type="java.lang.String"

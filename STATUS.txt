@@ -77,12 +77,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, rjung
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43960
-  Expose available property of StandardWrapper via JMX
-  http://people.apache.org/~markt/patches/2010-12-13-bug43960-tc5.patch
-  +1: markt, kkolinko, rjung
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50460
   Avoid leak caused by using a cached exception instance
   http://svn.apache.org/viewvc?rev=1044987&view=rev
