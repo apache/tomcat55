@@ -61,6 +61,10 @@
         Patch provided by sebb. (kkolinko)
       </fix>
       <fix>
+        <bug>50413</bug>: Ensure 304s are not returned when using static files
+        as error pages. (markt)
+      </fix>
+      <fix>
         Avoid unnecessary cast in StandardContext. (markt)
       </fix>
     </changelog>

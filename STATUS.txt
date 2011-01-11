@@ -77,21 +77,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, rjung
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413
-  Ensure 304s are not returned when using static files as error pages
-  http://people.apache.org/~markt/patches/2011-01-04-bug50413-tc5.patch
-  +1: markt, rjung
-  +1: kkolinko: There is a minor glitch - see https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
-       but it can be addressed separately, after applying the patch.
-  -1:
-
-  Additional patch:
-  Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
-  http://svn.apache.org/viewvc?rev=1056889&view=rev
-  Serve the error page regardless of "Range" header in the original request.
-  +1: kkolinko
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=43960
   Expose available property of StandardWrapper via JMX
   http://people.apache.org/~markt/patches/2010-12-13-bug43960-tc5.patch
@@ -131,4 +116,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=1056414
   (markt's patch)
   +1: kkolinko, rjung
+  -1:
+
+* Additional patch for bug 50413:
+  Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
+  Serve the error page regardless of "Range" header in the original request.
+  http://svn.apache.org/viewvc?rev=1056889&view=rev
+  +1: kkolinko
   -1:
