@@ -370,15 +370,16 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 }
                 
                 args = new Object[6];
-                args[0] = displayPath;
-                args[1] = context.getDisplayName();
-                if (args[1] == null) {
+                args[0] = RequestUtil.filter(displayPath);
+                if (context.getDisplayName() == null) {
                     args[1] = "&nbsp;";
+                } else {
+                    args[1] = RequestUtil.filter(context.getDisplayName());
                 }
                 args[2] = new Boolean(context.getAvailable());
-                args[3] = response.encodeURL
+                args[3] = RequestUtil.filter(response.encodeURL
                     (request.getContextPath() +
-                     "/html/sessions?path=" + displayPath);
+                     "/html/sessions?path=" + displayPath));
                 if (context.getManager() != null) {
                     args[4] = new Integer
                         (context.getManager().getActiveSessions());
@@ -392,21 +393,21 @@ public final class HTMLManagerServlet extends ManagerServlet {
                     (MessageFormat.format(APPS_ROW_DETAILS_SECTION, args));
 
                 args = new Object[9];
-                args[0] = response.encodeURL
+                args[0] = RequestUtil.filter(response.encodeURL
                     (request.getContextPath() +
-                     "/html/start?path=" + displayPath);
+                     "/html/start?path=" + displayPath));
                 args[1] = appsStart;
-                args[2] = response.encodeURL
+                args[2] = RequestUtil.filter(response.encodeURL
                     (request.getContextPath() +
-                     "/html/stop?path=" + displayPath);
+                     "/html/stop?path=" + displayPath));
                 args[3] = appsStop;
-                args[4] = response.encodeURL
+                args[4] = RequestUtil.filter(response.encodeURL
                     (request.getContextPath() +
-                     "/html/reload?path=" + displayPath);
+                     "/html/reload?path=" + displayPath));
                 args[5] = appsReload;
-                args[6] = response.encodeURL
+                args[6] = RequestUtil.filter(response.encodeURL
                     (request.getContextPath() +
-                     "/html/undeploy?path=" + displayPath);
+                     "/html/undeploy?path=" + displayPath));
                 args[7] = appsUndeploy;
                 
                 args[8] = highlightColor;

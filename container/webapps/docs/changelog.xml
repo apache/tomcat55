@@ -106,6 +106,9 @@
       <update>
         Improve documentation of database connection factory. (rjung)
       </update>
+      <fix>
+        Improve filtering of Manager display output. (kkolinko) 
+      </fix>
     </changelog>
   </subsection>
 </section>
