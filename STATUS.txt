@@ -87,6 +87,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50547
   Add time stamp for CHANGE_SESSION_ID and SESSION_EXPIRED message.
   http://svn.apache.org/viewvc?view=revision&revision=1055798
+  https://issues.apache.org/bugzilla/attachment.cgi?id=26482 (patch against tc5.5)
   +1: kfujino
   -1:
   rjung: Please provide a patch that applies cleanly to both DeltaManager
