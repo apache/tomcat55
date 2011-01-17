@@ -90,8 +90,6 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=26482 (patch against tc5.5)
   +1: kfujino
   -1:
-  rjung: Please provide a patch that applies cleanly to both DeltaManager
-  classes in TC 5.5.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
   Requests for a newly created directory using MKCOL should not result in a 404
