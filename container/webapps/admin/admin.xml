@@ -28,10 +28,10 @@
          antiResourceLocking="false" antiJARLocking="false">
 
   <!-- Uncomment this Valve to limit access to the Admin app to localhost
-   for obvious security reasons. Allow may be a comma-separated list of
-   hosts (or even regular expressions).
+   for obvious security reasons. Allow is a comma-separated list of
+   regular expressions using java.util.regex syntax.
   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
-    allow="127.0.0.1"/>
+    allow="127\.0\.0\.1"/>
   -->
 
 </Context>
