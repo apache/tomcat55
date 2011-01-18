@@ -25,7 +25,7 @@
 
 
 <Context docBase="${catalina.home}/server/webapps/manager"
-         privileged="true" antiResourceLocking="false" antiJARLocking="false">
+         privileged="true" antiResourceLocking="false" antiJARLocking="false" useHttpOnly="true">
 
   <!-- Link to the user database we will get roles from -->
   <ResourceLink name="users" global="UserDatabase"

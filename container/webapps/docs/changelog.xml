@@ -113,6 +113,10 @@
       <fix>
         Improve filtering of Manager display output. (kkolinko) 
       </fix>
+      <update>
+        Configure the Admin, Manager and Host-Manager web applications to use
+        HttpOnly flag for their session cookies. (kkolinko)
+      </update>
     </changelog>
   </subsection>
 </section>

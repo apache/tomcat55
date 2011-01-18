@@ -71,11 +71,6 @@ PATCHES PROPOSED TO BACKPORT:
    patched tomcat.nsi of tc5.5 on top of it:
    (  http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi-of-tc7_vs_tc55.diff )
 
-* Configure manager, host-manager and admin webapps to use HttpOnly for session cookies
-  http://people.apache.org/~kkolinko/patches/2010-11-22_tc55_httpOnly.patch
-  +1: kkolinko, rjung, markt
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50460
   Avoid leak caused by using a cached exception instance
   http://svn.apache.org/viewvc?rev=1044987&view=rev

@@ -25,7 +25,7 @@
 
 
 <Context docBase="${catalina.home}/server/webapps/admin" privileged="true"
-         antiResourceLocking="false" antiJARLocking="false">
+         antiResourceLocking="false" antiJARLocking="false" useHttpOnly="true">
 
   <!-- Uncomment this Valve to limit access to the Admin app to localhost
    for obvious security reasons. Allow is a comma-separated list of
