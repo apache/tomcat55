@@ -892,6 +892,7 @@ public class DefaultServlet
         }
 
         if ( (cacheEntry.context != null) 
+                || isError
                 || ( ((ranges == null) || (ranges.isEmpty()))
                         && (request.getHeader("Range") == null) )
                 || (ranges == FULL) ) {
