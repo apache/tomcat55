@@ -644,6 +644,7 @@ public class DeltaManager extends ClusterManagerBase{
                         SessionMessage.EVT_CHANGE_SESSION_ID, data,
                         orgSessionID, orgSessionID + "-"
                                 + System.currentTimeMillis());
+                msg.setTimestamp(System.currentTimeMillis());
                 counterSend_EVT_CHANGE_SESSION_ID++;
                 send(msg);
             } catch (IOException e) {
@@ -1307,6 +1308,7 @@ public class DeltaManager extends ClusterManagerBase{
     protected void sessionExpired(String id) {
         counterSend_EVT_SESSION_EXPIRED++ ;
         SessionMessage msg = new SessionMessageImpl(getName(),SessionMessage.EVT_SESSION_EXPIRED, null, id, id+ "-EXPIRED-MSG");
+        msg.setTimestamp(System.currentTimeMillis());
         if (log.isDebugEnabled()) log.debug(sm.getString("deltaManager.createMessage.expire",getName(), id));
         send(msg);
     }
