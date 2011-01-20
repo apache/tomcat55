@@ -98,13 +98,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47319
-  Return IP address rather than null for getRemoteHost() and the APR connector
-  http://svn.apache.org/viewvc?view=revision&revision=1056414
-  (markt's patch)
-  +1: kkolinko, rjung, markt
-  -1:
-
 * Additional patch for bug 50413:
   Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
   Serve the error page regardless of "Range" header in the original request.
