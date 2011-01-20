@@ -71,6 +71,10 @@
       <fix>
         Avoid unnecessary cast in StandardContext. (markt)
       </fix>
+      <fix>
+        <bug>50460</bug>: Avoid a possible memory leak caused by using a cached
+        exception instance. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">
