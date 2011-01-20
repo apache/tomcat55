@@ -25,6 +25,25 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50547
+  Add time stamp for CHANGE_SESSION_ID and SESSION_EXPIRED message.
+  http://svn.apache.org/viewvc?view=revision&revision=1055798
+  https://issues.apache.org/bugzilla/attachment.cgi?id=26482 (patch against tc5.5)
+  +1: kfujino, markt, jim
+  -1:
+
+* https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
+  Additional patch (not important):
+  http://svn.apache.org/viewvc?rev=1056828&view=rev
+  +1: kkolinko, markt, jim
+  -1:
+
+* Additional patch for bug 50413:
+  Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
+  Serve the error page regardless of "Range" header in the original request.
+  http://svn.apache.org/viewvc?rev=1056889&view=rev
+  +1: kkolinko, markt, jim
+  -1:
 
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
@@ -71,22 +90,3 @@ PATCHES PROPOSED TO BACKPORT:
    patched tomcat.nsi of tc5.5 on top of it:
    (  http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi-of-tc7_vs_tc55.diff )
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50547
-  Add time stamp for CHANGE_SESSION_ID and SESSION_EXPIRED message.
-  http://svn.apache.org/viewvc?view=revision&revision=1055798
-  https://issues.apache.org/bugzilla/attachment.cgi?id=26482 (patch against tc5.5)
-  +1: kfujino, markt, jim
-  -1:
-
-* https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
-  Additional patch (not important):
-  http://svn.apache.org/viewvc?rev=1056828&view=rev
-  +1: kkolinko, markt, jim
-  -1:
-
-* Additional patch for bug 50413:
-  Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50413#c6
-  Serve the error page regardless of "Range" header in the original request.
-  http://svn.apache.org/viewvc?rev=1056889&view=rev
-  +1: kkolinko, markt, jim
-  -1:
