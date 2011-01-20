@@ -70,3 +70,12 @@ PATCHES PROPOSED TO BACKPORT:
    patched tomcat.nsi of tc5.5 on top of it:
    (  http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi-of-tc7_vs_tc55.diff )
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50620
+  Exceptions calling session.endAccess should not prevent recycle() from completing normally
+  1) copy o.a.tomcat.util.ExceptionUtils from trunk
+  2) patches:
+   http://svn.apache.org/viewvc?rev=1061442&view=rev
+   http://svn.apache.org/viewvc?rev=1061446&view=rev
+  (by markt)
+  +1: kkolinko
+  -1:
