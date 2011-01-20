@@ -32,12 +32,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kfujino, markt, jim
   -1:
 
-* https://issues.apache.org/bugzilla/show_bug.cgi?id=50550
-  Additional patch (not important):
-  http://svn.apache.org/viewvc?rev=1056828&view=rev
-  +1: kkolinko, markt, jim
-  -1:
-
 * Remove JSSE13Factory, JSSE13SocketFactory classes,
   because
     - TC 5.5 runs on JRE 1.4+ and that comes bundled with JSSE 1.4,
