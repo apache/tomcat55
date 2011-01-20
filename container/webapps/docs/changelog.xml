@@ -66,7 +66,7 @@
       </fix>
       <fix>
         <bug>50413</bug>: Ensure 304s are not returned when using static files
-        as error pages. (markt)
+        as error pages. (markt/kkolinko)
       </fix>
       <fix>
         Avoid unnecessary cast in StandardContext. (markt)
@@ -74,6 +74,11 @@
       <fix>
         <bug>50460</bug>: Avoid a possible memory leak caused by using a cached
         exception instance. (kkolinko)
+      </fix>
+      <fix>
+        <bug>50550</bug>: When a new directory is created (e.g. via WebDAV)
+        ensure that a subsequent request for that directory does not result in a
+        404 response. (markt/kkolinko)
       </fix>
     </changelog>
   </subsection>
@@ -107,6 +112,10 @@
         maxInactiveInterval of not Manager but the session is used. 
         If maxInactiveInterval is negative, an access message is not sending. 
         (kfujino)
+      </fix>
+      <fix>
+        <bug>50547</bug>: Add time stamp for CHANGE_SESSION_ID message and 
+        SESSION_EXPIRED message. (kfujino)
       </fix>
     </changelog>
   </subsection>
