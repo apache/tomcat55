@@ -39,7 +39,7 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
-<section name="Tomcat 5.5.32 (jim)">
+<section name="Tomcat 5.5.32 (jim)" rtext="tagged 2011-01-22">
   <subsection name="General">
     <changelog>
       <update>
