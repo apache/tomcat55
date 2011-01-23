@@ -73,9 +73,14 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50620
   Exceptions calling session.endAccess should not prevent recycle() from completing normally
   1) copy o.a.tomcat.util.ExceptionUtils from trunk
+   svn copy ../../trunk/java/org/apache/tomcat/util/ExceptionUtils.java connectors/util/java/org/apache/tomcat/util/
   2) patches:
    http://svn.apache.org/viewvc?rev=1061442&view=rev
    http://svn.apache.org/viewvc?rev=1061446&view=rev
   (by markt)
   +1: kkolinko, markt
   -1:
+
+  (For convenience, here is patch that applies the above:
+   http://people.apache.org/~kkolinko/patches/2011-01-22_tc55_50620.patch
+  )

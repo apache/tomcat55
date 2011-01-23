@@ -12,7 +12,7 @@
 # ----- Vesion Control Flags -----
 version.major=5
 version.minor=5
-version.build=31
+version.build=32
 version.patch=0
 #Set the pretty version name
 version=5.5.32
