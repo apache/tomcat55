@@ -88,3 +88,6 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix permissions of version.sh in bin tarball
   Also reorder sh file list to make completeness check more easy.
   http://people.apache.org/~rjung/patches/fix-perms-version_sh.patch
+  (by rjung)
+  +1: kkolinko
+  -1:
