@@ -39,6 +39,15 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
+<section name="Tomcat 5.5.33 (jim)" rtext="">
+  <subsection name="General">
+    <changelog>
+      <fix>
+        Fix permissions of version.sh in bin tarball. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
 <section name="Tomcat 5.5.32 (jim)" rtext="tagged 2011-01-22">
   <subsection name="General">
     <changelog>

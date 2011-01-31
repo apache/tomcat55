@@ -1737,12 +1737,13 @@
         <include name="bin/jasper.sh" />
         <include name="bin/jspc.sh" />
         <include name="bin/setclasspath.sh" />
-        <include name="bin/startup.sh" />
         <include name="bin/shutdown.sh" />
+        <include name="bin/shutdown-using-launcher.sh" />
+        <include name="bin/startup.sh" />
+        <include name="bin/startup-using-launcher.sh" />
         <include name="bin/tool-wrapper.sh" />
         <include name="bin/tool-wrapper-using-launcher.sh" />
-        <include name="bin/shutdown-using-launcher.sh" />
-        <include name="bin/startup-using-launcher.sh" />
+        <include name="bin/version.sh" />
       </tarfileset>
       <tarfileset dir="${tomcat.dist}" mode="600" prefix="${final.name}">
         <include name="conf/**" />
@@ -1768,12 +1769,13 @@
         <exclude name="bin/jasper.sh" />
         <exclude name="bin/jspc.sh" />
         <exclude name="bin/setclasspath.sh" />
-        <exclude name="bin/startup.sh" />
         <exclude name="bin/shutdown.sh" />
+        <exclude name="bin/shutdown-using-launcher.sh" />
+        <exclude name="bin/startup.sh" />
+        <exclude name="bin/startup-using-launcher.sh" />
         <exclude name="bin/tool-wrapper.sh" />
         <exclude name="bin/tool-wrapper-using-launcher.sh" />
-        <exclude name="bin/shutdown-using-launcher.sh" />
-        <exclude name="bin/startup-using-launcher.sh" />
+        <exclude name="bin/version.sh" />
         <exclude name="conf/**" />
         <exclude name="src/**" />
         <exclude name="server/webapps/admin/**" />
