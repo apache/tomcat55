@@ -84,3 +84,9 @@ PATCHES PROPOSED TO BACKPORT:
   (For convenience, here is patch that applies the above:
    http://people.apache.org/~kkolinko/patches/2011-01-22_tc55_50620.patch
   )
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50325
+  Use JVM provided solutions to CVE-2009-3555 if available (i.e. RFC 5746
+  support)
+  http://svn.apache.org/viewvc?rev=1065859&view=rev
+  +1: markt
