@@ -97,5 +97,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Improve HTTP specification compliance
   http://svn.apache.org/viewvc?rev=1066244&view=rev
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
