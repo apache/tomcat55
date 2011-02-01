@@ -89,4 +89,8 @@ PATCHES PROPOSED TO BACKPORT:
   Use JVM provided solutions to CVE-2009-3555 if available (i.e. RFC 5746
   support)
   http://svn.apache.org/viewvc?rev=1065859&view=rev
-  +1: markt
+  +1: markt, kkolinko
+  -1:
+   kkolinko:
+     1) s/for (String cipher : ciphers){/for (int i=0; i<ciphers.length;i++){String cipher=ciphers[i];/
+     2) do not change visibility of defaultProtocol, defaultKeystoreType 
