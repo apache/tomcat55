@@ -41,35 +41,6 @@ PATCHES PROPOSED TO BACKPORT:
   -O: jim
   -1:
 
-* Backport Windows installer improvements from Tomcat 7.0.5.
-  (as applied to TC6 in http://svn.apache.org/viewvc?rev=1056426&view=rev )
-
-  TC5.5 differences from TC6:
-   1) The patch includes changes to build.xml, to implement filtering for @YEAR@
-   2) The patch includes changes to tomcat-users_1.xml, to implement TC6/TC7
-   installer feature that the character encoding that was used to write
-   tomcat-users.xml is included in the XML signature at the top of the file.
-   That is to support non-latin usernames.
-   3) The patch uses the old roles "manager" and "admin", not the "-gui" ones.
-
-  To apply:
-  1. Run the following SVN commands:
-   svn del build/resources/jvm.ini
-   svn del build/resources/config.ini
-   svn del build/resources/main.ico
-   svn del build/resources/uninst.ico
-   # copy icons from TC7, see r999976
-   svn copy ../../trunk/res/main.ico build/resources/
-   svn copy ../../trunk/res/uninst.ico build/resources/
-  2. Apply patch:
-   http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi.patch
-  +1: kkolinko, markt, mturk
-  -1:
-
-   For reference: here is the diff of tomcat.nsi of trunk @1059900 if I copy
-   patched tomcat.nsi of tc5.5 on top of it:
-   (  http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi-of-tc7_vs_tc55.diff )
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50620
   Exceptions calling session.endAccess should not prevent recycle() from completing normally
   1) copy o.a.tomcat.util.ExceptionUtils from trunk

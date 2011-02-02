@@ -18,16 +18,14 @@
 
   ;Compression options
   CRCCheck on
-  SetCompress force
-  SetCompressor lzma
-  SetDatablockOptimize on
+  SetCompressor /SOLID lzma
 
   Name "Apache Tomcat"
 
   ;Product information
   VIAddVersionKey ProductName "Apache Tomcat"
   VIAddVersionKey CompanyName "Apache Software Foundation"
-  VIAddVersionKey LegalCopyright "Copyright (c) 1999-2011 The Apache Software Foundation"
+  VIAddVersionKey LegalCopyright "Copyright (c) 1999-@YEAR@ The Apache Software Foundation"
   VIAddVersionKey FileDescription "Apache Tomcat Installer"
   VIAddVersionKey FileVersion "2.0"
   VIAddVersionKey ProductVersion "@VERSION@"
@@ -35,12 +33,34 @@
   VIAddVersionKey InternalName "apache-tomcat-@VERSION@.exe"
   VIProductVersion @VERSION_NUMBER@
 
-!include "MUI.nsh"
+!include "MUI2.nsh"
+!include "nsDialogs.nsh"
 !include "StrFunc.nsh"
+!include "LogicLib.nsh"
+!include "FileFunc.nsh"
 ${StrRep}
-  Var "JavaHome"
 
+Var JavaHome
+Var JavaExe
+Var JvmDll
+Var Arch
+Var ResetInstDir
+Var TomcatPort
+Var TomcatAdminEnable
+Var TomcatAdminUsername
+Var TomcatAdminPassword
+Var TomcatAdminRoles
 
+; Variables that store handles of dialog controls
+Var CtlJavaHome
+Var CtlTomcatPort
+Var CtlTomcatAdminUsername
+Var CtlTomcatAdminPassword
+Var CtlTomcatAdminRoles
+
+; Handle of the service-install.log file
+; It is opened in "Core" section and closed in "-post"
+Var ServiceInstallLog
 
 ;--------------------------------
 ;Configuration
@@ -50,14 +70,11 @@ ${StrRep}
   !define MUI_HEADERIMAGE_BITMAP header.bmp
   !define MUI_WELCOMEFINISHPAGE_BITMAP side_left.bmp 
   !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\webapps\ROOT\RELEASE-NOTES.txt"
-  !define MUI_FINISHPAGE_RUN $INSTDIR\bin\tomcat5w.exe
-  !define MUI_FINISHPAGE_RUN_PARAMETERS //MR//Tomcat5
+  !define MUI_FINISHPAGE_RUN $INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe
+  !define MUI_FINISHPAGE_RUN_PARAMETERS //MR//Tomcat@VERSION_MAJOR@
   !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 
   !define MUI_ABORTWARNING
-
-  !define TEMP1 $R0
-  !define TEMP2 $R1
 
   !define MUI_ICON tomcat.ico
   !define MUI_UNICON tomcat.ico
@@ -74,13 +91,22 @@ ${StrRep}
   LangString TEXT_CONF_SUBTITLE ${LANG_ENGLISH} "Tomcat basic configuration."
   LangString TEXT_CONF_PAGETITLE ${LANG_ENGLISH} ": Configuration Options"
 
+  LangString TEXT_JVM_LABEL1 ${LANG_ENGLISH} "Please select the path of a Java SE 5.0 or later JRE installed on your system."
+  LangString TEXT_CONF_LABEL_PORT ${LANG_ENGLISH} "HTTP/1.1 Connector Port"
+  LangString TEXT_CONF_LABEL_ADMIN ${LANG_ENGLISH} "Tomcat Administrator Login (optional)"
+  LangString TEXT_CONF_LABEL_ADMINUSERNAME ${LANG_ENGLISH} "User Name"
+  LangString TEXT_CONF_LABEL_ADMINPASSWORD ${LANG_ENGLISH} "Password"
+  LangString TEXT_CONF_LABEL_ADMINROLES ${LANG_ENGLISH} "Roles"
+
   ;Install Page order
   !insertmacro MUI_PAGE_WELCOME
   !insertmacro MUI_PAGE_LICENSE INSTALLLICENSE
+  ; Use custom onLeave function with COMPONENTS page
+  !define MUI_PAGE_CUSTOMFUNCTION_LEAVE pageComponentsLeave
   !insertmacro MUI_PAGE_COMPONENTS
+  Page custom pageConfiguration pageConfigurationLeave "$(TEXT_CONF_PAGETITLE)"
+  Page custom pageChooseJVM pageChooseJVMLeave "$(TEXT_JVM_PAGETITLE)"
   !insertmacro MUI_PAGE_DIRECTORY
-  Page custom SetConfiguration Void "$(TEXT_CONF_PAGETITLE)"
-  Page custom SetChooseJVM Void "$(TEXT_JVM_PAGETITLE)"
   !insertmacro MUI_PAGE_INSTFILES
   Page custom CheckUserType
   !insertmacro MUI_PAGE_FINISH
@@ -95,7 +121,7 @@ ${StrRep}
   ;Component-selection page
     ;Descriptions
     LangString DESC_SecTomcat ${LANG_ENGLISH} "Install the Tomcat Servlet container as a Windows service."
-    LangString DESC_SecTomcatCore ${LANG_ENGLISH} "Install the Tomcat Servlet container core."
+    LangString DESC_SecTomcatCore ${LANG_ENGLISH} "Install the Tomcat Servlet container core and create the Windows service."
     LangString DESC_SecTomcatService ${LANG_ENGLISH} "Automatically start the Tomcat service when the computer is started."
     LangString DESC_SecTomcatNative ${LANG_ENGLISH} "Install APR based Tomcat native .dll for better performance and scalability in production environments."
     LangString DESC_SecMenu ${LANG_ENGLISH} "Create a Start Menu program group for Tomcat."
@@ -104,13 +130,9 @@ ${StrRep}
     LangString DESC_SecHostManager ${LANG_ENGLISH} "Install the Tomcat Host Manager administrative web application."
     LangString DESC_SecExamples ${LANG_ENGLISH} "Install the Servlet and JSP example web applications."
     LangString DESC_SecWebapps ${LANG_ENGLISH} "Installs other utility web applications (WebDAV, balancer, etc)."
-;    LangString DESC_SecCompat ${LANG_ENGLISH} "Installs Java2™ compatibility package. This release of Apache Tomcat was packaged to run on J2SE 5.0 or later. It can be run on earlier JVMs by installng this package."
 
   ;Language
   !insertmacro MUI_LANGUAGE English
-
-  ;Folder-select dialog
-  InstallDir "$PROGRAMFILES\Apache Software Foundation\Tomcat 5.5"
 
   ;Install types
   InstType Normal
@@ -118,11 +140,14 @@ ${StrRep}
   InstType Full
 
   ; Main registry key
-  InstallDirRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\5.5" ""
+  InstallDirRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" ""
 
-  !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
-  ReserveFile "jvm.ini"
-  ReserveFile "config.ini"
+  ReserveFile "${NSISDIR}\Plugins\System.dll"
+  ReserveFile "${NSISDIR}\Plugins\nsDialogs.dll"
+  ReserveFile confinstall\server_1.xml
+  ReserveFile confinstall\server_2.xml
+  ReserveFile confinstall\tomcat-users_1.xml
+  ReserveFile confinstall\tomcat-users_2.xml
 
 ;--------------------------------
 ;Installer Sections
@@ -133,8 +158,9 @@ Section "Core" SecTomcatCore
 
   SectionIn 1 2 3 RO
 
-  IfSilent +2 0
-  Call checkJvm
+  ${If} ${Silent}
+    Call checkJava
+  ${EndIf}
 
   SetOutPath $INSTDIR
   File tomcat.ico
@@ -144,12 +170,10 @@ Section "Core" SecTomcatCore
   File /r common\*.*
   SetOutPath $INSTDIR\shared
   File /nonfatal /r shared\*.*
+  ; Note: just calling 'SetOutPath' will create the empty folders for us
   SetOutPath $INSTDIR\logs
-  File /nonfatal /r logs\*.*
   SetOutPath $INSTDIR\work
-  File /nonfatal /r work\*.*
   SetOutPath $INSTDIR\temp
-  File /nonfatal /r temp\*.*
   SetOutPath $INSTDIR\bin
   File bin\bootstrap.jar
   File bin\commons-logging-api-1.1.1.jar
@@ -164,63 +188,57 @@ Section "Core" SecTomcatCore
   File /r webapps\ROOT\*.*
 
   Call configure
-  Call findJavaPath
-  Pop $2
 
-  IfSilent +2 0
-  !insertmacro MUI_INSTALLOPTIONS_READ $2 "jvm.ini" "Field 2" "State"
-
-  StrCpy "$JavaHome" $2
-  Call findJVMPath
-  Pop $2
-
-  DetailPrint "Using Jvm: $2"
+  DetailPrint "Using Jvm: $JavaHome"
 
   SetOutPath $INSTDIR\bin
   File bin\tomcat@VERSION_MAJOR@w.exe
 
   ; Get the current platform x86 / AMD64 / IA64
-  Call FindCpuType
-  Pop $0
-  StrCmp $0 "x86" 0 +2
-  File /oname=tomcat@VERSION_MAJOR@.exe bin\tomcat@VERSION_MAJOR@.exe
-  StrCmp $0 "x64" 0 +2
-  File /oname=tomcat@VERSION_MAJOR@.exe bin\x64\tomcat@VERSION_MAJOR@.exe
-  StrCmp $0 "i64" 0 +2
-  File /oname=tomcat@VERSION_MAJOR@.exe bin\i64\tomcat@VERSION_MAJOR@.exe
+  ${If} $Arch == "x86"
+    File /oname=tomcat@VERSION_MAJOR@.exe bin\tomcat@VERSION_MAJOR@.exe
+  ${ElseIf} $Arch == "x64"
+    File /oname=tomcat@VERSION_MAJOR@.exe bin\x64\tomcat@VERSION_MAJOR@.exe
+  ${ElseIf} $Arch == "i64"
+    File /oname=tomcat@VERSION_MAJOR@.exe bin\i64\tomcat@VERSION_MAJOR@.exe
+  ${EndIf}
+
+  FileOpen $ServiceInstallLog "$INSTDIR\logs\service-install.log" a
+  FileSeek $ServiceInstallLog 0 END
 
   InstallRetry:
+  FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //IS//Tomcat@VERSION_MAJOR@ --DisplayName "Apache Tomcat @VERSION_MAJOR@" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
+  FileWrite $ServiceInstallLog "$\r$\n"
   ClearErrors
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5.exe" //IS//Tomcat5 --DisplayName "Apache Tomcat" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\tomcat5.exe" --Jvm "$2" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
+  DetailPrint "Installing Tomcat@VERSION_MAJOR@ service"
+  nsExec::ExecToStack '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //IS//Tomcat@VERSION_MAJOR@ --DisplayName "Apache Tomcat @VERSION_MAJOR@" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
   Pop $0
+  Pop $1
   StrCmp $0 "0" InstallOk
+    FileWrite $ServiceInstallLog "Install failed: $0 $1$\r$\n"
     MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP \
-      "Failed to install Tomcat5 service.$\r$\nCheck your settings and permissions.$\r$\nIgnore and continue anyway (not recommended)?" \
+      "Failed to install Tomcat@VERSION_MAJOR@ service.$\r$\nCheck your settings and permissions.$\r$\nIgnore and continue anyway (not recommended)?" \
        /SD IDIGNORE IDIGNORE InstallOk IDRETRY InstallRetry
   Quit
   InstallOk:
   ClearErrors
 
+  ; Will be closed in "-post" section
+  ; FileClose $ServiceInstallLog
 SectionEnd
 
 Section "Service Startup" SecTomcatService
 
   SectionIn 3
 
-  IfSilent 0 +3
-  Call findJavaPath
-  Pop $2
-
-  IfSilent +2 0
-  !insertmacro MUI_INSTALLOPTIONS_READ $2 "jvm.ini" "Field 2" "State"
-
-  StrCpy "$JavaHome" $2
-  Call findJVMPath
-  Pop $2
-
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5.exe" //US//Tomcat5 --Startup auto'
+  ${If} $ServiceInstallLog != ""
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Startup auto'
+    FileWrite $ServiceInstallLog "$\r$\n"
+  ${EndIf}
+  DetailPrint "Configuring Tomcat@VERSION_MAJOR@ service"
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Startup auto'
   ; Behave like Apache Httpd (put the icon in tray on login)
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor" '"$INSTDIR\bin\tomcat5w.exe" //MS//Tomcat5'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor" '"$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" //MS//Tomcat@VERSION_MAJOR@'
 
   ClearErrors
 
@@ -231,15 +249,14 @@ Section "Native" SecTomcatNative
   SectionIn 3
 
   SetOutPath $INSTDIR\bin
-  Call FindCpuType
-  Pop $0
 
-  StrCmp $0 "x86" 0 +2
-  File bin\tcnative-1.dll
-  StrCmp $0 "x64" 0 +2
-  File /oname=tcnative-1.dll bin\x64\tcnative-1.dll
-  StrCmp $0 "i64" 0 +2
-  File /oname=tcnative-1.dll bin\i64\tcnative-1.dll
+  ${If} $Arch == "x86"
+    File bin\tcnative-1.dll
+  ${ElseIf} $Arch == "x64"
+    File /oname=tcnative-1.dll bin\x64\tcnative-1.dll
+  ${ElseIf} $Arch == "i64"
+    File /oname=tcnative-1.dll bin\i64\tcnative-1.dll
+  ${EndIf}
 
   ClearErrors
 
@@ -251,46 +268,7 @@ Section "Start Menu Items" SecMenu
 
   SectionIn 1 2 3
 
-  !insertmacro MUI_INSTALLOPTIONS_READ $2 "jvm.ini" "Field 2" "State"
-
-  SetOutPath "$SMPROGRAMS\Apache Tomcat 5.5"
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Tomcat Home Page.lnk" \
-                 "http://tomcat.apache.org/"
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Welcome.lnk" \
-                 "http://127.0.0.1:$R0/"
-
-  IfFileExists "$INSTDIR\server\webapps\manager" 0 NoManagerApp
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Tomcat Manager.lnk" \
-                 "http://127.0.0.1:$R0/manager/html"
-
-NoManagerApp:
-
-  IfFileExists "$INSTDIR\webapps\webapps\tomcat-docs" 0 NoDocumentaion
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Tomcat Documentation.lnk" \
-                 "$INSTDIR\webapps\tomcat-docs\index.html"
-
-NoDocumentaion:
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Uninstall Tomcat 5.5.lnk" \
-                 "$INSTDIR\Uninstall.exe"
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Tomcat 5.5 Program Directory.lnk" \
-                 "$INSTDIR"
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Monitor Tomcat.lnk" \
-                 "$INSTDIR\bin\tomcat5w.exe" \
-                 '//MS//Tomcat5' \
-                 "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
-
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat 5.5\Configure Tomcat.lnk" \
-                 "$INSTDIR\bin\tomcat5w.exe" \
-                 '//ES//Tomcat5' \
-                 "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
-
+  Call createShortcuts
 SectionEnd
 
 Section "Documentation" SecDocs
@@ -348,91 +326,174 @@ Section "Webapps" SecWebapps
 
 SectionEnd
 
-;Section "Compatibility" SecCompat
-;
-;  SetOutPath $INSTDIR
-;  File /oname=bin\jmx.jar ..\compat\bin\jmx.jar
-;  File /oname=common\endorsed\xercesImpl.jar ..\compat\common\endorsed\xercesImpl.jar
-;  File /oname=common\endorsed\xml-apis.jar  ..\compat\common\endorsed\xml-apis.jar
-;
-;SectionEnd
-
 Section -post
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5.exe" //US//Tomcat5 --Classpath "$INSTDIR\bin\bootstrap.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5.exe" //US//Tomcat5 --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\common\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties" --StdOutput auto --StdError auto'
+  ${If} $ServiceInstallLog != ""
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Classpath "$INSTDIR\bin\bootstrap.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
+    FileWrite $ServiceInstallLog "$\r$\n"
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\common\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
+    FileWrite $ServiceInstallLog "$\r$\n"
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --StdOutput auto --StdError auto'
+    FileWrite $ServiceInstallLog "$\r$\n"
+    FileClose $ServiceInstallLog
+  ${EndIf}
+
+  DetailPrint "Configuring Tomcat@VERSION_MAJOR@ service"
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Classpath "$INSTDIR\bin\bootstrap.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\common\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --StdOutput auto --StdError auto'
 
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
-  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\5.5" "InstallPath" $INSTDIR
-  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\5.5" "Version" @VERSION@
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat 5.5" \
-                   "DisplayName" "Apache Tomcat 5.5 (remove only)"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat 5.5" \
+  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" "InstallPath" $INSTDIR
+  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" "Version" @VERSION@
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@" \
+                   "DisplayName" "Apache Tomcat @VERSION_MAJOR_MINOR@ (remove only)"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@" \
                    "UninstallString" '"$INSTDIR\Uninstall.exe"'
 
 SectionEnd
 
 Function .onInit
-  ;Reset install dir for 64-bit
-  ExpandEnvStrings $0 "%PROGRAMW6432%"
-  StrCmp $0 "%PROGRAMW6432%" +2 0
-  StrCpy $INSTDIR "$0\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+  ${GetParameters} $R0
+  ClearErrors
 
-  ;Extract Install Options INI Files
-  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "config.ini"
-  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "jvm.ini"
+  ${GetOptions} "$R0" "/?" $R1
+  ${IfNot} ${Errors}
+    MessageBox MB_OK|MB_ICONINFORMATION 'Available options:$\r$\n\
+               /S - Silent install.$\r$\n\
+               /D=INSTDIR - Specify installation directory.'
+    Abort
+  ${EndIf}
+  ClearErrors
 
+  StrCpy $ResetInstDir "$INSTDIR"
+
+  ;Initialize default values
+  StrCpy $JavaHome ""
+  StrCpy $TomcatPort "8080"
+  StrCpy $TomcatAdminEnable "0"
+  StrCpy $TomcatAdminUsername ""
+  StrCpy $TomcatAdminPassword ""
+  StrCpy $TomcatAdminRoles ""
 FunctionEnd
 
-Function SetChooseJVM
+Function pageChooseJVM
   !insertmacro MUI_HEADER_TEXT "$(TEXT_JVM_TITLE)" "$(TEXT_JVM_SUBTITLE)"
-  Call findJavaPath
-  Pop $3
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "jvm.ini" "Field 2" "State" $3
-  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "jvm.ini"
+  ${If} $JavaHome == ""
+    Call findJavaHome
+    Pop $JavaHome
+  ${EndIf}
+
+  nsDialogs::Create 1018
+  Pop $R0
+
+  ${NSD_CreateLabel} 0 5u 100% 25u "$(TEXT_JVM_LABEL1)"
+  Pop $R0
+  ${NSD_CreateDirRequest} 0 65u 280u 13u "$JavaHome"
+  Pop $CtlJavaHome
+  ${NSD_CreateBrowseButton} 282u 65u 15u 13u "..."
+  Pop $R0
+  ${NSD_OnClick} $R0 pageChooseJVM_onDirBrowse
+
+  ${NSD_SetFocus} $CtlJavaHome
+  nsDialogs::Show
 FunctionEnd
 
-Function SetConfiguration
-  !insertmacro MUI_HEADER_TEXT "$(TEXT_CONF_TITLE)" "$(TEXT_CONF_SUBTITLE)"
+; onClick function for button next to DirRequest control
+Function pageChooseJVM_onDirBrowse
+  ; R0 is HWND of the button, it is on top of the stack
+  Pop $R0
+
+  ${NSD_GetText} $CtlJavaHome $R1
+  nsDialogs::SelectFolderDialog "" "$R1"
+  Pop $R1
+
+  ${If} $R1 != "error"
+    ${NSD_SetText} $CtlJavaHome $R1
+  ${EndIf}
+FunctionEnd
+
+Function pageChooseJVMLeave
+  ${NSD_GetText} $CtlJavaHome $JavaHome
+  ${If} $JavaHome == ""
+    Abort
+  ${EndIf}
+
+  Call checkJava
+FunctionEnd
+
+; onLeave function for the COMPONENTS page
+; It updates options based on what components were selected.
+;
+Function pageComponentsLeave
+  StrCpy $TomcatAdminEnable "0"
+  StrCpy $TomcatAdminRoles ""
 
   SectionGetFlags ${SecManager} $0
   IntOp $0 $0 & ${SF_SELECTED}
-  IntCmp $0 0 0 Enable Enable
+  ${If} $0 <> 0
+    StrCpy $TomcatAdminEnable "1"
+    StrCpy $TomcatAdminRoles "manager"
+  ${EndIf}
+
   SectionGetFlags ${SecHostManager} $0
   IntOp $0 $0 & ${SF_SELECTED}
-  IntCmp $0 0 Disable 0 0
-
-Enable:
-  ; Enable the user and password controls if the manager or host-manager app is
-  ; being installed
-  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 5" "HWND"
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "Flags" ""
-  EnableWindow $0 1
-  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 7" "HWND"
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "Flags" ""
-  EnableWindow $0 1
-  Goto Display
-
-Disable:
-  ; Disable the user and password controls if neither the manager nor
-  ; host-manager app is being installed
-  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 5" "HWND"
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "Flags" "DISABLED"
-  EnableWindow $0 0
-  !insertmacro MUI_INSTALLOPTIONS_READ $0 "config.ini" "Field 7" "HWND"
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "Flags" "DISABLED"
-  EnableWindow $0 0
-  ; Clear the values
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 5" "State" ""
-  !insertmacro MUI_INSTALLOPTIONS_WRITE "config.ini" "Field 7" "State" ""
-
-Display:
-  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "config.ini"
-
+  ${If} $0 <> 0
+    StrCpy $TomcatAdminEnable "1"
+    ${If} $TomcatAdminRoles != ""
+      StrCpy $TomcatAdminRoles "admin,$TomcatAdminRoles"
+    ${Else}
+      StrCpy $TomcatAdminRoles "admin"
+    ${EndIf}
+  ${EndIf}
 FunctionEnd
 
-Function Void
+Function pageConfiguration
+  !insertmacro MUI_HEADER_TEXT "$(TEXT_CONF_TITLE)" "$(TEXT_CONF_SUBTITLE)"
+
+  nsDialogs::Create 1018
+  Pop $R0
+
+  ${NSD_CreateLabel} 0 5u 100u 15u "$(TEXT_CONF_LABEL_PORT)"
+  Pop $R0
+
+  ${NSD_CreateText} 150u 5u 50u 13u "$TomcatPort"
+  Pop $CtlTomcatPort
+  ${NSD_SetTextLimit} $CtlTomcatPort 5
+
+  ${If} $TomcatAdminEnable == "1"
+    ${NSD_CreateLabel} 0 30u 100% 15u "$(TEXT_CONF_LABEL_ADMIN)"
+    Pop $R0
+    ${NSD_CreateLabel} 10u 50u 140u 15u "$(TEXT_CONF_LABEL_ADMINUSERNAME)"
+    Pop $R0
+    ${NSD_CreateText} 150u 50u 110u 13u "$TomcatAdminUsername"
+    Pop $CtlTomcatAdminUsername
+    ${NSD_CreateLabel} 10u 70u 140u 15u "$(TEXT_CONF_LABEL_ADMINPASSWORD)"
+    Pop $R0
+    ${NSD_CreatePassword} 150u 70u 110u 13u "$TomcatAdminPassword"
+    Pop $CtlTomcatAdminPassword
+    ${NSD_CreateLabel} 10u 90u 140u 15u "$(TEXT_CONF_LABEL_ADMINROLES)"
+    Pop $R0
+    ${NSD_CreateText} 150u 90u 110u 13u "$TomcatAdminRoles"
+    Pop $CtlTomcatAdminRoles
+  ${EndIf}
+
+  ${NSD_SetFocus} $CtlTomcatPort
+  nsDialogs::Show
 FunctionEnd
+
+Function pageConfigurationLeave
+  ${NSD_GetText} $CtlTomcatPort $TomcatPort
+  ${If} $TomcatAdminEnable == "1"
+    ${NSD_GetText} $CtlTomcatAdminUsername $TomcatAdminUsername
+    ${NSD_GetText} $CtlTomcatAdminPassword $TomcatAdminPassword
+    ${NSD_GetText} $CtlTomcatAdminRoles $TomcatAdminRoles
+  ${EndIf}
+FunctionEnd
+
+; Not used
+;Function Void
+;FunctionEnd
 
 ;--------------------------------
 ;Descriptions
@@ -442,7 +503,6 @@ FunctionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatCore} $(DESC_SecTomcatCore)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatService} $(DESC_SecTomcatService)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatNative} $(DESC_SecTomcatNative)
-;  !insertmacro MUI_DESCRIPTION_TEXT ${SecCompat} $(DESC_SecCompat)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecMenu} $(DESC_SecMenu)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecDocs} $(DESC_SecDocs)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecManager} $(DESC_SecManager)
@@ -450,32 +510,6 @@ FunctionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SecExamples} $(DESC_SecExamples)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecWebapps} $(DESC_SecWebapps)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
-
-
-; =====================
-; FindCpuType Function
-; =====================
-;
-; Find the CPU used on the system, and put the result on the top of the
-; stack
-;
-Function FindCpuType
-
-  ClearErrors
-  ; Default CPU is always x86
-  StrCpy $1 "x86"
-  ExpandEnvStrings $0 "%PROCESSOR_ARCHITEW6432%"
-  StrCmp $0 "%PROCESSOR_ARCHITEW6432%" +5 0
-  StrCmp $0 "IA64" 0 +3
-  StrCpy $1 "i64"
-  Goto FoundCpu
-  StrCpy $1 "x64"
-
-FoundCpu:
-  ; Put the result in the stack
-  Push $1
-
-FunctionEnd
 
 
 ; =====================
@@ -508,35 +542,134 @@ Function CheckUserType
   done:
 FunctionEnd
 
+; ==================
+; checkJava Function
+; ==================
+;
+; Checks that a valid JVM has been specified or a suitable default is available
+; Sets $JavaHome, $JavaExe and $JvmDll accordingly
+; Determines if the JVM is 32-bit or 64-bit and sets $Arch accordingly. For
+; 64-bit JVMs, also determines if it is x64 or ia64
+Function checkJava
+
+  ${If} $JavaHome == ""
+    ; E.g. if a silent install
+    Call findJavaHome
+    Pop $JavaHome
+  ${EndIf}
+
+  ${If} $JavaHome == ""
+  ${OrIfNot} ${FileExists} "$JavaHome\bin\java.exe"
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONSTOP "No Java Virtual Machine found in folder:$\r$\n$JavaHome"
+    DetailPrint "No Java Virtual Machine found in folder:$\r$\n$JavaHome"
+    Quit
+  ${EndIf}
+
+  StrCpy "$JavaExe" "$JavaHome\bin\java.exe"
+
+  ; Need path to jvm.dll to configure the service - uses $JavaHome
+  Call findJVMPath
+  Pop $5
+  ${If} $5 == ""
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONSTOP "No Java Virtual Machine found in folder:$\r$\n$5"
+    DetailPrint "No Java Virtual Machine found in folder:$\r$\n$5"
+    Quit
+  ${EndIf}
+
+  StrCpy "$JvmDll" $5
+
+  ; Read PE header of JvmDll to check for architecture
+  ; 1. Jump to 0x3c and read offset of PE header
+  ; 2. Jump to offset. Read PE header signature. It must be 'PE'\0\0 (50 45 00 00).
+  ; 3. The next word gives the machine type.
+  ; 0x014c: x86
+  ; 0x8664: x64
+  ; 0x0200: i64
+  ClearErrors
+  FileOpen $R1 "$JvmDll" r
+  IfErrors WrongPEHeader
+
+  FileSeek $R1 0x3c SET
+  FileReadByte $R1 $R2
+  FileReadByte $R1 $R3
+  IntOp $R3 $R3 << 8
+  IntOp $R2 $R2 + $R3
+
+  FileSeek $R1 $R2 SET
+  FileReadByte $R1 $R2
+  IntCmp $R2 0x50 +1 WrongPEHeader WrongPEHeader
+  FileReadByte $R1 $R2
+  IntCmp $R2 0x45 +1 WrongPEHeader WrongPEHeader
+  FileReadByte $R1 $R2
+  IntCmp $R2 0 +1 WrongPEHeader WrongPEHeader
+  FileReadByte $R1 $R2
+  IntCmp $R2 0 +1 WrongPEHeader WrongPEHeader
+
+  FileReadByte $R1 $R2
+  FileReadByte $R1 $R3
+  IntOp $R3 $R3 << 8
+  IntOp $R2 $R2 + $R3
+
+  IntCmp $R2 0x014c +1 +3 +3
+  StrCpy "$Arch" "x86"
+  Goto DonePEHeader
+
+  IntCmp $R2 0x8664 +1 +3 +3
+  StrCpy "$Arch" "x64"
+  Goto DonePEHeader
+
+  IntCmp $R2 0x0200 +1 +3 +3
+  StrCpy "$Arch" "i64"
+  Goto DonePEHeader
+
+WrongPEHeader:
+  IfSilent +2
+  MessageBox MB_OK|MB_ICONEXCLAMATION 'Cannot read PE header from "$JvmDll"$\r$\nWill assume that the architecture is x86.'
+  DetailPrint 'Cannot read PE header from "$JvmDll". Assuming the architecture is x86.'
+  StrCpy "$Arch" "x86"
+
+DonePEHeader:
+  FileClose $R1
+
+  DetailPrint 'Architecture: "$Arch"'
+
+  StrCpy $INSTDIR "$ResetInstDir"
+
+  ; The default varies depending on 32-bit or 64-bit
+  ${If} "$INSTDIR" == ""
+    ${If} $Arch == "x86"
+      StrCpy $INSTDIR "$PROGRAMFILES32\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+    ${Else}
+      StrCpy $INSTDIR "$PROGRAMFILES64\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+    ${EndIf}
+  ${EndIf}
+
+FunctionEnd
+
 
 ; =====================
-; FindJavaPath Function
+; findJavaHome Function
 ; =====================
 ;
 ; Find the JAVA_HOME used on the system, and put the result on the top of the
 ; stack
 ; Will return an empty string if the path cannot be determined
 ;
-Function findJavaPath
-
-  ;ClearErrors
-
-  ;ReadEnvStr $1 JAVA_HOME
-
-  ;IfErrors 0 FoundJDK
+Function findJavaHome
 
   ClearErrors
 
   ; Use the 64-bit registry on 64-bit machines
   ExpandEnvStrings $0 "%PROGRAMW6432%"
-  StrCmp $0 "%PROGRAMW6432%" +2 0
-  SetRegView 64
+  ${If} $0 != "%PROGRAMW6432%"
+    SetRegView 64
+  ${EndIf}
 
   ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
   ReadRegStr $1 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "JavaHome"
   ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "RuntimeLib"
-
-  ;FoundJDK:
 
   IfErrors 0 NoErrors
   StrCpy $1 ""
@@ -556,43 +689,43 @@ FunctionEnd
 ; ====================
 ;
 ; Find the full JVM path, and put the result on top of the stack
-; Argument: JVM base path (result of findJavaPath)
+; Implicit argument: $JavaHome
 ; Will return an empty string if the path cannot be determined
 ;
 Function findJVMPath
 
   ClearErrors
-  
+
   ;Step one: Is this a JRE path (Program Files\Java\XXX)
   StrCpy $1 "$JavaHome"
-  
+
   StrCpy $2 "$1\bin\hotspot\jvm.dll"
   IfFileExists "$2" FoundJvmDll
   StrCpy $2 "$1\bin\server\jvm.dll"
   IfFileExists "$2" FoundJvmDll
-  StrCpy $2 "$1\bin\client\jvm.dll"  
+  StrCpy $2 "$1\bin\client\jvm.dll"
   IfFileExists "$2" FoundJvmDll
   StrCpy $2 "$1\bin\classic\jvm.dll"
   IfFileExists "$2" FoundJvmDll
 
   ;Step two: Is this a JDK path (Program Files\XXX\jre)
   StrCpy $1 "$JavaHome\jre"
-  
+
   StrCpy $2 "$1\bin\hotspot\jvm.dll"
   IfFileExists "$2" FoundJvmDll
   StrCpy $2 "$1\bin\server\jvm.dll"
   IfFileExists "$2" FoundJvmDll
-  StrCpy $2 "$1\bin\client\jvm.dll"  
+  StrCpy $2 "$1\bin\client\jvm.dll"
   IfFileExists "$2" FoundJvmDll
   StrCpy $2 "$1\bin\classic\jvm.dll"
   IfFileExists "$2" FoundJvmDll
 
   ClearErrors
   ;Step tree: Read defaults from registry
-  
+
   ReadRegStr $1 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
   ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$1" "RuntimeLib"
-  
+
   IfErrors 0 FoundJvmDll
   StrCpy $2 ""
 
@@ -605,98 +738,84 @@ Function findJVMPath
 FunctionEnd
 
 
-; ====================
-; CheckJvm Function
-; ====================
-;
-Function checkJvm
-
-  !insertmacro MUI_INSTALLOPTIONS_READ $3 "jvm.ini" "Field 2" "State"
-  IfFileExists "$3\bin\java.exe" NoErrors1
-  MessageBox MB_OK|MB_ICONSTOP "No Java Virtual Machine found in folder:$\r$\n$3"
-  Quit
-NoErrors1:
-  StrCpy "$JavaHome" $3
-  Call findJVMPath
-  Pop $4
-  StrCmp $4 "" 0 NoErrors2
-  MessageBox MB_OK|MB_ICONSTOP "No Java Virtual Machine found in folder:$\r$\n$3"
-  Quit
-NoErrors2:
-
-FunctionEnd
-
 ; ==================
 ; Configure Function
 ; ==================
 ;
-; Display the configuration dialog boxes, read the values entered by the user,
-; and build the configuration files
+; Writes server.xml and tomcat-users.xml
 ;
 Function configure
-
-  !insertmacro MUI_INSTALLOPTIONS_READ $R0 "config.ini" "Field 2" "State"
-  !insertmacro MUI_INSTALLOPTIONS_READ $R1 "config.ini" "Field 5" "State"
-  !insertmacro MUI_INSTALLOPTIONS_READ $R2 "config.ini" "Field 7" "State"
-
-  IfSilent 0 +2
-  StrCpy $R0 '8080'
-
-  StrCpy $R4 'port="$R0"'
+  StrCpy $R4 'port="$TomcatPort"'
   StrCpy $R5 ''
 
-  IfSilent Silent 0
+  ${If} $TomcatAdminEnable == "1"
+  ${AndIf} "$TomcatAdminUsername" != ""
+  ${AndIf} "$TomcatAdminPassword" != ""
+  ${AndIf} "$TomcatAdminRoles" != ""
+    ; Escape XML
+    Push $TomcatAdminUsername
+    Call xmlEscape
+    Pop $R1
+    Push $TomcatAdminPassword
+    Call xmlEscape
+    Pop $R2
+    Push $TomcatAdminRoles
+    Call xmlEscape
+    Pop $R3
+    StrCpy $R5 '<user name="$R1" password="$R2" roles="$R3" />$\r$\n'
+    DetailPrint 'Admin user added: "$TomcatAdminUsername"'
+  ${EndIf}
 
-  ; Escape XML
-  Push $R1
-  Call xmlEscape
-  Pop $R1
-  Push $R2
-  Call xmlEscape
-  Pop $R2
+  DetailPrint 'HTTP/1.1 Connector configured on port "$TomcatPort"'
 
-  StrCmp $R1 "" +4 0  ; Blank user - do not add anything to tomcat-users.xml
-  StrCmp $R2 "" +3 0  ; Blank password - do not add anything to tomcat-users.xml
-  StrCpy $R5 '<user name="$R1" password="$R2" roles="admin,manager" />'
-  DetailPrint 'Admin user added: "$R1"'
-
-Silent:
-  DetailPrint 'HTTP/1.1 Connector configured on port "$R0"'
-
-  SetOutPath $TEMP
-  File /r confinstall
+  ; Extract these fragments to $PLUGINSDIR. That is a temporary directory,
+  ; that is automatically deleted when the installer exits.
+  InitPluginsDir
+  SetOutPath $PLUGINSDIR
+  File confinstall\server_1.xml
+  File confinstall\server_2.xml
+  File confinstall\tomcat-users_1.xml
+  File confinstall\tomcat-users_2.xml
 
   ; Build final server.xml
   Delete "$INSTDIR\conf\server.xml"
+  DetailPrint "Writing server.xml"
   FileOpen $R9 "$INSTDIR\conf\server.xml" w
 
-  Push "$TEMP\confinstall\server_1.xml"
+  Push "$PLUGINSDIR\server_1.xml"
   Call copyFile
   FileWrite $R9 $R4
-  Push "$TEMP\confinstall\server_2.xml"
+  Push "$PLUGINSDIR\server_2.xml"
   Call copyFile
 
   FileClose $R9
-
   DetailPrint "server.xml written"
 
   ; Build final tomcat-users.xml
-  
   Delete "$INSTDIR\conf\tomcat-users.xml"
+  DetailPrint "Writing tomcat-users.xml"
   FileOpen $R9 "$INSTDIR\conf\tomcat-users.xml" w
-
-  Push "$TEMP\confinstall\tomcat-users_1.xml"
+  ; File will be written using current windows codepage
+  System::Call 'Kernel32::GetACP() i .r18'
+  ${If} $R8 == "932"
+    ; Special case where Java uses non-standard name for character set
+    FileWrite $R9 "<?xml version='1.0' encoding='ms$R8'?>$\r$\n"
+  ${Else}
+    FileWrite $R9 "<?xml version='1.0' encoding='cp$R8'?>$\r$\n"
+  ${EndIf}
+  Push "$PLUGINSDIR\tomcat-users_1.xml"
   Call copyFile
   FileWrite $R9 $R5
-  Push "$TEMP\confinstall\tomcat-users_2.xml"
+  Push "$PLUGINSDIR\tomcat-users_2.xml"
   Call copyFile
 
   FileClose $R9
-
   DetailPrint "tomcat-users.xml written"
 
-  RMDir /r "$TEMP\confinstall"
-
+  Delete "$PLUGINSDIR\server_1.xml"
+  Delete "$PLUGINSDIR\server_2.xml"
+  Delete "$PLUGINSDIR\tomcat-users_1.xml"
+  Delete "$PLUGINSDIR\tomcat-users_2.xml"
 FunctionEnd
 
 
@@ -741,25 +860,77 @@ Function copyFile
 FunctionEnd
 
 
+; =================
+; createShortcuts Function
+; =================
+;
+; This is called by the SecMenu section.
+;
+; The code is moved here, because ${SecManager} etc. are not visible
+; in SecMenu, because they are defined lower than it.
+;
+Function createShortcuts
+
+  SetOutPath "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@"
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Home Page.lnk" \
+                 "http://tomcat.apache.org/"
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Welcome.lnk" \
+                 "http://127.0.0.1:$TomcatPort/"
+
+  ${If} ${SectionIsSelected} ${SecManager}
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Manager.lnk" \
+                   "http://127.0.0.1:$TomcatPort/manager/html"
+  ${EndIf}
+
+  ${If} ${SectionIsSelected} ${SecHostManager}
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Host Manager.lnk" \
+                   "http://127.0.0.1:$TomcatPort/host-manager/html"
+  ${EndIf}
+
+  ${If} ${SectionIsSelected} ${SecDocs}
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Documentation.lnk" \
+                   "$INSTDIR\webapps\tomcat-docs\index.html"
+  ${EndIf}
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Uninstall Tomcat @VERSION_MAJOR_MINOR@.lnk" \
+                 "$INSTDIR\Uninstall.exe"
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat @VERSION_MAJOR_MINOR@ Program Directory.lnk" \
+                 "$INSTDIR"
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Monitor Tomcat.lnk" \
+                 "$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" \
+                 '//MS//Tomcat@VERSION_MAJOR@' \
+                 "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
+
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Configure Tomcat.lnk" \
+                 "$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" \
+                 '//ES//Tomcat@VERSION_MAJOR@' \
+                 "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
+
+FunctionEnd
+
 ;--------------------------------
 ;Uninstaller Section
 
 Section Uninstall
 
-  Delete "$INSTDIR\modern.exe"
   Delete "$INSTDIR\Uninstall.exe"
 
   ; Stop Tomcat service monitor if running
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5w.exe" //MQ//Tomcat5'
+  DetailPrint "Stopping Tomcat@VERSION_MAJOR@ service monitor"
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" //MQ//Tomcat@VERSION_MAJOR@'
   ; Delete Tomcat service
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat5.exe" //DS//Tomcat5'
+  DetailPrint "Uninstalling Tomcat@VERSION_MAJOR@ service"
+  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //DS//Tomcat@VERSION_MAJOR@'
   ClearErrors
 
-  DeleteRegKey HKCR "JSPFile"
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat 5.5"
-  DeleteRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\5.5"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@"
+  DeleteRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@"
   DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor"
-  RMDir /r "$SMPROGRAMS\Apache Tomcat 5.5"
+  RMDir /r "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@"
   Delete "$INSTDIR\tomcat.ico"
   Delete "$INSTDIR\LICENSE"
   Delete "$INSTDIR\NOTICE"
@@ -782,16 +953,18 @@ Section Uninstall
   IfSilent Removed 0
 
   ; if $INSTDIR was removed, skip these next ones
-  IfFileExists "$INSTDIR" 0 Removed 
+  IfFileExists "$INSTDIR" 0 Removed
     MessageBox MB_YESNO|MB_ICONQUESTION \
-      "Remove all files in your Tomcat 5.5 directory? (If you have anything  \
+      "Remove all files in your Tomcat @VERSION_MAJOR_MINOR@ directory? (If you have anything  \
  you created that you want to keep, click No)" IDNO Removed
-    RMDir /r "$INSTDIR\webapps\ROOT" ; this would be skipped if the user hits no
-    RMDir "$INSTDIR\webapps"
-    Delete "$INSTDIR\*.*" 
+    ; these would be skipped if the user hits no
+    RMDir /r "$INSTDIR\webapps"
+    RMDir /r "$INSTDIR\logs"
+    RMDir /r "$INSTDIR\conf"
+    Delete "$INSTDIR\*.*"
     RMDir /r "$INSTDIR"
     Sleep 500
-    IfFileExists "$INSTDIR" 0 Removed 
+    IfFileExists "$INSTDIR" 0 Removed
       MessageBox MB_OK|MB_ICONEXCLAMATION \
                  "Note: $INSTDIR could not be removed."
   Removed:

@@ -1561,10 +1561,15 @@
     <copy file="${nsis.nsexec.dll}" todir="${tomcat.dist}" />
     <copy file="${nsis.nsisdl.dll}" todir="${tomcat.dist}" />
 
+    <tstamp>
+       <format property="YEAR" pattern="yyyy" />
+    </tstamp>
+
     <filter token="VERSION" value="${version}"/>
     <filter token="VERSION_NUMBER" value="${version.number}"/>
   	<filter token="VERSION_MAJOR" value="${version.major}"/>
   	<filter token="VERSION_MAJOR_MINOR" value="${version.major.minor}"/>
+    <filter token="YEAR" value="${YEAR}"/>
 
     <copy file="tomcat.nsi" tofile="${tomcat.dist}/tomcat.nsi"
         filtering="true" encoding="ISO-8859-1" />

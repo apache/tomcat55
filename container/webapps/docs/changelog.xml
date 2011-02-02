@@ -45,6 +45,16 @@
       <fix>
         Fix permissions of version.sh in bin tarball. (rjung)
       </fix>
+      <update>
+        Numerous improvements to the Windows installer: update install/uninstall
+        icons, create an installation log, allow 32-bit JVMs to be selected when
+        installing on a 64-bit platform, replace the .ini files with the script
+        equivalents, use the new manager and host-manager roles, provide the
+        ability to edit the roles for the added user, add support for the
+        <code>/?</code> command line switch, clean up fully after installation,
+        add DetailPrint statements for operations that may take time and
+        improve the descriptions of the components. (kkolinko, mturk, markt)
+      </update>
     </changelog>
   </subsection>
   <subsection name="Catalina">
