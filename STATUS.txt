@@ -96,8 +96,3 @@ PATCHES PROPOSED TO BACKPORT:
      2) do not change visibility of defaultProtocol, defaultKeystoreType 
    markt:
      Happy to include those changes
-
-* Improve HTTP specification compliance
-  http://svn.apache.org/viewvc?rev=1066244&view=rev
-  +1: kkolinko, rjung, markt
-  -1:
