@@ -63,7 +63,7 @@ PATCHES PROPOSED TO BACKPORT:
    svn copy ../../trunk/res/uninst.ico build/resources/
   2. Apply patch:
    http://people.apache.org/~kkolinko/patches/2011-01-17_tc55_tomcat-nsi.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, mturk
   -1:
 
    For reference: here is the diff of tomcat.nsi of trunk @1059900 if I copy
