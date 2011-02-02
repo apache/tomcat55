@@ -94,8 +94,10 @@ PATCHES PROPOSED TO BACKPORT:
    kkolinko:
      1) s/for (String cipher : ciphers){/for (int i=0; i<ciphers.length;i++){String cipher=ciphers[i];/
      2) do not change visibility of defaultProtocol, defaultKeystoreType 
+   markt:
+     Happy to include those changes
 
 * Improve HTTP specification compliance
   http://svn.apache.org/viewvc?rev=1066244&view=rev
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, markt
   -1:
