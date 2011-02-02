@@ -45,16 +45,24 @@
       <fix>
         Fix permissions of version.sh in bin tarball. (rjung)
       </fix>
-      <update>
-        Numerous improvements to the Windows installer: update install/uninstall
-        icons, create an installation log, allow 32-bit JVMs to be selected when
-        installing on a 64-bit platform, replace the .ini files with the script
-        equivalents, use the new manager and host-manager roles, provide the
-        ability to edit the roles for the added user, add support for the
-        <code>/?</code> command line switch, clean up fully after installation,
-        add DetailPrint statements for operations that may take time and
-        improve the descriptions of the components. (kkolinko, mturk, markt)
-      </update>
+      <fix>
+        <bug>45332</bug>, <bug>45852</bug>, <bug>50140</bug>:
+        Backport numerous improvements to the Windows installer.
+        Specify the correct encoding (the current Windows code page) rather
+        than assuming UTF-8 when creating tomcat-users.xml - <bug>45332</bug>,
+        <bug>45852</bug>.
+        Update install/uninstall icons. Create an installation log.
+        Allow 32-bit JVMs to be selected when installing on a 64-bit platform.
+        Do not ignore install directory if it is specified with the command
+        line switch on 64-bit platforms - <bug>50140</bug>.
+        Add support for the <code>/?</code> command line switch.
+        Replace the .ini files with the script equivalents.
+        Provide the ability to edit the roles for the added user.
+        Clean up fully after installation.
+        Add DetailPrint statements for operations that may take time.
+        Improve the descriptions of the components.
+        (kkolinko, mturk, markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">
