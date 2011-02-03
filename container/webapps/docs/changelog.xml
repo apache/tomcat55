@@ -71,6 +71,11 @@
         Improve HTTP specification compliance in support of
         <code>Accept-Language</code> header. (kkolinko)
       </fix>
+      <fix>
+        <bug>50620</bug>: Stop exceptions that occur during
+        <code>Session.endAccess()</code> from preventing the normal completion
+        of <code>Request.recycle()</code>. (markt/kkolinko)
+      </fix>
     </changelog>
   </subsection>
 </section>
