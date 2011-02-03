@@ -49,7 +49,7 @@ PATCHES PROPOSED TO BACKPORT:
    http://svn.apache.org/viewvc?rev=1061442&view=rev
    http://svn.apache.org/viewvc?rev=1061446&view=rev
   (by markt)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, rjung
   -1:
 
   (For convenience, here is patch that applies the above:
