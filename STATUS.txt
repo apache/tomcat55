@@ -37,7 +37,7 @@ PATCHES PROPOSED TO BACKPORT:
     svn delete connectors/util/java/org/apache/tomcat/util/net/jsse/JSSE13SocketFactory.java
   2)
     http://people.apache.org/~kkolinko/patches/2010-03-06_tc55_remove_JSSE13Factory_v2.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, pero
   -O: jim
   -1:
 
@@ -45,7 +45,7 @@ PATCHES PROPOSED TO BACKPORT:
   Use JVM provided solutions to CVE-2009-3555 if available (i.e. RFC 5746
   support)
   http://svn.apache.org/viewvc?rev=1065859&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, pero
   -1:
    kkolinko:
      1) s/for (String cipher : ciphers){/for (int i=0; i<ciphers.length;i++){String cipher=ciphers[i];/
@@ -58,5 +58,5 @@ PATCHES PROPOSED TO BACKPORT:
   to allow more fine-grained control over which functionality is accessible,
   like it was done in Tomcat 6.
   http://people.apache.org/~kkolinko/patches/2011-02-03_tc55_roles.patch
-  +1: kkolinko
+  +1: kkolinko, pero
   -1:
