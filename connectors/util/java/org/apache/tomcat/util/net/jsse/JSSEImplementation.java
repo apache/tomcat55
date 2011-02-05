@@ -58,17 +58,8 @@ public class JSSEImplementation extends SSLImplementation
                     logger.debug("Error getting factory: " + JSSE15Factory, ex);
             }
         }
-        if(factory == null && JdkCompat.isJava14() ) {
-            try {
-                Class factcl = Class.forName(JSSE14Factory);
-                factory = (JSSEFactory)factcl.newInstance();
-            } catch(Exception ex) {
-                if(logger.isDebugEnabled()) {
-                    logger.debug("Error getting factory: " + JSSE14Factory, ex);
-                }
-            }
-        } if(factory == null) {
-            factory = new JSSE13Factory();
+        if(factory == null) {
+            factory = new JSSE14Factory();
         }
     }
 

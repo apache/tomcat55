@@ -78,6 +78,14 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Coyote">
+    <changelog>
+      <update>
+        Remove <code>JSSE13Factory</code>, <code>JSSE13SocketFactory</code>
+        classes, as Tomcat 5.5 always runs on JRE 1.4 or later. (kkolinko)
+      </update>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.32 (jim)" rtext="released 2011-02-01">
   <subsection name="General">
