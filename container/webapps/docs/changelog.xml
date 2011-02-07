@@ -84,6 +84,12 @@
         Remove <code>JSSE13Factory</code>, <code>JSSE13SocketFactory</code>
         classes, as Tomcat 5.5 always runs on JRE 1.4 or later. (kkolinko)
       </update>
+      <fix>
+        <bug>50325</bug>: When the JVM indicates support for RFC 5746, disable
+        Tomcat&apos;s <code>allowUnsafeLegacyRenegotiation</code> configuration
+        attribute and use the JVM configuration to control renegotiation.
+        (markt/kkolinko)
+      </fix>
     </changelog>
   </subsection>
 </section>

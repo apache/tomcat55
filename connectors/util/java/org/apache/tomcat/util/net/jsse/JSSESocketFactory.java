@@ -26,9 +26,13 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Vector;
 
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -77,6 +81,29 @@ public abstract class JSSESocketFactory
     protected String[] enabledCiphers;
     protected boolean allowUnsafeLegacyRenegotiation = false;
 
+    protected static final boolean RFC_5746_SUPPORTED;
+
+    static {
+        boolean result = false;
+        SSLContext context;
+        try {
+            context = SSLContext.getInstance("TLS");
+            context.init(null, null, new SecureRandom());
+            SSLServerSocketFactory ssf = context.getServerSocketFactory();
+            String ciphers[] = ssf.getSupportedCipherSuites();
+            for (String cipher : ciphers) {
+                if ("TLS_EMPTY_RENEGOTIATION_INFO_SCSV".equals(cipher)) {
+                    result = true;
+                    break;
+                }
+            }
+        } catch (NoSuchAlgorithmException e) {
+            // Assume no RFC 5746 support
+        } catch (KeyManagementException e) {
+            // Assume no RFC 5746 support
+        }
+        RFC_5746_SUPPORTED = result;
+    }
 
     public JSSESocketFactory () {
     }
@@ -127,7 +154,7 @@ public abstract class JSSESocketFactory
     public void handshake(Socket sock) throws IOException {
         ((SSLSocket)sock).startHandshake();
         
-        if (!allowUnsafeLegacyRenegotiation) {
+        if (!allowUnsafeLegacyRenegotiation && !RFC_5746_SUPPORTED) {
             // Prevent futher handshakes by removing all cipher suites
             ((SSLSocket) sock).setEnabledCipherSuites(new String[0]);
         }
