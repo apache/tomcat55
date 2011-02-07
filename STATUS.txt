@@ -30,5 +30,5 @@ PATCHES PROPOSED TO BACKPORT:
   to allow more fine-grained control over which functionality is accessible,
   like it was done in Tomcat 6.
   http://people.apache.org/~kkolinko/patches/2011-02-03_tc55_roles.patch
-  +1: kkolinko, pero
+  +1: kkolinko, pero, markt
   -1:
