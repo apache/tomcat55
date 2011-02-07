@@ -63,6 +63,12 @@
         Improve the descriptions of the components.
         (kkolinko, mturk, markt)
       </fix>
+      <add>
+        Add roles (admin-gui, admin-script, manager-gui, manager-script,
+        manager-jmx, manager-status) to the Manager, Host Manager and Admin
+        applications to allow more fine-grained control of permissions. The old
+        roles are deprecated but will still work in the same way. (kkolinko)
+      </add>
     </changelog>
   </subsection>
   <subsection name="Catalina">

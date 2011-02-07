@@ -433,7 +433,7 @@ Function pageComponentsLeave
   IntOp $0 $0 & ${SF_SELECTED}
   ${If} $0 <> 0
     StrCpy $TomcatAdminEnable "1"
-    StrCpy $TomcatAdminRoles "manager"
+    StrCpy $TomcatAdminRoles "manager-gui"
   ${EndIf}
 
   SectionGetFlags ${SecHostManager} $0
@@ -441,9 +441,9 @@ Function pageComponentsLeave
   ${If} $0 <> 0
     StrCpy $TomcatAdminEnable "1"
     ${If} $TomcatAdminRoles != ""
-      StrCpy $TomcatAdminRoles "admin,$TomcatAdminRoles"
+      StrCpy $TomcatAdminRoles "admin-gui,$TomcatAdminRoles"
     ${Else}
-      StrCpy $TomcatAdminRoles "admin"
+      StrCpy $TomcatAdminRoles "admin-gui"
     ${EndIf}
   ${EndIf}
 FunctionEnd
