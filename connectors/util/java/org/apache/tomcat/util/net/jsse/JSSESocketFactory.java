@@ -91,7 +91,8 @@ public abstract class JSSESocketFactory
             context.init(null, null, new SecureRandom());
             SSLServerSocketFactory ssf = context.getServerSocketFactory();
             String ciphers[] = ssf.getSupportedCipherSuites();
-            for (String cipher : ciphers) {
+            for (int i = 0; i < ciphers.length; i++) {
+                String cipher = ciphers[i];
                 if ("TLS_EMPTY_RENEGOTIATION_INFO_SCSV".equals(cipher)) {
                     result = true;
                     break;
