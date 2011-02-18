@@ -38,3 +38,9 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=26651
   +1: kkolinko, markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48717
+  Call sessionDidActivate when replicating sessions 
+  https://issues.apache.org/bugzilla/attachment.cgi?id=26679
+  +1: markt
+  -1:
