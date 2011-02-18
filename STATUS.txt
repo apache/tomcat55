@@ -30,11 +30,11 @@ PATCHES PROPOSED TO BACKPORT:
   if request has already been authenticated.
   http://svn.apache.org/viewvc?view=revision&revision=1070409
   https://issues.apache.org/bugzilla/attachment.cgi?id=26650 (patch against tc5.5)
-  +1: kfujino
+  +1: kfujino, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50744
   Skip SSL configuration check if we cannot create an unbound socket
   https://issues.apache.org/bugzilla/attachment.cgi?id=26651
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
