@@ -52,10 +52,3 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1072042&view=rev
   +1: markt, mturk
   -1:
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=31027
-  Trim whitespace from names and values obtained from
-  $CATALINA_BASE/conf/catalina.properties to avoid hard to diagnose errors on startup.
-  http://svn.apache.org/viewvc?rev=1075050&view=rev
-  +1: markt
-  -1:
