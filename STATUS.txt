@@ -50,5 +50,5 @@ PATCHES PROPOSED TO BACKPORT:
   reads from the request since this causes various problems in the connectors
   which do not expect this.
   http://svn.apache.org/viewvc?rev=1072042&view=rev
-  +1: markt, mturk
+  +1: markt, mturk, kkolinko
   -1:
