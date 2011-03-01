@@ -58,5 +58,5 @@ PATCHES PROPOSED TO BACKPORT:
   the Manager application.
   Based on a patch by Stephane Bailliez.
   http://svn.apache.org/viewvc?rev=1075458&view=rev
-  +1: markt
+  +1: markt, kkolinko
   -1:
