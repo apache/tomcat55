@@ -66,3 +66,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1076212&view=rev
   +1: markt
   -1:
+
+* Fix possible threading issue in JSP compilation when development mode is
+  enabled
+  http://svn.apache.org/viewvc?rev=1078409&view=rev
+  +1: markt
+  -1:
