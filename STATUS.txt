@@ -42,7 +42,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48717
   Call sessionDidActivate when replicating sessions 
   https://issues.apache.org/bugzilla/attachment.cgi?id=26679
-  +1: markt
+  +1: markt, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50189
@@ -58,17 +58,17 @@ PATCHES PROPOSED TO BACKPORT:
   the Manager application.
   Based on a patch by Stephane Bailliez.
   http://svn.apache.org/viewvc?rev=1075458&view=rev
-  +1: markt, kkolinko
+  +1: markt, kkolinko, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=27988
   Improve reporting of missing files
   http://svn.apache.org/viewvc?rev=1076212&view=rev
-  +1: markt
+  +1: markt, kfujino
   -1:
 
 * Fix possible threading issue in JSP compilation when development mode is
   enabled
   http://svn.apache.org/viewvc?rev=1078409&view=rev
-  +1: markt
+  +1: markt, kfujino
   -1:
