@@ -19,6 +19,9 @@
 package org.apache.catalina.ant;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.apache.tools.ant.BuildException;
 
 
@@ -72,7 +75,17 @@ public class JMXQueryTask extends AbstractCatalinaTask {
      */
     public void execute() throws BuildException {
         super.execute();
-        String queryString = (query == null) ? "":("?qry="+query);
+        String queryString;
+        if (query == null) {
+            queryString = "";
+        } else {
+            try {
+                queryString = "?qry=" + URLEncoder.encode(query, getCharset());
+            } catch (UnsupportedEncodingException e) {
+                throw new BuildException
+                    ("Invalid 'charset' attribute: " + getCharset());
+            }
+        }
         log("Query string is " + queryString); 
         execute ("/jmxproxy/" + queryString);
     }

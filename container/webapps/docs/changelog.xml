@@ -43,6 +43,11 @@
   <subsection name="Catalina">
     <changelog>
       <fix>
+        <bug>28852</bug>: Add URL encoding where missing to parameters in URLs
+        presented by Ant tasks to the Manager application. Based on a patch by
+        Stephane Bailliez. (mark) 
+      </fix>
+      <fix>
         <bug>50189</bug>: Once the application has finished writing to the
         response, prevent further reads from the request since this causes
         various problems in the connectors which do not expect this. (markt)

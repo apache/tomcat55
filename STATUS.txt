@@ -45,14 +45,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kfujino
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=28852
-  Add URL encoding where missing to parameters in URLs presented by Ant tasks to
-  the Manager application.
-  Based on a patch by Stephane Bailliez.
-  http://svn.apache.org/viewvc?rev=1075458&view=rev
-  +1: markt, kkolinko, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=27988
   Improve reporting of missing files
   http://svn.apache.org/viewvc?rev=1076212&view=rev
