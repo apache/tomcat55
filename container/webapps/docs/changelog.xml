@@ -39,7 +39,10 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
-<section name="Tomcat 5.5.33 (jim)" rtext="">
+<section name="Tomcat 5.5.34 (jim)" rtext="">
+
+</section>
+<section name="Tomcat 5.5.33 (jim)" rtext="released 2011-02-10">
   <subsection name="General">
     <changelog>
       <fix>
