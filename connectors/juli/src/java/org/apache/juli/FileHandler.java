@@ -37,8 +37,32 @@ import java.util.logging.SimpleFormatter;
 
 /**
  * Implementation of <b>Handler</b> that appends log messages to a file
- * named {prefix}.{date}.{suffix} in a configured directory, with an
- * optional preceding timestamp.
+ * named {prefix}{date}{suffix} in a configured directory.
+ *
+ * <p>The following configuration properties are available:</p>
+ *
+ * <ul>
+ *   <li><code>directory</code> - The directory where to create the log file.
+ *    If the path is not absolute, it is relative to the current working
+ *    directory of the application. The Apache Tomcat configuration files usually
+ *    specify an absolute path for this property,
+ *    <code>${catalina.base}/logs</code> 
+ *    Default value: <code>logs</code></li>
+ *   <li><code>prefix</code> - The leading part of the log file name.
+ *    Default value: <code>juli.</code></li>
+ *   <li><code>suffix</code> - The trailing part of the log file name.
+ *    Default value: <code>.log</code></li>
+ *   <li><code>encoding</code> - Character set used by the log file. Default value:
+ *    empty string, which means to use the system default character set.</li>
+ *   <li><code>level</code> - The level threshold for this Handler. See the
+ *    <code>java.util.logging.Level</code> class for the possible levels.
+ *    Default value: <code>ALL</code></li>
+ *   <li><code>filter</code> - The <code>java.util.logging.Filter</code>
+ *    implementation class name for this Handler. Default value: unset</li>
+ *   <li><code>formatter</code> - The <code>java.util.logging.Formatter</code>
+ *    implementation class name for this Handler. Default value:
+ *    <code>java.util.logging.SimpleFormatter</code></li>
+ * </ul>
  *
  * @version $Id$
  */
