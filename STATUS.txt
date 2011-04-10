@@ -67,4 +67,9 @@ PATCHES PROPOSED TO BACKPORT:
   Check that tag file attribute names use valid Java identifiers
   http://svn.apache.org/viewvc?rev=1090766&view=rev
   +1: markt
-  -1:
+  -1: kkolinko:
+     1) It depends on JRE version. "enum" is not a keyword when running
+     with Java 1.4
+     2) I think it is already enforced, e.g. by java compiler when
+     compiling the generated java code. Thus I see no need for this
+     improvement in 5.5.
