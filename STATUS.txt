@@ -56,7 +56,8 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
-* Clarify error messages in *.sh files to mention that if a script is not
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47880
+  Clarify error messages in *.sh files to mention that if a script is not
   found it might be because execute permission is needed.
   http://svn.apache.org/viewvc?rev=1088179&view=rev
   +1: kkolinko, markt
