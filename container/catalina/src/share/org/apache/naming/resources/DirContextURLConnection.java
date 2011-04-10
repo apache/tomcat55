@@ -262,7 +262,8 @@ public class DirContextURLConnection
         if (object != null)
             return object;
         
-        throw new FileNotFoundException();
+        throw new FileNotFoundException(
+                getURL() == null ? "null" : getURL().toString());
         
     }
     
@@ -295,7 +296,8 @@ public class DirContextURLConnection
             connect();
         
         if (resource == null) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException(
+                    getURL() == null ? "null" : getURL().toString());
         } else {
             // Reopen resource
             try {
@@ -333,7 +335,8 @@ public class DirContextURLConnection
         }
         
         if ((resource == null) && (collection == null)) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException(
+                    getURL() == null ? "null" : getURL().toString());
         }
         
         Vector result = new Vector();
@@ -347,7 +350,8 @@ public class DirContextURLConnection
                 }
             } catch (NamingException e) {
                 // Unexpected exception
-                throw new FileNotFoundException();
+                throw new FileNotFoundException(
+                        getURL() == null ? "null" : getURL().toString());
             }
         }
         

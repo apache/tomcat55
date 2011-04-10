@@ -45,12 +45,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt, kfujino
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=27988
-  Improve reporting of missing files
-  http://svn.apache.org/viewvc?rev=1076212&view=rev
-  +1: markt, kfujino, kkolinko
-  -1:
-
 * Fix possible threading issue in JSP compilation when development mode is
   enabled
   http://svn.apache.org/viewvc?rev=1078409&view=rev
