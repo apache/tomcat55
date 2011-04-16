@@ -62,3 +62,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1088179&view=rev
   +1: kkolinko, markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51042
+  Don't notify session creation listeners when changing session ID on
+  authentication
+  http://svn.apache.org/viewvc?view=revision&revision=1094069
+  +1: markt
+  -1:
