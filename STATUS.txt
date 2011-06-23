@@ -82,3 +82,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1137996&view=rev
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=36362
+  Handle tag files with attribute names that are not valid Java identifiers
+  http://svn.apache.org/viewvc?rev=1138950&view=rev
+  http://svn.apache.org/viewvc?rev=1138953&view=rev
+  +1: markt
+  -1:
