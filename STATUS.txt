@@ -89,3 +89,22 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1138953&view=rev
   +1: markt
   -1:
+
+* Multiple improvements to the Windows Installer
+  - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
+    Install monitor to auto-start for current user only rather than all users to
+    be consistent with menu item creation.
+  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=40510
+    Provide an option to install shortcuts for the current user or all users.
+    Also ensure registry is correctly cleaned on uninstall for 64-bit platforms.
+  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50949
+    Provide the ability to specify the AJP port and service name when installing
+    Tomcat using the Windows installer. This permits multiple instances of the
+    same Tomcat version to be installed side-by-side.
+  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51135
+    Fix auto-detection of JAVA_HOME for 64-bit Windows platforms that only have
+    a 32-bit JVM installed.
+  http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.patch
+  plus addition of http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.server_3.xml
+  +1: markt
+  -1:
