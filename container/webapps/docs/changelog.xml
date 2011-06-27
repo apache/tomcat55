@@ -55,7 +55,11 @@
         response, prevent further reads from the request since this causes
         various problems in the connectors which do not expect this. (markt)
       </fix>
-    </changelog>
+      <fix>
+        Fix CVE-2011-2204. Prevent user passwords appearing in log files if a
+        runtime exception (e.g. OOME) occurs while creating a new user for a
+        MemoryUserDatabase via JMX. (markt)
+      </fix>    </changelog>
   </subsection>
   <subsection name="Webapps">
     <changelog>

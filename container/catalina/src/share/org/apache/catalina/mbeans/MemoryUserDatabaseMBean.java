@@ -188,7 +188,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             MBeanUtils.createMBean(group);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception creating group " + group + " MBean");
+                ("Exception creating group [" + groupname + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -211,7 +211,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             MBeanUtils.createMBean(role);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception creating role " + role + " MBean");
+                ("Exception creating role [" + rolename + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -236,7 +236,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             MBeanUtils.createMBean(user);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception creating user " + user + " MBean");
+                ("Exception creating user [" + username + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -264,7 +264,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             return (oname.toString());
         } catch (MalformedObjectNameException e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Cannot create object name for group " + group);
+                ("Cannot create object name for group [" + groupname + "]");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -291,7 +291,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             return (oname.toString());
         } catch (MalformedObjectNameException e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Cannot create object name for role " + role);
+                ("Cannot create object name for role [" + rolename + "]");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -318,7 +318,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             return (oname.toString());
         } catch (MalformedObjectNameException e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Cannot create object name for user " + user);
+                ("Cannot create object name for user [" + username + "]");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -343,7 +343,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             database.removeGroup(group);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception destroying group " + group + " MBean");
+                ("Exception destroying group [" + groupname + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -368,7 +368,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             database.removeRole(role);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception destroying role " + role + " MBean");
+                ("Exception destroying role [" + rolename + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
@@ -393,7 +393,7 @@ public class MemoryUserDatabaseMBean extends BaseModelMBean {
             database.removeUser(user);
         } catch (Exception e) {
             IllegalArgumentException iae = new IllegalArgumentException
-                ("Exception destroying user " + user + " MBean");
+                ("Exception destroying user [" + username + "] MBean");
             jdkCompat.chainException(iae, e);
             throw iae;
         }
