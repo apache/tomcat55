@@ -107,5 +107,9 @@ PATCHES PROPOSED TO BACKPORT:
     a 32-bit JVM installed.
   http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.patch
   plus addition of http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.server_3.xml
+  http://svn.apache.org/viewvc?rev=1141955&view=rev
+  http://svn.apache.org/viewvc?rev=1141976&view=rev
+  http://svn.apache.org/viewvc?rev=1142001&view=rev
+  http://svn.apache.org/viewvc?rev=1142012&view=rev
   +1: markt
   -1:
