@@ -88,8 +88,14 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1138950&view=rev
   http://svn.apache.org/viewvc?rev=1138953&view=rev
   +1: markt
-  -1: kkolinko: because of magling the '_' character, which will break existing
-   code - see my comment in STATUS file of TC 6.0.
+  +1: kkolinko: with r1140693 and r1142043
+  -1:
+
+  Additional patches:
+  http://svn.apache.org/viewvc?rev=1140693&view=rev
+  http://svn.apache.org/viewvc?rev=1142043&view=rev
+  +1: kkolinko
+  -1:
 
 * Multiple improvements to the Windows Installer
   - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
