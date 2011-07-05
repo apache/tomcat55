@@ -128,3 +128,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1142904&view=rev
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51324
+  Improve handling of exceptions when flushing the response buffer to
+  ensure that the doFlush flag does not get stuck in the enabled state.
+  Patch by Jeremy Norris.
+  http://svn.apache.org/viewvc?rev=1133014&view=rev
+  +1: kkolinko
+  -1:
