@@ -59,7 +59,7 @@
     <p>
       <b>Tomcat 5.5</b> has several major goals.  They are discussed in the tomcat-dev
       mailing list's "5.next" thread: 
-      <a href="http://marc.theaimsgroup.com/?l=tomcat-dev&amp;w=2&amp;r=1&amp;s=5.next&amp;q=b">MARC</a>.
+      <a href="http://marc.info/?l=tomcat-dev&amp;w=2&amp;r=1&amp;s=5.next&amp;q=b">MARC</a>.
       The status of some of these items is detailed below.  Once 5.5 releases are
       available, please refer to the Changelog accompanying each release for detailed
       changes, enhancements, and fixes.
