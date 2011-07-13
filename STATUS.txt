@@ -87,14 +87,9 @@ PATCHES PROPOSED TO BACKPORT:
   Handle tag files with attribute names that are not valid Java identifiers
   http://svn.apache.org/viewvc?rev=1138950&view=rev
   http://svn.apache.org/viewvc?rev=1138953&view=rev
-  +1: markt
-  +1: kkolinko: with r1140693 and r1142043
-  -1:
-
-  Additional patches:
   http://svn.apache.org/viewvc?rev=1140693&view=rev
   http://svn.apache.org/viewvc?rev=1142043&view=rev
-  +1: kkolinko
+  +1: markt, kkolinko
   -1:
 
 * Multiple improvements to the Windows Installer
