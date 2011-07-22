@@ -137,3 +137,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2011-07-13-cve-2011-2526-tc5.patch
   +1: markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41179
+  Return 404 rather than 400 if no ROOT context is deployed
+  http://people.apache.org/~markt/patches/2011-07-22-bug41179-tc5.patch
+  +1: markt
+  -1:
