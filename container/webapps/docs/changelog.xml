@@ -63,6 +63,10 @@
   </subsection>
   <subsection name="Webapps">
     <changelog>
+      <fix>
+        <bug>41498</bug>: Add the allRolesMode attribute to the Realm
+        configuration page in the documentation web application. (markt)
+      </fix>
       <update>
         Configure Security Manager How-To to include a copy of the actual
         conf/catalina.policy file when the documentation is built, rather

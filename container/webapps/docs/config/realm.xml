@@ -123,6 +123,19 @@
 
     <attributes>
 
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
+
       <attribute name="connectionName" required="true">
         <p>The database username to use when establishing the JDBC
         connection.</p>
@@ -208,6 +221,19 @@
     column names used to retrieve the required information:</p>
 
     <attributes>
+
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
 
       <attribute name="dataSourceName" required="true">
         <p>The JNDI named JDBC DataSource for your database. If the DataSource
@@ -305,6 +331,19 @@
     information from the directory:</p>
 
     <attributes>
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
+
        <attribute name="alternateURL" required="false">
          <p>If a socket connection can not be made to the provider at
          the <code>connectionURL</code> an attempt will be made to use the
@@ -471,6 +510,19 @@
 
     <attributes>
 
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
+
       <attribute name="resourceName" required="true">
         <p>The name of the resource that this realm will use for user, password
         and role information.</p>
@@ -499,6 +551,19 @@
     additional attributes:</p>
 
     <attributes>
+
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
 
       <attribute name="pathname" required="false">
         <p>Absolute or relative (to $CATALINA_HOME) pathname to the XML file
@@ -562,6 +627,19 @@
     attributes:</p>
 
     <attributes>
+      <attribute name="allRolesMode" required="false">
+        <p>This attribute controls how the special role name <code>*</code> is
+        handled when processing authorization constraints in web.xml. By
+        default, the specification compliant value of <code>strict</code> is
+        used which means that the user must be assigned one of the roles defined
+        in web.xml. The alternative values are <code>authOnly</code> which means
+        that the user must be authenticated but no check is made for assigned
+        roles and <code>strictAuthOnly</code> which means that the user must be
+        authenticated and no check will be made for assigned roles unless roles
+        are defined in web.xml in which case the user must be assigned at least
+        one of those roles.</p>
+      </attribute>
+
       <attribute name="appName" required="true">
         <p>The name of the application as configured in your login configuration
         file (<a href="http://java.sun.com/j2se/1.4.1/docs/guide/security/jaas/tutorials/LoginConfigFile.html">
