@@ -72,6 +72,11 @@
         conf/catalina.policy file when the documentation is built, rather
         than maintaining a copy of its content. (kkolinko)
       </update>
+      <fix>
+        <bug>48997</bug>: Fixed some typos and improve cross-referencing to the
+        HTTP Connector and APR documentation with the SSL How-To page of the
+        documentation web application. (markt)
+      </fix>
     </changelog>
   </subsection>
 </section>
