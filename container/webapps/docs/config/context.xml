@@ -464,7 +464,7 @@
     by nesting a <a href="valve.html">Valve</a> element like this:</p>
 
 <source>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.AccessLogValve"
          prefix="localhost_access_log." suffix=".txt"
@@ -652,7 +652,7 @@
     lifecycle events.  Configuration of such a listener looks like this:</p>
 
 <source>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Listener className="com.mycompany.mypackage.MyListener" ... &gt;
   ...
@@ -680,7 +680,7 @@
     Example filter declarations:</p>
 
 <source>
-&lt;Context path="/examples" ...&gt;
+&lt;Context&gt;
   ...
   &lt;Valve className="org.apache.catalina.valves.RemoteHostValve"
          allow=".*\.mycompany\.com|www\.yourcompany\.com"/&gt;
