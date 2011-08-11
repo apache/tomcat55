@@ -143,3 +143,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2011-07-22-bug41179-tc5.patch
   +1: markt
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51647
+  Session replication fails with ClassNotFoundException when session attribute
+  is Java dynamic proxy
+  https://issues.apache.org/bugzilla/attachment.cgi?id=27375
+  +1: markt
+  -1:
