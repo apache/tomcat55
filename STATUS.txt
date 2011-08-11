@@ -80,7 +80,7 @@ PATCHES PROPOSED TO BACKPORT:
 * https://issues.apache.org/bugzilla/show_bug.cgi?id=51403
   Avoid NPE in JULI FileHandler if formatter is misconfigured
   http://svn.apache.org/viewvc?rev=1137996&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=36362
@@ -121,7 +121,7 @@ PATCHES PROPOSED TO BACKPORT:
   Fix concatenation of values in SecurityConfig.setSecurityProperty()
   when the value provided by JRE is null.
   http://svn.apache.org/viewvc?rev=1142904&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51324
@@ -129,7 +129,7 @@ PATCHES PROPOSED TO BACKPORT:
   ensure that the doFlush flag does not get stuck in the enabled state.
   Patch by Jeremy Norris.
   http://svn.apache.org/viewvc?rev=1133014&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix various sendfile issues. CVE-2011-2526
