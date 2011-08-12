@@ -102,13 +102,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51473
-  Fix concatenation of values in SecurityConfig.setSecurityProperty()
-  when the value provided by JRE is null.
-  http://svn.apache.org/viewvc?rev=1142904&view=rev
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51324
   Improve handling of exceptions when flushing the response buffer to
   ensure that the doFlush flag does not get stuck in the enabled state.
