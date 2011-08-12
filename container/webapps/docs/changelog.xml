@@ -66,6 +66,15 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        <bug>36362</bug>: Handle the case where tag file attributes (which can
+        use any valid XML name) have a name which is not a Java identifier.
+        (markt)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>

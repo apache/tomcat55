@@ -77,15 +77,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
   
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=36362
-  Handle tag files with attribute names that are not valid Java identifiers
-  http://svn.apache.org/viewvc?rev=1138950&view=rev
-  http://svn.apache.org/viewvc?rev=1138953&view=rev
-  http://svn.apache.org/viewvc?rev=1140693&view=rev
-  http://svn.apache.org/viewvc?rev=1142043&view=rev
-  +1: markt, kkolinko, kfujino
-  -1:
-
 * Multiple improvements to the Windows Installer
   - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
     Install monitor to auto-start for current user only rather than all users to

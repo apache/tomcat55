@@ -3558,54 +3558,56 @@ class Generator {
                 out.print(JspUtil.toJavaSourceType(attrInfos[i].getTypeName()));
                 out.print(" ");
             }
-            out.print(attrInfos[i].getName());
+            out.print(JspUtil.makeJavaIdentifierForAttribute(
+                    attrInfos[i].getName()));
             out.println(";");
         }
         out.println();
 
         // Define attribute getter and setter methods
-        if (attrInfos != null) {
-            for (int i = 0; i < attrInfos.length; i++) {
-                // getter method
-                out.printin("public ");
-                if (attrInfos[i].isFragment()) {
-                    out.print("javax.servlet.jsp.tagext.JspFragment ");
-                } else {
-                    out.print(JspUtil.toJavaSourceType(attrInfos[i].getTypeName()));
-                    out.print(" ");
-                }
-                out.print(toGetterMethod(attrInfos[i].getName()));
-                out.println(" {");
-                out.pushIndent();
-                out.printin("return this.");
-                out.print(attrInfos[i].getName());
-                out.println(";");
-                out.popIndent();
-                out.printil("}");
-                out.println();
+        for (int i = 0; i < attrInfos.length; i++) {
+            String javaName =
+                JspUtil.makeJavaIdentifierForAttribute(attrInfos[i].getName());
 
-                // setter method
-                out.printin("public void ");
-                out.print(toSetterMethodName(attrInfos[i].getName()));
-                if (attrInfos[i].isFragment()) {
-                    out.print("(javax.servlet.jsp.tagext.JspFragment ");
-                } else {
-                    out.print("(");
-                    out.print(JspUtil.toJavaSourceType(attrInfos[i].getTypeName()));
-                    out.print(" ");
-                }
-                out.print(attrInfos[i].getName());
-                out.println(") {");
-                out.pushIndent();
-                out.printin("this.");
-                out.print(attrInfos[i].getName());
-                out.print(" = ");
-                out.print(attrInfos[i].getName());
-                out.println(";");
-                out.popIndent();
-                out.printil("}");
-                out.println();
+            // getter method
+            out.printin("public ");
+            if (attrInfos[i].isFragment()) {
+                out.print("javax.servlet.jsp.tagext.JspFragment ");
+            } else {
+                out.print(JspUtil.toJavaSourceType(attrInfos[i].getTypeName()));
+                out.print(" ");
             }
+            out.print(toGetterMethod(attrInfos[i].getName()));
+            out.println(" {");
+            out.pushIndent();
+            out.printin("return this.");
+            out.print(javaName);
+            out.println(";");
+            out.popIndent();
+            out.printil("}");
+            out.println();
+
+            // setter method
+            out.printin("public void ");
+            out.print(toSetterMethodName(attrInfos[i].getName()));
+            if (attrInfos[i].isFragment()) {
+                out.print("(javax.servlet.jsp.tagext.JspFragment ");
+            } else {
+                out.print("(");
+                out.print(JspUtil.toJavaSourceType(attrInfos[i].getTypeName()));
+                out.print(" ");
+            }
+            out.print(javaName);
+            out.println(") {");
+            out.pushIndent();
+            out.printin("this.");
+            out.print(javaName);
+            out.print(" = ");
+            out.print(javaName);
+            out.println(";");
+            out.popIndent();
+            out.printil("}");
+            out.println();
         }
     }
 

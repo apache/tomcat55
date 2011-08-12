@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 
 /**
  * Custom subclass of <code>ObjectInputStream</code> that loads from the
@@ -86,6 +88,43 @@ public final class ReplicationStream extends ObjectInputStream {
         }
     }
     
+    /**
+     * ObjectInputStream.resolveProxyClass has some funky way of using 
+     * the incorrect class loader to resolve proxy classes, let's do it our way instead
+     */
+    protected Class resolveProxyClass(String[] interfaces)
+        throws IOException, ClassNotFoundException {
+        
+        ClassLoader latestLoader = classLoader;
+        ClassLoader nonPublicLoader = null;
+        boolean hasNonPublicInterface = false;
+
+        // define proxy in class loader of non-public interface(s), if any
+        Class[] classObjs = new Class[interfaces.length];
+        for (int i = 0; i < interfaces.length; i++) {
+            Class cl = this.findWebappClass(interfaces[i]);
+            if (latestLoader == null) latestLoader = cl.getClassLoader();
+            if ((cl.getModifiers() & Modifier.PUBLIC) == 0) {
+                if (hasNonPublicInterface) {
+                    if (nonPublicLoader != cl.getClassLoader()) {
+                        throw new IllegalAccessError(
+                            "conflicting non-public interface class loaders");
+                    }
+                } else {
+                    nonPublicLoader = cl.getClassLoader();
+                    hasNonPublicInterface = true;
+                }
+            }
+            classObjs[i] = cl;
+        }
+        try {
+            return Proxy.getProxyClass(hasNonPublicInterface ? nonPublicLoader
+                    : latestLoader, classObjs);
+        } catch (IllegalArgumentException e) {
+            throw new ClassNotFoundException(null, e);
+        }
+    }
+
     public Class findReplicationClass(String name)
         throws ClassNotFoundException, IOException {
         return Class.forName(name, false, getClass().getClassLoader());
