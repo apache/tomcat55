@@ -102,14 +102,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51324
-  Improve handling of exceptions when flushing the response buffer to
-  ensure that the doFlush flag does not get stuck in the enabled state.
-  Patch by Jeremy Norris.
-  http://svn.apache.org/viewvc?rev=1133014&view=rev
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Fix various sendfile issues. CVE-2011-2526
   This is a port of r1145380, r1145694 and r1146005
   http://people.apache.org/~markt/patches/2011-07-13-cve-2011-2526-tc5.patch

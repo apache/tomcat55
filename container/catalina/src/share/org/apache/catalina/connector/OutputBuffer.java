@@ -237,6 +237,7 @@ public class OutputBuffer extends Writer
         cb.recycle();
         bb.recycle(); 
         closed = false;
+        doFlush = false;
         suspended = false;
         
         if (conv!= null) {
@@ -315,19 +316,22 @@ public class OutputBuffer extends Writer
             return;
 
         doFlush = true;
-        if (initial) {
-            // If the buffers are empty, commit the response header
-            coyoteResponse.sendHeaders();
-            initial = false;
+        try {
+            if (initial) {
+                // If the buffers are empty, commit the response header
+                coyoteResponse.sendHeaders();
+                initial = false;
+            }
+            if (state == CHAR_STATE) {
+                cb.flushBuffer();
+                bb.flushBuffer();
+                state = BYTE_STATE;
+            } else if (state == BYTE_STATE) {
+                bb.flushBuffer();
+            }
+        } finally {
+            doFlush = false;
         }
-        if (state == CHAR_STATE) {
-            cb.flushBuffer();
-            bb.flushBuffer();
-            state = BYTE_STATE;
-        } else if (state == BYTE_STATE) {
-            bb.flushBuffer();
-        }
-        doFlush = false;
 
         if (realFlush) {
             coyoteResponse.action(ActionCode.ACTION_CLIENT_FLUSH, 

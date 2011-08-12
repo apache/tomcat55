@@ -61,6 +61,11 @@
         MemoryUserDatabase via JMX. (markt)
       </fix>
       <fix>
+        <bug>51324</bug>: Improve handling of exceptions when flushing the
+        response buffer to ensure that the doFlush flag does not get stuck in
+        the enabled state. Patch provided by Jeremy Norris. (kkolinko)
+      </fix>
+      <fix>
         <bug>51403</bug>: Avoid NullPointerException in JULI FileHandler if
         formatter is misconfigured. (kkolinko)
       </fix>
