@@ -77,12 +77,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: markt
   -1: 
   
-* https://issues.apache.org/bugzilla/show_bug.cgi?id=51403
-  Avoid NPE in JULI FileHandler if formatter is misconfigured
-  http://svn.apache.org/viewvc?rev=1137996&view=rev
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=36362
   Handle tag files with attribute names that are not valid Java identifiers
   http://svn.apache.org/viewvc?rev=1138950&view=rev

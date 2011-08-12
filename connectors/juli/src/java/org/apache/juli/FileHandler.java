@@ -258,7 +258,8 @@ public class FileHandler
             try {
                 setFormatter((Formatter) cl.loadClass(formatterName).newInstance());
             } catch (Exception e) {
-                // Ignore
+                // Ignore and fallback to defaults
+                setFormatter(new SimpleFormatter());
             }
         } else {
             setFormatter(new SimpleFormatter());
