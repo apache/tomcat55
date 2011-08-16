@@ -317,11 +317,15 @@ public class DeltaSession implements HttpSession, Session, Serializable,
      *            The new cached authentication type
      */
     public void setAuthType(String authType) {
+        setAuthType(authType, true);
+    }
 
+    public void setAuthType(String authType, boolean addDeltaRequest) {
         String oldAuthType = this.authType;
         this.authType = authType;
         support.firePropertyChange("authType", oldAuthType, this.authType);
-
+        if (addDeltaRequest && (deltaRequest != null))
+            deltaRequest.setAuthType(authType);
     }
 
     /**
