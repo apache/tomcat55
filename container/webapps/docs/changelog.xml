@@ -83,6 +83,10 @@
         use any valid XML name) have a name which is not a Java identifier.
         (markt)
       </fix>
+      <fix>
+        Fix possible threading issue in JSP compilation when development mode is
+        enabled. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Cluster">

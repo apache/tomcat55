@@ -31,12 +31,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Fix possible threading issue in JSP compilation when development mode is
-  enabled
-  http://svn.apache.org/viewvc?rev=1078409&view=rev
-  +1: markt, kfujino, kkolinko
-  -1:
-
 * Add additional configuration options to the DIGEST authenticator
   http://people.apache.org/~markt/patches/2011-04-01-digest-tc5.patch
   +1: markt
