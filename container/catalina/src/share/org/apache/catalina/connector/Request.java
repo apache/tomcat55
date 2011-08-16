@@ -19,6 +19,7 @@
 package org.apache.catalina.connector;
 
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -1372,6 +1373,27 @@ public class Request
         } else if (name.equals(Globals.DISPATCHER_REQUEST_PATH_ATTR)) {
             requestDispatcherPath = value;
             return;
+        }
+
+        if (System.getSecurityManager() != null &&
+                name.equals("org.apache.tomcat.sendfile.filename")) {
+            // Use the canonical file name to avoid any possible symlink and
+            // relative path issues
+            String canonicalPath;
+            try {
+                canonicalPath = new File(value.toString()).getCanonicalPath();
+            } catch (IOException e) {
+                SecurityException se = new SecurityException(sm.getString(
+                        "coyoteRequest.sendfileNotCanonical", value));
+                se.initCause(e);
+                throw se;
+            }
+            // Sendfile is performed in Tomcat's security context so need to
+            // check if the web app is permitted to access the file while still
+            // in the web app's security context
+            System.getSecurityManager().checkRead(canonicalPath);
+            // Update the value so the canonical path is used
+            value = canonicalPath;
         }
 
         Object oldValue = null;

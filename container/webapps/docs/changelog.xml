@@ -76,6 +76,14 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        Fix CVE-2011-2526. Protect against crashes (HTTP APR) if sendfile is
+        configured to send more data than is available in the file. (markt) 
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Jasper">
     <changelog>
       <fix>

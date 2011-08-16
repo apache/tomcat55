@@ -1639,7 +1639,6 @@ public class DefaultServlet
                 request.setAttribute("org.apache.tomcat.sendfile.start", new Long(range.start));
                 request.setAttribute("org.apache.tomcat.sendfile.end", new Long(range.end + 1));
             }
-            request.setAttribute("org.apache.tomcat.sendfile.token", this);
             return true;
         } else {
             return false;
