@@ -51,6 +51,10 @@
         Stephane Bailliez. (mark) 
       </fix>
       <fix>
+        <bug>41179</bug>: Return 404 rather than 400 for requests to the ROOT
+        context when no ROOT context has been deployed. (markt)
+      </fix>
+      <fix>
         <bug>50189</bug>: Once the application has finished writing to the
         response, prevent further reads from the request since this causes
         various problems in the connectors which do not expect this. (markt)

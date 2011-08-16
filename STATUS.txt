@@ -94,12 +94,6 @@ PATCHES PROPOSED TO BACKPORT:
        I think there is not much demand for this feature in 5.5 to justify this.
        The rest of changes and fixes are OK to backport (e.g. allow to specify port numbers).
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41179
-  Return 404 rather than 400 if no ROOT context is deployed
-  http://people.apache.org/~markt/patches/2011-07-22-bug41179-tc5.patch
-  +1: markt, kfujino, kkolinko
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51647
   Session replication fails with ClassNotFoundException when session attribute
   is Java dynamic proxy

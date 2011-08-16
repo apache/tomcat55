@@ -311,6 +311,14 @@ public class CoyoteAdapter
         request.setContext((Context) request.getMappingData().context);
         request.setWrapper((Wrapper) request.getMappingData().wrapper);
 
+        // If there is no context at this point, it is likely no ROOT context
+        // has been deployed
+        if (request.getContext() == null) {
+            res.setStatus(404);
+            res.setMessage("Not found");
+            return false;
+        }
+
         // Filter trace method
         if (!connector.getAllowTrace() 
                 && req.method().equalsIgnoreCase("TRACE")) {
