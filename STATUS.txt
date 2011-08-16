@@ -93,3 +93,9 @@ PATCHES PROPOSED TO BACKPORT:
        as well as menu names etc.)
        I think there is not much demand for this feature in 5.5 to justify this.
        The rest of changes and fixes are OK to backport (e.g. allow to specify port numbers).
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
+  Display error page rather than an empty response for an IllegalStateException
+  https://issues.apache.org/bugzilla/attachment.cgi?id=27317
+  +1: markt
+  -1:
