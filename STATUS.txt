@@ -77,14 +77,7 @@ PATCHES PROPOSED TO BACKPORT:
   - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51135
     Fix auto-detection of JAVA_HOME for 64-bit Windows platforms that only have
     a 32-bit JVM installed.
-  http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.patch
-  plus addition of http://people.apache.org/~markt/patches/2011-06-24-windows-installer-multiple-tc5.server_3.xml
-  http://svn.apache.org/viewvc?rev=1141955&view=rev
-  http://svn.apache.org/viewvc?rev=1141976&view=rev
-  http://svn.apache.org/viewvc?rev=1142001&view=rev
-  http://svn.apache.org/viewvc?rev=1142012&view=rev
-  http://svn.apache.org/viewvc?rev=1142784&view=rev
-  http://svn.apache.org/viewvc?rev=1142923&view=rev
+  http://people.apache.org/~markt/patches/2011-08-16-windows-installer-tc55.patch
   +1: markt
   -1:
   -0: kkolinko: I think that allowing to configure service name is too much of a change
@@ -93,6 +86,9 @@ PATCHES PROPOSED TO BACKPORT:
        as well as menu names etc.)
        I think there is not much demand for this feature in 5.5 to justify this.
        The rest of changes and fixes are OK to backport (e.g. allow to specify port numbers).
+      markt: I'm aware of some Tomcat 5 users via $work that would like to be
+             able to install multiple versions in parallel
+             Also, it is easier to keep the installers completely in sync. 
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
