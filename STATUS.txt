@@ -43,6 +43,10 @@ PATCHES PROPOSED TO BACKPORT:
   Call sessionDidActivate when replicating sessions 
   https://issues.apache.org/bugzilla/attachment.cgi?id=26679
   +1: markt, kfujino
+  +1: kkolinko: I am not sure that DeltaSession#readObject() is a good
+   place to call activate - I am not comfortable with this method having
+   side effects, but I do not see a better solution, and this is a fix
+   for an issue that is a regression and affects users.
   -1:
 
 * Fix possible threading issue in JSP compilation when development mode is
@@ -54,6 +58,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Add additional configuration options to the DIGEST authenticator
   http://people.apache.org/~markt/patches/2011-04-01-digest-tc5.patch
   +1: markt
+  +1: kkolinko: with r1158177 (s/nOnce/nonce)
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47880
