@@ -30,7 +30,7 @@ PATCHES PROPOSED TO BACKPORT:
   if request has already been authenticated.
   http://svn.apache.org/viewvc?view=revision&revision=1070409
   https://issues.apache.org/bugzilla/attachment.cgi?id=26650 (patch against tc5.5)
-  +1: kfujino, markt
+  +1: kfujino, markt, kkolinko
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50744
@@ -48,7 +48,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix possible threading issue in JSP compilation when development mode is
   enabled
   http://svn.apache.org/viewvc?rev=1078409&view=rev
-  +1: markt, kfujino
+  +1: markt, kfujino, kkolinko
   -1:
 
 * Add additional configuration options to the DIGEST authenticator
@@ -69,12 +69,17 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?view=revision&revision=1094069
   +1: markt
   -1:
+  -0: kkolinko:
+    - A patch is needed, without @Override, and patching two
+    copies of DeltaSession.
+    - Why DeltaSession#setIdInternal(String) public method is removed?
+    - I agree that it is OK to add methods to the Session interface like this patch does.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51073
   Throw an exception and do not start the APR connector if it is configured for
   SSL and an invalid value is provided for SSLProtocol.
   http://svn.apache.org/viewvc?view=revision&revision=1094089
-  +1: markt
+  +1: markt, kkolinko
   -1: 
   
 * Multiple improvements to the Windows Installer
@@ -101,22 +106,28 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1142923&view=rev
   +1: markt
   -1:
+  -0: kkolinko: I think that allowing to configure service name is too much of a change
+       to be backported to 5.5
+       (it changes registry layout, http://tomcat.markmail.org/thread/a65tumeeo2yutxuw 
+       as well as menu names etc.)
+       I think there is not much demand for this feature in 5.5 to justify this.
+       The rest of changes and fixes are OK to backport (e.g. allow to specify port numbers).
 
 * Fix various sendfile issues. CVE-2011-2526
   This is a port of r1145380, r1145694 and r1146005
   http://people.apache.org/~markt/patches/2011-07-13-cve-2011-2526-tc5.patch
-  +1: markt, kfujino
+  +1: markt, kfujino, kkolinko
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=41179
   Return 404 rather than 400 if no ROOT context is deployed
   http://people.apache.org/~markt/patches/2011-07-22-bug41179-tc5.patch
-  +1: markt, kfujino
+  +1: markt, kfujino, kkolinko
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51647
   Session replication fails with ClassNotFoundException when session attribute
   is Java dynamic proxy
   https://issues.apache.org/bugzilla/attachment.cgi?id=27375
-  +1: markt, kfujino
+  +1: markt, kfujino, kkolinko
   -1:
