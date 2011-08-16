@@ -93,10 +93,3 @@ PATCHES PROPOSED TO BACKPORT:
        as well as menu names etc.)
        I think there is not much demand for this feature in 5.5 to justify this.
        The rest of changes and fixes are OK to backport (e.g. allow to specify port numbers).
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51647
-  Session replication fails with ClassNotFoundException when session attribute
-  is Java dynamic proxy
-  https://issues.apache.org/bugzilla/attachment.cgi?id=27375
-  +1: markt, kfujino, kkolinko
-  -1:

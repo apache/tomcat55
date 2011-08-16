@@ -111,6 +111,10 @@
         name of the authentication scheme if request has already been
         authenticated. (kfujino)
       </fix>
+      <fix>
+        <bug>51647</bug>: Fix session replication when a session attribute is a
+        Java dynamic proxy. Based on a patch by Tomasz Skutnik. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">
