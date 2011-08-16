@@ -88,6 +88,9 @@
   <subsection name="Cluster">
     <changelog>
       <fix>
+        <bug>48717</bug>: Ensure session activation events are fired. (markt)
+      </fix>
+      <fix>
         <bug>50771</bug>: Ensure HttpServletRequest#getAuthType() returns the
         name of the authentication scheme if request has already been
         authenticated. (kfujino)

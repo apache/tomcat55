@@ -614,6 +614,7 @@ public class DeltaSession extends StandardSession implements Externalizable,Clus
         if (notes == null) {
             notes = new Hashtable();
         }
+        activate();
     }
 
     public synchronized void writeExternal(ObjectOutput out ) throws java.io.IOException {

@@ -36,6 +36,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
@@ -1433,6 +1434,36 @@ public class DeltaSession implements HttpSession, Session, Serializable,
         if (notes == null) {
             notes = new Hashtable();
         }
+        activate();
+    }
+
+    /**
+     * Perform internal processing required to activate this
+     * session.
+     */
+    private void activate() {
+
+        // Notify interested session event listeners
+        fireSessionEvent(Session.SESSION_ACTIVATED_EVENT, null);
+
+        // Notify ActivationListeners
+        HttpSessionEvent event = null;
+        String keys[] = keys();
+        for (int i = 0; i < keys.length; i++) {
+            Object attribute = attributes.get(keys[i]);
+            if (attribute instanceof HttpSessionActivationListener) {
+                if (event == null)
+                    event = new HttpSessionEvent(getSession());
+                try {
+                    ((HttpSessionActivationListener)attribute)
+                        .sessionDidActivate(event);
+                } catch (Throwable t) {
+                    manager.getContainer().getLogger().error
+                        (sm.getString("deltaSession.attributeEvent"), t);
+                }
+            }
+        }
+
     }
 
     /**

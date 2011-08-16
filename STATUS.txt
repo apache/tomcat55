@@ -31,16 +31,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=48717
-  Call sessionDidActivate when replicating sessions 
-  https://issues.apache.org/bugzilla/attachment.cgi?id=26679
-  +1: markt, kfujino
-  +1: kkolinko: I am not sure that DeltaSession#readObject() is a good
-   place to call activate - I am not comfortable with this method having
-   side effects, but I do not see a better solution, and this is a fix
-   for an issue that is a regression and affects users.
-  -1:
-
 * Fix possible threading issue in JSP compilation when development mode is
   enabled
   http://svn.apache.org/viewvc?rev=1078409&view=rev
