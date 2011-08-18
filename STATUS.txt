@@ -28,12 +28,12 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50744
   Skip SSL configuration check if we cannot create an unbound socket
   https://issues.apache.org/bugzilla/attachment.cgi?id=26651
-  +1: kkolinko, markt
+  +1: kkolinko, markt, jfclere
   -1:
 
 * Add additional configuration options to the DIGEST authenticator
   http://people.apache.org/~markt/patches/2011-04-01-digest-tc5.patch
-  +1: markt
+  +1: markt: jfclere
   +1: kkolinko: with r1158177 (s/nOnce/nonce)
   -1:
 
@@ -41,7 +41,7 @@ PATCHES PROPOSED TO BACKPORT:
   Clarify error messages in *.sh files to mention that if a script is not
   found it might be because execute permission is needed.
   http://svn.apache.org/viewvc?rev=1088179&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, jfclere
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51042
@@ -60,7 +60,7 @@ PATCHES PROPOSED TO BACKPORT:
   Throw an exception and do not start the APR connector if it is configured for
   SSL and an invalid value is provided for SSLProtocol.
   http://svn.apache.org/viewvc?view=revision&revision=1094089
-  +1: markt, kkolinko
+  +1: markt, kkolinko, jfclere
   -1: 
   
 * Multiple improvements to the Windows Installer
@@ -98,5 +98,5 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix CVE-2011-2729. Update commons daemon to 1.0.7
   http://people.apache.org/~markt/patches/2011-08-12-cve2011-2729-tc5.patch
-  +1: markt
+  +1: markt, jfclere
   -1:
