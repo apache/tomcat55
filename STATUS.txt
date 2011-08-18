@@ -28,14 +28,9 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51042
   Don't notify session creation listeners when changing session ID on
   authentication
-  http://svn.apache.org/viewvc?view=revision&revision=1094069
+  http://people.apache.org/~markt/patches/2011-08-18-bug51042-tc55.patch
   +1: markt
   -1:
-  -0: kkolinko:
-    - A patch is needed, without @Override, and patching two
-    copies of DeltaSession.
-    - Why DeltaSession#setIdInternal(String) public method is removed?
-    - I agree that it is OK to add methods to the Session interface like this patch does.
 
 * Multiple improvements to the Windows Installer
   - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
