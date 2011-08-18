@@ -25,13 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47880
-  Clarify error messages in *.sh files to mention that if a script is not
-  found it might be because execute permission is needed.
-  http://svn.apache.org/viewvc?rev=1088179&view=rev
-  +1: kkolinko, markt, jfclere
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51042
   Don't notify session creation listeners when changing session ID on
   authentication

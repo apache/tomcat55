@@ -143,6 +143,14 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Other">
+    <changelog>
+      <update>
+        Clarify error messages in *.sh files to mention that if a script is
+        not found it might be because execute permission is needed. (kkolinko)
+      </update>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.33 (jim)" rtext="released 2011-02-10">
   <subsection name="General">
