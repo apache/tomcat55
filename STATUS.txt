@@ -37,13 +37,6 @@ PATCHES PROPOSED TO BACKPORT:
     - Why DeltaSession#setIdInternal(String) public method is removed?
     - I agree that it is OK to add methods to the Session interface like this patch does.
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51073
-  Throw an exception and do not start the APR connector if it is configured for
-  SSL and an invalid value is provided for SSLProtocol.
-  http://svn.apache.org/viewvc?view=revision&revision=1094089
-  +1: markt, kkolinko, jfclere
-  -1: 
-  
 * Multiple improvements to the Windows Installer
   - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
     Install monitor to auto-start for current user only rather than all users to

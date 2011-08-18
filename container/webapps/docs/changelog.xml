@@ -94,6 +94,11 @@
         <bug>50744</bug>: Skip the SSL configuration check on platforms where an
         unbounded socket cannot be created. (kkolinko)
       </fix>
+      <fix>
+        <bug>51073</bug>: Throw an exception and do not start the APR connector
+        if it is configured for SSL and an invalid value is provided for
+        SSLProtocol. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">
