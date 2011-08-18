@@ -86,6 +86,10 @@
         Fix CVE-2011-2526. Protect against crashes (HTTP APR) if sendfile is
         configured to send more data than is available in the file. (markt) 
       </fix>
+      <fix>
+        <bug>50744</bug>: Skip the SSL configuration check on platforms where an
+        unbounded socket cannot be created. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">

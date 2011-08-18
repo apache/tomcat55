@@ -418,10 +418,21 @@ public abstract class JSSESocketFactory
      */
     protected void checkConfig() throws IOException {
         // Create an unbound server socket
-        ServerSocket socket =
-            JdkCompat.getJdkCompat().getUnboundSocket(sslProxy);
+        ServerSocket socket;
+        try {
+            socket = JdkCompat.getJdkCompat().getUnboundSocket(sslProxy);
+        } catch (IOException ex) {
+            // Bug 50744 - some old JDKs do not implement unbound sockets
+            if (log.isDebugEnabled()) {
+                log.debug(sm.getString("jsse.ssl_conf_unbound_socket"), ex);
+            }
+            return;
+        }
         if (socket == null) {
-            // Can create unbound sockets (1.3 JVM) - can't test the connection
+            // Can't create unbound sockets (1.3 JVM) - can't test the connection
+            if (log.isDebugEnabled()) {
+                log.debug(sm.getString("jsse.ssl_conf_unbound_socket"));
+            }
             return;
         }
         initServerSocket(socket);
