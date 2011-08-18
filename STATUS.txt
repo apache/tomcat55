@@ -29,7 +29,7 @@ PATCHES PROPOSED TO BACKPORT:
   Don't notify session creation listeners when changing session ID on
   authentication
   http://people.apache.org/~markt/patches/2011-08-18-bug51042-tc55.patch
-  +1: markt
+  +1: markt, schultz
   -1:
 
 * Multiple improvements to the Windows Installer
@@ -69,4 +69,7 @@ PATCHES PROPOSED TO BACKPORT:
       Exceptions. It seems from the patch that all you need to fix this bug is
         ep.setStatus(MsgContext.JK_STATUS_ERROR);
       Can't it be done by CoyoteAdapter itself?
+  -0: schultz: I tend to agree with Konstantin's assertion that the catch
+      block is important. I understand the change to the status, but could
+      you explain why the catch(Throwable) block has been removed?
   -1:
