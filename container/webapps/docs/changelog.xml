@@ -154,6 +154,9 @@
         Clarify error messages in *.sh files to mention that if a script is
         not found it might be because execute permission is needed. (kkolinko)
       </update>
+      <update>
+        Fix CVE-2011-2729. Update commons daemon to 1.0.7. (markt)
+      </update>
     </changelog>
   </subsection>
 </section>
