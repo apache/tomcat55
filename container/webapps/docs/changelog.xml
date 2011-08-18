@@ -78,6 +78,10 @@
         SecurityConfig.setSecurityProperty() when the value provided by JRE is
         null. (kkolinko)
       </fix>
+      <add>
+        Add additional configuration options to the DIGEST authenticator.
+        (markt)
+      </add>
     </changelog>
   </subsection>
   <subsection name="Coyote">

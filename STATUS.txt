@@ -25,12 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Add additional configuration options to the DIGEST authenticator
-  http://people.apache.org/~markt/patches/2011-04-01-digest-tc5.patch
-  +1: markt: jfclere
-  +1: kkolinko: with r1158177 (s/nOnce/nonce)
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=47880
   Clarify error messages in *.sh files to mention that if a script is not
   found it might be because execute permission is needed.

@@ -352,22 +352,27 @@ public abstract class RealmBase
      *
      * @param username Username of the Principal to look up
      * @param clientDigest Digest which has been submitted by the client
-     * @param nOnce Unique (or supposedly unique) token which has been used
+     * @param nonce Unique (or supposedly unique) token which has been used
      * for this request
      * @param realm Realm name
      * @param md5a2 Second MD5 digest used to calculate the digest :
      * MD5(Method + ":" + uri)
      */
     public Principal authenticate(String username, String clientDigest,
-                                  String nOnce, String nc, String cnonce,
+                                  String nonce, String nc, String cnonce,
                                   String qop, String realm,
                                   String md5a2) {
 
         String md5a1 = getDigest(username, realm);
         if (md5a1 == null)
             return null;
-        String serverDigestValue = md5a1 + ":" + nOnce + ":" + nc + ":"
-            + cnonce + ":" + qop + ":" + md5a2;
+        String serverDigestValue;
+        if (qop == null) {
+            serverDigestValue = md5a1 + ":" + nonce + ":" + md5a2;
+        } else {
+            serverDigestValue = md5a1 + ":" + nonce + ":" + nc + ":" +
+                    cnonce + ":" + qop + ":" + md5a2;
+        }
 
         byte[] valueBytes = null;
         if(getDigestEncoding() == null) {
@@ -389,7 +394,7 @@ public abstract class RealmBase
 
         if (log.isDebugEnabled()) {
             log.debug("Digest : " + clientDigest + " Username:" + username 
-                    + " ClientSigest:" + clientDigest + " nOnce:" + nOnce 
+                    + " ClientSigest:" + clientDigest + " nonce:" + nonce 
                     + " nc:" + nc + " cnonce:" + cnonce + " qop:" + qop 
                     + " realm:" + realm + "md5a2:" + md5a2 
                     + " Server digest:" + serverDigest);
