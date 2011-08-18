@@ -63,14 +63,20 @@ PATCHES PROPOSED TO BACKPORT:
       markt: I'm aware of some Tomcat 5 users via $work that would like to be
              able to install multiple versions in parallel
              Also, it is easier to keep the installers completely in sync. 
+      kkolinko: OK, let's go on then.
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
   https://issues.apache.org/bugzilla/attachment.cgi?id=27317
   +1: markt
+  -0: kkolinko: I do not like removing the catch from CoyoteAdapter. It
+      looks safer the old way. JkCoyoteHandler does not handle Errors, just
+      Exceptions. It seems from the patch that all you need to fix this bug is
+        ep.setStatus(MsgContext.JK_STATUS_ERROR);
+      Can't it be done by CoyoteAdapter itself?
   -1:
 
 * Fix CVE-2011-2729. Update commons daemon to 1.0.7
   http://people.apache.org/~markt/patches/2011-08-12-cve2011-2729-tc5.patch
-  +1: markt, jfclere
+  +1: markt, jfclere, kkolinko
   -1:
