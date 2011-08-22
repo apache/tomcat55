@@ -40,6 +40,28 @@
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
 <section name="Tomcat 5.5.34 (jim)" rtext="">
+  <subsection name="General">
+    <changelog>
+      <fix>
+        <bug>33262</bug>: When using the Windows installer, the monitor is now
+        auto-started for the current user rather than all users to be consistent
+        with menu item creation. (markt)
+      </fix>
+      <fix>
+        <bug>40510</bug>: Provide an option within the Windows installer to
+        create menu entries for the current user or all users. (markt)
+      </fix>
+      <fix>
+        <bug>50949</bug>: Add the ability to specify the AJP port and the
+        shutdown port when using the Windows installer. (markt)
+      </fix>
+      <fix>
+        <bug>51135</bug>: Fix auto-detection of JAVA_HOME for 64-bit Windows
+        platforms that only have a 32-bit JVM installed when using the Windows
+        installer. (markt)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Catalina">
     <changelog>
       <fix>

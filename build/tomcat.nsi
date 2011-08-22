@@ -45,7 +45,15 @@ Var JavaExe
 Var JvmDll
 Var Arch
 Var ResetInstDir
-Var TomcatPort
+Var TomcatPortShutdown
+Var TomcatPortHttp
+Var TomcatPortAjp
+Var TomcatMenuEntriesEnable
+Var TomcatShortcutAllUsers
+Var TomcatServiceName
+Var TomcatServiceDefaultName
+Var TomcatServiceFileName
+Var TomcatServiceManagerFileName
 Var TomcatAdminEnable
 Var TomcatAdminUsername
 Var TomcatAdminPassword
@@ -53,7 +61,11 @@ Var TomcatAdminRoles
 
 ; Variables that store handles of dialog controls
 Var CtlJavaHome
-Var CtlTomcatPort
+Var CtlTomcatPortShutdown
+Var CtlTomcatPortHttp
+Var CtlTomcatPortAjp
+Var CtlTomcatServiceName
+Var CtlTomcatShortcutAllUsers
 Var CtlTomcatAdminUsername
 Var CtlTomcatAdminPassword
 Var CtlTomcatAdminRoles
@@ -68,10 +80,10 @@ Var ServiceInstallLog
   !define MUI_HEADERIMAGE
   !define MUI_HEADERIMAGE_RIGHT
   !define MUI_HEADERIMAGE_BITMAP header.bmp
-  !define MUI_WELCOMEFINISHPAGE_BITMAP side_left.bmp 
+  !define MUI_WELCOMEFINISHPAGE_BITMAP side_left.bmp
   !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\webapps\ROOT\RELEASE-NOTES.txt"
-  !define MUI_FINISHPAGE_RUN $INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe
-  !define MUI_FINISHPAGE_RUN_PARAMETERS //MR//Tomcat@VERSION_MAJOR@
+  !define MUI_FINISHPAGE_RUN
+  !define MUI_FINISHPAGE_RUN_FUNCTION "startService"
   !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 
   !define MUI_ABORTWARNING
@@ -87,12 +99,17 @@ Var ServiceInstallLog
   LangString TEXT_JVM_SUBTITLE ${LANG_ENGLISH} "Java Virtual Machine path selection."
   LangString TEXT_JVM_PAGETITLE ${LANG_ENGLISH} ": Java Virtual Machine path selection"
 
+  LangString TEXT_INSTDIR_NOT_EMPTY ${LANG_ENGLISH} "The specified installation directory is not empty. Do you wish to continue?"
   LangString TEXT_CONF_TITLE ${LANG_ENGLISH} "Configuration"
   LangString TEXT_CONF_SUBTITLE ${LANG_ENGLISH} "Tomcat basic configuration."
   LangString TEXT_CONF_PAGETITLE ${LANG_ENGLISH} ": Configuration Options"
 
   LangString TEXT_JVM_LABEL1 ${LANG_ENGLISH} "Please select the path of a Java SE 5.0 or later JRE installed on your system."
-  LangString TEXT_CONF_LABEL_PORT ${LANG_ENGLISH} "HTTP/1.1 Connector Port"
+  LangString TEXT_CONF_LABEL_PORT_SHUTDOWN ${LANG_ENGLISH} "Server Shutdown Port"
+  LangString TEXT_CONF_LABEL_PORT_HTTP ${LANG_ENGLISH} "HTTP/1.1 Connector Port"
+  LangString TEXT_CONF_LABEL_PORT_AJP ${LANG_ENGLISH} "AJP/1.3 Connector Port"
+  LangString TEXT_CONF_LABEL_SERVICE_NAME ${LANG_ENGLISH} "Windows Service Name"
+  LangString TEXT_CONF_LABEL_SHORTCUT_ALL_USERS ${LANG_ENGLISH} "Create shortcuts for all users"
   LangString TEXT_CONF_LABEL_ADMIN ${LANG_ENGLISH} "Tomcat Administrator Login (optional)"
   LangString TEXT_CONF_LABEL_ADMINUSERNAME ${LANG_ENGLISH} "User Name"
   LangString TEXT_CONF_LABEL_ADMINPASSWORD ${LANG_ENGLISH} "Password"
@@ -106,6 +123,7 @@ Var ServiceInstallLog
   !insertmacro MUI_PAGE_COMPONENTS
   Page custom pageConfiguration pageConfigurationLeave "$(TEXT_CONF_PAGETITLE)"
   Page custom pageChooseJVM pageChooseJVMLeave "$(TEXT_JVM_PAGETITLE)"
+  !define MUI_PAGE_CUSTOMFUNCTION_LEAVE pageDirectoryLeave
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
   Page custom CheckUserType
@@ -139,13 +157,8 @@ Var ServiceInstallLog
   InstType Minimum
   InstType Full
 
-  ; Main registry key
-  InstallDirRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" ""
-
   ReserveFile "${NSISDIR}\Plugins\System.dll"
   ReserveFile "${NSISDIR}\Plugins\nsDialogs.dll"
-  ReserveFile confinstall\server_1.xml
-  ReserveFile confinstall\server_2.xml
   ReserveFile confinstall\tomcat-users_1.xml
   ReserveFile confinstall\tomcat-users_2.xml
 
@@ -191,33 +204,37 @@ Section "Core" SecTomcatCore
 
   DetailPrint "Using Jvm: $JavaHome"
 
+  StrCpy $R0 $TomcatServiceName
+  StrCpy $TomcatServiceFileName $R0.exe
+  StrCpy $TomcatServiceManagerFileName $R0w.exe
+
   SetOutPath $INSTDIR\bin
-  File bin\tomcat@VERSION_MAJOR@w.exe
+  File /oname=$TomcatServiceManagerFileName bin\tomcat@VERSION_MAJOR@w.exe
 
   ; Get the current platform x86 / AMD64 / IA64
   ${If} $Arch == "x86"
-    File /oname=tomcat@VERSION_MAJOR@.exe bin\tomcat@VERSION_MAJOR@.exe
+    File /oname=$TomcatServiceFileName bin\tomcat@VERSION_MAJOR@.exe
   ${ElseIf} $Arch == "x64"
-    File /oname=tomcat@VERSION_MAJOR@.exe bin\x64\tomcat@VERSION_MAJOR@.exe
+    File /oname=$TomcatServiceFileName bin\x64\tomcat@VERSION_MAJOR@.exe
   ${ElseIf} $Arch == "i64"
-    File /oname=tomcat@VERSION_MAJOR@.exe bin\i64\tomcat@VERSION_MAJOR@.exe
+    File /oname=$TomcatServiceFileName bin\i64\tomcat@VERSION_MAJOR@.exe
   ${EndIf}
 
   FileOpen $ServiceInstallLog "$INSTDIR\logs\service-install.log" a
   FileSeek $ServiceInstallLog 0 END
 
   InstallRetry:
-  FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //IS//Tomcat@VERSION_MAJOR@ --DisplayName "Apache Tomcat @VERSION_MAJOR@" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
+  FileWrite $ServiceInstallLog '"$INSTDIR\bin\$TomcatServiceFileName" //IS//$TomcatServiceName --DisplayName "Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\$TomcatServiceFileName" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
   FileWrite $ServiceInstallLog "$\r$\n"
   ClearErrors
-  DetailPrint "Installing Tomcat@VERSION_MAJOR@ service"
-  nsExec::ExecToStack '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //IS//Tomcat@VERSION_MAJOR@ --DisplayName "Apache Tomcat @VERSION_MAJOR@" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
+  DetailPrint "Installing $TomcatServiceName service"
+  nsExec::ExecToStack '"$INSTDIR\bin\$TomcatServiceFileName" //IS//$TomcatServiceName --DisplayName "Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName" --Description "Apache Tomcat @VERSION@ Server - http://tomcat.apache.org/" --LogPath "$INSTDIR\logs" --Install "$INSTDIR\bin\$TomcatServiceFileName" --Jvm "$JvmDll" --StartPath "$INSTDIR" --StopPath "$INSTDIR"'
   Pop $0
   Pop $1
   StrCmp $0 "0" InstallOk
     FileWrite $ServiceInstallLog "Install failed: $0 $1$\r$\n"
     MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP \
-      "Failed to install Tomcat@VERSION_MAJOR@ service.$\r$\nCheck your settings and permissions.$\r$\nIgnore and continue anyway (not recommended)?" \
+      "Failed to install $TomcatServiceName service.$\r$\nCheck your settings and permissions.$\r$\nIgnore and continue anyway (not recommended)?" \
        /SD IDIGNORE IDIGNORE InstallOk IDRETRY InstallRetry
   Quit
   InstallOk:
@@ -232,13 +249,11 @@ Section "Service Startup" SecTomcatService
   SectionIn 3
 
   ${If} $ServiceInstallLog != ""
-    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Startup auto'
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --Startup auto'
     FileWrite $ServiceInstallLog "$\r$\n"
   ${EndIf}
-  DetailPrint "Configuring Tomcat@VERSION_MAJOR@ service"
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Startup auto'
-  ; Behave like Apache Httpd (put the icon in tray on login)
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor" '"$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" //MS//Tomcat@VERSION_MAJOR@'
+  DetailPrint "Configuring $TomcatServiceName service"
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --Startup auto'
 
   ClearErrors
 
@@ -268,7 +283,6 @@ Section "Start Menu Items" SecMenu
 
   SectionIn 1 2 3
 
-  Call createShortcuts
 SectionEnd
 
 Section "Documentation" SecDocs
@@ -328,28 +342,40 @@ SectionEnd
 
 Section -post
   ${If} $ServiceInstallLog != ""
-    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Classpath "$INSTDIR\bin\bootstrap.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --Classpath "$INSTDIR\bin\bootstrap.jar;$INSTDIR\bin\tomcat-juli.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
     FileWrite $ServiceInstallLog "$\r$\n"
-    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\common\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
     FileWrite $ServiceInstallLog "$\r$\n"
-    FileWrite $ServiceInstallLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --StdOutput auto --StdError auto'
+    FileWrite $ServiceInstallLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --StdOutput auto --StdError auto'
     FileWrite $ServiceInstallLog "$\r$\n"
     FileClose $ServiceInstallLog
   ${EndIf}
 
-  DetailPrint "Configuring Tomcat@VERSION_MAJOR@ service"
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --Classpath "$INSTDIR\bin\bootstrap.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\common\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //US//Tomcat@VERSION_MAJOR@ --StdOutput auto --StdError auto'
+  DetailPrint "Configuring $TomcatServiceName service"
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --Classpath "$INSTDIR\bin\bootstrap.jar;$INSTDIR\bin\tomcat-juli.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm'
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --JvmOptions "-Dcatalina.home=$INSTDIR#-Dcatalina.base=$INSTDIR#-Djava.endorsed.dirs=$INSTDIR\endorsed#-Djava.io.tmpdir=$INSTDIR\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=$INSTDIR\conf\logging.properties"'
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceFileName" //US//$TomcatServiceName --StdOutput auto --StdError auto'
+
+  ${If} $TomcatShortcutAllUsers == "1"
+    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName" '"$INSTDIR\bin\$TomcatServiceManagerFileName" //MS//$TomcatServiceName'
+  ${Else}
+    WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName" '"$INSTDIR\bin\$TomcatServiceManagerFileName" //MS//$TomcatServiceName'
+  ${EndIf}
+  
+  ${If} $TomcatMenuEntriesEnable == "1"
+    Call createShortcuts
+  ${EndIf}
 
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
-  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" "InstallPath" $INSTDIR
-  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@" "Version" @VERSION@
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@" \
-                   "DisplayName" "Apache Tomcat @VERSION_MAJOR_MINOR@ (remove only)"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@" \
-                   "UninstallString" '"$INSTDIR\Uninstall.exe"'
+  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@\$TomcatServiceName" "InstallPath" $INSTDIR
+  WriteRegStr HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@\$TomcatServiceName" "Version" @VERSION@
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName" \
+                   "DisplayName" "Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName (remove only)"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName" \
+                   "DisplayIcon" "$\"$INSTDIR\tomcat.ico$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName" \
+                   "UninstallString" "$\"$INSTDIR\Uninstall.exe$\" -ServiceName=$\"$TomcatServiceName$\""
 
 SectionEnd
 
@@ -370,7 +396,15 @@ Function .onInit
 
   ;Initialize default values
   StrCpy $JavaHome ""
-  StrCpy $TomcatPort "8080"
+  StrCpy $TomcatPortShutdown "8005"
+  StrCpy $TomcatPortHttp "8080"
+  StrCpy $TomcatPortAjp "8009"
+  StrCpy $TomcatMenuEntriesEnable "0"
+  StrCpy $TomcatShortcutAllUsers "0"
+  StrCpy $TomcatServiceDefaultName "Tomcat@VERSION_MAJOR@"
+  StrCpy $TomcatServiceName $TomcatServiceDefaultName
+  StrCpy $TomcatServiceFileName "Tomcat@VERSION_MAJOR@.exe"
+  StrCpy $TomcatServiceManagerFileName "Tomcat@VERSION_MAJOR@w.exe"
   StrCpy $TomcatAdminEnable "0"
   StrCpy $TomcatAdminUsername ""
   StrCpy $TomcatAdminPassword ""
@@ -428,6 +462,7 @@ FunctionEnd
 Function pageComponentsLeave
   StrCpy $TomcatAdminEnable "0"
   StrCpy $TomcatAdminRoles ""
+  StrCpy $TomcatMenuEntriesEnable "0"
 
   SectionGetFlags ${SecManager} $0
   IntOp $0 $0 & ${SF_SELECTED}
@@ -446,6 +481,24 @@ Function pageComponentsLeave
       StrCpy $TomcatAdminRoles "admin-gui"
     ${EndIf}
   ${EndIf}
+  
+  SectionGetFlags ${SecMenu} $0
+  IntOp $0 $0 & ${SF_SELECTED}
+  ${If} $0 <> 0
+    StrCpy $TomcatMenuEntriesEnable "1"
+  ${EndIf}
+FunctionEnd
+
+Function pageDirectoryLeave
+  ${DirState} "$INSTDIR" $0
+  ${If} $0 == 1 ;folder is full. (other values: 0: empty, -1: not found)
+    ;query selection
+    MessageBox MB_OKCANCEL|MB_ICONQUESTION "$(TEXT_INSTDIR_NOT_EMPTY)" /SD IDOK IDCANCEL notok
+    Goto ok
+    notok:
+    Abort
+    ok:
+  ${EndIf}
 FunctionEnd
 
 Function pageConfiguration
@@ -454,50 +507,147 @@ Function pageConfiguration
   nsDialogs::Create 1018
   Pop $R0
 
-  ${NSD_CreateLabel} 0 5u 100u 15u "$(TEXT_CONF_LABEL_PORT)"
+  ${NSD_CreateLabel} 0 2u 100u 14u "$(TEXT_CONF_LABEL_PORT_SHUTDOWN)"
   Pop $R0
 
-  ${NSD_CreateText} 150u 5u 50u 13u "$TomcatPort"
-  Pop $CtlTomcatPort
-  ${NSD_SetTextLimit} $CtlTomcatPort 5
+  ${NSD_CreateText} 150u 0 50u 12u "$TomcatPortShutdown"
+  Pop $CtlTomcatPortShutdown
+  ${NSD_SetTextLimit} $CtlTomcatPortShutdown 5
+
+  ${NSD_CreateLabel} 0 19u 100u 14u "$(TEXT_CONF_LABEL_PORT_HTTP)"
+  Pop $R0
+
+  ${NSD_CreateText} 150u 17u 50u 12u "$TomcatPortHttp"
+  Pop $CtlTomcatPortHttp
+  ${NSD_SetTextLimit} $CtlTomcatPortHttp 5
+
+  ${NSD_CreateLabel} 0 36u 100u 14u "$(TEXT_CONF_LABEL_PORT_AJP)"
+  Pop $R0
+
+  ${NSD_CreateText} 150u 34u 50u 12u "$TomcatPortAjp"
+  Pop $CtlTomcatPortAjp
+  ${NSD_SetTextLimit} $CtlTomcatPortAjp 5
+
+  ${NSD_CreateLabel} 0 57u 140u 14u "$(TEXT_CONF_LABEL_SERVICE_NAME)"
+  Pop $R0
+
+  ${NSD_CreateText} 150u 55u 140u 12u "$TomcatServiceName"
+  Pop $CtlTomcatServiceName
+
+  ${If} $TomcatMenuEntriesEnable == "1"
+    ${NSD_CreateLabel} 0 75u 100u 14u "$(TEXT_CONF_LABEL_SHORTCUT_ALL_USERS)"
+    Pop $R0
+    ${NSD_CreateCheckBox} 150u 74u 10u 10u "$TomcatShortcutAllUsers"
+    Pop $CtlTomcatShortcutAllUsers
+  ${EndIf}
 
   ${If} $TomcatAdminEnable == "1"
-    ${NSD_CreateLabel} 0 30u 100% 15u "$(TEXT_CONF_LABEL_ADMIN)"
+    ${NSD_CreateLabel} 0 93u 90u 28u "$(TEXT_CONF_LABEL_ADMIN)"
     Pop $R0
-    ${NSD_CreateLabel} 10u 50u 140u 15u "$(TEXT_CONF_LABEL_ADMINUSERNAME)"
+    ${NSD_CreateLabel} 100u 93u 40u 14u "$(TEXT_CONF_LABEL_ADMINUSERNAME)"
     Pop $R0
-    ${NSD_CreateText} 150u 50u 110u 13u "$TomcatAdminUsername"
+    ${NSD_CreateText} 150u 91u 110u 12u "$TomcatAdminUsername"
     Pop $CtlTomcatAdminUsername
-    ${NSD_CreateLabel} 10u 70u 140u 15u "$(TEXT_CONF_LABEL_ADMINPASSWORD)"
+    ${NSD_CreateLabel} 100u 110u 40u 12u "$(TEXT_CONF_LABEL_ADMINPASSWORD)"
     Pop $R0
-    ${NSD_CreatePassword} 150u 70u 110u 13u "$TomcatAdminPassword"
+    ${NSD_CreatePassword} 150u 108u 110u 12u "$TomcatAdminPassword"
     Pop $CtlTomcatAdminPassword
-    ${NSD_CreateLabel} 10u 90u 140u 15u "$(TEXT_CONF_LABEL_ADMINROLES)"
+    ${NSD_CreateLabel} 100u 127u 40u 14u "$(TEXT_CONF_LABEL_ADMINROLES)"
     Pop $R0
-    ${NSD_CreateText} 150u 90u 110u 13u "$TomcatAdminRoles"
+    ${NSD_CreateText} 150u 125u 110u 12u "$TomcatAdminRoles"
     Pop $CtlTomcatAdminRoles
   ${EndIf}
 
-  ${NSD_SetFocus} $CtlTomcatPort
+  ${NSD_SetFocus} $CtlTomcatPortShutdown
   nsDialogs::Show
 FunctionEnd
 
 Function pageConfigurationLeave
-  ${NSD_GetText} $CtlTomcatPort $TomcatPort
+  ${NSD_GetText} $CtlTomcatPortShutdown $TomcatPortShutdown
+  ${NSD_GetText} $CtlTomcatPortHttp $TomcatPortHttp
+  ${NSD_GetText} $CtlTomcatPortAjp $TomcatPortAjp
+  ${NSD_GetText} $CtlTomcatServiceName $TomcatServiceName
+  ${If} $TomcatMenuEntriesEnable == "1"
+    ${NSD_GetState} $CtlTomcatShortcutAllUsers $TomcatShortcutAllUsers
+  ${EndIf}
   ${If} $TomcatAdminEnable == "1"
     ${NSD_GetText} $CtlTomcatAdminUsername $TomcatAdminUsername
     ${NSD_GetText} $CtlTomcatAdminPassword $TomcatAdminPassword
     ${NSD_GetText} $CtlTomcatAdminRoles $TomcatAdminRoles
   ${EndIf}
+
+  ${If} $TomcatPortShutdown == ""
+    MessageBox MB_ICONEXCLAMATION|MB_OK 'The shutdown port may not be empty'
+    Abort "Config not right"
+    Goto exit
+  ${EndIf}
+
+  ${If} $TomcatPortHttp == ""
+    MessageBox MB_ICONEXCLAMATION|MB_OK 'The HTTP port may not be empty'
+    Abort "Config not right"
+    Goto exit
+  ${EndIf}
+
+  ${If} $TomcatPortAjp == ""
+    MessageBox MB_ICONEXCLAMATION|MB_OK 'The AJP port may not be empty'
+    Abort "Config not right"
+    Goto exit
+  ${EndIf}
+
+  ${If} $TomcatServiceName == ""
+    MessageBox MB_ICONEXCLAMATION|MB_OK 'The Service Name may not be empty'
+    Abort "Config not right"
+    Goto exit
+  ${EndIf}
+
+  Push $TomcatServiceName
+  Call validateServiceName
+  Pop $0
+  
+  IntCmp $0 1 exit
+  MessageBox MB_ICONEXCLAMATION|MB_OK 'The Service Name may not contain a space or any of the following characters: <>:"/\:|?*'
+  Abort "Config not right"
+  exit:
 FunctionEnd
 
-; Not used
-;Function Void
-;FunctionEnd
+; Validates that a service name does not use any of the invalid
+; characters: <>:"/\:|?*
+; Note that space is also not permitted although it will be once
+; Tomcat is using Daemon 1.0.6 or later
+;
+; Put the proposed service name on the stack
+; If the name is valid, a 1 will be left on the stack
+; If the name is invalid, a 0 will be left on the stack
+Function validateServiceName
+  Pop $0
+  StrLen $1 $0
+  StrCpy $3 '<>:"/\:|?* '
+  StrLen $4 $3
+  
+  loopInput:
+    IntOp $1 $1 - 1
+    IntCmp $1 -1 valid
+    loopTestChars:
+      IntOp $4 $4 - 1
+      IntCmp $4 -1 loopTestCharsDone
+      StrCpy $2 $0 1 $1
+      StrCpy $5 $3 1 $4
+      StrCmp $2 $5 invalid loopTestChars
+    loopTestCharsDone:
+    StrLen $4 $3
+    Goto loopInput
+
+  invalid:
+  Push 0
+  Goto exit
+  
+  valid:
+  Push 1
+  exit:
+FunctionEnd
 
 ;--------------------------------
 ;Descriptions
-
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcat} $(DESC_SecTomcat)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecTomcatCore} $(DESC_SecTomcatCore)
@@ -640,9 +790,17 @@ DonePEHeader:
   ; The default varies depending on 32-bit or 64-bit
   ${If} "$INSTDIR" == ""
     ${If} $Arch == "x86"
-      StrCpy $INSTDIR "$PROGRAMFILES32\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+      ${If} $TomcatServiceName == $TomcatServiceDefaultName
+        StrCpy $INSTDIR "$PROGRAMFILES32\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+      ${Else}
+        StrCpy $INSTDIR "$PROGRAMFILES32\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@_$TomcatServiceName"
+      ${EndIf}
     ${Else}
-      StrCpy $INSTDIR "$PROGRAMFILES64\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+      ${If} $TomcatServiceName == $TomcatServiceDefaultName
+        StrCpy $INSTDIR "$PROGRAMFILES64\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@"
+      ${Else}
+        StrCpy $INSTDIR "$PROGRAMFILES64\Apache Software Foundation\Tomcat @VERSION_MAJOR_MINOR@_$TomcatServiceName"
+      ${EndIf}
     ${EndIf}
   ${EndIf}
 
@@ -660,23 +818,37 @@ FunctionEnd
 Function findJavaHome
 
   ClearErrors
+  StrCpy $1 ""
 
-  ; Use the 64-bit registry on 64-bit machines
+  ; Use the 64-bit registry first on 64-bit machines
   ExpandEnvStrings $0 "%PROGRAMW6432%"
   ${If} $0 != "%PROGRAMW6432%"
     SetRegView 64
+    ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
+    ReadRegStr $1 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "JavaHome"
+    ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "RuntimeLib"
+
+    IfErrors 0 +2
+    StrCpy $1 ""
+    ClearErrors
   ${EndIf}
 
-  ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
-  ReadRegStr $1 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "JavaHome"
-  ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "RuntimeLib"
+  ; If no 64-bit Java was found, look for 32-bit Java
+  ${If} $1 == ""
+    SetRegView 32
+    ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
+    ReadRegStr $1 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "JavaHome"
+    ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "RuntimeLib"
 
-  IfErrors 0 NoErrors
-  StrCpy $1 ""
-
-NoErrors:
-
-  ClearErrors
+    IfErrors 0 +2
+    StrCpy $1 ""
+    ClearErrors
+    
+    ; If using 64-bit, go back to using 64-bit registry
+    ${If} $0 != "%PROGRAMW6432%"
+      SetRegView 64
+    ${EndIf}
+  ${EndIf}
 
   ; Put the result in the stack
   Push $1
@@ -745,7 +917,38 @@ FunctionEnd
 ; Writes server.xml and tomcat-users.xml
 ;
 Function configure
-  StrCpy $R4 'port="$TomcatPort"'
+  ; Build final server.xml
+  DetailPrint "Creating server.xml.new"
+
+  FileOpen $R1 "$INSTDIR\conf\server.xml" r
+  FileOpen $R2 "$INSTDIR\conf\server.xml.new" w
+
+  SERVER_XML_LOOP:
+    FileRead $R1 $R3
+    IfErrors SERVER_XML_LEAVELOOP
+    ${StrRep} $R4 $R3 "8005" "$TomcatPortShutdown"
+    ${StrRep} $R3 $R4 "8080" "$TomcatPortHttp"
+    ${StrRep} $R4 $R3 "8009" "$TomcatPortAjp"
+    FileWrite $R2 $R4
+  Goto SERVER_XML_LOOP
+  SERVER_XML_LEAVELOOP:
+
+  FileClose $R1
+  FileClose $R2
+
+  ; Replace server.xml with server.xml.new
+  Delete "$INSTDIR\conf\server.xml"
+  FileOpen $R9 "$INSTDIR\conf\server.xml" w
+  Push "$INSTDIR\conf\server.xml.new"
+  Call copyFile
+  FileClose $R9
+  Delete "$INSTDIR\conf\server.xml.new"
+  
+  DetailPrint 'Server shutdown listener configured on port "$TomcatPortShutdown"'
+  DetailPrint 'HTTP/1.1 Connector configured on port "$TomcatPortHttp"'
+  DetailPrint 'AJP/1.3 Connector configured on port "$TomcatPortAjp"'
+  DetailPrint "server.xml written"
+
   StrCpy $R5 ''
 
   ${If} $TomcatAdminEnable == "1"
@@ -766,30 +969,13 @@ Function configure
     DetailPrint 'Admin user added: "$TomcatAdminUsername"'
   ${EndIf}
 
-  DetailPrint 'HTTP/1.1 Connector configured on port "$TomcatPort"'
 
   ; Extract these fragments to $PLUGINSDIR. That is a temporary directory,
   ; that is automatically deleted when the installer exits.
   InitPluginsDir
   SetOutPath $PLUGINSDIR
-  File confinstall\server_1.xml
-  File confinstall\server_2.xml
   File confinstall\tomcat-users_1.xml
   File confinstall\tomcat-users_2.xml
-
-  ; Build final server.xml
-  Delete "$INSTDIR\conf\server.xml"
-  DetailPrint "Writing server.xml"
-  FileOpen $R9 "$INSTDIR\conf\server.xml" w
-
-  Push "$PLUGINSDIR\server_1.xml"
-  Call copyFile
-  FileWrite $R9 $R4
-  Push "$PLUGINSDIR\server_2.xml"
-  Call copyFile
-
-  FileClose $R9
-  DetailPrint "server.xml written"
 
   ; Build final tomcat-users.xml
   Delete "$INSTDIR\conf\tomcat-users.xml"
@@ -812,8 +998,6 @@ Function configure
   FileClose $R9
   DetailPrint "tomcat-users.xml written"
 
-  Delete "$PLUGINSDIR\server_1.xml"
-  Delete "$PLUGINSDIR\server_2.xml"
   Delete "$PLUGINSDIR\tomcat-users_1.xml"
   Delete "$PLUGINSDIR\tomcat-users_2.xml"
 FunctionEnd
@@ -863,74 +1047,108 @@ FunctionEnd
 ; =================
 ; createShortcuts Function
 ; =================
-;
-; This is called by the SecMenu section.
-;
-; The code is moved here, because ${SecManager} etc. are not visible
-; in SecMenu, because they are defined lower than it.
-;
 Function createShortcuts
 
-  SetOutPath "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@"
+  ${If} $TomcatShortcutAllUsers == ${BST_CHECKED}
+    SetShellVarContext all
+  ${EndIf}
+  
+  SetOutPath "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName"
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Home Page.lnk" \
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Tomcat Home Page.lnk" \
                  "http://tomcat.apache.org/"
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Welcome.lnk" \
-                 "http://127.0.0.1:$TomcatPort/"
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Welcome.lnk" \
+                 "http://127.0.0.1:$TomcatPortHttp/"
 
   ${If} ${SectionIsSelected} ${SecManager}
-    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Manager.lnk" \
-                   "http://127.0.0.1:$TomcatPort/manager/html"
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Tomcat Manager.lnk" \
+                   "http://127.0.0.1:$TomcatPortHttp/manager/html"
   ${EndIf}
 
   ${If} ${SectionIsSelected} ${SecHostManager}
-    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Host Manager.lnk" \
-                   "http://127.0.0.1:$TomcatPort/host-manager/html"
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Tomcat Host Manager.lnk" \
+                   "http://127.0.0.1:$TomcatPortHttp/host-manager/html"
   ${EndIf}
 
   ${If} ${SectionIsSelected} ${SecDocs}
-    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat Documentation.lnk" \
-                   "$INSTDIR\webapps\tomcat-docs\index.html"
+    CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Tomcat Documentation.lnk" \
+                   "$INSTDIR\webapps\docs\index.html"
   ${EndIf}
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Uninstall Tomcat @VERSION_MAJOR_MINOR@.lnk" \
-                 "$INSTDIR\Uninstall.exe"
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Uninstall Tomcat @VERSION_MAJOR_MINOR@.lnk" \
+                 "$INSTDIR\Uninstall.exe" '-ServiceName="$TomcatServiceName"'
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Tomcat @VERSION_MAJOR_MINOR@ Program Directory.lnk" \
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Tomcat @VERSION_MAJOR_MINOR@ Program Directory.lnk" \
                  "$INSTDIR"
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Monitor Tomcat.lnk" \
-                 "$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" \
-                 '//MS//Tomcat@VERSION_MAJOR@' \
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Monitor Tomcat.lnk" \
+                 "$INSTDIR\bin\$TomcatServiceManagerFileName" \
+                 '//MS//$TomcatServiceName' \
                  "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
 
-  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@\Configure Tomcat.lnk" \
-                 "$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" \
-                 '//ES//Tomcat@VERSION_MAJOR@' \
+  CreateShortCut "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName\Configure Tomcat.lnk" \
+                 "$INSTDIR\bin\$TomcatServiceManagerFileName" \
+                 '//ES//$TomcatServiceName' \
                  "$INSTDIR\tomcat.ico" 0 SW_SHOWNORMAL
+
+  ${If} $TomcatShortcutAllUsers == ${BST_CHECKED}
+    SetShellVarContext current
+  ${EndIf}
 
 FunctionEnd
+
+; =================
+; startService Function
+;
+; Using a function allows the service name to be varied
+; =================
+Function startService
+  ExecShell "" "$INSTDIR\bin\$TomcatServiceManagerFileName" "//MR//$TomcatServiceName"
+FunctionEnd
+
 
 ;--------------------------------
 ;Uninstaller Section
 
 Section Uninstall
 
+  ${If} $TomcatServiceName == ""
+    MessageBox MB_ICONSTOP|MB_OK \
+        "No service name specified to uninstall. This will be provided automatically if you uninstall via \
+         Add/Remove Programs or the shortcut on the Start menu. Alternatively, call the installer from \
+         the command line with -ServiceName=$\"<name of service>$\"."
+    Quit
+  ${EndIf}
+  
   Delete "$INSTDIR\Uninstall.exe"
 
   ; Stop Tomcat service monitor if running
-  DetailPrint "Stopping Tomcat@VERSION_MAJOR@ service monitor"
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@w.exe" //MQ//Tomcat@VERSION_MAJOR@'
+  DetailPrint "Stopping $TomcatServiceName service monitor"
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceManagerFileName" //MQ//$TomcatServiceName'
   ; Delete Tomcat service
-  DetailPrint "Uninstalling Tomcat@VERSION_MAJOR@ service"
-  nsExec::ExecToLog '"$INSTDIR\bin\tomcat@VERSION_MAJOR@.exe" //DS//Tomcat@VERSION_MAJOR@'
+  DetailPrint "Uninstalling $TomcatServiceName service"
+  nsExec::ExecToLog '"$INSTDIR\bin\$TomcatServiceFileName" //DS//$TomcatServiceName'
   ClearErrors
 
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@"
-  DeleteRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@"
-  DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor"
-  RMDir /r "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@"
+  ; Don't know if 32-bit or 64-bit registry was used so, for now, remove both
+  SetRegView 32
+  DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName"
+  DeleteRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@ $TomcatServiceName"
+  DeleteRegValue HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName"
+  DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName"
+  SetRegView 64
+  DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName"
+  DeleteRegKey HKLM "SOFTWARE\Apache Software Foundation\Tomcat\@VERSION_MAJOR_MINOR@\$TomcatServiceName"
+  DeleteRegValue HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName"
+  DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "ApacheTomcatMonitor@VERSION_MAJOR_MINOR@_$TomcatServiceName"
+
+  ; Don't know if short-cuts were created for all users, one user or not at all so, for now, remove both
+  SetShellVarContext all
+  RMDir /r "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName"
+  SetShellVarContext current
+  RMDir /r "$SMPROGRAMS\Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName"
+
   Delete "$INSTDIR\tomcat.ico"
   Delete "$INSTDIR\LICENSE"
   Delete "$INSTDIR\NOTICE"
@@ -955,7 +1173,7 @@ Section Uninstall
   ; if $INSTDIR was removed, skip these next ones
   IfFileExists "$INSTDIR" 0 Removed
     MessageBox MB_YESNO|MB_ICONQUESTION \
-      "Remove all files in your Tomcat @VERSION_MAJOR_MINOR@ directory? (If you have anything  \
+      "Remove all files in your Apache Tomcat @VERSION_MAJOR_MINOR@ $TomcatServiceName directory? (If you have anything  \
  you created that you want to keep, click No)" IDNO Removed
     ; these would be skipped if the user hits no
     RMDir /r "$INSTDIR\webapps"
@@ -971,4 +1189,18 @@ Section Uninstall
 
 SectionEnd
 
+
+; =================
+; uninstall init function
+;
+; Read the command line paramater and set up the service name variables so the
+; uninstaller knows which service it is working with
+; =================
+Function un.onInit
+  ${GetParameters} $R0
+  ${GetOPtions} $R0 "-ServiceName=" $R1
+  StrCpy $TomcatServiceName $R1
+  StrCpy $TomcatServiceFileName $R1.exe
+  StrCpy $TomcatServiceManagerFileName $R1w.exe
+FunctionEnd
 ;eof

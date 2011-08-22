@@ -25,33 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Multiple improvements to the Windows Installer
-  - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
-    Install monitor to auto-start for current user only rather than all users to
-    be consistent with menu item creation.
-  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=40510
-    Provide an option to install shortcuts for the current user or all users.
-    Also ensure registry is correctly cleaned on uninstall for 64-bit platforms.
-  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50949
-    Provide the ability to specify the AJP port and service name when installing
-    Tomcat using the Windows installer. This permits multiple instances of the
-    same Tomcat version to be installed side-by-side.
-  - Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51135
-    Fix auto-detection of JAVA_HOME for 64-bit Windows platforms that only have
-    a 32-bit JVM installed.
-  http://people.apache.org/~markt/patches/2011-08-22-windows-installer-tc55.patch
-  Plus
-    svn rm build/resources/confinstall/server_1.xml
-    svn rm build/resources/confinstall/server_2.xml
-    svn rm build/resources/tickno.bmp
-    svn rm build/resources/tickyes.bmp
-    svn rm build/resources/main.ico
-    svn rm build/resources/uninst.ico
-  +1: markt, jim, kkolinko
-  -1:
-    kkolinko: Noted a typo in a message displayed by uninstaller:
-     s/with -serviceName/with -ServiceName/
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
   https://issues.apache.org/bugzilla/attachment.cgi?id=27421
