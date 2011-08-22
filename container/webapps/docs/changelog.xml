@@ -65,6 +65,10 @@
         MemoryUserDatabase via JMX. (markt)
       </fix>
       <fix>
+        <bug>51042</bug>: Don&apos;t trigger session creation listeners when a
+        session ID is changed as part of the authentication process. (markt)
+      </fix>
+      <fix>
         <bug>51324</bug>: Improve handling of exceptions when flushing the
         response buffer to ensure that the doFlush flag does not get stuck in
         the enabled state. Patch provided by Jeremy Norris. (kkolinko)

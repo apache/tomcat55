@@ -239,10 +239,13 @@ public class DeltaSession extends StandardSession implements Externalizable,Clus
      *            The new session identifier
      */
     public void setId(String id) {
-        setIdInternal(id);
+        setId(id, true);
     }
 
-   
+    public void setId(String id, boolean notify) {
+        super.setId(id, notify);
+        resetDeltaRequest();
+    }
 
     /**
      * Return the last client access time without invalidation check

@@ -25,13 +25,6 @@ $Id$
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51042
-  Don't notify session creation listeners when changing session ID on
-  authentication
-  http://people.apache.org/~markt/patches/2011-08-18-bug51042-tc55.patch
-  +1: markt, schultz, kkolinko
-  -1:
-
 * Multiple improvements to the Windows Installer
   - https://issues.apache.org/bugzilla/show_bug.cgi?id=33262
     Install monitor to auto-start for current user only rather than all users to

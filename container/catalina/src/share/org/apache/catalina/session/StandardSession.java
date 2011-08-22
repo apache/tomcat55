@@ -348,6 +348,10 @@ public class StandardSession
      * @param id The new session identifier
      */
     public void setId(String id) {
+        setId(id, true);
+    }
+    
+    public void setId(String id, boolean notify) {
 
         if ((this.id != null) && (manager != null))
             manager.remove(this);
@@ -356,7 +360,10 @@ public class StandardSession
 
         if (manager != null)
             manager.add(this);
-        tellNew();
+
+        if(notify) {
+            tellNew();
+        }
     }
 
 

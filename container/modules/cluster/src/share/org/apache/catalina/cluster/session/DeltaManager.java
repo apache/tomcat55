@@ -1775,12 +1775,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
         session.setMaxInactiveInterval(getMaxInactiveInterval());
         session.setExpireTolerance(this.expireTolerance);
         session.access();
-        if(notifySessionListenersOnReplication) {
-            session.setId(msg.getSessionID());
-        } else {
-            session.setIdInternal(msg.getSessionID());
-            add(session);
-        }
+        session.setId(msg.getSessionID(), notifySessionListenersOnReplication);
         session.resetDeltaRequest();
         session.endAccess();
 
@@ -1871,12 +1866,7 @@ public class DeltaManager extends ManagerBase implements Lifecycle,
         if (session != null) {
             String newSessionID = deserializeSessionId(msg.getSession());
             session.setPrimarySession(false);
-            if (notifySessionListenersOnReplication) {
-                session.setId(newSessionID);
-            } else {
-                session.setIdInternal(newSessionID);
-                add(session);
-            }
+            session.setId(newSessionID, notifySessionListenersOnReplication);
         }
     }
 

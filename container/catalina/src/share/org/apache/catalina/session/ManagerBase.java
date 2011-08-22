@@ -943,7 +943,7 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
      * @param session   The session to change the session ID for
      */
     public void changeSessionId(Session session) {
-        session.setId(generateSessionId());
+        session.setId(generateSessionId(), false);
     }
     
     

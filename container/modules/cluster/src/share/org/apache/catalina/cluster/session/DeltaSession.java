@@ -388,9 +388,15 @@ public class DeltaSession implements HttpSession, Session, Serializable,
      *            The new session identifier
      */
     public void setId(String id) {
-        setIdInternal(id);
-        tellNew();
+        setId(id, true);
      }
+
+    public void setId(String id, boolean notify) {
+        setIdInternal(id);
+        if(notify) {
+            tellNew();
+        }
+    }
 
     /**
      * Inform the listeners about the new session.

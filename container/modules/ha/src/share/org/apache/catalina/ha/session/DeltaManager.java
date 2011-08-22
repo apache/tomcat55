@@ -1518,10 +1518,7 @@ public class DeltaManager extends ClusterManagerBase{
         session.setPrimarySession(false);
         session.setCreationTime(msg.getTimestamp());
         session.access();
-        if(notifySessionListenersOnReplication)
-            session.setId(msg.getSessionID());
-        else
-            session.setIdInternal(msg.getSessionID());
+        session.setId(msg.getSessionID(), notifySessionListenersOnReplication);
         session.resetDeltaRequest();
         session.endAccess();
 
@@ -1597,12 +1594,7 @@ public class DeltaManager extends ClusterManagerBase{
         if (session != null) {
             String newSessionID = deserializeSessionId(msg.getSession());
             session.setPrimarySession(false);
-            if (notifySessionListenersOnReplication) {
-                session.setId(newSessionID);
-            } else {
-                session.setIdInternal(newSessionID);
-                add(session);
-            }
+            session.setId(newSessionID, notifySessionListenersOnReplication);
         }
     }
 
