@@ -51,6 +51,10 @@ PATCHES PROPOSED TO BACKPORT:
        3) The following line:
           SetOutPath $INSTDIR\lib
        is for TC6+. The code for 5.5 in that place was different.
+       4) In Function un.onInit:
+          ${GetOPtions} $R0 "-ServiceName=" $R1
+       s/OPtions/Options/
+       We have the same in TC6. Apparently NSIS is case-insensitive here.
 
   The above patch is for build/tomcat.nsi
   The following svn commands remove unneeded files:
