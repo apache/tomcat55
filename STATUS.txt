@@ -29,7 +29,7 @@ PATCHES PROPOSED TO BACKPORT:
   Don't notify session creation listeners when changing session ID on
   authentication
   http://people.apache.org/~markt/patches/2011-08-18-bug51042-tc55.patch
-  +1: markt, schultz
+  +1: markt, schultz, kkolinko
   -1:
 
 * Multiple improvements to the Windows Installer
