@@ -52,7 +52,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
-  https://issues.apache.org/bugzilla/attachment.cgi?id=27318
+  https://issues.apache.org/bugzilla/attachment.cgi?id=27421
   +1: markt
   -0: kkolinko: I do not like removing the catch from CoyoteAdapter. It
       looks safer the old way. JkCoyoteHandler does not handle Errors, just
