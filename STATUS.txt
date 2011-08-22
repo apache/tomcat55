@@ -47,8 +47,10 @@ PATCHES PROPOSED TO BACKPORT:
     svn rm build/resources/tickyes.bmp
     svn rm build/resources/main.ico
     svn rm build/resources/uninst.ico
-  +1: markt, jim
+  +1: markt, jim, kkolinko
   -1:
+    kkolinko: Noted a typo in a message displayed by uninstaller:
+     s/with -serviceName/with -ServiceName/
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
