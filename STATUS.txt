@@ -79,5 +79,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Update Tomcat-Native to 1.1.22
   s/tomcat-native.version=1.1.20/tomcat-native.version=1.1.22/
   in build/build.properties.default
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
