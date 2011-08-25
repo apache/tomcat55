@@ -63,3 +63,9 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2011-08-25-ajp-incomplete-msg-tc5.patch
   +1: markt
   -1:
+
+* Update Eclipse compiler (along with the dual-download location chanegs) and
+  tc native
+  http://people.apache.org/~markt/patches/2011-08-25-lib-update-tc5.patch
+  +1: markt
+  -1:
