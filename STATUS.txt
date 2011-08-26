@@ -82,6 +82,11 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
+* Update recommended version of Tomcat-Native to 1.1.22
+  http://svn.apache.org/viewvc/tomcat/trunk/java/org/apache/catalina/core/AprLifecycleListener.java?r1=1154911&r2=1154910&pathrev=1154911
+  +1: kkolinko
+  -1:
+
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50394
   Return -1 from read operation instead of throwing an exception when
   encountering an EOF with the HTTP APR connector.
