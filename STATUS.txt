@@ -69,6 +69,15 @@ PATCHES PROPOSED TO BACKPORT:
 * Update Eclipse compiler and switch to using ecj.jar
   http://people.apache.org/~markt/patches/2011-08-25-lib-update-tc5-v2.patch
   +1: markt
+  +1: kkolinko:
+        + update build/resources/License.rtf to match LICENSE file
+        + in class-loader-howto.xml sort the JARs list alphabetically
+        I've run jarcheck tool against the archive. Results are in
+         http://people.apache.org/~kkolinko/patches/jarcheck/
+        Most classes are JDK 1.2 compatible. Some are JDK 1.6 (esp. annotations processor),
+        but it is the same in ecj 3.3.1 that is currently used.
+        Those classes are absent in jasper-compiler-jdt.jar that we would
+        generate, so their presence does not matter.
   -1:
 
 * Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
