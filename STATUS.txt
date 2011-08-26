@@ -28,27 +28,7 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=51550
   Display error page rather than an empty response for an IllegalStateException
   https://issues.apache.org/bugzilla/attachment.cgi?id=27421
-  +1: markt
-
-      kkolinko: I do not like removing the catch from CoyoteAdapter. It
-      looks safer the old way. JkCoyoteHandler does not handle Errors, just
-      Exceptions. It seems from the patch that all you need to fix this bug is
-        ep.setStatus(MsgContext.JK_STATUS_ERROR);
-      Can't it be done by CoyoteAdapter itself?
-        markt: In short, no. To correctly handle the error the associated
-               processor needs to set the error flag and catching the exception
-               in the CoyoteAdaptor prevents that. The processors catch
-               Throwable so nothing extra will slip through.
-               The JkCoyoteHandler is a special case since it is a completely
-               different implementation. However, JkCoyoteHandler does need to
-               be changed to catch Throwable rather than Exception. I have
-               updated the proposed patch to do exactly that.
-  -0: schultz: I tend to agree with Konstantin's assertion that the catch
-      block is important. I understand the change to the status, but could
-      you explain why the catch(Throwable) block has been removed?
-        markt: See reply to kkolinko above.
-
-  +1: kkolinko: OK with the updated patch.
+  +1: markt, kkolinko
   -1:
 
 * Detect incomplete AJP messages and reject the associated request if one is
