@@ -52,10 +52,6 @@ PATCHES PROPOSED TO BACKPORT:
        It seems though that
         1) MemoryProtocolHandler#process() should now try/catch(Throwable).
            The MemoryProtocolHandler is created in Embedded.java line 424.
-       Maybe also
-        2) i18n the message in JkCoyoteHandler.
-        3) s/log.error()/log.info()/ in processors, because CoyoteAdapter
-        used info() for its exception handling.
   -1:
 
 * Detect incomplete AJP messages and reject the associated request if one is
