@@ -49,9 +49,6 @@ PATCHES PROPOSED TO BACKPORT:
         markt: See reply to kkolinko above.
 
   +1: kkolinko: OK with the updated patch.
-       It seems though that
-        1) MemoryProtocolHandler#process() should now try/catch(Throwable).
-           The MemoryProtocolHandler is created in Embedded.java line 424.
   -1:
 
 * Detect incomplete AJP messages and reject the associated request if one is
