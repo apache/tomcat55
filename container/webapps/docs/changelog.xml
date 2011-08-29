@@ -125,6 +125,10 @@
         if it is configured for SSL and an invalid value is provided for
         SSLProtocol. (markt)
       </fix>
+      <fix>
+        <bug>51698</bug>: Fix CVE-2011-3190. Prevent AJP message injection.
+        (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Jasper">
