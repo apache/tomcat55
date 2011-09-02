@@ -66,7 +66,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Update recommended version of Tomcat-Native to 1.1.22
   http://svn.apache.org/viewvc/tomcat/trunk/java/org/apache/catalina/core/AprLifecycleListener.java?r1=1154911&r2=1154910&pathrev=1154911
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=50394
@@ -74,5 +74,5 @@ PATCHES PROPOSED TO BACKPORT:
   encountering an EOF with the HTTP APR connector.
   Native 1.1.22 is required for this fix.
   https://issues.apache.org/bugzilla/attachment.cgi?id=27437
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
