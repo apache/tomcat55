@@ -43,6 +43,9 @@
   <subsection name="General">
     <changelog>
       <fix>
+        <bug>51550</bug>: Display error page rather than an empty response for an IllegalStateException
+      </fix>
+      <fix>
         <bug>33262</bug>: When using the Windows installer, the monitor is now
         auto-started for the current user rather than all users to be consistent
         with menu item creation. (markt)

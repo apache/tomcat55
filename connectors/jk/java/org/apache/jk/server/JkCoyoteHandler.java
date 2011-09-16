@@ -198,8 +198,9 @@ public class JkCoyoteHandler extends JkHandler implements ProtocolHandler {
         rp.setStage(Constants.STAGE_SERVICE);
         try {
             adapter.service( req, res );
-        } catch( Exception ex ) {
-            log.info("Error servicing request " + req,ex);
+        } catch( Throwable t ) {
+            ep.setStatus(MsgContext.JK_STATUS_ERROR);
+            log.info("Error servicing request " + req, t);
         }
         if(ep.getStatus() != MsgContext.JK_STATUS_CLOSED) {
             res.finish();
