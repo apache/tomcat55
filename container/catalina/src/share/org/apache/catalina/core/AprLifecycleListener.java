@@ -60,7 +60,7 @@ public class AprLifecycleListener
     protected static final int REQUIRED_MAJOR = 1;
     protected static final int REQUIRED_MINOR = 1;
     protected static final int REQUIRED_PATCH = 17;
-    protected static final int RECOMMENDED_PV = 19;
+    protected static final int RECOMMENDED_PV = 22;
 
 
     // ---------------------------------------------- Properties
