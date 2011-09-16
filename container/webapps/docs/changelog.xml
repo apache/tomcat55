@@ -42,8 +42,12 @@
 <section name="Tomcat 5.5.34 (jim)" rtext="">
   <subsection name="General">
     <changelog>
+      <fix>
+        <bug>50394</bug>Return -1 from read operation instead of throwing an exception when
+        encountering an EOF with the HTTP APR connector.
+      </fix>
       <update>
-        Update Tomcat-Native to 1.1.22.
+        Update Tomcat-Native to 1.1.22. (jim)
       </update>
       <fix>
         Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
