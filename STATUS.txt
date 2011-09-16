@@ -24,11 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
-  http://people.apache.org/~markt/patches/2011-08-25-jpda-tc5.patch
-  +1: markt, kkolinko, jim
-  -1:
-
 * Update Tomcat-Native to 1.1.22
   s/tomcat-native.version=1.1.20/tomcat-native.version=1.1.22/
   in build/build.properties.default

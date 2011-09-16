@@ -43,6 +43,9 @@
   <subsection name="General">
     <changelog>
       <fix>
+      Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
+      </fix>
+      <fix>
         <bug>51550</bug>: Display error page rather than an empty response for an IllegalStateException
       </fix>
       <fix>
