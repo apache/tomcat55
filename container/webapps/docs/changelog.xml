@@ -42,8 +42,11 @@
 <section name="Tomcat 5.5.34 (jim)" rtext="">
   <subsection name="General">
     <changelog>
+      <update>
+        Update Tomcat-Native to 1.1.22.
+      </update>
       <fix>
-      Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
+        Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
       </fix>
       <fix>
         <bug>51550</bug>: Display error page rather than an empty response for an IllegalStateException
