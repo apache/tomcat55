@@ -42,19 +42,12 @@
 <section name="Tomcat 5.5.34 (jim)" rtext="">
   <subsection name="General">
     <changelog>
-      <fix>
-        <bug>50394</bug>Return -1 from read operation instead of throwing an exception when
-        encountering an EOF with the HTTP APR connector.
-      </fix>
       <update>
         Update Tomcat-Native to 1.1.22. (jim)
       </update>
-      <fix>
-        Align jpda settings with catalina.sh, tc6.0.x, tc7.0.x and trunk
-      </fix>
-      <fix>
-        <bug>51550</bug>: Display error page rather than an empty response for an IllegalStateException
-      </fix>
+      <update>
+        Fix CVE-2011-2729. Update to Commons Daemon 1.0.7. (markt)
+      </update>
       <fix>
         <bug>33262</bug>: When using the Windows installer, the monitor is now
         auto-started for the current user rather than all users to be consistent
@@ -117,6 +110,12 @@
         SecurityConfig.setSecurityProperty() when the value provided by JRE is
         null. (kkolinko)
       </fix>
+      <fix>
+        <bug>51550</bug>: Internal errors in Tomcat components that process
+        requests before they are passed to a web application, such as
+        Authenticators, now return a 500 response rather than a 200 response.
+        (markt)
+      </fix>
       <add>
         Add additional configuration options to the DIGEST authenticator.
         (markt)
@@ -128,6 +127,11 @@
       <fix>
         Fix CVE-2011-2526. Protect against crashes (HTTP APR) if sendfile is
         configured to send more data than is available in the file. (markt) 
+      </fix>
+      <fix>
+        <bug>50394</bug>: Return -1 from read operation instead of throwing an
+        exception when encountering an EOF with the HTTP APR connector.
+        (kkolinko)
       </fix>
       <fix>
         <bug>50744</bug>: Skip the SSL configuration check on platforms where an
@@ -193,12 +197,13 @@
   </subsection>
   <subsection name="Other">
     <changelog>
+      <fix>
+        Align jpda settings in catalina.bat with catalina.sh, tc6.0.x, tc7.0.x
+        and trunk. (markt)
+      </fix>
       <update>
         Clarify error messages in *.sh files to mention that if a script is
         not found it might be because execute permission is needed. (kkolinko)
-      </update>
-      <update>
-        Fix CVE-2011-2729. Update commons daemon to 1.0.7. (markt)
       </update>
     </changelog>
   </subsection>
