@@ -24,10 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-
-PATCHES PROPOSED TO BACKPORT:
-  [ New proposals should be added at the end of the list ]
-
 * Detect incomplete AJP messages and reject the associated request if one is
   found
   http://people.apache.org/~markt/patches/2011-08-25-ajp-incomplete-msg-tc5.patch
@@ -35,6 +31,9 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, rjung: In AjpMessage#validatePos() s/"" + posToTest/String.valueOf(posToTest)/
         +1 to mark AjpMessage#getBytes(byte[]) as /**@deprecated*/ - it is never used.
   -1:
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
 
 * Update Eclipse compiler and switch to using ecj.jar
   http://people.apache.org/~markt/patches/2011-08-25-lib-update-tc5-v2.patch
