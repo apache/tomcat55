@@ -119,8 +119,8 @@
         (markt)
       </fix>
       <add>
-        Add additional configuration options to the DIGEST authenticator.
-        (markt)
+        CVE-2011-1184: Add additional configuration options to the DIGEST
+        authenticator. (markt)
       </add>
     </changelog>
   </subsection>
@@ -148,6 +148,10 @@
         <bug>51698</bug>: Fix CVE-2011-3190. Prevent AJP message injection.
         (markt)
       </fix>
+      <add>
+        Detect incomplete AJP messages and reject the associated request if one
+        is found. (markt) 
+      </add>
     </changelog>
   </subsection>
   <subsection name="Jasper">
