@@ -44,3 +44,9 @@ PATCHES PROPOSED TO BACKPORT:
         immediately before tagging.
   -1:
 
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52059
+  http://svn.apache.org/viewvc?rev=1186763&view=rev
+  Fix a typo in Windows uninstaller:
+  Do not forget to remove Tomcat keys from 32-bit registry on deinstallation.
+  +1: kkolinko
+  -1:
