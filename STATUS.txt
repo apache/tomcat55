@@ -50,3 +50,20 @@ PATCHES PROPOSED TO BACKPORT:
   Do not forget to remove Tomcat keys from 32-bit registry on deinstallation.
   +1: kkolinko
   -1:
+
+* Make configuration issue for RemoteAddrValve, RemoteHostValve result
+  in the failure of the valve rather than just a warning message.
+  Ensure changes to the configuration of the RemoteHostValve and the
+  RemoteIpValve via JMX are thread-safe.
+  http://people.apache.org/~kkolinko/patches/2011-10-26_tc55_RequestFilterValve_v3.patch
+  It is based on the valves part of r1189256 and r1187027. (r1189258, r1187029 in TC7)
+  +1: kkolinko (see note below)
+  -1:
+
+  kkolinko: It does its work and prevents app from starting and working. Though
+    1. Autodeployment prints the same error every 10s. It is OK, though a
+       bit annoying.
+    2. Application that failed to start responds with 403. I do not
+       understand why. I would expect 404 or 503.
+    3. Application that failed to start is not listed by the manager app.
+       It is expected, but does not explain why error 403 and not 404 is observed.
