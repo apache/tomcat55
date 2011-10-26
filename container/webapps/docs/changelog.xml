@@ -40,6 +40,15 @@
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
 <section name="Tomcat 5.5.35 (jim)" rtext="">
+  <subsection name="Webapps">
+    <changelog>
+      <fix>
+        <bug>52049</bug>: Improve setup instructions for running as a Windows
+        service: correct information on how a JRE is identified and selected.
+        (kkolinko)
+      </fix>
+    </changelog>
+  </subsection>
 </section>
 <section name="Tomcat 5.5.34 (jim)" rtext="released 2011-09-22">
   <subsection name="General">
