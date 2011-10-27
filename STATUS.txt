@@ -67,3 +67,9 @@ PATCHES PROPOSED TO BACKPORT:
        understand why. I would expect 404 or 503.
     3. Application that failed to start is not listed by the manager app.
        It is expected, but does not explain why error 403 and not 404 is observed.
+
+* Improve performance of parameter processing
+  http://people.apache.org/~markt/patches/2011-10-27-param-perf-tc5-v1.patch
+  +1: markt
+  -1:
+
