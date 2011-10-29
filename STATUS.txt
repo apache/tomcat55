@@ -69,11 +69,11 @@ PATCHES PROPOSED TO BACKPORT:
        It is expected, but does not explain why error 403 and not 404 is observed.
 
 * Improve performance of parameter processing
-  http://people.apache.org/~markt/patches/2011-10-27-param-perf-tc5-v1.patch
-  http://svn.apache.org/viewvc?rev=1190481&view=rev - fixes NPE
-  http://svn.apache.org/viewvc?rev=1190371&view=rev - make ByteChunk.DEFAULT_CHARSET final
+  http://people.apache.org/~markt/patches/2011-10-29-param-perf-tc5-v2.patch
   +1: markt
   -1: kkolinko: because of ByteChunk#toStringInternal(), see below.
+                markt - updated proposal above addresses all review comments
+                        detailed response on dev list
 
   kkolinko: In B2CConverter.java
     lines 117-118: restore Javadoc comment to method void convert( ByteChunk bb, CharChunk cb, int limit) 
