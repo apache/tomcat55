@@ -70,6 +70,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Improve performance of parameter processing
   http://people.apache.org/~markt/patches/2011-10-29-param-perf-tc5-v2.patch
+  http://svn.apache.org/viewvc?rev=1195222&view=rev - performance tweaks
   +1: markt
   -1: kkolinko: because of ByteChunk#toStringInternal(), see below.
                 markt - updated proposal above addresses all review comments
