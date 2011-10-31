@@ -139,8 +139,8 @@ loaders as it is initialized:</p>
     <ul>
     <li><em>commons-el.jar</em> - Jakarta commons el, implementing the 
         expression language used by Jasper.</li>
+    <li><em>ecj-x.y.x.jar</em> - The Eclipse JDT Java compiler.</li>
     <li><em>jasper-compiler.jar</em> - The JSP 2.0 compiler.</li>
-    <li><em>jasper-compiler-jdt.jar</em> - The Eclipse JDT Java compiler.</li>
     <li><em>jasper-runtime.jar</em> - The JSP 2.0 runtime.</li>
     <li><em>jsp-api.jar</em> - The JSP 2.0 API.</li>
     <li><em>naming-common.jar</em> - The JNDI implementation used by Tomcat 5

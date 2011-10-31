@@ -40,6 +40,13 @@
  General, Catalina, Coyote, Jasper, Cluster, Webapps
 -->
 <section name="Tomcat 5.5.35 (jim)" rtext="">
+  <subsection name="General">
+    <changelog>
+      <update>
+        Update Eclipse compiler to 3.7 and switch to using ecj.jar. (markt)        
+      </update>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>

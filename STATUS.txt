@@ -27,23 +27,6 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Update Eclipse compiler and switch to using ecj.jar
-  http://people.apache.org/~markt/patches/2011-08-25-lib-update-tc5-v2.patch
-  +1: markt
-  +1: kkolinko:
-        + update build/resources/License.rtf to match LICENSE file
-        + in class-loader-howto.xml sort the JARs list alphabetically
-        I've run jarcheck tool against the archive. Results are in
-         http://people.apache.org/~kkolinko/patches/jarcheck/
-        Most classes are JDK 1.2 compatible. Some are JDK 1.6 (esp. annotations processor),
-        but it is the same in ecj 3.3.1 that is currently used.
-        Those classes are absent in jasper-compiler-jdt.jar that we would
-        generate, so their presence does not matter.
-  +1: rjung:
-        I suggest we switch after releasing 5.5.34 so that the change isn't introduced
-        immediately before tagging.
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52059
   http://svn.apache.org/viewvc?rev=1186763&view=rev
   Fix a typo in Windows uninstaller:

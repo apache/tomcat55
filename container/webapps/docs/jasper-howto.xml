@@ -168,7 +168,7 @@ pages. This new compiler will be updated to support the Java 5 syntax as soon as
 possible.</p>
 
 <p>Apache Ant, which was used in previous Tomcat releases, can be used instead instead of 
-the new compiler by simply removing the <code>common/lib/jasper-compiler-jdt.jar</code> file, 
+the new compiler by simply removing the <code>common/lib/ecj-x.y.z.jar</code> file, 
 and placing the <code>ant.jar</code> file from the latest Ant distribution in the 
 <code>common/lib</code> folder.  If you do this, you also need to use the "javac"
 argument to catalina.sh.</p>

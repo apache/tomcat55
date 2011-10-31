@@ -46,7 +46,7 @@
     <pathelement location="${servlet-api.jar}"/>
     <pathelement location="${jsp-api.jar}"/>
     <pathelement location="${tools.jar}"/>
-    <pathelement location="${jasper-compiler-jdt.jar}"/>
+    <pathelement location="${jdt.jar}"/>
     <pathelement location="${xerces.jar}"/>
     <pathelement location="${xercesImpl.jar}"/>
     <pathelement location="${xml-apis.jar}"/>
@@ -284,7 +284,7 @@
           tofile="${jasper.deploy}/common/lib/jasper-runtime.jar" />
 
     <!-- Copy JARs -->
-    <copy todir="${jasper.deploy}/common/lib" file="${jasper-compiler-jdt.jar}"/>
+    <copy todir="${jasper.deploy}/common/lib" file="${jdt.jar}"/>
     <copy todir="${jasper.deploy}/common/lib" file="${jsp-api.jar}"/>
     <copy todir="${jasper.deploy}/common/lib" file="${commons-el.jar}"/>
 

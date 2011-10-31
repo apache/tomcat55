@@ -56,7 +56,7 @@
 	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/javamail-1.4.1/mail.jar"/>
 	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/jaf-1.1.1/activation.jar"/>
 	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/tomcat-deps/dbcp/naming-factory-dbcp.jar"/>
-	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/tomcat-deps/jdt/jasper-compiler-jdt.jar"/>
+	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/ecj-3.7/ecj-3.7.jar"/>
 	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-el-1.0/commons-el.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="var" path="TOMCAT_LIBS_BASE/commons-launcher/bin/commons-launcher.jar"/>

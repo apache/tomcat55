@@ -87,9 +87,6 @@
   <property name="tomcat-dbcp.home" value="${base.path}/tomcat-deps/dbcp" />
   <property name="tomcat-dbcp.jar"
        value="${tomcat-dbcp.home}/naming-factory-dbcp.jar"/>
-  <property name="jasper-compiler-jdt.home" value="${base.path}/tomcat-deps/jdt" />
-  <property name="jasper-compiler-jdt.jar"
-       value="${jasper-compiler-jdt.home}/jasper-compiler-jdt.jar"/>
 
   <!-- Some compilers will disable debugging if true. And it doesn't do anything
        in most cases -->
@@ -234,7 +231,7 @@
 
     <!-- <copy todir="${tomcat.build}/common/lib" file="${ant.jar}"/>
     <copy todir="${tomcat.build}/common/lib" file="${ant-launcher.jar}"/> -->
-    <copy todir="${tomcat.build}/common/lib" file="${jasper-compiler-jdt.jar}"/>
+    <copy todir="${tomcat.build}/common/lib" file="${jdt.jar}"/>
   </target>
 
   <!-- ====================== Build all components =================== -->
@@ -706,7 +703,7 @@
 
 
   <target name="build-depends" depends="init"
-          description="Builds various dependent components - APIs, dbcp, jdt">
+          description="Builds various dependent components - APIs, dbcp">
     <antcall target="build-servletapi"/>
     <antcall target="build-jspapi"/>
 
@@ -726,12 +723,12 @@
 
     <antcall target="build-tomcat-dbcp" />
 
-    <antcall target="downloadzip">
-      <param name="sourcefile" value="${jdt.loc}"/>
+    <antcall target="downloadfile-2">
+      <param name="sourcefile.1" value="${jdt.loc.1}"/>
+      <param name="sourcefile.2" value="${jdt.loc.2}"/>
       <param name="destfile" value="${jdt.jar}"/>
-      <param name="destdir" value="${base.path}"/>
+      <param name="destdir" value="${jdt.home}"/>
     </antcall>
-    <antcall target="build-jasper-compiler-jdt" />
   </target>
 
   <target name="build-tomcat-dbcp">
@@ -793,24 +790,6 @@
           <include name="**/*.properties" />
        </fileset>
     </jar>
-  </target>
-
-  <target name="build-jasper-compiler-jdt">
-       <mkdir dir="${jasper-compiler-jdt.home}"/>
-       <antcall target="-build-jasper-compiler-jdt">
-          <param name="basedir" value="${jasper-compiler-jdt.home}" />
-       </antcall>
-      </target>
-
-      <target name="-build-jasper-compiler-jdt">
-        <unjar src="${jdt.jar}" dest="${jasper-compiler-jdt.home}" />
-        <jar destfile="${jasper-compiler-jdt.jar}">
-            <fileset dir="${jasper-compiler-jdt.home}">
-                <include name="org/eclipse/jdt/core/compiler/**"/>
-                <include name="org/eclipse/jdt/internal/compiler/**"/>
-                <include name="org/eclipse/jdt/internal/core/util/CommentRecorder*"/>
-            </fileset>
-        </jar>
   </target>
 
   <target name="build-webapps" depends="init"
@@ -1009,7 +988,7 @@
     <copy todir="${tomcat.embed}/lib">
       <fileset dir="${tomcat.build}/common/lib">
         <include name="jasper-compiler.jar"/>
-        <include name="jasper-compiler-jdt.jar"/>
+        <include name="ecj-${jdt.version}.jar"/>
       </fileset>
     </copy>
 
@@ -1162,7 +1141,6 @@
   <target name="clean-depend"
    description="Clean depend src components">
     <delete dir="${tomcat-dbcp.home}"/>    
-    <delete dir="${jasper-compiler-jdt.home}"/>
   </target>
   
   <target name="clean"
@@ -2171,6 +2149,38 @@
   <target name="downloadfile" unless="exist" depends="setproxy,testexist">
     <!-- Download extract the file -->
     <mkdir dir="${destdir}" />
+    <get src="${sourcefile}" dest="${destfile}" />
+  </target>
+
+  <target name="downloadfile-2" unless="exist" depends="testexist">
+    <!-- Download the file from the two alternative locations -->
+    <mkdir dir="${destdir}" />
+
+    <antcall target="trydownload">
+      <param name="sourcefile" value="${sourcefile.1}" />
+    </antcall>
+
+    <antcall target="trydownload">
+      <param name="sourcefile" value="${sourcefile.2}" />
+    </antcall>
+
+    <available file="${destfile}" property="exist"/>
+    <fail unless="exist" message="Failed to download [${destfile}]. All download sources are unavailable." />
+  </target>
+
+  <target name="trydownload.check" depends="setproxy">
+    <condition property="trydownload.run">
+      <and>
+        <not>
+          <available file="${destfile}" />
+        </not>
+        <http url="${sourcefile}" />
+      </and>
+    </condition>
+  </target>
+
+  <target name="trydownload" if="trydownload.run" depends="trydownload.check">
+    <!-- Downloads a file if not yet downloaded and the source URL is available -->
     <get src="${sourcefile}" dest="${destfile}" />
   </target>
 
