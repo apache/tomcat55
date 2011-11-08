@@ -85,8 +85,8 @@ A standard installation of Tomcat 5.5 makes all of the following APIs available
 for use by web applications (by placing them in "common/lib" or "shared/lib"):
 * commons-el.jar (Commons Expression Language 1.0)
 * commons-logging-api.jar (Commons Logging API 1.0.x)
-* jasper-compiler.jar (Jasper 2 Compiler)
 * ecj-x.y.z.jar (Eclipse JDT Java compiler)
+* jasper-compiler.jar (Jasper 2 Compiler)
 * jasper-runtime.jar (Jasper 2 Runtime)
 * jsp-api.jar (JSP 2.0 API)
 * naming-common.jar (JNDI Context implementation)

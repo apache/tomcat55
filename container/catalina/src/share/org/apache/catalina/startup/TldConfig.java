@@ -87,8 +87,8 @@ public final class TldConfig implements LifecycleListener {
         noTldJars.add("commons-el.jar");
         noTldJars.add("commons-logging-api.jar");
         noTldJars.add("commons-modeler.jar");
-        noTldJars.add("jasper-compiler.jar");
         noTldJars.add("ecj-3.7.jar");
+        noTldJars.add("jasper-compiler.jar");
         noTldJars.add("jasper-runtime.jar");
         noTldJars.add("jsp-api.jar");
         noTldJars.add("naming-resources.jar");
