@@ -55,55 +55,5 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~markt/patches/2011-10-29-param-perf-tc5-v2.patch
   http://svn.apache.org/viewvc?rev=1195222&view=rev - performance tweaks
   +1: markt
-  -1: kkolinko: because of ByteChunk#toStringInternal(), see below.
-                markt - updated proposal above addresses all review comments
-                        detailed response on dev list
-
-  kkolinko: In B2CConverter.java
-    lines 117-118: restore Javadoc comment to method void convert( ByteChunk bb, CharChunk cb, int limit) 
-    line 125 - remove "// conv.ready() ) {" comment. It wasn't in 5.5. Do not see why to add it.
-   In ByteChunk.java:
-    in toStringInternal():
-      "cb.array()" returns "character array that backs this CharBuffer".
-      I think it can contain extra characters beyond end of decoded string.
-      Thus "new String(cb.array());" is wrong.
-      Single-character charsets are simple, because the count of characters
-      is known from the count of bytes. Needs more testing with UTF-8.
-      - thus -1.
-   In Parameters.java:
-    "private static org.apache.commons.logging.Log log"
-      - make "static final"
-    "StringManager.getManager("org.apache.tomcat.util.http");"
-      - the LocalStrings.properties file from r1189882 is not included in this patch.
-        (2011-10-27-param-perf-tc6-v1.patch does not have it as well)
-    "private final Hashtable paramHashValues"
-      - Maybe a HashMap can be used instead. I do not expect much improvements
-        from that though.
-    in #addParameterValues(..)
-      - Replace "values = new ArrayList(1);"
-        with    "values = new ArrayList(newValues.length);"
-      - Maybe "if (paramHashValues.containsKey(key))" can be replaced
-        with testing whether result of (paramHashValues.containsKey(key)) is null.
-      - Maybe add tests for this method. In trunk it is called by Request.parseParts(), though see below maybe that can be changed.
-    in #getParameterValues(String name)
-      - Apply NPE fix from http://svn.apache.org/viewvc?rev=1190481&view=rev
-      - Maybe add test case in TestParameters.java for calling getParameterValues() for non-existing parameter.
-    in #addParam(String, String)
-      - remove efficiency comment above the method?
-      - In trunk: maybe make this method public and call it instead of #addParameterValues(..)
-         in Request.parseParts().
-      - Maybe "if (paramHashValues.containsKey(key))" can be replaced
-        with testing whether result of (paramHashValues.containsKey(key)) is null.
-    "public static final String DEFAULT_ENCODING"
-    "public static final Charset DEFAULT_CHARSET"
-      - New fields. They can be made private.
-    in #processParameters(..., Charset)
-      - It is a new method. Maybe make it private.
-      - If it remains public, maybe document that charset parameter is not null.
-        All callers here call Parameters.getCharset(encoding) which returns DEFAULT_CHARSET by default.
-    in #urlDecode(...)
-      - Maybe call "bc.setCharset(charset);" before calling "urlDec.convert(bc);"
-    in #paramsAsString()
-      - Move sb.append("\n"); outside of loop that iterates on values. Those are separated by ','.
-        In the old code the "\n" is used to separate different parameter names.
-      - Replace double quotes with single quotes where it is a single character ('=', ',', '\n')
+  -1:
+    kkolinko: +r1195943,r1198641 are needed, and maybe (r1195531+r1195905, r1195949, r1198696)
