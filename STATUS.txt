@@ -76,3 +76,12 @@ PATCHES PROPOSED TO BACKPORT:
     svn propset svn:eol-style native  container/webapps/docs/config/filter.xml
   +1: kkolinko
   -1:
+
+* Clean up handling multi-byte chars in the connectors plus makin
+  the JK connector consistent with the newer ones.
+  Backport of r1201069+1201087 from trunk resp. r1201076+r1201088 from TC7
+  and r1201452 from TC 6. TC 6 patch applies with small offsets:
+  http://people.apache.org/~rjung/patches/connectors_multi-byte_handling_cleanup-v2.patch
+  +1: rjung
+  -1:
+
