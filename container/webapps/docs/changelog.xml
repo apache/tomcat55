@@ -54,6 +54,10 @@
         service: correct information on how a JRE is identified and selected.
         (kkolinko)
       </fix>
+      <update>
+        <bug>52172</bug>: Update Tomcat build instructions. Includes changes
+        proposed by bmargulies. (kkolinko)
+      </update>
     </changelog>
   </subsection>
 </section>

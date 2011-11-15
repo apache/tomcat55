@@ -21,10 +21,15 @@ $Id$
 
 This subproject contains the source code for Tomcat 5.5, a container that
 implements the Servlet 2.4 and JSP 2.0 specifications from the Java
-Community Process <http://www.jcp.org/>.  In order to build a binary
-distribution version of the container from a source distribution, 
-you will need to perform the build on a Windows machine (Windows XP/SP2
-is known to work). Do the following:
+Community Process <http://www.jcp.org/>.
+
+Note: If you just need to run Apache Tomcat, it is not necessary to build
+it. You may simply download a binary distribution. It is cross-platform.
+Read RUNNING.txt for the instruction on how to run it.
+
+In order to build a binary distribution version of Apache Tomcat from a
+source distribution, you will need to perform the build on a Windows
+machine (Windows XP/SP2 is known to work). Do the following:
 
 
 (0) Download and Install a Java Development Kit
@@ -70,43 +75,42 @@ is known to work). Do the following:
   available, which will be used to actually perform the build.
 
 
-(2) Install Subversion 1.3.x or later on your computer
+(2) Checkout or obtain the source code for Tomcat 6.0
 
-* Subversion is only needed if you wish to checkout the source from SVN.
-  It is not needed when building Tomcat from source.
+* Tomcat 5.5 SVN repository URL:
+  http://svn.apache.org/repos/asf/tomcat/tc5.5.x/
 
-* If Subversion 1.3.x or later is already installed on your computer, skip to (3).
+* Download a source package from:
+  http://tomcat.apache.org/download-55.cgi
 
-* Download a binary distribution of Subversion 1.3.x or later from:
+* Checkout the source using SVN, selecting the desired version or
+  branch (current development source is at 
+  http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/), or 
+  unpack the source package. The location where the source has been
+  placed will be referred as ${tomcat.source}.
 
-    http://subversion.tigris.org/getting.html
-
-* Unpack the binary distribution into a convenient location so that the
-  Subversion release resides in its own directory.
-
-* Modify the PATH environment variable to include the directory 
-  ${svn.home}/bin in its list, where "${svn.home}" is the full pathname 
-  of the subversion release directory. This makes the "svn" command
-  available, which will be used to checkout the tomcat sources.
 
 (3) Building Tomcat 5.5
 
 * This assumes that the Tomcat source is available in the directory tree starting
   at ${tomcat.source}. 
-  
+
     cd ${tomcat.source}/build
     ant download
     ant [deploy]
 
+* WARNING: Running "ant download" command will download libraries required
+  to build Tomcat to the /usr/share/java directory.  On a typical Linux or
+  MacOX system an ordinary user  will not have access to write to this
+  directory, and, even if you do, it may not be appropriate for you to
+  write there.
+
+  On Windows this usually corresponds to the "C:\usr\share\java"
+  directory, unless Cygwin is used. Read below to learn how to customize
+  the directory used to download the binaries.
+
 * NOTE: Users accessing the Internet through a proxy must use a properties
   file to indicate to Ant the proxy configuration. Read below.
-
-* WARNING: 
-  Running the "ant download" command will download binaries to the
-  /usr/share/java directory. Make sure this is appropriate to do on your
-  computer. On Windows, this usually corresponds to the "C:\usr\share\java"
-  directory, unless Cygwin is used. Read below to customize the directory used
-  to download the binaries.
 
 * The build can be controlled by creating a ${tomcat.source}/build.properties
   file, and adding the following content to it:
@@ -120,31 +124,26 @@ is known to work). Do the following:
     # ----- Default Base Path for Dependent Packages -----
     # Replace this path with the directory path where dependencies binaries
     # should be downloaded
-    base.path=/usr/share/java
+    base.path=/home/me/some-place-to-download-to
 
 
-(4) Updating sources
+(4) Updating sources and Rebuilds
 
-It is recommended that you regularly update the downloaded Tomcat 5 sources. 
-To do this, execute the following commands:
-
-    cd ${tomcat.source}
-    svn update
+It is recommended that you regularly update the downloaded Tomcat 5.5 sources.
+To do this, execute "svn update" command with your Subversion client.
 
 [This does not apply if you are building Tomcat from a source archive].
-
-(5) Rebuilds
 
 For a quick rebuild of only modified code you can use 
    
     cd ${tomcat.source}/build
-    ant build
+    ant
 
 In addition, "ant build-depends" will build packages that 
 tomcat depends on ( commons-logging for now ), to ease fixes
 and debugging in those packages.
 
-(6) Building The "compat" Package
+(5) Building The "compat" Package
 
 Tomcat 5.5 is designed to run on J2SE 5.0, but will run on
 J2SE version 1.4 as well as long as the compatibility package
@@ -155,13 +154,13 @@ package, do
     cd ${tomcat.source}/build
     ant compat
 
-(7) Building the servlet and jsp API documentation
+(6) Building the servlet and jsp API documentation
 
 The documentation can be easily rebuild, do
     cd ${tomcat.source}/build
     ant dist-javadoc
 
-(8) Building a release running tests:
+(7) Building a release running tests:
 
 Ensure that 'full.dist=on' is set in build.properties
 and do
@@ -170,7 +169,7 @@ and do
 
 Note that this deletes any existing build output.
 
-(9) Running tests
+(8) Running tests
 
 do
     cd ${tomcat.source}/build
