@@ -97,7 +97,7 @@ available, which will be used to actually perform the build.
 
 <p>
 Tomcat 5.5 SVN repository URL:
-<code>http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/</code>
+<a href="http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/">http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/</a>
 </p>
 <p>
 Tomcat 5.5 source packages:
@@ -105,8 +105,10 @@ Tomcat 5.5 source packages:
 </p>
 
 <p>
-Checkout the source using SVN, or download and unpack a source package.
-For the remainder of this guide, the symbolic name <code>${tomcat.source}</code> is used to refer to the
+Checkout the source using SVN, selecting a tag for released version or
+trunk for the current development code, or download and unpack a
+source package. For the remainder of this guide, the symbolic name
+<code>${tomcat.source}</code> is used to refer to the
 location where the source has been placed.
 </p>
 

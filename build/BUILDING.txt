@@ -78,16 +78,15 @@ machine (Windows XP/SP2 is known to work). Do the following:
 (2) Checkout or obtain the source code for Tomcat 6.0
 
 * Tomcat 5.5 SVN repository URL:
-  http://svn.apache.org/repos/asf/tomcat/tc5.5.x/
+  http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/
 
 * Download a source package from:
   http://tomcat.apache.org/download-55.cgi
 
-* Checkout the source using SVN, selecting the desired version or
-  branch (current development source is at 
-  http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/), or 
-  unpack the source package. The location where the source has been
-  placed will be referred as ${tomcat.source}.
+* Checkout the source using SVN, selecting a tag for released version or
+  trunk for the current development code, or unpack a source package. The
+  location where the source has been placed will be referred as
+  ${tomcat.source}.
 
 
 (3) Building Tomcat 5.5
