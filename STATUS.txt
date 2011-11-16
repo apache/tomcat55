@@ -66,6 +66,7 @@ PATCHES PROPOSED TO BACKPORT:
         if there were errors during HTTP parameter parsing. (kkolinko)
       </add>
   http://people.apache.org/~kkolinko/patches/2011-11-12_tc55_parameters-v4.patch
+  + http://svn.apache.org/viewvc?rev=1202705&view=rev (Parameters.java only)
   Before the patch:
   Should be created by patch tool automatically, but just to be sure:
     mkdir container/catalina/src/share/org/apache/catalina/filters
