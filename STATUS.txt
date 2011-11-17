@@ -90,6 +90,10 @@ PATCHES PROPOSED TO BACKPORT:
     No changes besides file paths and line numbers and absence of InternalNioOutputBuffer in TC55:
     http://people.apache.org/~kkolinko/patches/2011-11-16_tc55_connectors_multi-byte_handling_cleanup-v2.patch
 
+* Align %2f handling between implementations of UDecoder.convert()
+  http://svn.apache.org/viewvc?rev=1203091&view=rev
+  +1: kkolinko
+  -1:
 
 * Remove obsolete build.xml file that was used to download source tree.
   References to it were removed from build instructions in r1202235
