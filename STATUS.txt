@@ -31,7 +31,7 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1186763&view=rev
   Fix a typo in Windows uninstaller:
   Do not forget to remove Tomcat keys from 32-bit registry on deinstallation.
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Make configuration issue for RemoteAddrValve, RemoteHostValve result
@@ -101,7 +101,7 @@ PATCHES PROPOSED TO BACKPORT:
   1. svn del build/resources/build.xml
   2. apply patch:
   http://people.apache.org/~kkolinko/patches/2011-11-15_tc55_build.patch
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52225
