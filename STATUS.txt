@@ -103,3 +103,10 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2011-11-15_tc55_build.patch
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52225
+  Fix ClassCastException in Alias added for existing host via JMX
+  http://svn.apache.org/viewvc?rev=1204856&view=rev
+  (Mapper.java only; it is r1204860 in TC7)
+  +1: kkolinko
+  -1:
