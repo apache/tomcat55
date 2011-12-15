@@ -42,7 +42,7 @@ PATCHES PROPOSED TO BACKPORT:
   It is based on r1189256 and r1187027, r1198622
   (r1189258, r1187029, r1198623 in TC7)
   http://people.apache.org/~kkolinko/patches/2011-11-08_tc55_RequestFilterValve_v4.patch
-  +1: kkolinko
+  +1: kkolinko,funkman
   -1:
 
   kkolinko: It does its work and prevents app from starting and working. Though
@@ -75,7 +75,7 @@ PATCHES PROPOSED TO BACKPORT:
     svn propset svn:eol-style native  connectors/util/java/org/apache/tomcat/util/http/LocalStrings.properties
     svn propset svn:eol-style native  container/catalina/src/share/org/apache/catalina/filters/FailedRequestFilter.java
     svn propset svn:eol-style native  container/webapps/docs/config/filter.xml
-  +1: kkolinko, markt
+  +1: kkolinko, markt, funkman
   -1:
 
 * Clean up handling multi-byte chars in the connectors plus makin
@@ -84,7 +84,7 @@ PATCHES PROPOSED TO BACKPORT:
   and r1201452 from TC 6. TC 6 patch applies with small offsets:
   http://people.apache.org/~rjung/patches/connectors_multi-byte_handling_cleanup-v2.patch
   +1: rjung
-  +1: kkolinko (see 5.5 specific version below), markt
+  +1: kkolinko (see 5.5 specific version below), markt, funkman
   -1:
   kkolinko: 5.5 version of the above.
     No changes besides file paths and line numbers and absence of InternalNioOutputBuffer in TC55:
@@ -92,7 +92,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Align %2f handling between implementations of UDecoder.convert()
   http://svn.apache.org/viewvc?rev=1203091&view=rev
-  +1: kkolinko, markt
+  +1: kkolinko, markt, funkman
   -1:
 
 * Remove obsolete build.xml file that was used to download source tree.
@@ -108,12 +108,12 @@ PATCHES PROPOSED TO BACKPORT:
   Fix ClassCastException in Alias added for existing host via JMX
   http://svn.apache.org/viewvc?rev=1204856&view=rev
   (without tests; it is r1204860 in TC7)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, funkman
   -1:
 
 * Do not throw IllegalArgumentException from parseParameters() call when
   chunked POST request is too large, but treat it like an IO error.
   http://svn.apache.org/viewvc?rev=1206200&view=rev
   (without tests; it is r1206205 in TC7)
-  +1: kkolinko, markt
+  +1: kkolinko, markt,funkman
   -1:
