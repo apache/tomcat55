@@ -27,13 +27,6 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52059
-  http://svn.apache.org/viewvc?rev=1186763&view=rev
-  Fix a typo in Windows uninstaller:
-  Do not forget to remove Tomcat keys from 32-bit registry on deinstallation.
-  +1: kkolinko, rjung, markt
-  -1:
-
 * Make configuration issue for RemoteAddrValve, RemoteHostValve result
   in the failure of the valve rather than just a warning message.
   Ensure changes to the configuration of these valves via JMX are thread-safe.

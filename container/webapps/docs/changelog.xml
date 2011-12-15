@@ -37,7 +37,7 @@
 
 <body>
 <!-- Section names:
- General, Catalina, Coyote, Jasper, Cluster, Webapps
+ General, Catalina, Coyote, Jasper, Cluster, Webapps, Other
 -->
 <section name="Tomcat 5.5.35 (jim)" rtext="">
   <subsection name="General">
@@ -58,6 +58,14 @@
         <bug>52172</bug>: Update Tomcat build instructions. Includes changes
         proposed by bmargulies. (kkolinko)
       </update>
+    </changelog>
+  </subsection>
+  <subsection name="Other">
+    <changelog>
+      <fix>
+        <bug>52059</bug>: Ensure Windows registry keys are removed when using
+        the un-install option of the Windows installer. (markt)
+      </fix>
     </changelog>
   </subsection>
 </section>
