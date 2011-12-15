@@ -110,3 +110,9 @@ PATCHES PROPOSED TO BACKPORT:
   (without tests; it is r1206205 in TC7)
   +1: kkolinko, markt,funkman
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52335
+  Only handle <\% and not \% as escaped in template text.
+  http://svn.apache.org/viewvc?rev=1214855&view=rev
+  +1: markt
+  -1:
