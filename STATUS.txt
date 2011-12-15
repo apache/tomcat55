@@ -31,7 +31,7 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1186763&view=rev
   Fix a typo in Windows uninstaller:
   Do not forget to remove Tomcat keys from 32-bit registry on deinstallation.
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, markt
   -1:
 
 * Make configuration issue for RemoteAddrValve, RemoteHostValve result
@@ -75,7 +75,7 @@ PATCHES PROPOSED TO BACKPORT:
     svn propset svn:eol-style native  connectors/util/java/org/apache/tomcat/util/http/LocalStrings.properties
     svn propset svn:eol-style native  container/catalina/src/share/org/apache/catalina/filters/FailedRequestFilter.java
     svn propset svn:eol-style native  container/webapps/docs/config/filter.xml
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Clean up handling multi-byte chars in the connectors plus makin
@@ -84,7 +84,7 @@ PATCHES PROPOSED TO BACKPORT:
   and r1201452 from TC 6. TC 6 patch applies with small offsets:
   http://people.apache.org/~rjung/patches/connectors_multi-byte_handling_cleanup-v2.patch
   +1: rjung
-  +1: kkolinko (see 5.5 specific version below)
+  +1: kkolinko (see 5.5 specific version below), markt
   -1:
   kkolinko: 5.5 version of the above.
     No changes besides file paths and line numbers and absence of InternalNioOutputBuffer in TC55:
@@ -92,7 +92,7 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Align %2f handling between implementations of UDecoder.convert()
   http://svn.apache.org/viewvc?rev=1203091&view=rev
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Remove obsolete build.xml file that was used to download source tree.
@@ -101,19 +101,19 @@ PATCHES PROPOSED TO BACKPORT:
   1. svn del build/resources/build.xml
   2. apply patch:
   http://people.apache.org/~kkolinko/patches/2011-11-15_tc55_build.patch
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, markt
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52225
   Fix ClassCastException in Alias added for existing host via JMX
   http://svn.apache.org/viewvc?rev=1204856&view=rev
   (without tests; it is r1204860 in TC7)
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
 
 * Do not throw IllegalArgumentException from parseParameters() call when
   chunked POST request is too large, but treat it like an IO error.
   http://svn.apache.org/viewvc?rev=1206200&view=rev
   (without tests; it is r1206205 in TC7)
-  +1: kkolinko
+  +1: kkolinko, markt
   -1:
