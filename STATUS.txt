@@ -24,9 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-PATCHES PROPOSED TO BACKPORT:
-  [ New proposals should be added at the end of the list ]
-
 * Make configuration issue for RemoteAddrValve, RemoteHostValve result
   in the failure of the valve rather than just a warning message.
   Ensure changes to the configuration of these valves via JMX are thread-safe.
@@ -104,3 +101,7 @@ PATCHES PROPOSED TO BACKPORT:
   http://svn.apache.org/viewvc?rev=1215121&view=rev
   +1: markt, funkman, jim
   -1:
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
+
