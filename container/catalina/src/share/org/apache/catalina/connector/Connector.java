@@ -18,7 +18,6 @@
 
 package org.apache.catalina.connector;
 
-import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
@@ -184,6 +183,14 @@ public class Connector
      */
     protected StringManager sm =
         StringManager.getManager(Constants.Package);
+
+
+    /**
+     * The maximum number of parameters (GET plus POST) which will be
+     * automatically parsed by the container. 10000 by default. A value of less
+     * than 0 means no limit.
+     */
+    protected int maxParameterCount = 10000;
 
 
     /**
@@ -498,14 +505,34 @@ public class Connector
     }
 
 
-     /**
-      * Return the mapper.
-      */
-     public Mapper getMapper() {
+    /**
+     * Return the mapper.
+     */
+    public Mapper getMapper() {
+        return (mapper);
+    }
 
-         return (mapper);
 
-     }
+    /**
+     * Return the maximum number of parameters (GET plus POST) that will be
+     * automatically parsed by the container. A value of less than 0 means no
+     * limit.
+     */
+    public int getMaxParameterCount() {
+        return maxParameterCount;
+    }
+
+
+    /**
+     * Set the maximum number of parameters (GET plus POST) that will be
+     * automatically parsed by the container. A value of less than 0 means no
+     * limit.
+     *
+     * @param maxParameterCount The new setting
+     */
+    public void setMaxParameterCount(int maxParameterCount) {
+        this.maxParameterCount = maxParameterCount;
+    }
 
 
     /**

@@ -864,6 +864,11 @@ public class Request
             return (requestDispatcherPath == null) 
                 ? getRequestPathMB().toString()
                 : requestDispatcherPath.toString();
+        } else if (name.equals(Globals.PARAMETER_PARSE_FAILED_ATTR)) {
+            if (coyoteRequest.getParameters().isParseFailed()) {
+                return Boolean.TRUE;
+            }
+            return null;
         }
 
         Object attr=attributes.get(name);
@@ -912,6 +917,26 @@ public class Request
     /**
      * Return the names of all request attributes for this Request, or an
      * empty <code>Enumeration</code> if there are none.
+     * Note that the attribute names return will only be those for the attributes set via
+     * {@link #setAttribute(String, Object)}. Tomcat internal attributes will
+     * not be included although they are accessible via
+     * {@link #getAttribute(String)}. The Tomcat internal attributes include:
+     * <ul>
+     * <li>{@link Globals.DISPATCHER_TYPE_ATTR}</li>
+     * <li>{@link Globals.DISPATCHER_REQUEST_PATH_ATTR}</li>
+     * <li>{@link Globals.CERTIFICATES_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals.CIPHER_SUITE_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals.KEY_SIZE_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals.SSL_SESSION_ID_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals#PARAMETER_PARSE_FAILED_ATTR}</li>
+     * </ul>
+     * The underlying connector may also expose request attributes. These all
+     * have names starting with "org.apache.tomcat" and include:
+     * <ul>
+     * <li>org.apache.tomcat.sendfile.support</li>
+     * </ul>
+     * Connector implementations may return some, all or none of these
+     * attributes and may also support additional attributes.
      */
     public Enumeration getAttributeNames() {
         if (isSecure()) {
@@ -2419,6 +2444,8 @@ public class Request
         parametersParsed = true;
 
         Parameters parameters = coyoteRequest.getParameters();
+        // Set this every time in case limit has been changed via JMX
+        parameters.setLimit(getConnector().getMaxParameterCount());
 
         // getCharacterEncoding() may have been overridden to search for
         // hidden form field containing request encoding
@@ -2459,47 +2486,56 @@ public class Request
         if (!("application/x-www-form-urlencoded".equals(contentType)))
             return;
 
+        boolean success = false;
         int len = getContentLength();
 
-        if (len > 0) {
-            int maxPostSize = connector.getMaxPostSize();
-            if ((maxPostSize > 0) && (len > maxPostSize)) {
-                context.getLogger().info
-                    (sm.getString("coyoteRequest.postTooLarge"));
-                throw new IllegalStateException("Post too large");
-            }
-            try {
-                byte[] formData = null;
-                if (len < CACHED_POST_LEN) {
-                    if (postData == null)
-                        postData = new byte[CACHED_POST_LEN];
-                    formData = postData;
-                } else {
-                    formData = new byte[len];
+        try {
+            if (len > 0) {
+                int maxPostSize = connector.getMaxPostSize();
+                if ((maxPostSize > 0) && (len > maxPostSize)) {
+                    context.getLogger().info
+                        (sm.getString("coyoteRequest.postTooLarge"));
+                    throw new IllegalStateException("Post too large");
                 }
-                int actualLen = readPostBody(formData, len);
-                if (actualLen == len) {
+                try {
+                    byte[] formData = null;
+                    if (len < CACHED_POST_LEN) {
+                        if (postData == null)
+                            postData = new byte[CACHED_POST_LEN];
+                        formData = postData;
+                    } else {
+                        formData = new byte[len];
+                    }
+                    if (readPostBody(formData, len) != len) {
+                        return;
+                    }
                     parameters.processParameters(formData, 0, len);
+                } catch (Throwable t) {
+                    context.getLogger().warn
+                        (sm.getString("coyoteRequest.parseParameters"), t);
+                    return;
                 }
-            } catch (Throwable t) {
-                context.getLogger().warn
-                    (sm.getString("coyoteRequest.parseParameters"), t);
-            }
-        } else if ("chunked".equalsIgnoreCase(
-                coyoteRequest.getHeader("transfer-encoding"))) {
-            byte[] formData = null;
-            try {
-                formData = readChunkedPostBody();
-            } catch (IOException e) {
-                // Client disconnect
-                if (context.getLogger().isDebugEnabled()) {
-                    context.getLogger().debug(
-                            sm.getString("coyoteRequest.parseParameters"), e);
+            } else if ("chunked".equalsIgnoreCase(
+                    coyoteRequest.getHeader("transfer-encoding"))) {
+                byte[] formData = null;
+                try {
+                    formData = readChunkedPostBody();
+                } catch (IOException e) {
+                    // Client disconnect
+                    if (context.getLogger().isDebugEnabled()) {
+                        context.getLogger().debug(
+                                sm.getString("coyoteRequest.parseParameters"), e);
+                    }
+                    return;
                 }
-                return;
+                if (formData != null) {
+                    parameters.processParameters(formData, 0, formData.length);
+                }
             }
-            if (formData != null) {
-                parameters.processParameters(formData, 0, formData.length);
+            success = true;
+        } finally {
+            if (!success) {
+                parameters.setParseFailed(true);
             }
         }
 

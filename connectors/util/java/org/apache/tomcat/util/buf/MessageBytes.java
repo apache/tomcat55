@@ -21,6 +21,7 @@ import java.text.*;
 import java.util.*;
 import java.io.Serializable;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 /**
  * This class is used to represent a subarray of bytes in an HTTP message.
@@ -140,13 +141,13 @@ public final class MessageBytes implements Cloneable, Serializable {
      *  previous conversion is reset.
      *  If no encoding is set, we'll use 8859-1.
      */
-    public void setEncoding( String enc ) {
-	if( !byteC.isNull() ) {
-	    // if the encoding changes we need to reset the converion results
-	    charC.recycle();
-	    hasStrValue=false;
-	}
-	byteC.setEncoding(enc);
+    public void setCharset(Charset charset) {
+        if( !byteC.isNull() ) {
+            // if the encoding changes we need to reset the conversion results
+            charC.recycle();
+            hasStrValue=false;
+        }
+        byteC.setCharset(charset);
     }
 
     /** 

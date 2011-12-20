@@ -24,31 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Improve performance of parameter processing
-      <add>
-        Improve performance of parameter processing for GET and POST requests.
-        Also add an option to limit the maximum number of parameters processed
-        per request. This defaults to 10000. Excessive parameters are ignored.
-        Note that <code>FailedRequestFilter</code> can be used to reject the
-        request if some parameters were ignored. (markt/kkolinko)
-      </add>
-      <add>
-        New filter <code>FailedRequestFilter</code> that will reject a request
-        if there were errors during HTTP parameter parsing. (kkolinko)
-      </add>
-  Before the patch:
-  Should be created by patch tool automatically, but just to be sure:
-    mkdir container/catalina/src/share/org/apache/catalina/filters
-    svn add container/catalina/src/share/org/apache/catalina/filters
-  Apply patch:
-    http://people.apache.org/~kkolinko/patches/2011-11-17_tc55_parameters-v5.patch
-  After the patch:
-    svn propset svn:eol-style native  connectors/util/java/org/apache/tomcat/util/http/LocalStrings.properties
-    svn propset svn:eol-style native  container/catalina/src/share/org/apache/catalina/filters/FailedRequestFilter.java
-    svn propset svn:eol-style native  container/webapps/docs/config/filter.xml
-  +1: kkolinko, markt, funkman, jim
-  -1:
-
 * Align %2f handling between implementations of UDecoder.convert()
   http://svn.apache.org/viewvc?rev=1203091&view=rev
   +1: kkolinko, markt, funkman, jim
