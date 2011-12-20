@@ -42,6 +42,36 @@
 <section name="Tomcat 5.5.35 (jim)" rtext="">
   <subsection name="Catalina">
     <changelog>
+      <add>
+        Make configuration issues for security related Valves and Filters result
+        in the failure of the valve or filter rather than just a warning
+        message. (markt)
+      </add>
+      <fix>
+        Ensure changes to the configuration of the RemoteHostValve and the
+        RemoteAddrValve via JMX are thread-safe. (markt)
+      </fix>
+      <update>
+        In <code>RequestFilterValve</code> (<code>RemoteAddrValve</code>,
+        <code>RemoteHostValve</code>): refactor value matching logic into
+        separate method and expose this new method <code>isAllowed</code>
+        through JMX. (kkolinko)
+      </update>
+      <add>
+        Improve performance of parameter processing for GET and POST requests.
+        Also add an option to limit the maximum number of parameters processed
+        per request. This defaults to 10000. Excessive parameters are ignored.
+        Note that <code>FailedRequestFilter</code> can be used to reject the
+        request if some parameters were ignored. (markt/kkolinko)
+      </add>
+      <add>
+        New filter <code>FailedRequestFilter</code> that will reject a request
+        if there were errors during HTTP parameter parsing. (kkolinko)
+      </add>
+      <fix>
+        Slightly improve performance of UDecoder.convert(). Align
+        <code>%2f</code> handling between implementations. (kkolinko)
+      </fix>
       <fix>
         <bug>52225</bug>: Fix ClassCastException when adding an alias for an
         existing host via JMX. (kkolinko)
