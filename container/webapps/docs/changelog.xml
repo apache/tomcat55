@@ -46,6 +46,11 @@
         <bug>52225</bug>: Fix ClassCastException when adding an alias for an
         existing host via JMX. (kkolinko)
       </fix>
+      <fix>
+        Do not throw an IllegalArgumentException from a
+        <code>parseParameters()</code> call when a chunked POST request is too
+        large, but treat it like an IO error. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="General">
