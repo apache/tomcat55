@@ -670,9 +670,7 @@ public class InternalOutputBuffer
             // but is the only consistent approach within the current
             // servlet framework.  It must suffice until servlet output
             // streams properly encode their output.
-            if ((c <= 31) && (c != 9)) {
-                c = ' ';
-            } else if (c == 127) {
+            if (((c <= 31) && (c != 9)) || c == 127 || c > 255) {
                 c = ' ';
             }
             buf[pos++] = (byte) c;
@@ -717,9 +715,7 @@ public class InternalOutputBuffer
             // but is the only consistent approach within the current
             // servlet framework.  It must suffice until servlet output
             // streams properly encode their output.
-            if ((c <= 31) && (c != 9)) {
-                c = ' ';
-            } else if (c == 127) {
+            if (((c <= 31) && (c != 9)) || c == 127 || c > 255) {
                 c = ' ';
             }
             buf[pos++] = (byte) c;

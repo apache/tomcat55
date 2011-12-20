@@ -47,6 +47,13 @@
       </update>
     </changelog>
   </subsection>
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        Improve multi-byte character handling in all connectors. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>
