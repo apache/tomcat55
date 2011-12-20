@@ -881,8 +881,6 @@
         filtering="true" encoding="ISO-8859-1" />
 
     <!-- Add documents to the tomcat-docs webapp -->
-    <copy file="${basedir}/resources/build.xml"
-        todir="${tomcat.build}/webapps/tomcat-docs" />
     <copy file="./RELEASE-NOTES"
         tofile="${tomcat.build}/webapps/tomcat-docs/RELEASE-NOTES.txt"
         filtering="true" encoding="ISO-8859-1" />
@@ -1448,9 +1446,6 @@
 
     <!-- Main build file -->
     <copy todir="${tomcat.dist}/src">
-      <fileset dir="${basedir}/resources">
-        <include name="build.xml" />
-      </fileset>
       <fileset dir="..">
         <include name="LICENSE" />
         <include name="NOTICE" />
