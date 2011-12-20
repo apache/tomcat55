@@ -24,13 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52225
-  Fix ClassCastException in Alias added for existing host via JMX
-  http://svn.apache.org/viewvc?rev=1204856&view=rev
-  (without tests; it is r1204860 in TC7)
-  +1: kkolinko, markt, funkman, jim
-  -1:
-
 * Do not throw IllegalArgumentException from parseParameters() call when
   chunked POST request is too large, but treat it like an IO error.
   http://svn.apache.org/viewvc?rev=1206200&view=rev
