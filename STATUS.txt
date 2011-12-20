@@ -102,5 +102,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52335
   Only handle <\% and not \% as escaped in template text.
   http://svn.apache.org/viewvc?rev=1215121&view=rev
-  +1: markt
+  +1: markt, funkman
   -1:
