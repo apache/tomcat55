@@ -229,6 +229,12 @@
                description="The comma-delimited set of allow expressions"
                type="java.lang.String"/>
 
+    <attribute name="allowValid"
+               description="Becomes false if assigned value of allow expression is not syntactically correct"
+               is="true"
+               type="boolean"
+               writeable="false"/>
+
     <attribute name="containerName"
                description="Object name of the container"
                type="javax.management.ObjectName"/>
@@ -242,6 +248,20 @@
                description="The comma-delimited set of deny expressions"
                type="java.lang.String"/>
 
+    <attribute name="denyValid"
+               description="Becomes false if assigned value of deny expression is not syntactically correct"
+               is="true"
+               type="boolean"
+               writeable="false"/>
+
+    <operation name="isAllowed"
+               description="Tests whether a client with this IP address value is allowed access by the current valve configuration"
+               impact="INFO"
+               returnType="boolean">
+      <parameter name="ipAddress"
+          description="IP address to be tested"
+                 type="java.lang.String"/>
+    </operation>
   </mbean>
 
   <mbean name="RemoteHostValve"
@@ -256,6 +276,12 @@
                description="The comma-delimited set of allow expressions"
                type="java.lang.String"/>
 
+    <attribute name="allowValid"
+               description="Becomes false if assigned value of allow expression is not syntactically correct"
+               is="true"
+               type="boolean"
+               writeable="false"/>
+
     <attribute name="containerName"
                description="Object name of the container"
                type="javax.management.ObjectName"/>
@@ -268,6 +294,21 @@
     <attribute   name="deny"
                description="The comma-delimited set of deny expressions"
                type="java.lang.String"/>
+
+    <attribute name="denyValid"
+               description="Becomes false if assigned value of deny expression is not syntactically correct"
+               is="true"
+               type="boolean"
+               writeable="false"/>
+ 
+    <operation name="isAllowed"
+               description="Tests whether a client with this host name is allowed access by the current valve configuration"
+               impact="INFO"
+               returnType="boolean">
+      <parameter name="hostName"
+          description="host name to be tested"
+                 type="java.lang.String"/>
+    </operation>
 
   </mbean>
 
