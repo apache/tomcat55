@@ -24,12 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52335
-  Only handle <\% and not \% as escaped in template text.
-  http://svn.apache.org/viewvc?rev=1215121&view=rev
-  +1: markt, funkman, jim
-  -1:
-
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 

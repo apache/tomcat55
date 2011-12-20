@@ -1405,6 +1405,7 @@ class Parser implements TagConstants {
         }
 
         while (reader.hasMoreInput()) {
+            int prev = ch;
             ch = reader.nextChar();
             if (ch == '<') {
                 reader.pushChar();
@@ -1430,10 +1431,11 @@ class Parser implements TagConstants {
                     ttext.write('\\');
                     break;
                 }
-                // Look for \% or \$
+                // Look for <\% or \$
                 // Only recognize \$ if isELIgnored is false
                 char next = (char)reader.peekChar();
-                if (next == '%' || (next == '$' && !pageInfo.isELIgnored())) {
+                if ((prev == '<' && next == '%') ||
+                        (next == '$' && !pageInfo.isELIgnored())) {
                     ch = reader.nextChar();
                 }
             }

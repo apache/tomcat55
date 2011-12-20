@@ -67,6 +67,14 @@
       </fix>
     </changelog>
   </subsection>
+  <subsection name="Jasper">
+    <changelog>
+      <fix>
+        <bug>52335</bug>: Only handle <code>&lt;\%</code> and not
+        <code>\%</code> as escaped in template text. (markt)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>
