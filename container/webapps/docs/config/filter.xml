@@ -70,6 +70,10 @@
     filter is not so high, because parameter parsing does check content type
     of the request before consuming the request body.</p>
 
+    <p>Note, that for the POST requests to be parsed correctly, a
+    <code>SetCharacterEncodingFilter</code> filter must be configured above
+    this one. See CharacterEncoding page in the FAQ for details.</p>
+
     <p>The request is rejected with HTTP status code 400 (Bad Request).</p>
 
   </subsection>
@@ -77,8 +81,7 @@
   <subsection name="Filter Class Name">
 
     <p>The filter class name for the Failed Request Filter is
-    <strong><code>org.apache.catalina.filters.FailedRequestFilter</code>
-    </strong>.</p>
+    <strong><code>org.apache.catalina.filters.FailedRequestFilter</code></strong>.</p>
 
   </subsection>
 
