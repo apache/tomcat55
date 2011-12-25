@@ -40,3 +40,10 @@ PATCHES PROPOSED TO BACKPORT:
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/SetCharacterEncodingFilter.java
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
+  Do not fail in Parameter parsing when debug logging is enabled.
+  Also do not flag extra '&' as errors.
+  http://svn.apache.org/viewvc?rev=1224659&view=rev
+  +1: kkolinko
+  -1:
