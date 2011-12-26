@@ -116,6 +116,11 @@
         <bug>52172</bug>: Update Tomcat build instructions. Includes changes
         proposed by bmargulies. (kkolinko)
       </update>
+      <fix>
+        <bug>52243</bug>: Improve windows service documentation to clarify how
+        to include <code>#</code> and/or <code>;</code> in the value of an
+        environment variable that is passed to the service. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Other">
