@@ -1388,7 +1388,7 @@ class Parser implements TagConstants {
 
     /*
      * Parse for a template text string until '<' or "${" is encountered, 
-     * recognizing escape sequences "\%" and "\$".
+     * recognizing escape sequences "<\%" and "\$".
      */
     private void parseTemplateText(Node parent) throws JasperException {
 
