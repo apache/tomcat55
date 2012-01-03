@@ -363,7 +363,7 @@
                 version="true"
                doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;"
             windowtitle="${component.title} (Version ${component.version})"
-                 bottom="Copyright (c) 2001-2011 - Apache Software Foundation">
+                 bottom="Copyright (c) 2001-2012 - Apache Software Foundation">
       <classpath refid="compile.classpath"/>
     </javadoc>
   </target>

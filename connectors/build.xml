@@ -140,7 +140,7 @@
       version="true"
       windowtitle="Tomcat Connector Documentation"
       doctitle="Tomcat Connector"
-      bottom="Copyright &amp;#169; 2003-2011 Apache Software Foundation.  All Rights Reserved.">
+      bottom="Copyright &amp;#169; 2003-2012 Apache Software Foundation.  All Rights Reserved.">
 
       <fileset dir="util/java" includes="**/*.java"/>
       <fileset dir="coyote/src/java" includes="**/*.java">

@@ -800,7 +800,7 @@
       version="true"
       windowtitle="Tomcat API Documentation"
       doctitle="Tomcat API"
-      bottom="Copyright &amp;#169; 2000-2011 Apache Software Foundation.  All Rights Reserved."
+      bottom="Copyright &amp;#169; 2000-2012 Apache Software Foundation.  All Rights Reserved."
       additionalparam="-breakiterator">
     	<excludepackage name="org.apache.ajp.*" />
     	<excludepackage name="org.apache.coyote.tomcat3" />
