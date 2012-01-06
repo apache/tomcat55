@@ -69,6 +69,14 @@
         if there were errors during HTTP parameter parsing. (kkolinko)
       </add>
       <fix>
+        <bug>52384</bug>: Do not fail with parameter parsing when debug logging
+        is enabled. (kkolinko, jim)
+      </fix>
+      <fix>
+        Do not flag extra '&amp;' characters in parameters as parse errors.
+        (kkolinko, jim)
+      </fix>
+      <fix>
         Slightly improve performance of UDecoder.convert(). Align
         <code>%2f</code> handling between implementations. (kkolinko)
       </fix>

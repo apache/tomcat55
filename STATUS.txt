@@ -24,12 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
-  Do not fail in Parameter parsing when debug logging is enabled.
-  Also do not flag extra '&' as errors.
-  http://svn.apache.org/viewvc?rev=1224659&view=rev
-  +1: kkolinko, rjung, jim
-  -1:
 
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
