@@ -51,6 +51,58 @@
 </section>
 
 
+<section name="Set Character Encoding Filter">
+
+  <subsection name="Introduction">
+
+    <p>User agents don&apos;t always include character encoding information in
+    requests. Depending on the how the request is processed, usually the
+    default encoding of ISO-8859-1 is used. This is not always
+    desirable. This filter provides options for setting that encoding or
+    forcing it to a particular value. Essentially this filter calls
+    <code>ServletRequest.setCharacterEncoding()</code> method.</p>
+
+    <p>Effectively the value set by this filter is used when parsing parameters
+    in a POST request, if parameter parsing occurs later than this filter. Thus
+    the order of filter mappings is important. Note that the encoding for GET
+    requests is not set here, but on a <strong>Connector</strong>. See
+    CharacterEncoding page in the FAQ for details.</p>
+
+  </subsection>
+
+  <subsection name="Filter Class Name">
+
+    <p>The filter class name for the Set Character Encoding Filter is
+    <strong><code>org.apache.catalina.filters.SetCharacterEncodingFilter</code></strong>.</p>
+
+  </subsection>
+
+  <subsection name="Initialisation parameters">
+
+    <p>The Set Character Encoding Filter supports the following initialization
+    parameters:</p>
+
+    <attributes>
+
+      <attribute name="encoding" required="true">
+        <p>Name of the character encoding which should be set.</p>
+      </attribute>
+
+      <attribute name="ignore" required="false">
+        <p>Determines if any character encoding specified by the user agent is
+        ignored. If this attribute is <code>true</code>, any value provided by
+        the user agent is ignored. If <code>false</code>, the encoding is only
+        set if the user agent did not specify an encoding. The default value
+        is <code>false</code>.</p>
+      </attribute>
+
+    </attributes>
+
+  </subsection>
+
+</section>
+
+
 <section name="Failed Request Filter">
 
   <subsection name="Introduction">

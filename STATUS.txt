@@ -24,19 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Backport SetCharacterEncodingFilter
-  Justification:
-    FailedRequestFilter is easier to configure when this one is
-    available as well.
-
-  1) patch
-   http://people.apache.org/~kkolinko/patches/2011-12-22_tc55_SetCharacterEncodingFilter.patch
-  2)
-   svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/Constants.java
-   svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/LocalStrings.properties
-   svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/SetCharacterEncodingFilter.java
-  +1: kkolinko, rjung, jim
-  -1:
 
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
