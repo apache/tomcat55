@@ -81,6 +81,12 @@
         <code>parseParameters()</code> call when a chunked POST request is too
         large, but treat it like an IO error. (kkolinko)
       </fix>
+      <add>
+        Add SetCharacterEncodingFilter (similar to the one contained in the
+        examples web application)
+        to the <code>org.apache.catalina.filters</code> package so it is
+        available for all web applications. (kkolinko)
+      </add>
     </changelog>
   </subsection>
   <subsection name="General">
