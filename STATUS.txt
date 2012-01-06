@@ -38,7 +38,7 @@ PATCHES PROPOSED TO BACKPORT:
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/Constants.java
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/LocalStrings.properties
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/SetCharacterEncodingFilter.java
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, jim
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
