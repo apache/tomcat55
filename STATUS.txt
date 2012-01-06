@@ -58,3 +58,4 @@ PATCHES PROPOSED TO BACKPORT:
   -1:
   rjung: Why do we compare "parameterCount >= limit" in line 241?
          Shouldn't it be ">"?
+  kkolinko: I agree, it must be changed to "> limit".
