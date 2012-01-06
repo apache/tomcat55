@@ -19,7 +19,7 @@
 # sign all the files in the release directory
 
 
-VERSION=v5.5.30
+VERSION=v5.5.35
 cd $VERSION
 for i in *.tar.gz *.exe *.zip
 do

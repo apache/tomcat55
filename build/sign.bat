@@ -20,7 +20,7 @@ rem pass in your password as the first argument, then this script will
 rem sign all the files in the release directory
 
 @echo off
-set VERSION=v5.5.30
+set VERSION=v5.5.35
 FOR /R %cd%\release\%VERSION% %%i in (*.tar.gz) do (
   echo Signing %%i
   echo %1|gpg --passphrase-fd 0 -a -b %%i 
