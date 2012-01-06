@@ -24,17 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-
-PATCHES PROPOSED TO BACKPORT:
-  [ New proposals should be added at the end of the list ]
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
-  Do not fail in Parameter parsing when debug logging is enabled.
-  Also do not flag extra '&' as errors.
-  http://svn.apache.org/viewvc?rev=1224659&view=rev
-  +1: kkolinko, rjung
-  -1:
-
 * Reduce log level for the message about hitting maxParameterCount limit
   from WARN to INFO.
   in /connectors/util/java/org/apache/tomcat/util/http/Parameters.java line 243:
@@ -46,3 +35,15 @@ PATCHES PROPOSED TO BACKPORT:
   rjung: Why do we compare "parameterCount >= limit" in line 241?
          Shouldn't it be ">"?
   kkolinko: I agree, it must be changed to "> limit".
+
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
+  Do not fail in Parameter parsing when debug logging is enabled.
+  Also do not flag extra '&' as errors.
+  http://svn.apache.org/viewvc?rev=1224659&view=rev
+  +1: kkolinko, rjung
+  -1:
+
