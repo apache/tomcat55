@@ -24,9 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-PATCHES PROPOSED TO BACKPORT:
-  [ New proposals should be added at the end of the list ]
-
 * Backport SetCharacterEncodingFilter
   Justification:
     FailedRequestFilter is easier to configure when this one is
@@ -40,6 +37,9 @@ PATCHES PROPOSED TO BACKPORT:
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/SetCharacterEncodingFilter.java
   +1: kkolinko, rjung, jim
   -1:
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
   Do not fail in Parameter parsing when debug logging is enabled.
