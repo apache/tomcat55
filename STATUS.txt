@@ -38,14 +38,14 @@ PATCHES PROPOSED TO BACKPORT:
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/Constants.java
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/LocalStrings.properties
    svn propset svn:eol-style native container/catalina/src/share/org/apache/catalina/filters/SetCharacterEncodingFilter.java
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52384
   Do not fail in Parameter parsing when debug logging is enabled.
   Also do not flag extra '&' as errors.
   http://svn.apache.org/viewvc?rev=1224659&view=rev
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
 
 * Reduce log level for the message about hitting maxParameterCount limit
@@ -54,5 +54,7 @@ PATCHES PROPOSED TO BACKPORT:
   - log.warn(sm.getString("parameters.maxCountFail",
   + log.info(sm.getString("parameters.maxCountFail",
   (backport of http://svn.apache.org/viewvc?rev=1224665&view=rev)
-  +1: kkolinko
+  +1: kkolinko, rjung
   -1:
+  rjung: Why do we compare "parameterCount >= limit" in line 241?
+         Shouldn't it be ">"?
