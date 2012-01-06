@@ -32,6 +32,6 @@ PATCHES PROPOSED TO BACKPORT:
   Do not fail in Parameter parsing when debug logging is enabled.
   Also do not flag extra '&' as errors.
   http://svn.apache.org/viewvc?rev=1224659&view=rev
-  +1: kkolinko, rjung
+  +1: kkolinko, rjung, jim
   -1:
 
