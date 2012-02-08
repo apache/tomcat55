@@ -32,7 +32,7 @@ PATCHES PROPOSED TO BACKPORT:
   Propose new implementation of ByteChunk.toStringInternal().
   This fix does not reintroduce issue BZ51400.
   This fix avoids http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=28257
+  https://issues.apache.org/bugzilla/attachment.cgi?id=28274 (remove generics )
   +1: kfujino
   -1:
 
