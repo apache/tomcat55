@@ -39,6 +39,20 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps, Other
 -->
+<section name="Tomcat 5.5.36 (jim)" rtext="">
+  <subsection name="Catalina">
+    <changelog>
+    </changelog>
+  </subsection>
+  <subsection name="Webapps">
+    <changelog>
+      <fix>
+        <bug>52641</bug>: Remove mentioning of ldap.jar from docs.
+        Patch provided by Felix Schumacher. (rjung)
+      </fix>
+    </changelog>
+  </subsection>
+</section>
 <section name="Tomcat 5.5.35 (jim)" rtext="released 2012-01-16">
   <subsection name="Catalina">
     <changelog>
