@@ -36,3 +36,7 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kfujino
   -1:
 
+* Upgrade to Commons Daemon 1.0.9
+  http://svn.apache.org/viewvc?rev=1244511&view=rev
+  +1: markt
+  -1:
