@@ -40,6 +40,13 @@
  General, Catalina, Coyote, Jasper, Cluster, Webapps, Other
 -->
 <section name="Tomcat 5.5.36 (jim)" rtext="">
+  <subsection name="General">
+    <changelog>
+      <update>
+        Update to Apache Commons Daemon 1.0.9. (markt)
+      </update>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>

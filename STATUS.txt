@@ -36,11 +36,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kfujino
   -1:
 
-* Upgrade to Commons Daemon 1.0.9
-  http://svn.apache.org/viewvc?rev=1244511&view=rev
-  +1: markt, kkolinko, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52677
   Filters need to implement Filter
   http://people.apache.org/~markt/patches/2012-02-17-bug52677-tc5.patch
