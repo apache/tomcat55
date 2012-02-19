@@ -40,5 +40,5 @@ PATCHES PROPOSED TO BACKPORT:
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52677
   Filters need to implement Filter
   http://people.apache.org/~markt/patches/2012-02-17-bug52677-tc5.patch
-  +1: markt
+  +1: markt, kkolinko
   -1:
