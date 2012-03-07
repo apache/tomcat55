@@ -47,6 +47,14 @@
       </update>
     </changelog>
   </subsection>
+  <subsection name="Catalina">
+    <changelog>
+      <fix>
+        <bug>52677</bug>: The new <code>SetCharacterEncodingFilter</code> needs
+        to implement <code>Filter</code> to be useful. (markt)
+      </fix>
+    </changelog>
+  </subsection>
   <subsection name="Webapps">
     <changelog>
       <fix>
