@@ -19,6 +19,7 @@ package org.apache.catalina.filters;
 import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -55,7 +56,7 @@ import org.apache.tomcat.util.res.StringManager;
  * and <code>User-Agent</code> headers, or a value stashed in the current
  * user's session.</p>
  */
-public class SetCharacterEncodingFilter {
+public class SetCharacterEncodingFilter implements Filter {
 
     private static final Log log =
         LogFactory.getLog(SetCharacterEncodingFilter.class);
@@ -105,6 +106,11 @@ public class SetCharacterEncodingFilter {
         }
     }
 
+    public void destroy() {
+        // NOOP
+    }
+    
+    
     /**
      * Select and set (if specified) the character encoding to be used to
      * interpret request parameters for this request.
