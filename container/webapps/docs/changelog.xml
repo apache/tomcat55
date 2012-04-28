@@ -61,6 +61,10 @@
         <bug>52641</bug>: Remove mentioning of ldap.jar from docs.
         Patch provided by Felix Schumacher. (rjung)
       </fix>
+      <fix>
+        <bug>53158</bug>: Fix documented defaults for DBCP.
+        Patch provided by ph.dezanneau at gmail.com. (rjung)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Other">
