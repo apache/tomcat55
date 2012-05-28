@@ -36,3 +36,11 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kfujino
   -0: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8) 
   -1:
+
+* https://issues.apache.org/bugzilla/show_bug.cgi?id=52055#c14
+  Correctly reset ChunkedInputFilter.needCRLFParse flag when the filter is
+  recycled.
+  http://svn.apache.org/viewvc?rev=1342795&view=rev
+  (r1342797 in Tomcat 7)
+  +1: kkolinko
+  -1:
