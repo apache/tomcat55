@@ -44,3 +44,11 @@ PATCHES PROPOSED TO BACKPORT:
   (r1342797 in Tomcat 7)
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53050
+  Fix XOR arithmetics and charset issue when calculating entropy to
+  initialize random numbers generator in session manager. Based on
+  proposal by Andras Rozsa.
+  https://issues.apache.org/bugzilla/attachment.cgi?id=28895
+  +1: kkolinko
+  -1:
