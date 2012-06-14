@@ -52,10 +52,3 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=28895
   +1: kkolinko, schultz
   -1:
-
-* Remove the KEYS file from the src distribution.
-  It will still be copied to the release directory but not
-  be contained in the downloaded tar or zip.
-  http://people.apache.org/~rjung/patches/remove-keys-from-release-tc55.patch
-  +1: rjung
-  -1:
