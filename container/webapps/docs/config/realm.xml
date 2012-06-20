@@ -506,7 +506,7 @@
     that is based on a UserDatabase resource made available through the global
     JNDI resources configured for this Tomcat instance.</p>
 
-    <p>The Memory Based Realm implementation supports the following
+    <p>The UserDatabase Realm implementation supports the following
     additional attributes:</p>
 
     <attributes>
@@ -525,8 +525,8 @@
       </attribute>
 
       <attribute name="resourceName" required="true">
-        <p>The name of the resource that this realm will use for user, password
-        and role information.</p>
+        <p>The name of the global <code>UserDatabase</code> resource
+        that this realm will use for user, password and role information.</p>
       </attribute>
 
     </attributes>
@@ -600,32 +600,6 @@
     <p>See the <a href="../realm-howto.html">Container-Managed Security Guide</a> for more
     information on setting up container managed security using the
     Memory Based Realm component.</p>
-
-  </subsection>
-
-
-  <subsection name="User Database Realm - org.apache.catalina.realm.UserDatabaseRealm">
-
-    <p>The <strong>User Database Realm</strong> is Realm implementation
-    that is based on an implementation of the <code>UserDatabase</code>
-    interface that is made available through the global JNDI resources
-    configured for this Tomcat instance.</p>
-
-    <p>The User Database Realm implementation supports the following
-    additional attributes:</p>
-
-    <attributes>
-
-      <attribute name="resourceName" required="true">
-        <p>The global JNDI name of the <code>UserDatabase</code> resource
-        used by this Realm.</p>
-      </attribute>
-
-    </attributes>
-
-    <p>See the <a href="../realm-howto.html">Container-Managed Security Guide</a> for more
-    information on setting up container managed security using the
-    UserDatabase Realm component.</p>
 
   </subsection>
 
