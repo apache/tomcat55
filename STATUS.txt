@@ -52,3 +52,33 @@ PATCHES PROPOSED TO BACKPORT:
   https://issues.apache.org/bugzilla/attachment.cgi?id=28895
   +1: kkolinko, schultz
   -1:
+
+* Implement maxHeaderCount attribute on HTTP Connectors.
+  It is equivalent of LimitRequestFields directive of Apache HTTPD
+  See r1356239 in Tomcat 6.
+
+  Notes:
+  1. Implemented for HTTP protocol only. (MimeHeaders.setLimit() is called
+  by HTTP protocol processors only).
+
+  I suppose that users of AJP can leverage the LimitRequestFields directive
+  in Apache HTTPD server.
+
+  2. The feature is manageable through JMX on the ProtocolHandler MBean.
+
+  Unlike later Tomcat versions, I did not add setter/getter methods to
+  Connector class and did not expose the property on Connector MBean.
+
+  Note that Catalina MBeans are not visible in Tomcat 5.5 by default.
+  See r1356696 for instructions.
+
+  3. To test the feature one can use
+    http://localhost:8080/servlets-examples/servlet/RequestHeaderExample
+
+  Refreshing the page in Firefox changes the number of headers in incoming request
+  (+= 'cache-control' for F5, += 'pragma=no-cache' for Ctrl+F5 refresh).
+
+  Patch:
+  http://people.apache.org/~kkolinko/patches/2012-07-03_tc55_maxHeaderCount_v1.patch
+  +1: kkolinko
+  -1:
