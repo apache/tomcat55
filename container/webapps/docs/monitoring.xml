@@ -42,6 +42,15 @@
   
   </section>
 
+  <section name="Enabling JMX Local">
+    <p>To enable JMX access to Tomcat that runs on the same machine,
+    add the following parameter to your Tomcat startup script:
+    </p>
+    <source>
+    set CATALINA_OPTS=-Dcom.sun.management.jmxremote
+    </source>
+  </section>
+
   <section name="Enabling JMX Remote">
 
     <p>The Sun website includes the list of options and how to configure JMX Remote on Java 5:
@@ -49,7 +58,7 @@
         http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html</a>.
     </p>
     <p>For quick installation you find here a short installation guide:</p>
-    <p>Add the following parameters to your tomcat startup script:
+    <p>Add the following parameters to your Tomcat startup script:
     <source>
     set CATALINA_OPTS=-Dcom.sun.management.jmxremote \
     -Dcom.sun.management.jmxremote.port=%my.jmx.port% \
@@ -100,7 +109,7 @@ controlRole tomcat
     <ol>
       <li>Install the tomcat compat package</li>
       <li>Install the mx4j-tools.jar at common/lib. Please, use the same MX4j 
-          version as your tomcat release</li>
+          version as your Tomcat release</li>
       <li>Configure a MX4J JMX HTTP Adaptor at your AJP Connector
       <p>
       <source>
@@ -117,10 +126,10 @@ controlRole tomcat
       <p><b>Note</b>: MX4J JSR 160 RMI Adaptor to support JDK 1.4 currently not integrated.
       </p>
       </li>
-      <li>Start your tomcat and look with a browser at http://${JMX.HOST}:${JMX.PORT}</li>
+      <li>Start your Tomcat and look with a browser at http://${JMX.HOST}:${JMX.PORT}</li>
       <li>With the mx connector parameter <code>mx.authMode="basic" mx.authUser="tomcat" mx.authPassword="strange"</code> 
           you can control the access!</li>
-      <li>A complete list of all tomcat core MBeans can you find at <a href="http://tomcat.apache.org/tomcat-5.5-doc/catalina/funcspecs/mbean-names.html">
+      <li>A complete list of all Tomcat core MBeans can you find at <a href="http://tomcat.apache.org/tomcat-5.5-doc/catalina/funcspecs/mbean-names.html">
         http://tomcat.apache.org/tomcat-5.5-doc/catalina/funcspecs/mbean-names.html</a>.</li>
     </ol>
     </p>
@@ -128,7 +137,10 @@ controlRole tomcat
   </section>
 
   <section name="Manage Tomcat with JMX remote Ant Tasks">
-   <p>For simple tomcat ant task usage with ant 1.6.x we have integrate import and antlib support.</p>   
+   <p>To simplify JMX usage with Apache Ant 1.6.x, a set of tasks is provided
+   that may be used with antlib. The tasks can also be defined explicitly. An
+   Ant project that defines the tasks is provided and can be imported into
+   your project.</p>
    <p><b>antlib support</b>: Copy your catalina-ant.jar from $CATALINA_HOME/server/lib to $ANT_HOME/lib.</p>
    <p>The following example shows the JMX Accessor usage:</p>
    <table border="1">
@@ -870,7 +882,7 @@ Example to create remote mbean<br/>
 </source>
 </p>  
 <p>
-    <b>Warning</b>: A lot of tomcat mbeans can't be really create and connect with <br/>
+    <b>Warning</b>: A lot of Tomcat mbeans can't be really create and connect with <br/>
     the parent. The valve, cluster or realm Mbeans are not autconnect with there parent.<br/> 
     Use <em>MBeanFacrory</em> create operation instead.
 </p>
@@ -923,7 +935,7 @@ Example to unregister remote mbean<br/>
 </source>
 </p>  
 <p>
-    <b>Warning</b>: A lot of tomcat mbeans can't be really unregister. <br/>
+    <b>Warning</b>: A lot of Tomcat mbeans can't be really unregister. <br/>
     The Mbeans are not deregister from parent. Use <em>MBeanFacrory</em> <br/>
     remove operation instead.
 </p>
