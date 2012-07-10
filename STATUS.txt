@@ -42,7 +42,7 @@ PATCHES PROPOSED TO BACKPORT:
   recycled.
   http://svn.apache.org/viewvc?rev=1342795&view=rev
   (r1342797 in Tomcat 7)
-  +1: kkolinko, schultz
+  +1: kkolinko, schultz, jim
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53050
@@ -50,7 +50,7 @@ PATCHES PROPOSED TO BACKPORT:
   initialize random numbers generator in session manager. Based on
   proposal by Andras Rozsa.
   https://issues.apache.org/bugzilla/attachment.cgi?id=28895
-  +1: kkolinko, schultz
+  +1: kkolinko, schultz, jim
   -1:
 
 * Implement maxHeaderCount attribute on HTTP Connectors.
