@@ -24,14 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* https://issues.apache.org/bugzilla/show_bug.cgi?id=52055#c14
-  Correctly reset ChunkedInputFilter.needCRLFParse flag when the filter is
-  recycled.
-  http://svn.apache.org/viewvc?rev=1342795&view=rev
-  (r1342797 in Tomcat 7)
-  +1: kkolinko, schultz, jim
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53050
   Fix XOR arithmetics and charset issue when calculating entropy to
   initialize random numbers generator in session manager. Based on
