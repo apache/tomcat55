@@ -24,19 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-
-PATCHES PROPOSED TO BACKPORT:
-  [ New proposals should be added at the end of the list ]
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52579
-  Propose new implementation of ByteChunk.toStringInternal().
-  This fix does not reintroduce issue BZ51400.
-  This fix avoids http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=28274 (remove generics )
-  +1: kfujino
-  -0: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8) 
-  -1:
-
 * https://issues.apache.org/bugzilla/show_bug.cgi?id=52055#c14
   Correctly reset ChunkedInputFilter.needCRLFParse flag when the filter is
   recycled.
@@ -51,6 +38,18 @@ PATCHES PROPOSED TO BACKPORT:
   proposal by Andras Rozsa.
   https://issues.apache.org/bugzilla/attachment.cgi?id=28895
   +1: kkolinko, schultz, jim
+  -1:
+
+PATCHES PROPOSED TO BACKPORT:
+  [ New proposals should be added at the end of the list ]
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52579
+  Propose new implementation of ByteChunk.toStringInternal().
+  This fix does not reintroduce issue BZ51400.
+  This fix avoids http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991.
+  https://issues.apache.org/bugzilla/attachment.cgi?id=28274 (remove generics )
+  +1: kfujino
+  -0: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8) 
   -1:
 
 * Implement maxHeaderCount attribute on HTTP Connectors.
