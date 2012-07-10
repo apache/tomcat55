@@ -25,6 +25,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
 import java.security.MessageDigest;
@@ -396,7 +397,12 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
                 // Ignore
             }
             if (apr) {
-                setEntropy(new String(result));
+                try {
+                    setEntropy(new String(result, "ISO-8859-1"));
+                } catch (UnsupportedEncodingException ux) {
+                    // ISO-8859-1 should always be supported
+                    throw new Error(ux);
+                }
             } else {
                 setEntropy(this.toString());
             }
@@ -561,7 +567,7 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
             long t1 = seed;
             char entropy[] = getEntropy().toCharArray();
             for (int i = 0; i < entropy.length; i++) {
-                long update = ((byte) entropy[i]) << ((i % 8) * 8);
+                long update = ((long) entropy[i]) << ((i % 8) * 8);
                 seed ^= update;
             }
             try {

@@ -24,13 +24,6 @@ $Id$
 PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
   [ start all new proposals below, under PATCHES PROPOSED. ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53050
-  Fix XOR arithmetics and charset issue when calculating entropy to
-  initialize random numbers generator in session manager. Based on
-  proposal by Andras Rozsa.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=28895
-  +1: kkolinko, schultz, jim
-  -1:
 
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
