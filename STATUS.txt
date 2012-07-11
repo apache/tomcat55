@@ -66,3 +66,11 @@ PATCHES PROPOSED TO BACKPORT:
   http://people.apache.org/~kkolinko/patches/2012-07-03_tc55_maxHeaderCount_v1.patch
   +1: kkolinko
   -1:
+
+* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53531
+  ExpandWar.expand does not check the return value of File.mkdirs.
+  Note that this is not a backport -- it's just a fix for 5.5.x.
+  Patch is attached to BZ ticket.
+  +1: schultz
+  -1:
+
