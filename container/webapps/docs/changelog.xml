@@ -53,6 +53,19 @@
         <bug>52677</bug>: The new <code>SetCharacterEncodingFilter</code> needs
         to implement <code>Filter</code> to be useful. (markt)
       </fix>
+      <fix>
+        <bug>53050</bug>: Fix XOR arithmetics and charset issue when calculating
+        entropy to initialize random numbers generator in session manager. Based
+        on a proposal by Andras Rozsa. (kkolinko/jim)
+      </fix>
+    </changelog>
+  </subsection>
+  <subsection name="Coyote">
+    <changelog>
+      <fix>
+        Ensure that the chunked input filter is correctly recycled between
+        requests. (kkolinko/jim)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">
