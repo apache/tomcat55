@@ -60,7 +60,7 @@ PATCHES PROPOSED TO BACKPORT:
     http://localhost:8080/servlets-examples/servlet/RequestHeaderExample
 
   Refreshing the page in Firefox changes the number of headers in incoming request
-  (+= 'cache-control' for F5, += 'pragma=no-cache' for Ctrl+F5 refresh).
+  (adds 'cache-control' for "F5" refresh, adds 'pragma=no-cache' for "Ctrl+F5" refresh).
 
   Patch:
   http://people.apache.org/~kkolinko/patches/2012-07-03_tc55_maxHeaderCount_v1.patch
@@ -69,8 +69,10 @@ PATCHES PROPOSED TO BACKPORT:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53531
   ExpandWar.expand does not check the return value of File.mkdirs.
-  Note that this is not a backport -- it's just a fix for 5.5.x.
-  Patch is attached to BZ ticket.
-  +1: schultz
+  Provide better message when a war file cannot be unpacked due to failure
+  to create a directory. Fix missing message argument in ContextConfig.init().
+  kkolinko: Updated patch:
+  https://issues.apache.org/bugzilla/attachment.cgi?id=29212
+  +1: schultz, kkolinko
   -1:
 
