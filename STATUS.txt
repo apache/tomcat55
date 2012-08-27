@@ -76,3 +76,7 @@ PATCHES PROPOSED TO BACKPORT:
   +1: schultz, kkolinko
   -1:
 
+* Various DIGEST improvements ported from Tomact 7
+  http://people.apache.org/~markt/patches/2012-08-28-digest-tc5.patch
+  +1: markt
+  -1:
