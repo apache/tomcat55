@@ -112,6 +112,10 @@
         <bug>52640</bug>: Correct set the endorsed directory location when using
         the Windows installer. (markt)
       </fix>
+      <update>
+        <bug>52579</bug>: Add a note about Sun's Charset.decode() bug to the
+        RELEASE-NOTES file. (kkolinko)
+      </update>
     </changelog>
   </subsection>
 </section>

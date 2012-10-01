@@ -190,6 +190,21 @@ Viewing the Tomcat Change Log:
 See changelog.html in this directory.
 
 
+====================================================
+Multi-byte charset handling bug in Java 1.4 and 1.5:
+====================================================
+Public versions of Sun/Oracle Java 1.4 and 1.5 are known to have a nasty
+bug in implementation of Charset.decode() method for certain character
+sets.
+
+For details, test and a list of affected character sets see:
+
+http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991
+https://issues.apache.org/bugzilla/show_bug.cgi?id=52579
+
+The UTF-8 charset is not affected by this issue.
+
+
 =============================
 Cryptographic software notice
 =============================
