@@ -66,15 +66,6 @@ PATCHES PROPOSED TO BACKPORT:
   +1: kkolinko, markt
   -1:
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53531
-  ExpandWar.expand does not check the return value of File.mkdirs.
-  Provide better message when a war file cannot be unpacked due to failure
-  to create a directory. Fix missing message argument in ContextConfig.init().
-  kkolinko: Updated patch:
-  https://issues.apache.org/bugzilla/attachment.cgi?id=29212
-  +1: schultz, kkolinko, markt
-  -1:
-
 * Various DIGEST improvements ported from Tomcat 7
   http://people.apache.org/~markt/patches/2012-08-28-digest-tc5.patch
   +1: markt, kkolinko

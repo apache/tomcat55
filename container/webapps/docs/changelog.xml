@@ -45,6 +45,12 @@
       <update>
         Update to Apache Commons Daemon 1.0.9. (markt)
       </update>
+      <fix>
+        Various improvements to the DIGEST authenticator including
+        <bug>52954</bug>, the disabling caching of an authenticated user in the
+        session by default, tracking server rather than client nonces and better
+        handling of stale nonce values. (markt)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">
@@ -57,6 +63,10 @@
         <bug>53050</bug>: Fix XOR arithmetics and charset issue when calculating
         entropy to initialize random numbers generator in session manager. Based
         on a proposal by Andras Rozsa. (kkolinko/jim)
+      </fix>
+      <fix>
+        <bug>53531</bug>: Better checking and improved error messages for
+        directory creation during automatic deployment. (schultz/kkolinko)
       </fix>
     </changelog>
   </subsection>
