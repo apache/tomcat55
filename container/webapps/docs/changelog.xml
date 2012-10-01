@@ -71,6 +71,10 @@
       <scode>
         Remove unneeded handling of FORM authentication in RealmBase. (kkolinko)
       </scode>
+      <fix>
+        <bug>53830</bug>: Better handling of Manager.randomFile default value on
+        Windows. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Coyote">

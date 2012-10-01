@@ -67,8 +67,20 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
 
     // ----------------------------------------------------- Instance Variables
 
+    private static final String devRandomSourceDefault;
+    static {
+        // - Use the default value only if it is a Unix-like system
+        // - Check that it exists 
+        File f = new File("/dev/urandom");
+        if (f.isAbsolute() && f.exists()) {
+            devRandomSourceDefault = f.getPath();
+        } else {
+            devRandomSourceDefault = null;
+        }
+    }
+
     protected DataInputStream randomIS=null;
-    protected String devRandomSource="/dev/urandom";
+    protected String devRandomSource = devRandomSourceDefault;
 
     /**
      * The default message digest algorithm to use if we cannot use
@@ -220,32 +232,16 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
 
 
     private class PrivilegedSetRandomFile implements PrivilegedAction{
+
+        private final String s;
+
         public PrivilegedSetRandomFile(String s) {
-            devRandomSource = s;
+            this.s = s;
         }
 
         public Object run(){
-            try {
-                File f=new File( devRandomSource );
-                if( ! f.exists() ) return null;
-                randomIS= new DataInputStream( new FileInputStream(f));
-                randomIS.readLong();
-                if( log.isDebugEnabled() )
-                    log.debug( "Opening " + devRandomSource );
-                return randomIS;
-            } catch (IOException ex){
-                log.warn("Error reading " + devRandomSource, ex);
-                if (randomIS != null) {
-                    try {
-                        randomIS.close();
-                    } catch (Exception e) {
-                        log.warn("Failed to close randomIS.");
-                    }
-                }
-                devRandomSource = null;
-                randomIS=null;
-                return null;
-            }
+            doSetRandomFile(s);
+            return null;
         }
     }
 
@@ -524,28 +520,49 @@ public abstract class ManagerBase implements Manager, MBeanRegistration {
         // as a hack, you can use a static file - and generate the same
         // session ids ( good for strange debugging )
         if (System.getSecurityManager() != null){
-            randomIS = (DataInputStream) AccessController
-                    .doPrivileged(new PrivilegedSetRandomFile(s));
+            AccessController.doPrivileged(new PrivilegedSetRandomFile(s));
         } else {
-            try{
-                devRandomSource=s;
-                File f=new File( devRandomSource );
-                if( ! f.exists() ) return;
-                randomIS= new DataInputStream( new FileInputStream(f));
-                randomIS.readLong();
-                if( log.isDebugEnabled() )
-                    log.debug( "Opening " + devRandomSource );
-            } catch( IOException ex ) {
-                log.warn("Error reading " + devRandomSource, ex);
-                if (randomIS != null) {
-                    try {
-                        randomIS.close();
-                    } catch (Exception e) {
-                        log.warn("Failed to close randomIS.");
-                    }
+            doSetRandomFile(s);
+        }
+    }
+
+    private void doSetRandomFile(String s) {
+        DataInputStream is = null;
+        try {
+            if (s == null || s.length() == 0) {
+                return;
+            }
+            File f = new File(s);
+            if( ! f.exists() ) return;
+            if( log.isDebugEnabled() ) {
+                log.debug( "Opening " + s );
+            }
+            is = new DataInputStream( new FileInputStream(f));
+            is.readLong();
+        } catch( IOException ex ) {
+            log.warn("Error reading " + s, ex);
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception ex2) {
+                    log.warn("Failed to close " + s, ex2);
                 }
+                is = null;
+            }
+        } finally {
+            DataInputStream oldIS = randomIS;
+            if (is != null) {
+                devRandomSource = s;
+            } else {
                 devRandomSource = null;
-                randomIS=null;
+            }
+            randomIS = is;
+            if (oldIS != null) {
+                try {
+                    oldIS.close();
+                } catch (Exception ex) {
+                    log.warn("Failed to close RandomIS", ex);
+                }
             }
         }
     }

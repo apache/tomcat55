@@ -27,9 +27,3 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
-
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53830
-  Better handling of Manager.randomFile default value on Windows
-  https://issues.apache.org/bugzilla/attachment.cgi?id=29331
-  +1: kkolinko, markt, kfujino
-  -1:

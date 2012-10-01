@@ -157,6 +157,13 @@
         <code>java.security.SecureRandom</code>.</p>
       </attribute>
 
+      <attribute name="randomFile" required="false">
+        <p>Name of a file that provides random data that are used to generate
+        session ids. If not specified, the default value is
+        <code>/dev/urandom</code> on Unix-like systems (those where such
+        file path is absolute) and empty on others.</p>
+      </attribute>
+
       <attribute name="sessionIdLength" required="false">
        <p>The length of session ids created by this Manager, excluding any
         JVM route information used for load balancing. 
@@ -261,6 +268,13 @@
         <p>Java class name of the <code>java.util.Random</code>
         implementation class to use.  If not specified, the default value is
         <code>java.security.SecureRandom</code>.</p>
+      </attribute>
+
+      <attribute name="randomFile" required="false">
+        <p>Name of a file that provides random data that are used to generate
+        session ids. If not specified, the default value is
+        <code>/dev/urandom</code> on Unix-like systems (those where such
+        file path is absolute) and empty on others.</p>
       </attribute>
 
       <attribute name="saveOnRestart" required="false">
