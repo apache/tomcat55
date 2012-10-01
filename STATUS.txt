@@ -28,14 +28,6 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=52579
-  Propose new implementation of ByteChunk.toStringInternal().
-  This fix does not reintroduce issue BZ51400.
-  This fix avoids http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991.
-  https://issues.apache.org/bugzilla/attachment.cgi?id=28274 (remove generics )
-  +1: kfujino
-  -1: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8)
-
 * Implement maxHeaderCount attribute on HTTP Connectors.
   It is equivalent of LimitRequestFields directive of Apache HTTPD
   See r1356239 in Tomcat 6.
