@@ -28,11 +28,6 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Various DIGEST improvements ported from Tomcat 7
-  http://people.apache.org/~markt/patches/2012-08-28-digest-tc5.patch
-  +1: markt, kkolinko, kfujino
-  -1:
-
 * Remove unneeded handling of FORM authentication in RealmBase
   http://svn.apache.org/viewvc?rev=1377887&view=rev
   (r1377892 in 7.0)

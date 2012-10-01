@@ -45,12 +45,6 @@
       <update>
         Update to Apache Commons Daemon 1.0.9. (markt)
       </update>
-      <fix>
-        Various improvements to the DIGEST authenticator including
-        <bug>52954</bug>, the disabling caching of an authenticated user in the
-        session by default, tracking server rather than client nonces and better
-        handling of stale nonce values. (markt)
-      </fix>
     </changelog>
   </subsection>
   <subsection name="Catalina">
@@ -67,6 +61,12 @@
       <fix>
         <bug>53531</bug>: Better checking and improved error messages for
         directory creation during automatic deployment. (schultz/kkolinko)
+      </fix>
+      <fix>
+        Various improvements to the DIGEST authenticator including
+        <bug>52954</bug>, the disabling caching of an authenticated user in the
+        session by default, tracking server rather than client nonces and better
+        handling of stale nonce values. (markt)
       </fix>
     </changelog>
   </subsection>

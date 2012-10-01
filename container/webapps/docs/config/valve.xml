@@ -492,6 +492,12 @@
 
     <attributes>
 
+      <attribute name="cache" required="false">
+        <p>Should we cache authenticated Principals if the request is part of an
+        HTTP session? If not specified, the default value of <code>false</code>
+        will be used.</p>
+      </attribute>
+
       <attribute name="className" required="true">
         <p>Java class name of the implementation to use.  This MUST be set to
         <strong>org.apache.catalina.authenticator.DigestAuthenticator</strong>.</p>
