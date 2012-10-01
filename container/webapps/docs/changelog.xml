@@ -68,6 +68,9 @@
         session by default, tracking server rather than client nonces and better
         handling of stale nonce values. (markt)
       </fix>
+      <scode>
+        Remove unneeded handling of FORM authentication in RealmBase. (kkolinko)
+      </scode>
     </changelog>
   </subsection>
   <subsection name="Coyote">

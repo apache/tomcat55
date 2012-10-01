@@ -28,12 +28,6 @@ PATCHES ACCEPTED TO BACKPORT FROM TRUNK/OTHER:
 PATCHES PROPOSED TO BACKPORT:
   [ New proposals should be added at the end of the list ]
 
-* Remove unneeded handling of FORM authentication in RealmBase
-  http://svn.apache.org/viewvc?rev=1377887&view=rev
-  (r1377892 in 7.0)
-  +1: kkolinko, markt, kfujino
-  -1:
-
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=42181
   A. Better handling of edge conditions in chunk header processing (BZ 42181)
   B. Improve chunk header parsing. Properly ignore chunk-extension suffix,
