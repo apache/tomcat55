@@ -34,8 +34,7 @@ PATCHES PROPOSED TO BACKPORT:
   This fix avoids http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6196991.
   https://issues.apache.org/bugzilla/attachment.cgi?id=28274 (remove generics )
   +1: kfujino
-  -0: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8) 
-  -1:
+  -1: markt (see https://issues.apache.org/bugzilla/show_bug.cgi?id=52579#c8)
 
 * Implement maxHeaderCount attribute on HTTP Connectors.
   It is equivalent of LimitRequestFields directive of Apache HTTPD
