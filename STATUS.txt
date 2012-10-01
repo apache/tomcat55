@@ -55,18 +55,18 @@ PATCHES PROPOSED TO BACKPORT:
 
   Patch:
   http://people.apache.org/~kkolinko/patches/2012-07-03_tc55_maxHeaderCount_v1.patch
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Various DIGEST improvements ported from Tomcat 7
   http://people.apache.org/~markt/patches/2012-08-28-digest-tc5.patch
-  +1: markt, kkolinko
+  +1: markt, kkolinko, kfujino
   -1:
 
 * Remove unneeded handling of FORM authentication in RealmBase
   http://svn.apache.org/viewvc?rev=1377887&view=rev
   (r1377892 in 7.0)
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=42181
@@ -75,11 +75,11 @@ PATCHES PROPOSED TO BACKPORT:
   not trying to parse digits contained in it. Reject chunks whose header is
   incorrect. (backport of r423453)
   https://issues.apache.org/bugzilla/attachment.cgi?id=29295
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
 
 * Fix https://issues.apache.org/bugzilla/show_bug.cgi?id=53830
   Better handling of Manager.randomFile default value on Windows
   https://issues.apache.org/bugzilla/attachment.cgi?id=29331
-  +1: kkolinko, markt
+  +1: kkolinko, markt, kfujino
   -1:
