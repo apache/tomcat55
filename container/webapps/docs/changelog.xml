@@ -76,6 +76,9 @@
         Ensure that the chunked input filter is correctly recycled between
         requests. (kkolinko/jim)
       </fix>
+      <add>
+        Implement the maxHeaderCount for the HTTP connectors. (kkolinko)
+      </add>
     </changelog>
   </subsection>
   <subsection name="Webapps">

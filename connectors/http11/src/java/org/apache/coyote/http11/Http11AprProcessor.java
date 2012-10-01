@@ -803,6 +803,8 @@ public class Http11AprProcessor implements ActionHook {
                 if (!disableUploadTimeout) {
                     Socket.timeoutSet(socket, timeout * 1000);
                 }
+                // Set this every time in case limit has been changed via JMX
+                request.getMimeHeaders().setLimit(endpoint.getMaxHeaderCount());
                 inputBuffer.parseHeaders();
             } catch (IOException e) {
                 error = true;

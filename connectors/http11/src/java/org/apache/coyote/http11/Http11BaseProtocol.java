@@ -377,6 +377,15 @@ public class Http11BaseProtocol implements ProtocolHandler
         setAttribute("maxHttpHeaderSize", "" + valueI);
     }
 
+    public int getMaxHeaderCount() {
+        return ep.getMaxHeaderCount();
+    }
+
+    public void setMaxHeaderCount(int maxHeaderCount) {
+        ep.setMaxHeaderCount(maxHeaderCount);
+        setAttribute("maxHeaderCount", "" + maxHeaderCount);
+    }
+
     public String getRestrictedUserAgents() {
         return restrictedUserAgents;
     }

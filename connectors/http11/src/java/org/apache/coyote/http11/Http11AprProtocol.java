@@ -367,6 +367,15 @@ public class Http11AprProtocol implements ProtocolHandler, MBeanRegistration
         setAttribute("maxHttpHeaderSize", "" + valueI);
     }
 
+    public int getMaxHeaderCount() {
+        return ep.getMaxHeaderCount();
+    }
+
+    public void setMaxHeaderCount(int maxHeaderCount) {
+        ep.setMaxHeaderCount(maxHeaderCount);
+        setAttribute("maxHeaderCount", "" + maxHeaderCount);
+    }
+
     public String getRestrictedUserAgents() {
         return restrictedUserAgents;
     }

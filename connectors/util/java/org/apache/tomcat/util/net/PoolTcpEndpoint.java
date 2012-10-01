@@ -89,7 +89,12 @@ public class PoolTcpEndpoint implements Runnable { // implements Endpoint {
     protected int socketTimeout=-1;
     private boolean lf = true;
 
-    
+    /**
+     * The maximum number of headers in a request that are allowed.
+     * 100 by default. A value of less than 0 means no limit.
+     */
+    private int maxHeaderCount = 100; // as in Apache HTTPD server
+
     // ------ Leader follower fields
 
     
@@ -271,6 +276,14 @@ public class PoolTcpEndpoint implements Runnable { // implements Endpoint {
         } else {
             lf = true;
         }
+    }
+
+    public int getMaxHeaderCount() {
+        return maxHeaderCount;
+    }
+
+    public void setMaxHeaderCount(int maxHeaderCount) {
+        this.maxHeaderCount = maxHeaderCount;
     }
 
     public int getCurrentThreadCount() {
