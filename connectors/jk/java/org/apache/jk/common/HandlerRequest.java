@@ -674,7 +674,7 @@ public class HandlerRequest extends JkHandler
             int port = 0;
             int mult = 1;
             for (int i = valueL - 1; i > colonPos; i--) {
-                int charValue = HexUtils.DEC[(int) valueB[i + valueS]];
+                int charValue = HexUtils.getDec(valueB[i + valueS]);
                 if (charValue == -1) {
                     // Invalid character
                     throw new CharConversionException("Invalid char in port: " + valueB[i + valueS]); 

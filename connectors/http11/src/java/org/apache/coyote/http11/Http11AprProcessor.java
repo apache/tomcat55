@@ -113,7 +113,7 @@ public class Http11AprProcessor implements ActionHook {
         initializeFilters();
 
         // Cause loading of HexUtils
-        int foo = HexUtils.DEC[0];
+        HexUtils.getDec('0');
 
         // Cause loading of FastHttpDateFormat
         FastHttpDateFormat.getCurrentDate();
@@ -1461,7 +1461,7 @@ public class Http11AprProcessor implements ActionHook {
             int port = 0;
             int mult = 1;
             for (int i = valueL - 1; i > colonPos; i--) {
-                int charValue = HexUtils.DEC[(int) valueB[i + valueS]];
+                int charValue = HexUtils.getDec(valueB[i + valueS]);
                 if (charValue == -1) {
                     // Invalid character
                     error = true;

@@ -82,6 +82,12 @@
       <add>
         Implement the maxHeaderCount for the HTTP connectors. (kkolinko)
       </add>
+      <fix>
+        <bug>42181</bug>: Better handling of edge conditions in chunk header
+        processing. Improve chunk header parsing. Properly ignore
+        chunk-extension suffix, not trying to parse digits contained in it.
+        Reject chunks whose header is incorrect. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">

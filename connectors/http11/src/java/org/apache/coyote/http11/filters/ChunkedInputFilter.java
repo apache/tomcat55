@@ -28,7 +28,8 @@ import org.apache.coyote.http11.Constants;
 import org.apache.coyote.http11.InputFilter;
 
 /**
- * Chunked input filter.
+ * Chunked input filter. Parses chunked data according to
+ * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1">http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1</a><br>
  * 
  * @author Remy Maucherat
  */
@@ -128,7 +129,7 @@ public class ChunkedInputFilter implements InputFilter {
 
         if (remaining <= 0) {
             if (!parseChunkHeader()) {
-                throw new IOException("Invalid chunk");
+                throw new IOException("Invalid chunk header");
             }
             if (endChunk) {
                 parseEndChunk();
@@ -236,6 +237,14 @@ public class ChunkedInputFilter implements InputFilter {
 
     /**
      * Parse the header of a chunk.
+     * A chunk header can look like one of the following:<br />
+     * A10CRLF<br />
+     * F23;chunk-extension to be ignoredCRLF
+     *
+     * <p>
+     * The letters before CRLF or ';' (whatever comes first) must be valid hex
+     * digits. We should not parse F23IAMGONNAMESSTHISUP34CRLF as a valid
+     * header according to the spec.
      */
     protected boolean parseChunkHeader()
         throws IOException {
@@ -243,6 +252,7 @@ public class ChunkedInputFilter implements InputFilter {
         int result = 0;
         boolean eol = false;
         boolean readDigit = false;
+        boolean trailer = false;
 
         while (!eol) {
 
@@ -254,11 +264,19 @@ public class ChunkedInputFilter implements InputFilter {
             if (buf[pos] == Constants.CR) {
             } else if (buf[pos] == Constants.LF) {
                 eol = true;
-            } else {
-                if (HexUtils.DEC[buf[pos]] != -1) {
+            } else if (buf[pos] == Constants.SEMI_COLON) {
+                trailer = true;
+            } else if (!trailer) { 
+                //don't read data after the trailer
+                int charValue = HexUtils.getDec(buf[pos]);
+                if (charValue != -1) {
                     readDigit = true;
                     result *= 16;
-                    result += HexUtils.DEC[buf[pos]];
+                    result += charValue;
+                } else {
+                    //we shouldn't allow invalid, non hex characters
+                    //in the chunked header
+                    return false;
                 }
             }
 

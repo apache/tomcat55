@@ -30,7 +30,10 @@ import java.io.ByteArrayOutputStream;
 public final class HexUtils {
     // Code from Ajp11, from Apache's JServ
 
-    // Table for HEX to DEC byte translation
+    /**
+     *  Table for HEX to DEC byte translation.
+     *  @deprecated Use {@link #getDec(int)}
+     */
     public static final int[] DEC = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -57,6 +60,18 @@ public final class HexUtils {
      */
     private static StringManager sm =
         StringManager.getManager("org.apache.catalina.util");
+
+
+    // --------------------------------------------------------- Static Methods
+
+
+    public static int getDec(int index){
+        try {
+            return DEC[index];
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return -1;
+        }
+    }
 
 
     /**
@@ -137,21 +152,21 @@ public final class HexUtils {
         // assert valid data
         int len;
         if(hex.length < 4 ) return 0;
-        if( DEC[hex[0]]<0 )
+        if( getDec(hex[0])<0 )
             throw new IllegalArgumentException(sm.getString("hexUtil.bad"));
-        len = DEC[hex[0]];
+        len = getDec(hex[0]);
         len = len << 4;
-        if( DEC[hex[1]]<0 )
+        if( getDec(hex[1])<0 )
             throw new IllegalArgumentException(sm.getString("hexUtil.bad"));
-        len += DEC[hex[1]];
+        len += getDec(hex[1]);
         len = len << 4;
-        if( DEC[hex[2]]<0 )
+        if( getDec(hex[2])<0 )
             throw new IllegalArgumentException(sm.getString("hexUtil.bad"));
-        len += DEC[hex[2]];
+        len += getDec(hex[2]);
         len = len << 4;
-        if( DEC[hex[3]]<0 )
+        if( getDec(hex[3])<0 )
             throw new IllegalArgumentException(sm.getString("hexUtil.bad"));
-        len += DEC[hex[3]];
+        len += getDec(hex[3]);
         return len;
     }
 
