@@ -75,7 +75,7 @@ machine (Windows XP/SP2 is known to work). Do the following:
   available, which will be used to actually perform the build.
 
 
-(2) Checkout or obtain the source code for Tomcat 6.0
+(2) Checkout or obtain the source code for Tomcat 5.5
 
 * Tomcat 5.5 SVN repository URL:
   http://svn.apache.org/repos/asf/tomcat/tc5.5.x/trunk/
