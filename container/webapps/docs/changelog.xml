@@ -39,11 +39,20 @@
 <!-- Section names:
  General, Catalina, Coyote, Jasper, Cluster, Webapps, Other
 -->
-<section name="Tomcat 5.5.36 (jim)" rtext="">
+<section name="Tomcat 5.5.36 (markt)" rtext="">
   <subsection name="General">
     <changelog>
       <update>
-        Update to Apache Commons Daemon 1.0.9. (markt)
+        Update to Apache Commons Daemon 1.0.10. (markt)
+      </update>
+      <update>
+        Update to Apache Commons Pool 1.5.7. (markt)
+      </update>
+      <update>
+        Update to Apache Tomcat native 1.2.24. (markt)
+      </update>
+      <update>
+        Update to Eclipse JDT 3.7.2. (markt)
       </update>
     </changelog>
   </subsection>
