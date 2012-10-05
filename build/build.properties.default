@@ -94,7 +94,7 @@ commons-launcher.loc=${base-commons.loc}/launcher/binaries/commons-launcher-1.1.
 
 
 # ----- Commons Daemon, version 1.0-Alpha or later -----
-commons-daemon.version=1.0.9
+commons-daemon.version=1.0.10
 commons-daemon.home=${base.path}/commons-daemon-${commons-daemon.version}
 commons-daemon.jar=${commons-daemon.home}/commons-daemon-${commons-daemon.version}.jar
 commons-daemon.native.win.home=${commons-daemon.home}/windows
@@ -146,8 +146,8 @@ xerces.loc=${base-xerces.loc}/j/binaries/Xerces-J-bin.2.9.1.tar.gz
 
 
 # ----- Eclipse JDT, version 3.3.1 or later -----
-jdt.version=3.7
-jdt.release=R-3.7-201106131736
+jdt.version=3.7.2
+jdt.release=R-3.7.2-201202080800
 jdt.home=${base.path}/ecj-${jdt.version}
 jdt.jar=${jdt.home}/ecj-${jdt.version}.jar
 # The download will be moved to the archive area eventually. We are taking care of that in advance.
@@ -156,7 +156,7 @@ jdt.loc.1=http://archive.eclipse.org/eclipse/downloads/drops/${jdt.release}/ecj-
 jdt.loc.2=http://download.eclipse.org/eclipse/downloads/drops/${jdt.release}/ecj-${jdt.version}.jar
 
 # ----- Tomcat native library -----
-tomcat-native.version=1.1.22
+tomcat-native.version=1.1.24
 tomcat-native.home=${base.path}/tomcat-native-${tomcat-native.version}
 tomcat-native.tar.gz=${tomcat-native.home}/tomcat-native.tar.gz
 tomcat-native.loc=${base-tomcat.loc}/tomcat-connectors/native/${tomcat-native.version}/source/tomcat-native-${tomcat-native.version}-src.tar.gz
@@ -175,7 +175,7 @@ commons-dbcp-src.loc=${base-commons.loc}/dbcp/source/commons-dbcp-${commons-dbcp
 
 
 # ----- Commons Pool, version 1.1 or later -----
-commons-pool.version=1.5.5
+commons-pool.version=1.5.7
 commons-pool.home=${base.path}/commons-pool-${commons-pool.version}-src
 commons-pool-src.loc=${base-commons.loc}/pool/source/commons-pool-${commons-pool.version}-src.tar.gz
 
