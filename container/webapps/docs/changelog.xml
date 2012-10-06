@@ -88,10 +88,6 @@
   </subsection>
   <subsection name="Coyote">
     <changelog>
-      <fix>
-        Ensure that the chunked input filter is correctly recycled between
-        requests. (kkolinko/jim)
-      </fix>
       <add>
         Implement the maxHeaderCount for the HTTP connectors. (kkolinko)
       </add>
@@ -102,9 +98,8 @@
         Reject chunks whose header is incorrect. (kkolinko)
       </fix>
       <fix>
-        <bug>52055</bug> (comment 14): Correctly reset
-        <code>ChunkedInputFilter.needCRLFParse</code> flag when the filter
-        is recycled. (kkolinko)
+        <bug>52055</bug> (comment 14): Ensure that the chunked input filter
+        is correctly recycled between requests. (kkolinko/jim)
       </fix>
     </changelog>
   </subsection>
