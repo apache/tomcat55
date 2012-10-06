@@ -101,6 +101,11 @@
         chunk-extension suffix, not trying to parse digits contained in it.
         Reject chunks whose header is incorrect. (kkolinko)
       </fix>
+      <fix>
+        <bug>52055</bug> (comment 14): Correctly reset
+        <code>ChunkedInputFilter.needCRLFParse</code> flag when the filter
+        is recycled. (kkolinko)
+      </fix>
     </changelog>
   </subsection>
   <subsection name="Webapps">
