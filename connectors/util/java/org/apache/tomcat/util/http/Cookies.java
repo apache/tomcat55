@@ -560,8 +560,8 @@ public final class Cookies { // extends MultiMap {
     }
 
     /**
-     * @deprecated - Use private method
-     * {@link #getTokenEndPosition(byte[], int, int, boolean)} instead
+     * @deprecated - Use private method getTokenEndPosition(byte[], int, int,
+     *               boolean) instead
      */
     public static final int getTokenEndPosition(byte bytes[], int off, int end){
         return getTokenEndPosition(bytes, off, end, true);

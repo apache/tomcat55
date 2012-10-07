@@ -922,12 +922,12 @@ public class Request
      * not be included although they are accessible via
      * {@link #getAttribute(String)}. The Tomcat internal attributes include:
      * <ul>
-     * <li>{@link Globals.DISPATCHER_TYPE_ATTR}</li>
-     * <li>{@link Globals.DISPATCHER_REQUEST_PATH_ATTR}</li>
-     * <li>{@link Globals.CERTIFICATES_ATTR} (SSL connections only)</li>
-     * <li>{@link Globals.CIPHER_SUITE_ATTR} (SSL connections only)</li>
-     * <li>{@link Globals.KEY_SIZE_ATTR} (SSL connections only)</li>
-     * <li>{@link Globals.SSL_SESSION_ID_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals#DISPATCHER_TYPE_ATTR}</li>
+     * <li>{@link Globals#DISPATCHER_REQUEST_PATH_ATTR}</li>
+     * <li>{@link Globals#CERTIFICATES_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals#CIPHER_SUITE_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals#KEY_SIZE_ATTR} (SSL connections only)</li>
+     * <li>{@link Globals#SSL_SESSION_ID_ATTR} (SSL connections only)</li>
      * <li>{@link Globals#PARAMETER_PARSE_FAILED_ATTR}</li>
      * </ul>
      * The underlying connector may also expose request attributes. These all
@@ -2234,7 +2234,7 @@ public class Request
      * between nodes in a cluster and session fixation prevention during the
      * authentication process.
      * 
-     * @param session   The session to change the session ID for
+     * @param newSessionId  The new value of the session ID for this session
      */
     public void changeSessionId(String newSessionId) {
         // This should only ever be called if there was an old session ID but
